@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var cardNumber: String = ""
+    @State var number: String = "123"
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+        return AuthIntroView()
     }
 }
 

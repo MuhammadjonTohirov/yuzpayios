@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  YuzPay
+
+  Created by applebro on 11/12/22.
+  
+*/
+
+"the_offer" = "оферты";
+"public_offer" = "Я согласен(-на) с условиями оферты.";
+"otp_sent_to_number" = "На номер %@ было отправлено SMS с кодом подтверждения. Введите его в поле ниже.";
+"send_again" = "Отправить заново";
