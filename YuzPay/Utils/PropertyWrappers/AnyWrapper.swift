@@ -11,8 +11,9 @@ import Foundation
     public let key: String
     public let storage: UserDefaults = UserDefaults(suiteName: "uz.xcoder.YuzPay") ?? .standard
     
-    public init(key: String) {
+    public init(key: String, defaultValue: Value?) {
         self.key = key
+        self.wrappedValue = defaultValue
     }
     
     public var wrappedValue: Value? {

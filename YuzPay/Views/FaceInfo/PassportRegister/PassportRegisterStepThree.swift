@@ -1,19 +1,14 @@
 //
-//  PassportRegisterStepTwo.swift
+//  PassportRegisterStepThree.swift
 //  YuzPay
 //
-//  Created by applebro on 12/12/22.
+//  Created by applebro on 13/12/22.
 //
 
 import Foundation
 import SwiftUI
 
-struct PassportRegisterStepTwo: View {
-    @State var firstName = ""
-    @State var lastName = ""
-    @State var middleName = ""
-    @State var birthDate = ""
-    
+struct PassportRegisterStepThree: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("паспортные\nданные")
@@ -21,17 +16,18 @@ struct PassportRegisterStepTwo: View {
                 .foregroundColor(Color("accent_light"))
                 .multilineTextAlignment(.leading)
                 .padding(.bottom, Padding.medium)
-
-            PassportRegisterUserDetails(firstName: $firstName, lastName: $lastName, middleName: $middleName, birthDate: $birthDate)
             Spacer()
+                .frame(maxWidth: .infinity)
+            
+            
         }
         .padding(.horizontal, Padding.medium)
     }
 }
 
-struct PassportRegisterStepTwo_Preview: PreviewProvider {
+struct PassportRegisterStepThree_Preview: PreviewProvider {
     static var previews: some View {
-        PassportRegisterStepTwo()
+        PassportRegisterStepThree()
     }
 }
 

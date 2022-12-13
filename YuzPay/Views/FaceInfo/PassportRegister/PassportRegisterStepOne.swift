@@ -12,27 +12,16 @@ struct PassportRegisterStepOne: View {
     @State var passwordId: String = ""
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("Шаг 1 / 3:")
-                .font(.mont(.regular, size: 14))
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .background(
-                    Capsule()
-                        .stroke(style: .init(dashPhase: 1))
-                )
-                .padding(.bottom, Padding.medium)
-                .padding(.top, Padding.default)
-                .foregroundColor(Color("accent_light"))
-            
             Text("паспортные\nданные")
                 .font(.mont(.extraBold, size: 32))
                 .foregroundColor(Color("accent_light"))
+                .multilineTextAlignment(.leading)
                 .padding(.bottom, Padding.medium)
-            
-            
+
             topView
             
             personalInfoView
+            
             Spacer()
         }
         .padding(.horizontal, Padding.medium)
@@ -58,34 +47,12 @@ struct PassportRegisterStepOne: View {
         
         Divider()
         
-        Text("Пожалуйста, проверьте Ваши личные данные. Если что-то не так, то Вы можете их поправить.")
-            .font(.mont(.regular, size: 14))
-            .padding(.top, Padding.default)
-            .foregroundColor(Color("label_color"))
-        
-        YTextField(text: $passwordId, placeholder: "Фамилия")
-        .set(haveTitle: true)
-        .set(hintColor: Color("dark_gray"))
-        .modifier(YTextFieldBackgroundCleanStyle(padding: Padding.medium))
-        .padding(.vertical, Padding.medium)
-        
-        YTextField(text: $passwordId, placeholder: "Имя")
-        .set(haveTitle: true)
-        .set(hintColor: Color("dark_gray"))
-        .modifier(YTextFieldBackgroundCleanStyle(padding: Padding.medium))
-        .padding(.bottom, Padding.medium)
-        
-        YTextField(text: $passwordId, placeholder: "Отчество")
-        .set(haveTitle: true)
-        .set(hintColor: Color("dark_gray"))
-        .modifier(YTextFieldBackgroundCleanStyle(padding: Padding.medium))
-        .padding(.bottom, Padding.medium)
-        
-        YTextField(text: $passwordId, placeholder: "Дата рождения")
-        .set(haveTitle: true)
-        .set(hintColor: Color("dark_gray"))
-        .modifier(YTextFieldBackgroundCleanStyle(padding: Padding.medium))
-        .padding(.bottom, Padding.medium)
+        PassportRegisterUserDetails(
+            firstName: $passwordId,
+            lastName: $passwordId,
+            middleName: $passwordId,
+            birthDate: $passwordId
+        )
     }
     
     @ViewBuilder var topView: some View {

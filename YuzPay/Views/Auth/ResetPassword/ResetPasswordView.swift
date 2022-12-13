@@ -11,9 +11,9 @@ import SwiftUI
 struct ResetPasswordView: View {
     @State var password = ""
     @State var repeatPassword = ""
+    
     var body: some View {
         VStack(spacing: 8) {
-            
             YTextField(text: $password, placeholder: "password", isSecure: true, left: {
                 Image("icon_password_2")
                     .resizable()

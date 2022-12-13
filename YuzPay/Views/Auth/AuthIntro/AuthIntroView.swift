@@ -9,12 +9,19 @@ import Foundation
 import SwiftUI
 
 struct AuthIntroView: View {
-    @State var showLogin: Bool = false
-    @State var showRegister: Bool = false
+    @ObservedObject var viewModel: AuthIntroViewModel
     
     var body: some View {
+        NavigationView {
+            ZStack {
+                innerBody
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+        }
+    }
+    
+    var innerBody: some View {
         ZStack(alignment: .center) {
-            
             GeometryReader { geoProxy in
                 Image("auth_intro_image")
                     .resizable()
@@ -65,7 +72,7 @@ struct AuthIntroView: View {
                     Spacer()
                     
                     HoverButton(title: "Регистрация", height: 56.f.sh(limit: 0.2), titleColor: Color("accent")) {
-                        showRegister = true
+                        viewModel.showRegister()
                     }
                     .padding(
                         EdgeInsets(
@@ -77,7 +84,7 @@ struct AuthIntroView: View {
                     )
                     
                     HoverButton(title: "Вход", height: 56.f.sh(limit: 0.2), titleColor: Color("accent")) {
-                        showLogin = true
+                        viewModel.showLogin()
                     }
                     .padding(.leading, Padding.default)
                     .padding(.trailing, Padding.default)
@@ -85,19 +92,15 @@ struct AuthIntroView: View {
                 .frame(maxWidth: .infinity)
 
             }
-            .fullScreenCover(isPresented: $showRegister, onDismiss: {
-                showRegister = false
-            }, content: AuthSignUp.init)
-            .fullScreenCover(isPresented: $showLogin, onDismiss: {
-                showLogin = false
-            }, content: AuthSignIn.init)
-            
+            .fullScreenCover(unwrapping: $viewModel.route) { newValue in
+                newValue.wrappedValue.screen
+            }
         }
     }
 }
 
 struct AuthIntro_Preview: PreviewProvider {
     static var previews: some View {
-        AuthIntroView()
+        AuthIntroView(viewModel: AuthIntroViewModel())
     }
 }

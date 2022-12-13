@@ -10,7 +10,7 @@ import SwiftUI
 
 struct AuthSignIn: View {
     
-    @ObservedObject var viewModel: AuthSingInViewModel = AuthSingInViewModel()
+    @ObservedObject var viewModel: SignInViewModel = SignInViewModel()
     @Environment(\.dismiss) var dismiss
     @FocusState var focusedField: LoginField?
     @State var text: String = ""

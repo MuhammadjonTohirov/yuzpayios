@@ -17,7 +17,7 @@ enum LoginField: String, Hashable {
     case password
 }
 
-class AuthSingInViewModel: SingInPorotocol, ObservableObject {
+class SignInViewModel: SingInPorotocol, ObservableObject {
     @Published var isFormValid: Bool = false
     public var signInForm: SignInFormModel
     

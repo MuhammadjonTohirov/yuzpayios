@@ -1,0 +1,28 @@
+//
+//  ContentView.swift
+//  YuzPay
+//
+//  Created by applebro on 05/12/22.
+//
+
+import SwiftUI
+
+
+struct MainView: View {
+    @ObservedObject var viewModel = MainViewModel()
+    @State var isPresented = true
+    
+    var body: some View {
+        viewModel.route.screen.environment(\.rootPresentationMode, self.$isPresented)
+    }
+}
+
+struct RootPresentationModeKey: EnvironmentKey {
+    static let defaultValue: Binding<RootPresentationMode> = .constant(RootPresentationMode())
+}
+
+struct MainView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainView()
+    }
+}

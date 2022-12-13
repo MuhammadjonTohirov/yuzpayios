@@ -39,7 +39,7 @@ struct ResetPasswordStartView: View {
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .foregroundColor(Color("background"))
-                .shadow(color: .black.opacity(0.12), radius: 16, y: 4)
+                .shadow(color: .black.opacity(0.12), radius: 8, y: 4)
         )
     }
 }

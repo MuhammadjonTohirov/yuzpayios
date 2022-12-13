@@ -11,11 +11,22 @@
 		2E1DA6B62941E6F9007A5F9F /* RectReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1DA6B52941E6F9007A5F9F /* RectReader.swift */; };
 		2E1DA6B92942044E007A5F9F /* FancyScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 2E1DA6B82942044E007A5F9F /* FancyScrollView */; };
 		2E1DA6BC29420599007A5F9F /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 2E1DA6BB29420599007A5F9F /* AlertToast */; };
-		2E1DA6BF29420808007A5F9F /* AuthSingInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1DA6BE29420808007A5F9F /* AuthSingInViewModel.swift */; };
+		2E1DA6BF29420808007A5F9F /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1DA6BE29420808007A5F9F /* SignInViewModel.swift */; };
 		2E1DA6C229433532007A5F9F /* SignInForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1DA6C129433532007A5F9F /* SignInForm.swift */; };
 		2E1DA6C429436649007A5F9F /* SignInFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1DA6C329436649007A5F9F /* SignInFormModel.swift */; };
+		2E374FBC2948079C0007D146 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 2E374FBB2948079C0007D146 /* SwiftUINavigation */; };
+		2E374FBE2948079C0007D146 /* _SwiftUINavigationState in Frameworks */ = {isa = PBXBuildFile; productRef = 2E374FBD2948079C0007D146 /* _SwiftUINavigationState */; };
+		2E374FC12948112A0007D146 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 2E374FC02948112A0007D146 /* Realm */; };
+		2E374FC32948112A0007D146 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2E374FC22948112A0007D146 /* RealmSwift */; };
+		2E374FC6294811540007D146 /* UserPassportInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FC5294811540007D146 /* UserPassportInfo.swift */; };
+		2E374FCA29484E7D0007D146 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FC929484E7D0007D146 /* MainViewModel.swift */; };
+		2E374FCD2948535C0007D146 /* AuthIntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FCC2948535C0007D146 /* AuthIntroViewModel.swift */; };
+		2E374FD529487B5E0007D146 /* EnvironmentValues+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FD429487B5E0007D146 /* EnvironmentValues+Extensions.swift */; };
+		2E374FD82948869E0007D146 /* FacePayIntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FD72948869E0007D146 /* FacePayIntroViewModel.swift */; };
+		2E374FDA294890AC0007D146 /* PassportRegisterUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FD9294890AC0007D146 /* PassportRegisterUserDetails.swift */; };
+		2E374FDC294894C70007D146 /* PassportRegisterStepThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FDB294894C70007D146 /* PassportRegisterStepThree.swift */; };
 		2E5F2F8F293E0E6000D0C060 /* YuzPayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F2F8E293E0E6000D0C060 /* YuzPayApp.swift */; };
-		2E5F2F91293E0E6000D0C060 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F2F90293E0E6000D0C060 /* ContentView.swift */; };
+		2E5F2F91293E0E6000D0C060 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F2F90293E0E6000D0C060 /* MainView.swift */; };
 		2E5F2F93293E0E6200D0C060 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E5F2F92293E0E6200D0C060 /* Assets.xcassets */; };
 		2E5F2F96293E0E6200D0C060 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E5F2F95293E0E6200D0C060 /* Preview Assets.xcassets */; };
 		2E5F2FA0293E0E6200D0C060 /* YuzPayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F2F9F293E0E6200D0C060 /* YuzPayTests.swift */; };
@@ -119,12 +130,19 @@
 /* Begin PBXFileReference section */
 		2E1DA6B32941C45A007A5F9F /* DeviceRotationViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRotationViewModifier.swift; sourceTree = "<group>"; };
 		2E1DA6B52941E6F9007A5F9F /* RectReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectReader.swift; sourceTree = "<group>"; };
-		2E1DA6BE29420808007A5F9F /* AuthSingInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSingInViewModel.swift; sourceTree = "<group>"; };
+		2E1DA6BE29420808007A5F9F /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		2E1DA6C129433532007A5F9F /* SignInForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInForm.swift; sourceTree = "<group>"; };
 		2E1DA6C329436649007A5F9F /* SignInFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFormModel.swift; sourceTree = "<group>"; };
+		2E374FC5294811540007D146 /* UserPassportInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPassportInfo.swift; sourceTree = "<group>"; };
+		2E374FC929484E7D0007D146 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		2E374FCC2948535C0007D146 /* AuthIntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthIntroViewModel.swift; sourceTree = "<group>"; };
+		2E374FD429487B5E0007D146 /* EnvironmentValues+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+Extensions.swift"; sourceTree = "<group>"; };
+		2E374FD72948869E0007D146 /* FacePayIntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacePayIntroViewModel.swift; sourceTree = "<group>"; };
+		2E374FD9294890AC0007D146 /* PassportRegisterUserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportRegisterUserDetails.swift; sourceTree = "<group>"; };
+		2E374FDB294894C70007D146 /* PassportRegisterStepThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportRegisterStepThree.swift; sourceTree = "<group>"; };
 		2E5F2F8B293E0E6000D0C060 /* YuzPay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YuzPay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E5F2F8E293E0E6000D0C060 /* YuzPayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YuzPayApp.swift; sourceTree = "<group>"; };
-		2E5F2F90293E0E6000D0C060 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		2E5F2F90293E0E6000D0C060 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		2E5F2F92293E0E6200D0C060 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2E5F2F95293E0E6200D0C060 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2E5F2F9B293E0E6200D0C060 /* YuzPayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YuzPayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,8 +235,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E374FC32948112A0007D146 /* RealmSwift in Frameworks */,
 				2E1DA6B92942044E007A5F9F /* FancyScrollView in Frameworks */,
 				2E1DA6BC29420599007A5F9F /* AlertToast in Frameworks */,
+				2E374FBE2948079C0007D146 /* _SwiftUINavigationState in Frameworks */,
+				2E374FBC2948079C0007D146 /* SwiftUINavigation in Frameworks */,
+				2E374FC12948112A0007D146 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,10 +264,11 @@
 		2E1DA6BD29420661007A5F9F /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				2E374FD22948728D0007D146 /* Pin */,
+				2E374FCB294853540007D146 /* AuthIntro */,
 				2EC5F0F629465DF100BA54E3 /* Otp */,
 				2EC5F0D52945BBF600BA54E3 /* SignUp */,
 				2EC5F0D42945BBEF00BA54E3 /* SingIn */,
-				2EC5F0C629448BA100BA54E3 /* PinCodeViewModel.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -257,6 +280,62 @@
 				2E1DA6C129433532007A5F9F /* SignInForm.swift */,
 			);
 			path = SignIn;
+			sourceTree = "<group>";
+		};
+		2E374FC42948113D0007D146 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2E374FC5294811540007D146 /* UserPassportInfo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2E374FC729484E6B0007D146 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				2E5F2F90293E0E6000D0C060 /* MainView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		2E374FC829484E760007D146 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				2E374FC929484E7D0007D146 /* MainViewModel.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		2E374FCB294853540007D146 /* AuthIntro */ = {
+			isa = PBXGroup;
+			children = (
+				2E374FCC2948535C0007D146 /* AuthIntroViewModel.swift */,
+			);
+			path = AuthIntro;
+			sourceTree = "<group>";
+		};
+		2E374FCE294854290007D146 /* AuthIntro */ = {
+			isa = PBXGroup;
+			children = (
+				2EBCA80529415A9100F89E6F /* AuthIntroView.swift */,
+			);
+			path = AuthIntro;
+			sourceTree = "<group>";
+		};
+		2E374FD22948728D0007D146 /* Pin */ = {
+			isa = PBXGroup;
+			children = (
+				2EC5F0C629448BA100BA54E3 /* PinCodeViewModel.swift */,
+			);
+			path = Pin;
+			sourceTree = "<group>";
+		};
+		2E374FD6294886910007D146 /* FaceInfo */ = {
+			isa = PBXGroup;
+			children = (
+				2E374FD72948869E0007D146 /* FacePayIntroViewModel.swift */,
+			);
+			path = FaceInfo;
 			sourceTree = "<group>";
 		};
 		2E5F2F82293E0E6000D0C060 = {
@@ -287,7 +366,6 @@
 				2EEED6CF293F0079000B35E0 /* Views */,
 				2E5F2FB9293E116000D0C060 /* ViewModels */,
 				2E5F2FB8293E115C00D0C060 /* Utils */,
-				2E5F2F8E293E0E6000D0C060 /* YuzPayApp.swift */,
 				2E5F2F92293E0E6200D0C060 /* Assets.xcassets */,
 				2E5F2F94293E0E6200D0C060 /* Preview Content */,
 			);
@@ -335,6 +413,8 @@
 		2E5F2FB9293E116000D0C060 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				2E374FD6294886910007D146 /* FaceInfo */,
+				2E374FC829484E760007D146 /* Main */,
 				2E1DA6BD29420661007A5F9F /* Auth */,
 			);
 			path = ViewModels;
@@ -350,6 +430,7 @@
 				2EC5F0DD2945EE7B00BA54E3 /* Text+Extension.swift */,
 				2EC5F0EA294644C900BA54E3 /* String+Extensions.swift */,
 				2EC5F0F929465F3800BA54E3 /* Date+Extension.swift */,
+				2E374FD429487B5E0007D146 /* EnvironmentValues+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -435,13 +516,13 @@
 		2EBCA80429414ED600F89E6F /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				2E374FCE294854290007D146 /* AuthIntro */,
 				2EC5F106294710DD00BA54E3 /* ResetPassword */,
 				2EC5F0DA2945E70A00BA54E3 /* Otp */,
 				2EC5F0C82944956E00BA54E3 /* SignUp */,
 				2EB4E44C2943730E00F09751 /* Pin */,
 				2EB4E44929436E8900F09751 /* SignInType */,
 				2E1DA6C029433526007A5F9F /* SignIn */,
-				2EBCA80529415A9100F89E6F /* AuthIntroView.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -496,7 +577,7 @@
 		2EC5F0D42945BBEF00BA54E3 /* SingIn */ = {
 			isa = PBXGroup;
 			children = (
-				2E1DA6BE29420808007A5F9F /* AuthSingInViewModel.swift */,
+				2E1DA6BE29420808007A5F9F /* SignInViewModel.swift */,
 				2E1DA6C329436649007A5F9F /* SignInFormModel.swift */,
 			);
 			path = SingIn;
@@ -522,6 +603,7 @@
 		2EC5F0EE2946455300BA54E3 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				2E374FC42948113D0007D146 /* Models */,
 				2EC5F0EF2946455B00BA54E3 /* UserSettings.swift */,
 			);
 			path = Database;
@@ -544,19 +626,19 @@
 			path = Otp;
 			sourceTree = "<group>";
 		};
-		2EC5F0FB294673EC00BA54E3 /* FacePay */ = {
+		2EC5F0FB294673EC00BA54E3 /* FacePayIntro */ = {
 			isa = PBXGroup;
 			children = (
 				2EC5F0FC2946740E00BA54E3 /* FacePayStartView.swift */,
 			);
-			path = FacePay;
+			path = FacePayIntro;
 			sourceTree = "<group>";
 		};
 		2EC5F0FE294688D100BA54E3 /* FaceInfo */ = {
 			isa = PBXGroup;
 			children = (
 				2EC5F0FF294688D900BA54E3 /* PassportRegister */,
-				2EC5F0FB294673EC00BA54E3 /* FacePay */,
+				2EC5F0FB294673EC00BA54E3 /* FacePayIntro */,
 			);
 			path = FaceInfo;
 			sourceTree = "<group>";
@@ -567,6 +649,8 @@
 				2EC5F1002946890600BA54E3 /* PassportRegisterView.swift */,
 				2EC5F10229468B1600BA54E3 /* PassportRegisterStepOne.swift */,
 				2EC5F1042946E4C900BA54E3 /* PassportRegisterStepTwo.swift */,
+				2E374FDB294894C70007D146 /* PassportRegisterStepThree.swift */,
+				2E374FD9294890AC0007D146 /* PassportRegisterUserDetails.swift */,
 			);
 			path = PassportRegister;
 			sourceTree = "<group>";
@@ -602,9 +686,10 @@
 		2EEED6CF293F0079000B35E0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2E5F2F8E293E0E6000D0C060 /* YuzPayApp.swift */,
 				2EC5F0FE294688D100BA54E3 /* FaceInfo */,
 				2EBCA80429414ED600F89E6F /* Auth */,
-				2E5F2F90293E0E6000D0C060 /* ContentView.swift */,
+				2E374FC729484E6B0007D146 /* Main */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -629,6 +714,10 @@
 			packageProductDependencies = (
 				2E1DA6B82942044E007A5F9F /* FancyScrollView */,
 				2E1DA6BB29420599007A5F9F /* AlertToast */,
+				2E374FBB2948079C0007D146 /* SwiftUINavigation */,
+				2E374FBD2948079C0007D146 /* _SwiftUINavigationState */,
+				2E374FC02948112A0007D146 /* Realm */,
+				2E374FC22948112A0007D146 /* RealmSwift */,
 			);
 			productName = YuzPay;
 			productReference = 2E5F2F8B293E0E6000D0C060 /* YuzPay.app */;
@@ -706,6 +795,8 @@
 			packageReferences = (
 				2E1DA6B72942044E007A5F9F /* XCRemoteSwiftPackageReference "FancyScrollView" */,
 				2E1DA6BA29420599007A5F9F /* XCRemoteSwiftPackageReference "AlertToast" */,
+				2E374FBA2948079C0007D146 /* XCRemoteSwiftPackageReference "swiftui-navigation" */,
+				2E374FBF2948112A0007D146 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 2E5F2F8C293E0E6000D0C060 /* Products */;
 			projectDirPath = "";
@@ -806,19 +897,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EBCA8172941664200F89E6F /* FlatButton.swift in Sources */,
+				2E374FDC294894C70007D146 /* PassportRegisterStepThree.swift in Sources */,
 				2EC5F1012946890600BA54E3 /* PassportRegisterView.swift in Sources */,
 				2EBCA80329414C8A00F89E6F /* UIFont+Extension.swift in Sources */,
 				2EBCA809294160BC00F89E6F /* Padding.swift in Sources */,
 				2E1DA6C429436649007A5F9F /* SignInFormModel.swift in Sources */,
+				2E374FCA29484E7D0007D146 /* MainViewModel.swift in Sources */,
 				2EC5F0D12944EA8000BA54E3 /* YPhoneField.swift in Sources */,
+				2E374FCD2948535C0007D146 /* AuthIntroViewModel.swift in Sources */,
 				2EC5F10C294737D200BA54E3 /* ResetPasswordStartView.swift in Sources */,
 				2E1DA6C229433532007A5F9F /* SignInForm.swift in Sources */,
 				2EC5F0C729448BA100BA54E3 /* PinCodeViewModel.swift in Sources */,
 				2EBCA80D2941615F00F89E6F /* CGFloat+Extension.swift in Sources */,
 				2EC5F0D72945BC0500BA54E3 /* SignUpViewModel.swift in Sources */,
-				2E5F2F91293E0E6000D0C060 /* ContentView.swift in Sources */,
+				2E5F2F91293E0E6000D0C060 /* MainView.swift in Sources */,
 				2EC5F0D92945BC0D00BA54E3 /* SignUpFormViewModel.swift in Sources */,
 				2EC5F0DC2945E71200BA54E3 /* OTPView.swift in Sources */,
+				2E374FDA294890AC0007D146 /* PassportRegisterUserDetails.swift in Sources */,
+				2E374FD82948869E0007D146 /* FacePayIntroViewModel.swift in Sources */,
 				2EC5F0FA29465F3800BA54E3 /* Date+Extension.swift in Sources */,
 				2EC5F0F829465DF700BA54E3 /* OtpViewModel.swift in Sources */,
 				2ED0D8B229441F1B00562A89 /* UIScreen+Extension.swift in Sources */,
@@ -832,16 +928,18 @@
 				2EC5F0DE2945EE7C00BA54E3 /* Text+Extension.swift in Sources */,
 				2EC5F0C52944510200BA54E3 /* KeyboardKey.swift in Sources */,
 				2EC5F0F02946455B00BA54E3 /* UserSettings.swift in Sources */,
+				2E374FD529487B5E0007D146 /* EnvironmentValues+Extensions.swift in Sources */,
 				2EC5F0F32946458E00BA54E3 /* CodableWrapper.swift in Sources */,
 				2EC5F0D32945B48C00BA54E3 /* YTextFieldBottomInfo.swift in Sources */,
 				2EC5F0F5294645AE00BA54E3 /* AnyWrapper.swift in Sources */,
 				2EBCA8152941663A00F89E6F /* HoverButton.swift in Sources */,
-				2E1DA6BF29420808007A5F9F /* AuthSingInViewModel.swift in Sources */,
+				2E1DA6BF29420808007A5F9F /* SignInViewModel.swift in Sources */,
 				2E5F2F8F293E0E6000D0C060 /* YuzPayApp.swift in Sources */,
 				2EC5F0ED294644E700BA54E3 /* Language.swift in Sources */,
 				2EC5F0FD2946740E00BA54E3 /* FacePayStartView.swift in Sources */,
 				2EC5F0CA2944957700BA54E3 /* AuthSignUp.swift in Sources */,
 				2EC5F108294710E700BA54E3 /* ResetPasswordView.swift in Sources */,
+				2E374FC6294811540007D146 /* UserPassportInfo.swift in Sources */,
 				2EBCA8192941777000F89E6F /* AuthSignIn.swift in Sources */,
 				2E9943922941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift in Sources */,
 				2E99438C29419DD300D20795 /* TextFieldProtocol.swift in Sources */,
@@ -1217,6 +1315,22 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		2E374FBA2948079C0007D146 /* XCRemoteSwiftPackageReference "swiftui-navigation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swiftui-navigation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.3;
+			};
+		};
+		2E374FBF2948112A0007D146 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1229,6 +1343,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2E1DA6BA29420599007A5F9F /* XCRemoteSwiftPackageReference "AlertToast" */;
 			productName = AlertToast;
+		};
+		2E374FBB2948079C0007D146 /* SwiftUINavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E374FBA2948079C0007D146 /* XCRemoteSwiftPackageReference "swiftui-navigation" */;
+			productName = SwiftUINavigation;
+		};
+		2E374FBD2948079C0007D146 /* _SwiftUINavigationState */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E374FBA2948079C0007D146 /* XCRemoteSwiftPackageReference "swiftui-navigation" */;
+			productName = _SwiftUINavigationState;
+		};
+		2E374FC02948112A0007D146 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E374FBF2948112A0007D146 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		2E374FC22948112A0007D146 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E374FBF2948112A0007D146 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

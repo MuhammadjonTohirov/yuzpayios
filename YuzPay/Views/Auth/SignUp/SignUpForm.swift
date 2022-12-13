@@ -54,6 +54,7 @@ struct SignUpForm: View {
             .modifier(YTextFieldBackgroundCleanStyle())
             .modifier(YTextFieldBottomInfo(text: "Пароли совпадают"))
         }
+//        .onAppear
     }
 }
 

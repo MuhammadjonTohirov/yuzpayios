@@ -7,17 +7,49 @@
 
 import Foundation
 import SwiftUI
+import SwiftUINavigation
 
 struct AuthSignUp: View {
     @ObservedObject var viewModel = SignUpViewModel()
+    @Environment(\.dismiss) var dismiss
+    @State var isRegistering: Bool = true
     
     var body: some View {
         NavigationView {
-            innerBody
+            ZStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Image("icon_x")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .fixedSize()
+                }
+                .zIndex(1)
+                .frame(width: 20, height: 20)
+                .position(x: 40, y: 20)
+
+                innerBody
+                    .fullScreenCover(unwrapping: $viewModel.route) { ident in
+                        ident.wrappedValue.screen
+                    }
+            }
         }
     }
     
-    var innerBody: some View {
+    @ViewBuilder var innerBody: some View {
+        if isRegistering {
+            registerView
+        } else {
+            loginView
+        }
+    }
+    
+    var loginView: some View {
+        Text("Login")
+    }
+    
+    var registerView: some View {
         GeometryReader { proxy in
             ScrollView {
                 VStack {
@@ -54,9 +86,9 @@ struct AuthSignUp: View {
                     
                     Spacer()
                     Spacer()
-                    
-                    HoverButton(title: "Далее)", backgroundColor: Color("accent_light_2"), titleColor: .white, isEnabled: viewModel.isSubmitEnabled) {
-                        
+
+                    HoverButton(title: "next".localize, backgroundColor: Color("accent_light_2"), titleColor: .white, isEnabled: viewModel.isSubmitEnabled) {
+                        viewModel.onClickRegister()
                     }
                     .padding(.horizontal, Padding.default)
                 }

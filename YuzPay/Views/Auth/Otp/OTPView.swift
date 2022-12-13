@@ -9,20 +9,39 @@ import Foundation
 import SwiftUI
 
 struct OTPView: View {
-    @ObservedObject var viewModel: OtpViewModel = OtpViewModel()
-    
+    @ObservedObject var viewModel: OtpViewModel
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
+        ZStack {
+            Button {
+                dismiss()
+            } label: {
+                Image("icon_x")
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                    .fixedSize()
+            }
+            .zIndex(1)
+            .frame(width: 20, height: 20)
+            .position(x: 40, y: 20)
+            
+            innerBody
+        }
+    }
+    
+    var innerBody: some View {
         VStack {
             Spacer()
             
             VStack(spacing: 36) {
-                Text("Подтверждение\nномера")
+                Text(viewModel.title)
                     .font(.mont(.extraBold, size: 32))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("accent_light"))
 
-                Text("otp_sent_to_number".localize(arguments: "+998 93 585-24-15")) { str in
-                    if let range = str.range(of: "+998 93 585-24-15") {
+                Text("otp_sent_to_number".localize(arguments: viewModel.number)) { str in
+                    if let range = str.range(of: viewModel.number) {
                         str[range].font = UIFont.mont(.medium, size: 14)
 
                     }
@@ -39,19 +58,21 @@ struct OTPView: View {
                         Text(viewModel.counter)
                             .foregroundColor(Color("accent_light"))
                     }
+                    .padding(.trailing, 12)
                 })
                 .keyboardType(.numberPad)
                 .onChange(of: viewModel.otp, perform: { _ in
                     self.viewModel.onTypingOtp()
                 })
                 .modifier(YTextFieldBackgroundCleanStyle(padding: Padding.default))
+                .modifier(YTextFieldBottomInfo(text: viewModel.otpErrorMessage, color: Color.red))
                 .padding(Padding.default)
             }
             
             Spacer()
             
             HoverButton(title: "Подтвердить", backgroundColor: Color("accent_light_2"), titleColor: .white, isEnabled: viewModel.isValidForm) {
-                
+                viewModel.onClickConfirm()
             }
             .padding(.horizontal, Padding.default)
             .padding(.bottom, 8)
@@ -73,6 +94,6 @@ struct OTPView: View {
 
 struct OTPView_Preview: PreviewProvider {
     static var previews: some View {
-        OTPView()
+        OTPView(viewModel: OtpViewModel())
     }
 }

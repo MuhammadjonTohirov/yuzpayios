@@ -12,4 +12,10 @@ final public class UserSettings {
     
     @codableWrapper(key: "language")
     public var language: Language?
+    
+    @codableWrapper(key: "userInfo")
+    public var userInfoDetails: UserInfoDetails?
+    
+    @anyWrapper(key: "isFillUserDetailsSkipped", defaultValue: false)
+    public var isFillUserDetailsSkipped: Bool?
 }

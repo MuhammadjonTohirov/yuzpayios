@@ -9,8 +9,22 @@ import Foundation
 import SwiftUI
 
 struct FacePayStartView: View {
+    @ObservedObject var viewModel: FacePayIntroViewModel = FacePayIntroViewModel()
     @State var buttonSize: CGRect = .zero
+    
     var body: some View {
+        ZStack {
+            innerBody
+            NavigationLink(isActive: $viewModel.pushToNext) {
+                PassportRegisterView()
+            } label: {
+                Text("")
+            }
+
+        }
+    }
+    
+    var innerBody: some View {
         GeometryReader  { proxy in
             Image("auth_intro_image")
                 .resizable()
