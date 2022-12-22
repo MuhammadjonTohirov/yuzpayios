@@ -65,3 +65,20 @@ public extension CGFloat {
         return (self < n) ? n : self
     }
 }
+
+extension Float {
+    var asCurrency: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter.string(from: NSNumber(floatLiteral: Double(self))) ?? ""
+    }
+}
+
+extension NSNumber {
+    func asCurrency(locale: Locale) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = locale
+        return formatter.string(from: self) ?? ""
+    }
+}

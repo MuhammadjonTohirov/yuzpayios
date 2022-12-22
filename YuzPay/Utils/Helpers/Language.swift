@@ -14,7 +14,7 @@ public enum Language: Int, Codable {
     
     public static func language(_ code: String) -> Language {
         switch code {
-        case "uz", "uzUZ", "UZ":
+        case "uz", "uz-UZ", "UZ":
             return .uzbek
         case "ru":
             return .russian
@@ -39,7 +39,7 @@ public enum Language: Int, Codable {
     public var code: String {
         switch self {
         case .uzbek:
-            return "uz"
+            return "uz-UZ"
 
         case .russian:
             return "ru"

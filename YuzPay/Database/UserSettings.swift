@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 final public class UserSettings {
     public static let shared = UserSettings()
@@ -18,4 +19,7 @@ final public class UserSettings {
     
     @anyWrapper(key: "isFillUserDetailsSkipped", defaultValue: false)
     public var isFillUserDetailsSkipped: Bool?
+    
+    @anyWrapper(key: "pincode", defaultValue: nil)
+    public var appPin: String?
 }

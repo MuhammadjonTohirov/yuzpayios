@@ -6,50 +6,93 @@
 //
 
 import Foundation
+import SwiftUI
+
+enum PinViewReason: Identifiable, Equatable {
+    var id: Int {
+        switch self {
+        case .login:
+            return 0
+        case .setup:
+            return 1
+        case .confirm:
+            return 2
+        }
+    }
+    
+    case login
+    case setup
+    case confirm(pin: String)
+}
+
+enum PinViewRoute: ScreenRoute {
+    case confirmWith(code: String, completion: (Bool) -> Void)
+    
+    var screen: some View {
+        switch self {
+        case .confirmWith(let code, let completion):
+            let model: PinCodeViewModel = .init(title: "confirm_pin", reason: .confirm(pin: code))
+            model.onResult = completion
+            return PinCodeView(viewModel: model)
+        }
+    }
+}
 
 class PinCodeViewModel: ObservableObject {
     @Published var pin: String = ""
+
+    let reason: PinViewReason
     var title: String = "Введите PIN-код"
-    private var pin1: String = ""
+
     let maxCharacters: Int = 4
-    private var pin2: String = ""
+
+    @Published var isButtonEnabled: Bool = false
+
+    var keyboardModel: KeyboardViewModel
     
-    @Published var isConfirmed: Bool = false
+    var onResult: ((Bool) -> Void)?
+    
+    @Published var route: PinViewRoute?
+    
+    init(title: String, reason: PinViewReason) {
+        self.title = title
+        self.reason = reason
+        
+        
+        keyboardModel = .init(type: reason == .login ? .withExit : .withClear)
+    }
     
     func onEditingPin() {
-        let isEditing = pin.count < maxCharacters
         let isFilled = pin.count == maxCharacters
         
-        let isEditingPin1 = pin1.count < maxCharacters && isEditing
-        let isEditingPin2 = pin2.count < maxCharacters && isEditing
-                
+        isButtonEnabled = isFilled
+        
         if isFilled {
-            if pin1.isEmpty {
-                pin1 = pin
-                
-                title = "Повторите\nPIN-код"
-                pin = ""
-                return
+            if pin == UserSettings.shared.appPin {
+                mainRouter?.navigate(to: .main)
             }
-            
-            if pin2.isEmpty {
-                pin2 = pin
+        }
+    }
+    
+    func onClickNext() {
+        switch reason {
+        case .login:
+            break
+        case .setup:
+            route = .confirmWith(code: pin, completion: { [weak self] isOK in
+                guard let self else {
+                    return
+                }
                 
-                isConfirmed = pin1 == pin2
-            }
-            
-            if isConfirmed {
-                // finish pin
+                if isOK {
+                    self.route = nil
+                    UserSettings.shared.appPin = self.pin
+                }
                 
-                return
-            }
-            
-            pin1 = ""
-            pin2 = ""
-            pin = ""
-            title = "Введите PIN-код"
-        } else {
-            isConfirmed = !(isEditingPin1 || isEditingPin2)
+                self.onResult?(isOK)
+            })
+        case .confirm(let pin):
+            onResult?(pin == self.pin)
         }
     }
 }

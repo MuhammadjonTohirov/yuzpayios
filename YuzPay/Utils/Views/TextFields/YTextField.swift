@@ -20,7 +20,9 @@ struct YTextField: View, TextFieldProtocol {
     var height: CGFloat = 56
     
     var haveTitle: Bool = false
-    
+    private var font: Font = {
+        return .mont(.medium, size: 16)
+    }()
     private var contentType: UITextContentType = .name
     private var autoCapitalization: TextInputAutocapitalization = .sentences
     
@@ -85,7 +87,7 @@ struct YTextField: View, TextFieldProtocol {
                     .textContentType(contentType)
                     .frame(height: height)
                     .textInputAutocapitalization(autoCapitalization)
-                    .font(.mont(.medium, size: 16))
+                    .font(font)
                     .onChange(of: text) { newValue in
                         self.rearrangeHint()
                         self.onEditing(true)
@@ -154,6 +156,12 @@ extension YTextField {
     func set(hintColor: Color) -> YTextField {
         var view = self
         view.topupHintColor = hintColor
+        return view
+    }
+    
+    func set(font: Font) -> YTextField {
+        var view = self
+        view.font = font
         return view
     }
 }

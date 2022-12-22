@@ -10,11 +10,16 @@ import SwiftUI
 
 
 struct PinCodeView: View {
-    @ObservedObject var viewModel = PinCodeViewModel()
+    @ObservedObject var viewModel = PinCodeViewModel(title: "setup_pin", reason: .confirm(pin: "12"))
     
     let keyboardHeight: CGFloat = 288.f.sh(limit: 0.2)
     
-    var body: some View {
+    @ViewBuilder var body: some View {
+        innerBody
+            .set(hasDismiss: viewModel.reason.id == PinViewReason.confirm(pin: "").id)
+    }
+    
+    var innerBody: some View {
         VStack(spacing: 0) {
             Spacer()
             Text(viewModel.title)
@@ -29,21 +34,26 @@ struct PinCodeView: View {
                 }
             }
             .foregroundColor(Color("gray"))
-            .padding(Padding.default)
+            .padding(Padding.large)
             
-            KeyboardView(text: $viewModel.pin, maxCharacters: viewModel.maxCharacters)
+            KeyboardView(text: $viewModel.pin, viewModel: viewModel.keyboardModel)
                 .onChange(of: viewModel.pin) { newValue in
                     if newValue.count == viewModel.maxCharacters {
                         viewModel.onEditingPin()
                     }
                 }
             
-            HoverButton(title: "Далее", backgroundColor: Color("accent_light_2"), titleColor: .white, isEnabled: viewModel.isConfirmed) {
-                
+            if viewModel.reason != .login {
+                HoverButton(title: "Далее", backgroundColor: Color("accent_light_2"), titleColor: .white, isEnabled: viewModel.isButtonEnabled) {
+                    viewModel.onClickNext()
+                }
+                .padding(Padding.default)
             }
-            .padding(Padding.default)
         }
         .multilineTextAlignment(.center)
+        .fullScreenCover(unwrapping: $viewModel.route) { dest in
+            dest.wrappedValue.screen
+        }
     }
     
     func pinItem(_ id: Int) -> some View {
@@ -56,5 +66,15 @@ struct PinCodeView: View {
 struct PinCodeView_Preview: PreviewProvider {
     static var previews: some View {
         PinCodeView()
+    }
+}
+
+extension View {
+    @ViewBuilder func set(hasDismiss: Bool) -> some View {
+        if hasDismiss {
+            self.modifier(TopLeftDismissModifier())
+        } else {
+            self
+        }
     }
 }

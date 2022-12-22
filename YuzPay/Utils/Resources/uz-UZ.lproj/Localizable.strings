@@ -1,0 +1,47 @@
+/* 
+  Localizable.strings
+  YuzPay
+
+  Created by applebro on 11/12/22.
+  
+*/
+
+"the_offer" = "the offer";
+"public_offer" = "I agree with the terms of the offer.";
+"otp_sent_to_number" = "An SMS with a confirmation code was sent to %@. Please enter it in the field below.";
+"send_again" = "Send again";
+"start" = "Boshlash";
+"welcome_text" = "YuzPay xush kelibsiz";
+"authorization" = "Tizimga kirish";
+"next" = "Keyingisi";
+"to_select_photo" = "Fotosurat uchun";
+"pick_image_from_camera_or_gallery" = "kamera belgisiga bosing va kamera yoki galereyadan rasm oling";
+"save" = "Saqlash";
+"exit" = "Chiqish";
+"payment" = "To'lov";
+"transfer" = "O'tkazma";
+"cardsAndWallets" = "Karta va hamyonlar";
+"orderCard" = "Karta buyurtmasi";
+"issuedInvoices" = "Invoislar";
+"monitoring" = "Tarix";
+"autopayment" = "Avto to'lov";
+
+"home" = "Asosiy";
+"transfer" = "O'tkazma";
+"payment" = "To'lov";
+"help" = "Yordam";
+"settings" = "Sozlamalar";
+"issued_invoices" = "Berilgan invoislar";
+"continue" = "Boshlash";
+"do_payment" = "To'lov";
+"cards" = "Kartalar";
+
+"popular" = "Doimiy";
+"mobile" = "Mobil aloq";
+"internet" = "Internet";
+"television" = "Telvidinya";
+"telephone" = "Telefon";
+"hosting" = "Xosting";
+"saved_payment" = "Saqlangan to'lovlar";
+"done" = "Bajarish";
+"insert_pin" = "PIN kodni kiriting";

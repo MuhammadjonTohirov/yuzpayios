@@ -9,11 +9,11 @@ import Foundation
 
 @propertyWrapper public struct anyWrapper<Value> {
     public let key: String
-    public let storage: UserDefaults = UserDefaults(suiteName: "uz.xcoder.YuzPay") ?? .standard
+    public let storage: UserDefaults = UserDefaults.standard
     
     public init(key: String, defaultValue: Value?) {
         self.key = key
-        self.wrappedValue = defaultValue
+        self.wrappedValue = self.wrappedValue == nil ? defaultValue : self.wrappedValue
     }
     
     public var wrappedValue: Value? {

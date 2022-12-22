@@ -17,10 +17,6 @@ struct MainView: View {
     }
 }
 
-struct RootPresentationModeKey: EnvironmentKey {
-    static let defaultValue: Binding<RootPresentationMode> = .constant(RootPresentationMode())
-}
-
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()

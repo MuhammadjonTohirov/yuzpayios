@@ -30,4 +30,3 @@ struct PassportRegisterStepThree_Preview: PreviewProvider {
         PassportRegisterStepThree()
     }
 }
-

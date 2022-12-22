@@ -10,11 +10,8 @@ import SwiftUI
 
 struct KeyboardView: View {
     let keyboardHeight: CGFloat = 288.f.sh(limit: 0.2)
-    
     @Binding var text: String
-    
-    /// 0 or negative means unlimited
-    var maxCharacters: Int = 4
+    @ObservedObject var viewModel: KeyboardViewModel
     
     var body: some View {
         GeometryReader { proxy in
@@ -73,10 +70,11 @@ struct KeyboardView: View {
             keyboardFirstRow
             keyboardSecondRow
             keyboardThirdRow
-            keyItem(.clear)
+            keyItem(.clear(text: viewModel.type.text))
             keyItem(.zero)
             keyItem(.backSpace)
         }
+        
         .font(.mont(.semibold, size: 24))
     }
     
@@ -106,13 +104,13 @@ struct KeyboardView: View {
             case .backSpace:
                 _ = text.popLast()
             default:
-                if maxCharacters <= 0 {
-                    text.append("\(val.rawValue)")
+                if viewModel.maxCharacters <= 0 {
+                    text.append("\(val.id)")
                     return
                 }
                 
-                if text.count < maxCharacters {
-                    text.append("\(val.rawValue)")
+                if text.count < viewModel.maxCharacters {
+                    text.append("\(val.id)")
                     return
                 }
             }
@@ -127,7 +125,7 @@ struct KeyboardView: View {
 struct KeyboardView_Preview: PreviewProvider {
     @State static var text: String = ""
     static var previews: some View {
-        KeyboardView(text: $text)
+        KeyboardView(text: $text, viewModel: .init(type: .withClear))
     }
 }
 

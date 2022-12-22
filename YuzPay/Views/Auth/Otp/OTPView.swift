@@ -13,21 +13,8 @@ struct OTPView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        ZStack {
-            Button {
-                dismiss()
-            } label: {
-                Image("icon_x")
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .fixedSize()
-            }
-            .zIndex(1)
-            .frame(width: 20, height: 20)
-            .position(x: 40, y: 20)
-            
-            innerBody
-        }
+        innerBody
+            .modifier(TopLeftDismissModifier())
     }
     
     var innerBody: some View {
@@ -86,7 +73,8 @@ struct OTPView: View {
             }
             .disabled(!viewModel.shouldResend)
 
-        }.onAppear {
+        }
+        .onAppear {
             viewModel.startCounter()
         }
     }

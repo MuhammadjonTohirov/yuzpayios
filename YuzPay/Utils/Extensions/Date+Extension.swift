@@ -18,4 +18,19 @@ extension Date {
         formatter.dateFormat = format
         return formatter.string(from: self)
     }
+    
+    func after(days: Int) -> Date {
+        let date = Calendar.current.date(byAdding: DateComponents(day: days), to: self)
+        return date ?? self
+    }
+        
+    func after(monthes: Int) -> Date {
+        let date = Calendar.current.date(byAdding: DateComponents(month: monthes), to: self)
+        return date ?? self
+    }
+    
+    func after(years: Int) -> Date {
+        let date = Calendar.current.date(byAdding: DateComponents(year: years), to: self)
+        return date ?? self
+    }
 }
