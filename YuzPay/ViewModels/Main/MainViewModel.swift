@@ -8,7 +8,30 @@
 import Foundation
 import SwiftUI
 
-enum AppDestination: ScreenRoute {
+enum AppDestination: Hashable, ScreenRoute {
+    static func == (lhs: AppDestination, rhs: AppDestination) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    var id: String {
+        switch self {
+        case .intro:
+            return "intro"
+        case .auth:
+            return "auth"
+        case .main:
+            return "main"
+        case .loading:
+            return "loading"
+        case .pin:
+            return "pin"
+        }
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     case intro
     case auth
     case main

@@ -28,13 +28,13 @@ struct PinCodeView: View {
 
             Spacer()
 
-            HStack {
+            HStack(spacing: Padding.medium) {
                 ForEach(0..<viewModel.maxCharacters, id: \.self) { id in
                     pinItem(id)
                 }
             }
             .foregroundColor(Color("gray"))
-            .padding(Padding.large)
+            .padding(Padding.large * 2)
             
             KeyboardView(text: $viewModel.pin, viewModel: viewModel.keyboardModel)
                 .onChange(of: viewModel.pin) { newValue in
@@ -58,7 +58,7 @@ struct PinCodeView: View {
     
     func pinItem(_ id: Int) -> some View {
         Circle()
-            .frame(width: 16.f.sh(limit: 0.2))
+            .frame(width: 20.f.sh(limit: 0.2))
             .foregroundColor(id >= viewModel.pin.count ? Color("gray") : Color("accent_light_2"))
     }
 }

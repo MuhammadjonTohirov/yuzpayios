@@ -7,13 +7,18 @@
 
 import Foundation
 import RealmSwift
+import SwiftUI
 
-enum CreditCardType: String, PersistableEnum {
+enum CreditCardType: String, PersistableEnum, Identifiable {
+    var id: String {
+        rawValue
+    }
+    
     case uzcard
     case humo
     case visa
     case master
-    case paypal
+    case unionpay
     case wallet
     
     var localIcon: String {
@@ -21,16 +26,37 @@ enum CreditCardType: String, PersistableEnum {
         case .uzcard:
             return "icon_uzcard"
         case .humo:
-            return "icon_uzcard"
+            return "icon_humo"
         case .visa:
             return "icon_visa"
         case .master:
             return "icon_master"
-        case .paypal:
-            return "icon_master"
+        case .unionpay:
+            return "icon_unionpay"
         case .wallet:
             return "icon_master"
         }
+    }
+    
+    @ViewBuilder
+    var whiteIcon: some View {
+        switch self {
+        case .uzcard:
+            icon
+                .renderingMode(.template)
+                .foregroundColor(.white)
+        default:
+            icon
+        }
+    }
+    
+    @ViewBuilder
+    var icon: Image {
+        Image(localIcon)
+    }
+    
+    var name: String {
+        rawValue.localize.capitalized
     }
 }
 

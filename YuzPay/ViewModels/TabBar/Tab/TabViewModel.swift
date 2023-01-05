@@ -7,23 +7,60 @@
 
 import Foundation
 import SwiftUI
+import SwiftUIX
+
+enum SideBarRoute: Hashable, ScreenRoute {
+    static func == (lhs: SideBarRoute, rhs: SideBarRoute) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    var id: String {
+        switch self {
+        case .cards:
+            return "cards"
+        case .monitoring:
+            return "monitoring"
+        case .ordercard:
+            return "order_card"
+        }
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+        
+    case cards
+    case monitoring
+    case ordercard
+    
+    @ViewBuilder
+    var screen: some View {
+        switch self {
+        case .cards:
+            CardsAndWalletsView()
+        case .monitoring:
+            TransactionsView()
+        case .ordercard:
+            StackNavigationView {
+                OrderCardView()
+            }
+            
+        }
+    }
+}
 
 final class TabViewModel: NSObject, ObservableObject {
     @Published var isSideBarVisible = false
     
-    lazy var homeViewModel: HomeViewModel = {
-        return HomeViewModel()
-    }()
+    var homeViewModel: HomeViewModel = HomeViewModel()
     
-    lazy var sideViewModel: SideBarViewModel = {
-        return SideBarViewModel()
-    }()
+    var sideViewModel: SideBarViewModel = SideBarViewModel()
     
     @Published var sideMenuOffset: CGPoint = .zero
     
     @Published var pushSideMenuActions: Bool = false
     
-    @Published var sideMenuRouter: SideBarRoute? {
+    var sideMenuRouter: SideBarRoute? {
         didSet  {
             pushSideMenuActions = sideMenuRouter != nil
             if pushSideMenuActions {
@@ -71,22 +108,28 @@ final class TabViewModel: NSObject, ObservableObject {
 extension TabViewModel: HomeViewDelegate, SideBarDelegate {
     func homeView(model: HomeViewModel, onClick route: HomeViewRoute) {
         switch route {
-        case .notification:
-            break
         case .menu:
             showSideBar()
+        case .cards:
+            sideMenuRouter = .cards
+        default:
+            break
         }
     }
     
-    func sideBar(sideBar: SideBarViewModel, onClick route: SideBarRoute) {
+    func sideBar(sideBar: SideBarViewModel, onClick route: SideMenuItem) {
         switch route {
         case .close:
             hideSideBar()
         case .identify:
             break
         case .cards:
-            sideMenuRouter = route
-            break
+            sideMenuRouter = .cards
+        case .monitoring:
+            sideMenuRouter = .monitoring
+        case .orderCard:
+            sideMenuRouter = .ordercard
         }
     }
 }
+ 

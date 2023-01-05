@@ -25,7 +25,22 @@ enum PinViewReason: Identifiable, Equatable {
     case confirm(pin: String)
 }
 
-enum PinViewRoute: ScreenRoute {
+enum PinViewRoute: Hashable, ScreenRoute {
+    static func == (lhs: PinViewRoute, rhs: PinViewRoute) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    var id: String {
+        switch self {
+        case .confirmWith:
+            return "pinConfirm"
+        }
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     case confirmWith(code: String, completion: (Bool) -> Void)
     
     var screen: some View {

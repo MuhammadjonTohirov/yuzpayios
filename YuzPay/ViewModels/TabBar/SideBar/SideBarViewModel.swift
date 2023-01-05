@@ -6,18 +6,22 @@
 //
 
 import Foundation
+import SwiftUI
 
-enum SideBarRoute {
+enum SideMenuItem {
     case close
     case identify
     case cards
+    case monitoring
+    case orderCard
 }
 
 protocol SideBarDelegate: NSObject {
-    func sideBar(sideBar: SideBarViewModel, onClick route: SideBarRoute)
+    func sideBar(sideBar: SideBarViewModel, onClick route: SideMenuItem)
 }
 
 final class SideBarViewModel: ObservableObject {
+    
     @Published var menus: [SideBarMenuItem] = [
         .payment,
         .transfer,
@@ -43,13 +47,14 @@ final class SideBarViewModel: ObservableObject {
         case .cardsAndWallets:
             delegate?.sideBar(sideBar: self, onClick: .cards)
         case .orderCard:
-            break
+            delegate?.sideBar(sideBar: self, onClick: .orderCard)
         case .issuedInvoices:
             break
         case .monitoring:
-            break
+            delegate?.sideBar(sideBar: self, onClick: .monitoring)
         case .autopayment:
             break
+            
         }
     }
 }

@@ -11,6 +11,7 @@ import RealmSwift
 protocol DManager {
     associatedtype Obj = DItemProtocol
     func add(_ items: Obj...)
+    func removeAll()
     func execute(completion: @escaping (Realm) -> Void)
 }
 
@@ -28,6 +29,10 @@ extension DManager {
     }
     
     func add(_ items: Obj...) {
+        fatalError("not implemented yet")
+    }
+    
+    func removeAll() {
         fatalError("not implemented yet")
     }
 }

@@ -6,13 +6,41 @@
 //
 
 import Foundation
+import SwiftUI
 import RealmSwift
 
-final class HCardListViewModel: ObservableObject {
-//    @Published var cards: Results<DCard>?
-    @ObservedResults(DCard.self, configuration: Realm.config) var cards
-
+class HCardListViewModel: ObservableObject {
+    @Published var cards: Results<DCard>?
+    private var cardsToken: NotificationToken?
+    
     func onAppear() {
-//        cards = Realm.new?.objects(DCard.self)
+        guard let realm = Realm.new else {
+            return
+        }
+        
+        cards = realm.objects(DCard.self)
+     
+        cardsToken = cards?.observe(on: .main, { [weak self] change in
+            guard let self else {
+                return
+            }
+            
+            switch change {
+            case let .initial(items):
+                withAnimation {
+                    self.cards = items
+                }
+            case let .update(items, _, _, _):
+                withAnimation {
+                    self.cards = items
+                }
+            default:
+                break
+            }
+        })
+    }
+    
+    deinit {
+        cardsToken?.invalidate()
     }
 }

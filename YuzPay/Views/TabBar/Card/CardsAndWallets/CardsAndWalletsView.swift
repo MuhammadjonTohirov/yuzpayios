@@ -7,46 +7,73 @@
 
 import Foundation
 import SwiftUI
+import RealmSwift
 
 struct CardsAndWalletsView: View {
-    @State var selectedId: Int = 0
-    @ObservedObject var viewModel: CardsAndWalletsViewModel = CardsAndWalletsViewModel()
-    
+    @State private var selectedId: String = "0"
+    @StateObject var viewModel: CardsAndWalletsViewModel = CardsAndWalletsViewModel()
+        
     var body: some View {
-        VStack {
-            HStack {
-                cardTypeItem(0, title: "all".localize, count: 3)
-                cardTypeItem(1, title: "uzcard".localize, count: 1)
-                cardTypeItem(2, title: "visa".localize, count: 1)
-                cardTypeItem(3, title: "master".localize, count: 1)
+        ZStack {
+            NavigationLink("", isActive: $viewModel.pushNavigation) {
+                viewModel.route?.screen
             }
-            .padding(Padding.medium)
-            .scrollable(axis: .horizontal)
-            
-            VStack(spacing: Padding.medium) {
-                ForEach(viewModel.cards) { card in
-                    cardItem(
-                        bankName: card.bankName ?? "Bank name",
-                        cardNumber: card.cardNumber,
-                        amount: card.moneyAmount, isMain: card.isMain, iconName: card.cardType.localIcon
-                    )
+            VStack {
+                HStack {
+                    cardTypeItem("0", title: "all".localize, count: viewModel.cardItems.count)
+                    ForEach(viewModel.cardTypesWithCounts) { item in
+                        cardTypeItem(item.id, title: item.type.name, count: item.count)
+                    }
                 }
+                .padding(Padding.medium)
+                .scrollable(axis: .horizontal)
+                
+                VStack(spacing: Padding.medium) {
+                    ForEach(viewModel.cardItems.filter({ card in
+                        if selectedId == "0" {
+                            return true
+                        } else {
+                            return card.cardType.rawValue == selectedId
+                        }
+                    })) { card in
+                        if card.isInvalidated {
+                            EmptyView()
+                        } else {
+                            cardItem(
+                                bankName: card.bankName ?? "Bank name",
+                                cardNumber: card.cardNumber,
+                                amount: card.moneyAmount, isMain: card.isMain, iconName: card.cardType.localIcon
+                            )
+                            .onTapGesture {
+                                viewModel.route = .cardDetails(id: card.id)
+                            }
+                        }
+                    }
+                }
+                .scrollable(axis: .vertical)
+                
+                HoverButton(title: "add_new_card".localize,
+                            leftIcon: Image(systemName: "plus.circle.fill"),
+                            backgroundColor: Color("accent_light"),
+                            titleColor: .white) {
+                    self.viewModel.route = .addCard
+                }
+                .padding(.horizontal, Padding.default)
+                
             }
-            .scrollable(axis: .vertical)
+            .onAppear {
+                viewModel.onAppear()
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("my_cards".localize)
         }
-        .toolbar(content: {
-            ToolbarItem {
-                Button {
-                    
-                } label: {
-                    Image(systemName: "plus.circle")
-                }
-            }
-        })
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("my_cards".localize)
+        .onDisappear {
+            print("Disappear cards and wallets")
+        }
     }
-    
+}
+
+private extension CardsAndWalletsView {
     func cardItem(bankName: String,
                   cardName: String = "Название карты",
                   cardNumber: String,
@@ -93,7 +120,6 @@ struct CardsAndWalletsView: View {
                     .frame(maxWidth: 40)
                     .position(x: proxy.frame(in: .local).width - 32, y: proxy.frame(in: .local).height - 30)
                     .foregroundColor(.white)
-
             }
         }
         .frame(minHeight: 122)
@@ -102,10 +128,13 @@ struct CardsAndWalletsView: View {
         .padding(.horizontal, Padding.medium)
     }
     
-    func cardTypeItem(_ id: Int, title: String, count: Int) -> some View {
+    func cardTypeItem(_ id: String, title: String, count: Int) -> some View {
         HStack {
             Text(title)
             Text("(\(count))")
+        }
+        .onTapGesture {
+            selectedId = id
         }
         .font(.mont(.medium, size: 16))
         .padding(.horizontal, Padding.medium)
@@ -113,7 +142,7 @@ struct CardsAndWalletsView: View {
         .foregroundColor(selectedId == id ? .white : .label)
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .foregroundColor(selectedId == id ? Color("accent_light_2") : .clear)
+                .foregroundColor(selectedId == id ? Color("accent") : .clear)
         )
     }
 }
@@ -121,7 +150,7 @@ struct CardsAndWalletsView: View {
 struct CardsAndWalletsView_Preview: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CardsAndWalletsView()
+            CardsAndWalletsView(viewModel: CardsAndWalletsViewModel())
         }
     }
 }

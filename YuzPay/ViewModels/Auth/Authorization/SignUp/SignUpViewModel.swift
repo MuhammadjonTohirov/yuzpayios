@@ -8,7 +8,24 @@
 import Foundation
 import SwiftUI
 
-enum AuthRoute: ScreenRoute {
+enum AuthRoute: Hashable, ScreenRoute {
+    static func == (lhs: AuthRoute, rhs: AuthRoute) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    var id: String {
+        switch self {
+        case .otp:
+            return "cards"
+        case .faceInfoIntro:
+            return "faceid"
+        }
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+        
     case otp(_ viewModel: OtpViewModel)
     case faceInfoIntro
     

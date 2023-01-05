@@ -19,7 +19,7 @@
 "save" = "Сохранить";
 "exit" = "Выход";
 "payment" = "Оплата";
-"transfer" = "Перевод";
+"transactions" = "Транзакции";
 "cardsAndWallets" = "Карты и кошельки";
 "orderCard" = "Карточка заказа";
 "issuedInvoices" = "Выставленные счета";
@@ -45,3 +45,47 @@
 "saved_payment" = "Сохраненные платежи";
 "done" = "Выполнено";
 "insert_pin" = "Вставьте PIN-код";
+"uzcard" = "Uzcard";
+"humo" = "Humo";
+"visa" = "VISA";
+"master" = "Master";
+"paypal" = "PayPal";
+"wallet" = "Wallet";
+"all" = "Все";
+
+"my_cards" = "Мои карты";
+"focus_camera_to_card" = "Наведите камеру на карту";
+"add_new_card" = "Добавить карту";
+"main_card" = "Главная";
+"delete" = "Удалить";
+"block" = "блокировать";
+"actions" = "Действия";
+"card_name" = "Название карты";
+
+"bills" = "Счета";
+
+"select_bank" = "Выберите банк";
+"order_card" = "Карточка заказа";
+"address" = "Адрес";
+"phone_number" = "Телефон";
+"fax" = "Факс";
+"select_card_type" = "Выберите тип карты";
+
+"card_order_success" = "Карта заказана!";
+"card_order_success_detail" = "Когда карта будет готова к доставке, с вами свяжется курьер.";
+"card_order_failure" = "Произошла ошибка";
+"card_order_failure_detail" = "Текст с описанием ошибки и инструкциями для пользователя.";
+"retry" = "Повторить";
+"finish" = "Готово";
+"cancel" = "Отмена";
+
+"select_branch" = "Выберите ветку";
+"from_list" = "Из списка";
+
+"from_map" = "С карты";
+"in_map" = "На карте";
+
+"login" = "Логин";
+"confirm_otp" = "Подтвердить одноразовый пароль";
+"setup_pin" = "Установить PIN-код";
+"confirm_pin" = "Подтвердите PIN-код";

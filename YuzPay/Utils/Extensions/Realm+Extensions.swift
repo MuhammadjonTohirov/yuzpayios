@@ -107,3 +107,17 @@ extension Realm {
         }
     }
 }
+
+public extension Results {
+    func item(at: Int) -> Element? {
+        if at < 0 {
+            return nil
+        }
+        
+        if at >= self.count {
+            return nil
+        }
+        
+        return self[at]
+    }
+}

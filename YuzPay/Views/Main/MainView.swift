@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MainView: View {
     @ObservedObject var viewModel = MainViewModel()
-    @State var isPresented = true
+    @State private var isPresented = true
     
     var body: some View {
         viewModel.route.screen.environment(\.rootPresentationMode, self.$isPresented)

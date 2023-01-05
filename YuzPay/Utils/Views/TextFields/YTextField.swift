@@ -20,20 +20,25 @@ struct YTextField: View, TextFieldProtocol {
     var height: CGFloat = 56
     
     var haveTitle: Bool = false
+    
     private var font: Font = {
         return .mont(.medium, size: 16)
     }()
+    
     private var contentType: UITextContentType = .name
     private var autoCapitalization: TextInputAutocapitalization = .sentences
     
     private var onEditing: (Bool) -> Void
     private var onCommit: () -> Void
     
+    private var format: String?
+    
     @State private var hintOpacity: Double = 0
     @State private var zStackAlignment: Alignment = .leading
     @State private var hintFontSize: CGFloat = 16
-    @State private var hintColor: Color = Color("accent_light")
-    private var topupHintColor: Color = Color("accent_light")
+    @State private var hintColor: Color = Color("dark_gray")
+    private var placeholderAlignment: Alignment = .leading
+    private var topupHintColor: Color = Color("dark_gray")
     private var placeholderColor: Color = Color("dark_gray")
     private(set) var left: () -> any View
     private(set) var right: () -> any View
@@ -82,13 +87,16 @@ struct YTextField: View, TextFieldProtocol {
                     .opacity(hintOpacity)
 
                 textField
-                    .placeholder(placeholder, when: text.isEmpty, color: Color("dark_gray"))
+                    .placeholder(placeholder, when: text.isEmpty, alignment: placeholderAlignment, color: Color("dark_gray"))
                     .keyboardType(keyboardType)
                     .textContentType(contentType)
                     .frame(height: height)
                     .textInputAutocapitalization(autoCapitalization)
                     .font(font)
                     .onChange(of: text) { newValue in
+                        if let _format = format {
+                            _text.wrappedValue = newValue.onlyNumberFormat(with: _format)
+                        }
                         self.rearrangeHint()
                         self.onEditing(true)
                     }
@@ -162,6 +170,18 @@ extension YTextField {
     func set(font: Font) -> YTextField {
         var view = self
         view.font = font
+        return view
+    }
+    
+    func set(format: String) -> YTextField {
+        var view = self
+        view.format = format
+        return view
+    }
+    
+    func set(placeholderAlignment align: Alignment) -> YTextField {
+        var view = self
+        view.placeholderAlignment = align
         return view
     }
 }

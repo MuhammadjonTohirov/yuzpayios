@@ -8,22 +8,24 @@
 import Foundation
 import SwiftUI
 import UIKit
+
 struct HoverButton: View {
     var title: String
-    
+    var leftIcon: Image?
+
     var width: CGFloat = 200.f.sh(limit: 1.2)
     var height: CGFloat = 56.f.sh(limit: 0.8)
     var backgroundColor: Color = Color("background")
     var titleColor: Color = Color.black
     var isEnabled: Bool = true
     var onClick: () -> Void
-    
+        
     var body: some View {
         Button {
             onClick()
         } label: {
             VStack {
-                Text(title)
+                titleView
                     .font(.mont(.medium, size: 16))
                     .foregroundColor(titleColor)
             }
@@ -35,6 +37,19 @@ struct HoverButton: View {
                     .shadow(color: Color("accent").opacity(0.12), radius: isEnabled ? 8 : 0, y: isEnabled ? 4 : 0)
             )
         }.disabled(!isEnabled)
+    }
+    
+    @ViewBuilder
+    private var titleView: some View {
+        if let icon = self.leftIcon {
+            Label {
+                Text(title)
+            } icon: {
+                icon
+            }
+        } else {
+            Text(title)
+        }
     }
 }
 

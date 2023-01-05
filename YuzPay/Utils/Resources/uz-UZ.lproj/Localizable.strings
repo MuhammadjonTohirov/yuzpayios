@@ -19,7 +19,7 @@
 "save" = "Saqlash";
 "exit" = "Chiqish";
 "payment" = "To'lov";
-"transfer" = "O'tkazma";
+"transactions" = "Bitimlar";
 "cardsAndWallets" = "Karta va hamyonlar";
 "orderCard" = "Karta buyurtmasi";
 "issuedInvoices" = "Invoislar";
@@ -45,3 +45,47 @@
 "saved_payment" = "Saqlangan to'lovlar";
 "done" = "Bajarish";
 "insert_pin" = "PIN kodni kiriting";
+"uzcard" = "Uzcard";
+"humo" = "Humo";
+"visa" = "VISA";
+"master" = "Master";
+"paypal" = "PayPal";
+"wallet" = "Wallet";
+"all" = "Barcha";
+
+"my_cards" = "Kartalarim";
+"focus_camera_to_card" = "Kamerangizni kartaga qarating";
+"add_new_card" = "Karta qo'shish";
+"main_card" = "Asosiy";
+"delete" = "O'chirish";
+"block" = "Bloklash";
+"actions" = "Sozlamalar";
+"card_name" = "Karta nomi";
+
+"bills" = "Hisoblar";
+
+"select_bank" = "Bankni tanlang";
+"order_card" = "Karta buyurtiring";
+"address" = "Manzil";
+"phone_number" = "Telefon";
+"fax" = "Faks";
+"select_card_type" = "Karta turini tanlang";
+
+"card_order_success" = "Buyurtma qilindi!";
+"card_order_success_detail" = "Karta yetkazib berishga tayyor bo‘lganda kurer siz bilan bog‘lanadi.";
+"card_order_failure" = "Xatolik";
+"card_order_failure_detail" = "Xatoni tavsiflovchi matn va foydalanuvchi uchun ko'rsatmalar.";
+"retry" = "Qayta urunish";
+"finish" = "Tamomlash";
+"cancel" = "Qaytish";
+
+"select_branch" = "Filialni tanlang";
+"from_list" = "Ro'yxatdan";
+
+"from_map" = "Xaritadan";
+"in_map" = "Xaritada";
+
+"login" = "Login";
+"confirm_otp" = "OTPni tasdiqlang";
+"setup_pin" = "PIN-kod o'rnatish";
+"confirm_pin" = "PIN-kodni tasdiqlang";

@@ -57,7 +57,7 @@ struct YPhoneField: View, TextFieldProtocol {
             AnyView(right())
         }
         .onAppear {
-            text = format(with: format, phone: text)
+            text = text.onlyNumberFormat(with: format)
         }
     }
     
@@ -65,37 +65,16 @@ struct YPhoneField: View, TextFieldProtocol {
         TextField(
             "",
             text: $text,
-            
             onEditingChanged: { changed in
                 onEditingChanged(changed)
                 print("\(changed) \(text)")
             },
+            
             onCommit: onCommit
         )
         .onChange(of: text) { newValue in
-            _text.wrappedValue = format(with: format, phone: newValue)
+            _text.wrappedValue = newValue.onlyNumberFormat(with: format)
         }
-    }
-    
-    func format(with mask: String, phone: String) -> String {
-        let numbers = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
-        var result = ""
-        var index = numbers.startIndex // numbers iterator
-
-        // iterate over the mask characters until the iterator of numbers ends
-        for ch in mask where index < numbers.endIndex {
-            if ch == "X" {
-                // mask requires a number in this place, so take the next one
-                result.append(numbers[index])
-
-                // move numbers iterator to the next index
-                index = numbers.index(after: index)
-
-            } else {
-                result.append(ch) // just append a mask character
-            }
-        }
-        return result
     }
 }
 

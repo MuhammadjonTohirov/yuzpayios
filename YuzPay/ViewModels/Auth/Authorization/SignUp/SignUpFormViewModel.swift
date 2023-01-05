@@ -9,8 +9,8 @@ import Foundation
 
 final class SignUpFormViewModel: ObservableObject {
     @Published var login: String = ""
-    @Published var password: String = ""
-    @Published var passwordRepeate: String = ""
+    @Published var password: String = "test"
+    @Published var passwordRepeate: String = "test"
     
     var onFormStateChanged: ((Bool) -> Void)?
     

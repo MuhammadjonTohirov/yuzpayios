@@ -11,9 +11,13 @@ import RealmSwift
 
 struct HCardListView: View {
     @ObservedObject var viewModel: HCardListViewModel
+    @EnvironmentObject var homeModel: HomeViewModel
     
     var body: some View {
         cardListView
+            .onAppear {
+                viewModel.onAppear()
+            }
     }
         
     var cardListView: some View {
@@ -31,18 +35,23 @@ struct HCardListView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
-                    
-                    ForEach(viewModel.cards) { element in
-                        cardItem(name: element.name, icon: element.cardType.localIcon, amount: "\(element.moneyAmount.asCurrency)")
+                    if let cards = viewModel.cards {
+                        ForEach(cards) { element in
+                            if !element.isInvalidated {
+                                cardItem(name: element.name, icon: element.cardType.localIcon, amount: "\(element.moneyAmount.asCurrency)")
+                                    .onTapGesture {
+                                        self.homeModel.onClickCard(withId: element.id)
+                                    }
+                            } else {
+                                EmptyView()
+                            }
+                        }
                     }
-                    
+
                     addNewCardItem
                 }
                 .padding(.horizontal, Padding.default)
             }
-        }
-        .onAppear {
-            self.viewModel.onAppear()
         }
     }
     
@@ -77,7 +86,7 @@ struct HCardListView: View {
     
     var addNewCardItem: some View {
         Button {
-            
+            homeModel.onClickAddNewCard()
         } label: {
             Image(systemName: "plus.circle")
             .frame(minWidth: 150.f.sw(), minHeight: 80)

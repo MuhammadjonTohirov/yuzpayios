@@ -19,7 +19,7 @@
 "save" = "Save";
 "exit" = "Exit";
 "payment" = "Payment";
-"transfer" = "Transfer";
+"transactions" = "Transactions";
 "cardsAndWallets" = "Cards and wallets";
 "orderCard" = "Order card";
 "issuedInvoices" = "Issued invoices";
@@ -45,3 +45,47 @@
 "saved_payment" = "Saved payment";
 "done" = "Done";
 "insert_pin" = "Insert PIN code";
+"uzcard" = "Uzcard";
+"humo" = "Humo";
+"visa" = "VISA";
+"master" = "Master";
+"paypal" = "PayPal";
+"wallet" = "Wallet";
+"all" = "All";
+
+"my_cards" = "My cards";
+"focus_camera_to_card" = "Point your camera at card";
+"add_new_card" = "Add card";
+"main_card" = "Main";
+"delete" = "Delete";
+"block" = "Block";
+"actions" = "Actions";
+"card_name" = "Card name";
+
+"bills" = "Bills";
+
+"select_bank" = "Select bank";
+"order_card" = "Order card";
+"address" = "Address";
+"phone_number" = "Phone";
+"fax" = "Fax";
+"select_card_type" = "Select card type";
+
+"card_order_success" = "The card has been ordered!";
+"card_order_success_detail" = "When the card is ready for delivery, the courier will contact you.";
+"card_order_failure" = "An error has occurred";
+"card_order_failure_detail" = "Text describing the error and instructions for the user.";
+"retry" = "Retry";
+"finish" = "Finish";
+"cancel" = "Cancel";
+
+"select_branch" = "Select branch";
+"from_list" = "From list";
+
+"from_map" = "From map";
+"in_map" = "In map";
+
+"login" = "Login";
+"confirm_otp" = "Confirm OTP";
+"setup_pin" = "Set a PIN";
+"confirm_pin" = "Confirm the PIN";

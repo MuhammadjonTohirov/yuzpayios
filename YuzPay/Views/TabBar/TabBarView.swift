@@ -6,60 +6,62 @@
 //
 
 import Foundation
+import SwiftUIX
 import SwiftUI
 
 struct TabBarView: View {
     
-    @ObservedObject var viewModel = TabViewModel()
+    @StateObject var viewModel = TabViewModel()
+    
     var body: some View {
-        NavigationView {
-            ZStack(alignment: .leading) {
-                
-                NavigationLink("", isActive: $viewModel.pushSideMenuActions) {
-                    switch viewModel.sideMenuRouter {
-                    case .cards:
-                        CardsAndWalletsView()
-                    default:
-                        EmptyView()
+        StackNavigationView {
+            innerBody
+                .navigationBarTitleDisplayMode(.inline) 
+        }
+        .onAppear {
+            viewModel.onAppear()
+        }
+    }
+    var innerBody: some View {
+        ZStack(alignment: .leading) {
+            sideView
+                .opacity(viewModel.isSideBarVisible ? 1 : 0)
+                .zIndex(1)
+            
+            TabView {
+                HomeView()
+                    .environmentObject(viewModel.homeViewModel)
+                    .tabItem {
+                        Label("home".localize, image: "icon_home")
                     }
-                }
                 
-                sideView
-                    .zIndex(1)
-                    .opacity(viewModel.isSideBarVisible ? 1 : 0)
-
-                TabView {
-                    HomeView(viewModel: viewModel.homeViewModel)
-                        .tabItem {
-                            Label("home".localize, image: "icon_home")
-                        }
-
-                    Text("Transactions")
-                        .tabItem {
-                            Label("transfer".localize, image: "icon_transfer")
-                        }
-                    
-                    Text("Payments")
-                        .tabItem {
-                            Label("payment".localize, image: "icon_cart")
-                        }
-                    
-                    Text("Help")
-                        .tabItem {
-                            Label("help".localize, image: "icon_message")
-                        }
-                    
-                    Text("Settings")
-                        .tabItem {
-                            Label("settings".localize, image: "icon_menu_hamburg")
-                        }
-                }
-                .zIndex(0)
+                Text("Transactions")
+                    .tabItem {
+                        Label("transfer".localize, image: "icon_transfer")
+                    }
+                
+                Text("Payments")
+                    .tabItem {
+                        Label("payment".localize, image: "icon_cart")
+                    }
+                
+                Text("Help")
+                    .tabItem {
+                        Label("help".localize, image: "icon_message")
+                    }
+                
+                Text("Settings")
+                    .tabItem {
+                        Label("settings".localize, image: "icon_menu_hamburg")
+                    }
             }
-            .ignoresSafeArea(.keyboard, edges: .bottom)
-            .onAppear {
-                viewModel.onAppear()
+            .zIndex(0)
+            NavigationLink("", isActive: $viewModel.pushSideMenuActions) {
+                viewModel.sideMenuRouter?.screen
             }
+        }
+        .onAppear {
+            Logging.l("On Appear tabview nav")
         }
     }
     
@@ -82,7 +84,7 @@ struct TabBarView: View {
                             viewModel.onEndDragSideMenu(value.predictedEndTranslation)
                         })
                 )
-
+            
             Rectangle()
                 .foregroundColor(Color("background"))
                 .ignoresSafeArea()

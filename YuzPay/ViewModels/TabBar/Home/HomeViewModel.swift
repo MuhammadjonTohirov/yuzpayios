@@ -7,10 +7,43 @@
 
 import Foundation
 import RealmSwift
+import SwiftUI
 
-enum HomeViewRoute {
+enum HomeViewRoute: ScreenRoute {
+    var id: String {
+        switch self {
+        case .notification:
+            return "notif"
+        case .menu:
+            return "menu"
+        case .cards:
+            return "cards"
+        case .addNewCard:
+            return "addNewCard"
+        case .showCardDetails:
+            return "cardDetails"
+        }
+    }
+    
     case menu
     case notification
+    case cards
+    case addNewCard
+    case showCardDetails(id: String)
+    
+    @ViewBuilder
+    var screen: some View {
+        switch self {
+        case .menu, .notification:
+            EmptyView()
+        case .cards:
+            CardsAndWalletsView()
+        case .addNewCard:
+            AddNewCardView()
+        case .showCardDetails(let id):
+            CardDetailsView(cardId: id)
+        }
+    }
 }
 
 protocol HomeViewDelegate: NSObject {
@@ -20,7 +53,7 @@ protocol HomeViewDelegate: NSObject {
 final class HomeViewModel: NSObject, ObservableObject {
     weak var delegate: HomeViewDelegate?
     @Published var searchText: String = ""
-    
+    @Published var router: HomeViewRoute?
     lazy var cardListViewModel: HCardListViewModel = {
         return HCardListViewModel()
     }()
@@ -35,5 +68,13 @@ final class HomeViewModel: NSObject, ObservableObject {
     
     func onNotification() {
         delegate?.homeView(model: self, onClick: .notification)
+    }
+    
+    func onClickAddNewCard() {
+        router = .addNewCard
+    }
+    
+    func onClickCard(withId id: String) {
+        router = .showCardDetails(id: id)
     }
 }

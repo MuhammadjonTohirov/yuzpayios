@@ -11,11 +11,19 @@ import SwiftUIX
 import RealmSwift
 
 struct HomeView: View {
-    @ObservedObject var viewModel: HomeViewModel
+    @EnvironmentObject var viewModel: HomeViewModel
     @State var isEditing: Bool = false
 
     var body: some View {
-        NavigationView {
+        ZStack {
+            NavigationLink(unwrapping: $viewModel.router) { isActive in
+                Logging.l("Is active \(isActive)")
+            } destination: { route in
+                route.wrappedValue.screen
+            } label: {
+                Text("")
+            }
+            
             VStack(spacing: 4) {
                 VStack(alignment: .leading) {
                     navbar
@@ -28,6 +36,7 @@ struct HomeView: View {
                         .padding(.horizontal, Padding.default)
 
                     HCardListView(viewModel: viewModel.cardListViewModel)
+                        .environmentObject(viewModel)
                     
                     InvoiceListView()
                         .padding(.horizontal, Padding.default)
@@ -114,7 +123,7 @@ struct HomeView: View {
 
 struct HomeView_Preview: PreviewProvider {
     static var previews: some View {
-        HomeView(viewModel: HomeViewModel())
+        HomeView()
     }
 }
 

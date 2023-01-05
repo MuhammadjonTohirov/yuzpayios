@@ -8,32 +8,56 @@
 import Foundation
 import SwiftUI
 import RealmSwift
+import SwiftUIX
 
-class TestItem: Object, Identifiable {
-    init(id: ObjectId, name: String) {
-        self.name = name
-        super.init()
-        self.id = id
-    }
+struct TestView: View {
     
-    @Persisted(primaryKey: true) var id: ObjectId
-    @Persisted var name: String
+    @ObservedObject var viewModel: ItemsViewModel = ItemsViewModel()
     
-    override init() {
-        super.init()
+    var body: some View {
+        StackNavigationView {
+            ZStack {
+                NavigationLink("", isActive: $viewModel.show, destination: {
+                    viewModel.route?.screen
+                })
+                .zIndex(0)
+                TabView {
+                    Button("Show destination1") {
+                        viewModel.route = .dest1
+                    }
+                    .tabItem {
+                        Text("GO")
+                    }
+                }
+                .zIndex(2)
+            }
+        }
     }
 }
 
-struct TestView: View {
-    @ObservedResults(TestItem.self, configuration: Realm.config) var items
+enum TestRoute: ScreenRoute {
+    var id: String {
+        switch self {
+        case .dest1:
+            return "dest1"
+        }
+    }
     
-    var body: some View {
-        List {
-            Text("items \(items.count)")
-            Button("Add new") {
-                $items.append(TestItem.init(id: .generate(), name: "GO"))
-            }
-            .buttonStyle(.bordered)
+    case dest1
+    
+    var screen: some View {
+        switch self {
+        case .dest1:
+            return Destination1()
+        }
+    }
+}
+
+class ItemsViewModel: ObservableObject {
+    @Published var show: Bool = false
+    @Published var route: TestRoute? {
+        didSet {
+            show = route != nil
         }
     }
 }
@@ -41,6 +65,6 @@ struct TestView: View {
 
 struct TestView_Preview: PreviewProvider {
     static var previews: some View {
-        TestView()
+        TestView(viewModel: ItemsViewModel())
     }
 }

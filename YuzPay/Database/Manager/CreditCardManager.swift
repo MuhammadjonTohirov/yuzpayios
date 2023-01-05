@@ -19,6 +19,20 @@ final class CreditCardManager: DManager {
         }
     }
     
+    var cards: Results<DCard>? {
+        Realm.new?.objects(DCard.self)
+    }
+    
+    func removeAll() {
+        execute { realm in
+            realm.delete(realm.objects(DCard.self))
+        }
+    }
+    
+    func getCard(withId id: String) -> DCard? {
+        Realm.new?.object(ofType: DCard.self, forPrimaryKey: id)
+    }
+    
     func updateCard(forId id: String, withCard model: CardModel) {
         execute { realm in
             realm.object(ofType: DCard.self, byKey: "id", value: id)?.update(by: model)

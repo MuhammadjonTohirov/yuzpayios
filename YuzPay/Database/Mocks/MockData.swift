@@ -12,8 +12,10 @@ struct MockData {
     static let shared = MockData()
     
     func initMockData() {
+        clearAll()
         createMockCards()
         createPaymentCategories()
+        createTransactions()
     }
     
     func createMockCards() {
@@ -46,5 +48,25 @@ struct MockData {
             .init(id: "4", title: "telephone_service", icon: "icon_phone_2"),
             .init(id: "5", title: "hosting_service", icon: "icon_server")
         )
+    }
+    
+    func createTransactions() {
+        let manager = TransactionsManager()
+        
+        manager.add(
+            .init(id: "123123123", agentName: "Ucell", status: .success, amount: 3000, currency: "sum", dateTime: Date()),
+            .init(id: "123123124", agentName: "Ucell", status: .success, amount: 3200, currency: "sum", dateTime: Date()),
+            .init(id: "123123125", agentName: "Comnet", status: .success, amount: 100000, currency: "sum", dateTime: Date().after(days: 4))
+        )
+    }
+    
+    func removeMockCards() {
+        CreditCardManager.shared.removeAll()
+    }
+    
+    func clearAll() {
+        Realm.new?.trySafeWrite({
+            Realm.new?.deleteAll()
+        })
     }
 }
