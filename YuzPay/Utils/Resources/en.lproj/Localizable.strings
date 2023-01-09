@@ -15,7 +15,7 @@
 "authorization" = "Authorization";
 "next" = "Next";
 "to_select_photo" = "To make a photo";
-"pick_image_from_camera_or_gallery" = "click to camera icon, and get an image from camera or gallery";
+"capture_avatar_from_camera" = "click to camera icon, and get an image from camera or gallery";
 "save" = "Save";
 "exit" = "Exit";
 "payment" = "Payment";
@@ -89,3 +89,7 @@
 "confirm_otp" = "Confirm OTP";
 "setup_pin" = "Set a PIN";
 "confirm_pin" = "Confirm the PIN";
+"bank_name" = "Bank name";
+
+"not_verified" = "Not verified";
+"verified" = "Verified";

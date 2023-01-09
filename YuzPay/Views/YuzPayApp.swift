@@ -18,7 +18,6 @@ struct YuzPayApp: SwiftUI.App {
                 .environment(\.realmConfiguration, Realm.config)
                 .onAppear {
                     print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])
-                    
                 }
         }
     }

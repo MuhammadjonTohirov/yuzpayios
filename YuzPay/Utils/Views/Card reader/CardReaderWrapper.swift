@@ -37,5 +37,6 @@ struct CardReaderWrapper: UIViewControllerRepresentable {
 struct CardReaderWerapper_Previews: PreviewProvider {
     static var previews: some View {
         CardReaderWrapper()
+            .ignoresSafeArea()
     }
 }

@@ -15,7 +15,7 @@
 "authorization" = "Tizimga kirish";
 "next" = "Keyingisi";
 "to_select_photo" = "Fotosurat uchun";
-"pick_image_from_camera_or_gallery" = "kamera belgisiga bosing va kamera yoki galereyadan rasm oling";
+"capture_avatar_from_camera" = "kamera belgisiga bosing va kamera yoki galereyadan rasm oling";
 "save" = "Saqlash";
 "exit" = "Chiqish";
 "payment" = "To'lov";
@@ -89,3 +89,7 @@
 "confirm_otp" = "OTPni tasdiqlang";
 "setup_pin" = "PIN-kod o'rnatish";
 "confirm_pin" = "PIN-kodni tasdiqlang";
+"bank_name" = "Bank nomi";
+
+"not_verified" = "Tasdiqlanmagan";
+"verified" = "Tasdiqlangan";

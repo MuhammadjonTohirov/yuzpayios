@@ -40,4 +40,9 @@ extension View {
     func mont(_ type: UIFont.MontSerrat, size: CGFloat) -> some View {
         return self.font(.mont(type, size: size))
     }
+    
+    func horizontal(alignment: Alignment) -> some View {
+        self
+            .frame(maxWidth: .infinity, alignment: alignment)
+    }
 }

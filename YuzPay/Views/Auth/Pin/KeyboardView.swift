@@ -12,7 +12,7 @@ struct KeyboardView: View {
     let keyboardHeight: CGFloat = 288.f.sh(limit: 0.2)
     @Binding var text: String
     @ObservedObject var viewModel: KeyboardViewModel
-    
+    var onClickLeftBottom: (() -> Void)
     var body: some View {
         GeometryReader { proxy in
             ZStack {
@@ -101,6 +101,7 @@ struct KeyboardView: View {
             switch val {
             case .clear:
                 text = ""
+                onClickLeftBottom()
             case .backSpace:
                 _ = text.popLast()
             default:
@@ -121,11 +122,3 @@ struct KeyboardView: View {
         }
     }
 }
-
-struct KeyboardView_Preview: PreviewProvider {
-    @State static var text: String = ""
-    static var previews: some View {
-        KeyboardView(text: $text, viewModel: .init(type: .withClear))
-    }
-}
-

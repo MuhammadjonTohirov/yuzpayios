@@ -9,37 +9,6 @@ import Foundation
 import SwiftUI
 import SwiftUIX
 
-//enum OrderCardRoute: ScreenRoute {
-//
-//    case selectBank
-//    case selectCardType
-//    case selectPickType
-//    case selectBranch
-//    case insertAddress
-//    case receipt
-//    case paymentStatus
-//
-//    @ViewBuilder
-//    var screen: some View {
-//        switch self {
-//        case .selectBank:
-//            SelectBankBranchView()
-//        case .selectCardType:
-////            Select
-//        case .selectPickType:
-//            <#code#>
-//        case .selectBranch:
-//            <#code#>
-//        case .insertAddress:
-//            <#code#>
-//        case .receipt:
-//            <#code#>
-//        case .paymentStatus:
-//            <#code#>
-//        }
-//    }
-//}
-
 class OrderCardViewModel: ObservableObject {
     var shouldDismiss: Bool = false {
         didSet {
@@ -81,7 +50,7 @@ struct OrderCardView: View {
     
     func title(_ text: String) -> some View {
         Text(text)
-            .font(.mont(.semibold, size: 28))
+            .font(.mont(.semibold, size: 28.f.sh()))
             .padding(.horizontal, Padding.default)
             .padding(.top, Padding.default)
     }
@@ -95,7 +64,7 @@ struct OrderCardView: View {
                     Image("image_anor_bank")
                         .resizable(true)
                         .aspectRatio(contentMode: .fit)
-                        .frame(maxHeight: 24)
+                        .frame(maxHeight: 24.f.sh())
                 }
                 .onTapGesture {
                     viewModel.showCardTypeView = true
@@ -105,14 +74,14 @@ struct OrderCardView: View {
                     Image("image_kapital")
                         .resizable(true)
                         .aspectRatio(contentMode: .fit)
-                        .frame(maxHeight: 20)
+                        .frame(maxHeight: 20.f.sh())
                 }
                 
                 bankCard {
                     Image("image_trastbank")
                         .resizable(true)
                         .aspectRatio(contentMode: .fit)
-                        .frame(maxHeight: 24)
+                        .frame(maxHeight: 24.f.sh())
                 }
             }
             .padding(.horizontal, Padding.default)
@@ -133,11 +102,11 @@ struct OrderCardView: View {
                 
         }
         .font(.mont(.regular, size: 14))
-        .padding(.vertical, 4)
+        .padding(.vertical, 2)
         .foregroundColor(.white.opacity(0.7))
         .padding(.horizontal, Padding.default)
         .background(!isOdd ? .clear : .white.opacity(0.2))
-        .padding(.top, 4)
+        .padding(.top, 3)
     }
 
     @ViewBuilder
@@ -147,17 +116,17 @@ struct OrderCardView: View {
         row(title: "phone_number".localize + ":", detail: "+998 93 585-94-14", isOdd: true)
         
         row(title: "fax".localize + ":", detail: "+998 73 123-55-31")
-            .padding(.bottom, Padding.default)
+            .padding(.bottom, Padding.small)
     }
     
     func bankCard(image: () -> some View) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 2) {
             HStack {
                 image()
                 
                 Spacer()
             }
-            .padding()
+            .padding(Padding.medium)
 
             cardDetails()
         }

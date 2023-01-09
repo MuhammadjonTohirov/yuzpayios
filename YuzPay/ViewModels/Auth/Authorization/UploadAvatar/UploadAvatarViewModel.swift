@@ -37,7 +37,7 @@ enum UploadAvatarRoute: ScreenRoute, Identifiable, Hashable {
 
 final class UploadAvatarViewModel: ObservableObject {
     @Published var showImagePicker = false
-    @Published var showPickerOptions = false
+
     @Published var avatar: UIImage = #imageLiteral(resourceName: "image_avatar_placeholder_2.png")
     
     var route: UploadAvatarRoute? {

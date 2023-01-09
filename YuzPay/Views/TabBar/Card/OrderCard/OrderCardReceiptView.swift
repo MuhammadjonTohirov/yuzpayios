@@ -16,6 +16,9 @@ struct OrderCardReceiptView: View {
     @State var cards: Results<DCard>?
     
     @State var showPaymentStatusView = false
+    
+    private var cardHeight: CGFloat = 120//.f.sh()
+    
     @EnvironmentObject var viewModel: OrderCardViewModel
     var body: some View {
         ZStack {
@@ -49,9 +52,13 @@ struct OrderCardReceiptView: View {
             cardsView
                 .background(Color.secondarySystemBackground)
             
-            FlatButton(title: "Заказать") {
+            FlatButton(title: "Заказать", titleColor: .white) {
                 showPaymentStatusView = true
             }
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .foregroundColor(Color("accent"))
+            )
             .padding()
         }
     }
@@ -60,17 +67,19 @@ struct OrderCardReceiptView: View {
         VStack {
             HStack {
                 Text("Оплата")
-                    .mont(.semibold, size: 21)
+                    .mont(.semibold, size: 21.f.sh())
                 Spacer()
             }
-            .padding(Padding.default)
+            .padding(.horizontal, Padding.default)
+            .padding(.bottom, Padding.small)
+            .padding(.top, Padding.medium)
             
             if let crds = self.cards {
                 cardsView(crds)
                     .overlay {
                         RoundedRectangle(cornerRadius: 16)
                             .stroke()
-                            .foregroundColor(.separator)
+                            .foregroundColor(.separator.opacity(0.2))
                     }
             } else {
                 EmptyView()
@@ -96,18 +105,18 @@ struct OrderCardReceiptView: View {
                 self.selectedId = cards?.item(at: newIndex)?.id ?? ""
             }
         })
-        .frame(width: UIScreen.screen.width - 40)
+        .frame(width: (UIScreen.screen.width - 40).f.sw())
         .mask {
             RoundedRectangle(cornerRadius: 16)
                 .foregroundColor(Color.systemBackground)
-                .frame(height: 120)
+                .frame(height: cardHeight)
         }
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .foregroundColor(Color.systemBackground)
-                .frame(height: 120)
+                .frame(height: cardHeight)
         )
-        .frame(height: 120)
+        .frame(height: cardHeight)
     }
     
     @ViewBuilder
@@ -116,6 +125,7 @@ struct OrderCardReceiptView: View {
             ForEach(cardList) { card in
                 Circle()
                     .stroke()
+                    .foregroundColor(Color.separator)
                     .height(8)
                     .overlay {
                         Circle()
@@ -131,6 +141,7 @@ struct OrderCardReceiptView: View {
         HStack {
             VStack(alignment: .leading, spacing: 0) {
                 card.cardType.whiteIcon
+                    .shadow(color: Color.black.opacity(0.12), radius: 12)
                     .offset(x: -8)
 
                 Spacer()
@@ -174,7 +185,7 @@ struct OrderCardReceiptView: View {
             }
         }
         .padding(Padding.small)
-        .frame(width: UIScreen.screen.width - 40, height: 120)
+        .frame(width: (UIScreen.screen.width - 40).sw(), height: cardHeight)
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .padding(.horizontal, Padding.small)
@@ -189,8 +200,8 @@ struct OrderCardReceiptView: View {
                 Spacer()
                 Text(detais)
             }
-            .padding(.vertical, Padding.small)
-            .padding(.horizontal, Padding.default)
+            .padding(.vertical, Padding.small.sh())
+            .padding(.horizontal, Padding.default.sw())
             
             Divider()
         }
@@ -202,5 +213,6 @@ struct OrderCardReceiptView: View {
 struct OrderCardReceiptView_Previews: PreviewProvider {
     static var previews: some View {
         OrderCardReceiptView()
+            .environmentObject(OrderCardViewModel())
     }
 }

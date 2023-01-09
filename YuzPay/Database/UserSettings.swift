@@ -22,4 +22,7 @@ final public class UserSettings {
     
     @anyWrapper(key: "pincode", defaultValue: nil)
     public var appPin: String?
+    
+    @anyWrapper(key: "isIdentified", defaultValue: false)
+    public var isVerifiedUser: Bool?
 }

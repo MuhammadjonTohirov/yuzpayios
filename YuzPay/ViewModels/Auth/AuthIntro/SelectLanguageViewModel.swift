@@ -8,7 +8,7 @@
 import Foundation
 
 final class SelectLanguageViewModel: ObservableObject {
-    @Published var selectedLanguage: Language = (UserSettings.shared.language ?? .uzbek) {
+    @Published var selectedLanguage: Language = (UserSettings.shared.language ?? .russian) {
         didSet {
             UserSettings.shared.language = selectedLanguage
         }

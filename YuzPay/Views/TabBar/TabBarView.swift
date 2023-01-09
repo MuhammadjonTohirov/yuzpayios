@@ -22,6 +22,7 @@ struct TabBarView: View {
             viewModel.onAppear()
         }
     }
+    
     var innerBody: some View {
         ZStack(alignment: .leading) {
             sideView

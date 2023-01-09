@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct PinCodeView: View {
-    @ObservedObject var viewModel = PinCodeViewModel(title: "setup_pin", reason: .confirm(pin: "12"))
+    @ObservedObject var viewModel = PinCodeViewModel(title: "setup_pin".localize, reason: .confirm(pin: "12"))
     
     let keyboardHeight: CGFloat = 288.f.sh(limit: 0.2)
     
@@ -36,12 +36,17 @@ struct PinCodeView: View {
             .foregroundColor(Color("gray"))
             .padding(Padding.large * 2)
             
-            KeyboardView(text: $viewModel.pin, viewModel: viewModel.keyboardModel)
-                .onChange(of: viewModel.pin) { newValue in
-                    if newValue.count == viewModel.maxCharacters {
-                        viewModel.onEditingPin()
-                    }
+            KeyboardView(text: $viewModel.pin, viewModel: viewModel.keyboardModel) {
+                if viewModel.reason == .login {
+                    UserSettings.shared.appPin = nil
+                    mainRouter?.navigate(to: .auth)
                 }
+            }
+            .onChange(of: viewModel.pin) { newValue in
+                if newValue.count == viewModel.maxCharacters {
+                    viewModel.onEditingPin()
+                }
+            }
             
             if viewModel.reason != .login {
                 HoverButton(title: "Далее", backgroundColor: Color("accent_light_2"), titleColor: .white, isEnabled: viewModel.isButtonEnabled) {
@@ -65,7 +70,7 @@ struct PinCodeView: View {
 
 struct PinCodeView_Preview: PreviewProvider {
     static var previews: some View {
-        PinCodeView()
+        PinCodeView(viewModel: PinCodeViewModel(title: "enter_pin".localize, reason: .login))
     }
 }
 

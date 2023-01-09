@@ -22,6 +22,8 @@ enum SideBarRoute: Hashable, ScreenRoute {
             return "monitoring"
         case .ordercard:
             return "order_card"
+        case .identify:
+            return "identify"
         }
     }
 
@@ -32,7 +34,7 @@ enum SideBarRoute: Hashable, ScreenRoute {
     case cards
     case monitoring
     case ordercard
-    
+    case identify
     @ViewBuilder
     var screen: some View {
         switch self {
@@ -44,7 +46,8 @@ enum SideBarRoute: Hashable, ScreenRoute {
             StackNavigationView {
                 OrderCardView()
             }
-            
+        case .identify:
+            UserIdentificationView()
         }
     }
 }
@@ -122,7 +125,7 @@ extension TabViewModel: HomeViewDelegate, SideBarDelegate {
         case .close:
             hideSideBar()
         case .identify:
-            break
+            sideMenuRouter = .identify
         case .cards:
             sideMenuRouter = .cards
         case .monitoring:

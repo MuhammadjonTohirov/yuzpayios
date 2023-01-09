@@ -115,6 +115,19 @@
 		2E7FE8F429517D8A00D15A4A /* DCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FE8F329517D8900D15A4A /* DCard.swift */; };
 		2E7FE8F7295180F100D15A4A /* CreditCardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FE8F6295180F100D15A4A /* CreditCardManager.swift */; };
 		2E7FE8F9295182A700D15A4A /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FE8F8295182A700D15A4A /* Realm+Extensions.swift */; };
+		2E85AF7B296A89A1009CABC2 /* UserIdentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF7A296A89A1009CABC2 /* UserIdentification.swift */; };
+		2E85AF85296A9D9C009CABC2 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF7E296A9D9C009CABC2 /* CameraPreview.swift */; };
+		2E85AF86296A9D9C009CABC2 /* gesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF80296A9D9C009CABC2 /* gesture.swift */; };
+		2E85AF87296A9D9C009CABC2 /* CameraService+Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF81296A9D9C009CABC2 /* CameraService+Enums.swift */; };
+		2E85AF88296A9D9C009CABC2 /* PhotoCaptureProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF82296A9D9C009CABC2 /* PhotoCaptureProcessor.swift */; };
+		2E85AF89296A9D9C009CABC2 /* ImageResizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF83296A9D9C009CABC2 /* ImageResizer.swift */; };
+		2E85AF8A296A9D9C009CABC2 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF84296A9D9C009CABC2 /* CameraService.swift */; };
+		2E85AF8C296AA1D5009CABC2 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF8B296AA1D5009CABC2 /* CameraView.swift */; };
+		2E85AF8E296B0A57009CABC2 /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF8D296B0A57009CABC2 /* CameraModel.swift */; };
+		2E85AF91296B2C38009CABC2 /* YCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF90296B2C38009CABC2 /* YCamera.swift */; };
+		2E85AF94296B5182009CABC2 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF93296B5182009CABC2 /* NotificationsView.swift */; };
+		2E85AF96296B5192009CABC2 /* NotificationItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF95296B5192009CABC2 /* NotificationItemView.swift */; };
+		2E85AF98296B51C7009CABC2 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF97296B51C7009CABC2 /* NotificationModel.swift */; };
 		2E99438C29419DD300D20795 /* TextFieldProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E99438B29419DD300D20795 /* TextFieldProtocol.swift */; };
 		2E9943902941A8AB00D20795 /* YTextFieldBackgroundGrayStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E99438F2941A8AB00D20795 /* YTextFieldBackgroundGrayStyle.swift */; };
 		2E9943922941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9943912941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift */; };
@@ -354,6 +367,19 @@
 		2E7FE8F329517D8900D15A4A /* DCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCard.swift; sourceTree = "<group>"; };
 		2E7FE8F6295180F100D15A4A /* CreditCardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardManager.swift; sourceTree = "<group>"; };
 		2E7FE8F8295182A700D15A4A /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
+		2E85AF7A296A89A1009CABC2 /* UserIdentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIdentification.swift; sourceTree = "<group>"; };
+		2E85AF7E296A9D9C009CABC2 /* CameraPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		2E85AF80296A9D9C009CABC2 /* gesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gesture.swift; sourceTree = "<group>"; };
+		2E85AF81296A9D9C009CABC2 /* CameraService+Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CameraService+Enums.swift"; sourceTree = "<group>"; };
+		2E85AF82296A9D9C009CABC2 /* PhotoCaptureProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCaptureProcessor.swift; sourceTree = "<group>"; };
+		2E85AF83296A9D9C009CABC2 /* ImageResizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageResizer.swift; sourceTree = "<group>"; };
+		2E85AF84296A9D9C009CABC2 /* CameraService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
+		2E85AF8B296AA1D5009CABC2 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		2E85AF8D296B0A57009CABC2 /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
+		2E85AF90296B2C38009CABC2 /* YCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YCamera.swift; sourceTree = "<group>"; };
+		2E85AF93296B5182009CABC2 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
+		2E85AF95296B5192009CABC2 /* NotificationItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationItemView.swift; sourceTree = "<group>"; };
+		2E85AF97296B51C7009CABC2 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		2E99438B29419DD300D20795 /* TextFieldProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldProtocol.swift; sourceTree = "<group>"; };
 		2E99438F2941A8AB00D20795 /* YTextFieldBackgroundGrayStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTextFieldBackgroundGrayStyle.swift; sourceTree = "<group>"; };
 		2E9943912941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTextFieldBackgroundCleanStyle.swift; sourceTree = "<group>"; };
@@ -777,6 +803,8 @@
 		2E437484294E5F2500F78FEC /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				2E85AF92296B517A009CABC2 /* Notifications */,
+				2E85AF79296A898D009CABC2 /* UserIdentification */,
 				2E4A80E029603BC40032B7FF /* Card */,
 				2E437491294F03B200F78FEC /* SideBarView */,
 				2E43748E294EFAF900F78FEC /* Menu */,
@@ -1007,6 +1035,8 @@
 		2E5F2FB8293E115C00D0C060 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2E85AF8F296B2C2B009CABC2 /* YCamera */,
+				2E85AF7C296A9D9C009CABC2 /* Camera */,
 				2ED87CC02955FEE600E1D477 /* SharkUtils */,
 				2E2CBA982954B46700D7C352 /* Test */,
 				2EC5F0F12946458800BA54E3 /* PropertyWrappers */,
@@ -1123,6 +1153,63 @@
 				2E4A80F42962A16D0032B7FF /* TransactionManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		2E85AF79296A898D009CABC2 /* UserIdentification */ = {
+			isa = PBXGroup;
+			children = (
+				2E85AF7A296A89A1009CABC2 /* UserIdentification.swift */,
+			);
+			path = UserIdentification;
+			sourceTree = "<group>";
+		};
+		2E85AF7C296A9D9C009CABC2 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				2E85AF7D296A9D9C009CABC2 /* View */,
+				2E85AF7F296A9D9C009CABC2 /* Service */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		2E85AF7D296A9D9C009CABC2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2E85AF7E296A9D9C009CABC2 /* CameraPreview.swift */,
+				2E85AF8B296AA1D5009CABC2 /* CameraView.swift */,
+				2E85AF8D296B0A57009CABC2 /* CameraModel.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2E85AF7F296A9D9C009CABC2 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				2E85AF80296A9D9C009CABC2 /* gesture.swift */,
+				2E85AF81296A9D9C009CABC2 /* CameraService+Enums.swift */,
+				2E85AF82296A9D9C009CABC2 /* PhotoCaptureProcessor.swift */,
+				2E85AF83296A9D9C009CABC2 /* ImageResizer.swift */,
+				2E85AF84296A9D9C009CABC2 /* CameraService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		2E85AF8F296B2C2B009CABC2 /* YCamera */ = {
+			isa = PBXGroup;
+			children = (
+				2E85AF90296B2C38009CABC2 /* YCamera.swift */,
+			);
+			path = YCamera;
+			sourceTree = "<group>";
+		};
+		2E85AF92296B517A009CABC2 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				2E85AF93296B5182009CABC2 /* NotificationsView.swift */,
+				2E85AF95296B5192009CABC2 /* NotificationItemView.swift */,
+				2E85AF97296B51C7009CABC2 /* NotificationModel.swift */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		2EB4E44929436E8900F09751 /* SignInType */ = {
@@ -1680,6 +1767,7 @@
 				2E2CBA6D2952EBF000D7C352 /* PaymentCategoryModel.swift in Sources */,
 				2ED87CF02955FEE600E1D477 /* WeakNonOptional.swift in Sources */,
 				2E374FDC294894C70007D146 /* PassportRegisterStepThree.swift in Sources */,
+				2E85AF8E296B0A57009CABC2 /* CameraModel.swift in Sources */,
 				2E4A80EB2961D9C40032B7FF /* TransactionsView.swift in Sources */,
 				2EC5F1012946890600BA54E3 /* PassportRegisterView.swift in Sources */,
 				2ED87CF82955FEE600E1D477 /* CACornerMask.swift in Sources */,
@@ -1690,6 +1778,7 @@
 				2ED87D032955FEE600E1D477 /* ObservableExtensions.swift in Sources */,
 				2EBCA809294160BC00F89E6F /* Padding.swift in Sources */,
 				2E2CBA8429543D7900D7C352 /* PayWithFaceView.swift in Sources */,
+				2E85AF8C296AA1D5009CABC2 /* CameraView.swift in Sources */,
 				2ED87CBA2955EC0100E1D477 /* CardScanner.swift in Sources */,
 				2E437499294F2B9600F78FEC /* SideBarViewModel.swift in Sources */,
 				2ED87CFA2955FEE600E1D477 /* ResultExtensions.swift in Sources */,
@@ -1699,6 +1788,7 @@
 				2ED87CFC2955FEE600E1D477 /* OptionalExtensions.swift in Sources */,
 				2EC5F0D12944EA8000BA54E3 /* YPhoneField.swift in Sources */,
 				2E374FCD2948535C0007D146 /* AuthIntroViewModel.swift in Sources */,
+				2E85AF7B296A89A1009CABC2 /* UserIdentification.swift in Sources */,
 				2E2CBAA02954DF9900D7C352 /* AddNewCardView.swift in Sources */,
 				2E2CBA7E29543C1A00D7C352 /* ScrollableModifier.swift in Sources */,
 				2EC5F10C294737D200BA54E3 /* ResetPasswordStartView.swift in Sources */,
@@ -1726,16 +1816,19 @@
 				2E374FF9294DF19F0007D146 /* PhoneAuthForm.swift in Sources */,
 				2E4374A9294FD76000F78FEC /* KeyboardViewModel.swift in Sources */,
 				2E374FD82948869E0007D146 /* FacePayIntroViewModel.swift in Sources */,
+				2E85AF89296A9D9C009CABC2 /* ImageResizer.swift in Sources */,
 				2E374FF5294DF1240007D146 /* PhoneAuthViewModel.swift in Sources */,
 				2E2CBA792954369500D7C352 /* HCardListViewModel.swift in Sources */,
 				2E4EC1CB29631B8400A7BE81 /* SelectCardDeliveryTypeView.swift in Sources */,
 				2EC5F0FA29465F3800BA54E3 /* Date+Extension.swift in Sources */,
 				2EC5F0F829465DF700BA54E3 /* OtpViewModel.swift in Sources */,
 				2ED87CE72955FEE600E1D477 /* UIStackViewConstructor.swift in Sources */,
+				2E85AF94296B5182009CABC2 /* NotificationsView.swift in Sources */,
 				2E2CBA922954757900D7C352 /* UIApplication+Extensions.swift in Sources */,
 				2ED87CEB2955FEE600E1D477 /* WeakContainable.swift in Sources */,
 				2ED87CF22955FEE600E1D477 /* BasicUIActionHandler.swift in Sources */,
 				2E433A9A2959F5A400D6F1F6 /* AddNewCardViewModel.swift in Sources */,
+				2E85AF96296B5192009CABC2 /* NotificationItemView.swift in Sources */,
 				2ED87CF42955FEE600E1D477 /* Associatable.swift in Sources */,
 				2ED0D8B229441F1B00562A89 /* UIScreen+Extension.swift in Sources */,
 				2E2CBA662952E26200D7C352 /* PaymentServiceManager.swift in Sources */,
@@ -1750,6 +1843,7 @@
 				2ED87D042955FEE600E1D477 /* Observable.swift in Sources */,
 				2E2CBAA22954E0A800D7C352 /* YFormattedField.swift in Sources */,
 				2E4374A7294F886C00F78FEC /* ImagePicker.swift in Sources */,
+				2E85AF86296A9D9C009CABC2 /* gesture.swift in Sources */,
 				2E433AAB295AB0B900D6F1F6 /* CardReaderWrapper.swift in Sources */,
 				2EB4E44B29436E9700F09751 /* SignInTypeView.swift in Sources */,
 				2E433AA9295AAF1400D6F1F6 /* CardReaderViewController.swift in Sources */,
@@ -1772,6 +1866,7 @@
 				2ED87CB52955EC0100E1D477 /* CardScannerExtensions.swift in Sources */,
 				2E4EC1CD29631C5800A7BE81 /* InsertDeliveryDetailsView.swift in Sources */,
 				2E374FD529487B5E0007D146 /* EnvironmentValues+Extensions.swift in Sources */,
+				2E85AF87296A9D9C009CABC2 /* CameraService+Enums.swift in Sources */,
 				2E68021B29522C45008BCB9C /* Logging.swift in Sources */,
 				2E2CBA752954359200D7C352 /* HCardListView.swift in Sources */,
 				2E4374AB294FE54F00F78FEC /* TopLeftDismissModifier.swift in Sources */,
@@ -1779,6 +1874,7 @@
 				2E7FE8F2294FED6A00D15A4A /* LoadingView.swift in Sources */,
 				2E4A80EF2961DA0D0032B7FF /* DTransactionItem.swift in Sources */,
 				2EC5F0D32945B48C00BA54E3 /* YTextFieldBottomInfo.swift in Sources */,
+				2E85AF85296A9D9C009CABC2 /* CameraPreview.swift in Sources */,
 				2ED87CB32955EC0100E1D477 /* CameraAccess.swift in Sources */,
 				2EC5F0F5294645AE00BA54E3 /* AnyWrapper.swift in Sources */,
 				2ED87CE92955FEE600E1D477 /* LayoutGuideSource.swift in Sources */,
@@ -1795,6 +1891,7 @@
 				2EBCA8152941663A00F89E6F /* HoverButton.swift in Sources */,
 				2E4A80E829614EC70032B7FF /* CardLargeView.swift in Sources */,
 				2E6802212952A540008BCB9C /* MockData.swift in Sources */,
+				2E85AF88296A9D9C009CABC2 /* PhotoCaptureProcessor.swift in Sources */,
 				2E1DA6BF29420808007A5F9F /* SignInViewModel.swift in Sources */,
 				2E5F2F8F293E0E6000D0C060 /* YuzPayApp.swift in Sources */,
 				2EC5F0ED294644E700BA54E3 /* Language.swift in Sources */,
@@ -1817,10 +1914,12 @@
 				2E99438C29419DD300D20795 /* TextFieldProtocol.swift in Sources */,
 				2ED87CE82955FEE600E1D477 /* PinningConstraintHelpers.swift in Sources */,
 				2EC5F1052946E4C900BA54E3 /* PassportRegisterStepTwo.swift in Sources */,
+				2E85AF98296B51C7009CABC2 /* NotificationModel.swift in Sources */,
 				2ED87D052955FEE600E1D477 /* ObserverSet.swift in Sources */,
 				2E2CBA682952E29300D7C352 /* DItemProtocol.swift in Sources */,
 				2EBCA80629415A9100F89E6F /* AuthIntroView.swift in Sources */,
 				2E374FEB294D6C9C0007D146 /* AuthSelectLanguage.swift in Sources */,
+				2E85AF91296B2C38009CABC2 /* YCamera.swift in Sources */,
 				2E2CBA8C2954635100D7C352 /* PaymentCategoriesView.swift in Sources */,
 				2E43749F294F411B00F78FEC /* TabViewModel.swift in Sources */,
 				2EBCA8112941645800F89E6F /* Number+Extension.swift in Sources */,
@@ -1836,6 +1935,7 @@
 				2ED87D012955FEE600E1D477 /* ParallelResultRequests.swift in Sources */,
 				2EB4E44E2943731800F09751 /* PinCodeView.swift in Sources */,
 				2E1DA6B62941E6F9007A5F9F /* RectReader.swift in Sources */,
+				2E85AF8A296A9D9C009CABC2 /* CameraService.swift in Sources */,
 				2E68021929522B9D008BCB9C /* DatabaseConfig.swift in Sources */,
 				2EC5F0C329444BD500BA54E3 /* KeyboardView.swift in Sources */,
 				2E9943942941B18B00D20795 /* YTextField+Extension.swift in Sources */,
@@ -1948,7 +2048,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2002,7 +2102,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -2018,18 +2118,23 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = YuzPay/YuzPay.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
-				DEVELOPMENT_TEAM = E2765DH6Y3;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YuzPay/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "YuzApp wants to access camera to scan a credit card";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "YuzApp wants to get current location for get nearby bank branches";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2038,12 +2143,14 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = uz.xcoder.YuzPay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = 100PayDistPP;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -2053,18 +2160,23 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = YuzPay/YuzPay.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
-				DEVELOPMENT_TEAM = E2765DH6Y3;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YuzPay/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "YuzApp wants to access camera to scan a credit card";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "YuzApp wants to get current location for get nearby bank branches";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2073,12 +2185,14 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = uz.xcoder.YuzPay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = 100PayDistPP;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

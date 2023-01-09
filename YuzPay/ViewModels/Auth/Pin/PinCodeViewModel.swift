@@ -46,7 +46,7 @@ enum PinViewRoute: Hashable, ScreenRoute {
     var screen: some View {
         switch self {
         case .confirmWith(let code, let completion):
-            let model: PinCodeViewModel = .init(title: "confirm_pin", reason: .confirm(pin: code))
+            let model: PinCodeViewModel = .init(title: "confirm_pin".localize, reason: .confirm(pin: code))
             model.onResult = completion
             return PinCodeView(viewModel: model)
         }

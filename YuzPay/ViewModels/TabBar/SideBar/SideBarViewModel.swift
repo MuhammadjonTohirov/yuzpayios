@@ -54,7 +54,10 @@ final class SideBarViewModel: ObservableObject {
             delegate?.sideBar(sideBar: self, onClick: .monitoring)
         case .autopayment:
             break
-            
         }
+    }
+    
+    func onClickIdentify() {
+        delegate?.sideBar(sideBar: self, onClick: .identify)
     }
 }

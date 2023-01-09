@@ -10,7 +10,10 @@ import SwiftUI
 
 struct SideBarView: View {
     @ObservedObject var viewModel: SideBarViewModel
-    
+    var isVerifiedUser: Bool {
+        UserSettings.shared.isVerifiedUser ?? false
+    }
+    @State var showIdentifier = false
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Button {
@@ -23,6 +26,9 @@ struct SideBarView: View {
             
             ScrollView {
                 innerBody
+                    .fullScreenCover(isPresented: $showIdentifier) {
+                        UserIdentificationView()
+                    }
             }
             
             Spacer()
@@ -62,14 +68,12 @@ struct SideBarView: View {
                 VStack(alignment: .leading) {
                     Text("+998 93 585 24 15")
                         .font(.mont(.semibold, size: 16))
-                    Text("Профиль не подтверждён")
-                        .font(.mont(.regular, size: 12))
-                        .foregroundColor(Color("accent_light"))
-                    
+
                     Button {
-                        
+                        showIdentifier = true
                     } label: {
-                        Text("Подтвердить")
+                        
+                        Text(isVerifiedUser ? "verified".localize : "not_verified".localize)
                             .font(.mont(.medium, size: 12))
                             .foregroundColor(.white)
                     }
@@ -77,7 +81,7 @@ struct SideBarView: View {
                     .padding(.vertical, 4)
                     .background(
                         RoundedRectangle(cornerRadius: 4)
-                            .foregroundColor(Color("accent"))
+                            .foregroundColor(isVerifiedUser ? Color("accent") : .systemYellow)
                     )
                 }
                 Spacer()

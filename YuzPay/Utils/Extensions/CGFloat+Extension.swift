@@ -14,7 +14,6 @@ extension CGFloat {
     static let designHeight: CGFloat = 898
     
     func width(_ w: CGFloat, limit: CGFloat = 1.2) -> CGFloat {
-        
         ((self / CGFloat.designWidth) * w).limitTop(self * limit)
     }
     
@@ -23,10 +22,10 @@ extension CGFloat {
     }
     
     func sw(limit: CGFloat = 1.2) -> CGFloat {
-        width(UIScreen.screen.width, limit: limit)
+        width(UIScreen.screen.width, limit: limit).limitBottom(self)
     }
     
     func sh(limit: CGFloat = 0.8) -> CGFloat {
-        height(UIScreen.screen.height, limit: limit)
+        height(UIScreen.screen.height, limit: limit).limitTop(self)
     }
 }

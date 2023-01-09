@@ -119,6 +119,9 @@ struct SelectBankBranchView: View {
                         Text(bankItem.workingHoursDetails ?? "")
                             .mont(.medium, size: 10)
                     }
+                    .onTapGesture {
+                        showReceipt = true
+                    }
                     
                     Spacer()
                     
@@ -131,10 +134,9 @@ struct SelectBankBranchView: View {
                         Text("in_map".localize)
                     }
                     .padding(.leading, Padding.medium)
-                }
-                .onTapGesture {
+                }.background(Rectangle().foregroundColor(.clear).onTapGesture {
                     showReceipt = true
-                }
+                })
             }
             .listRowSeparator(.visible, edges: .bottom)
         }

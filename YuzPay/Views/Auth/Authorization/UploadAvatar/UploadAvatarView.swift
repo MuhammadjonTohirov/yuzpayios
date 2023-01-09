@@ -40,10 +40,10 @@ struct UploadAvatarView: View {
                 )
                 .padding(.bottom, 48)
                 .onTapGesture {
-                    self.viewModel.showPickerOptions = true
+                    viewModel.onSelect(pickerOption: .camera)
                 }
             
-            Text("pick_image_from_camera_or_gallery".localize)
+            Text("capture_avatar_from_camera".localize)
                 .font(.mont(.regular, size: 16))
                 .foregroundColor(Color("label_color"))
          
@@ -56,19 +56,7 @@ struct UploadAvatarView: View {
             .padding(.bottom, Padding.medium)
         }
         .multilineTextAlignment(.center)
-        .confirmationDialog("Pick image", isPresented: $viewModel.showPickerOptions, actions: {
-            
-            Button("from_gallery".localize) {
-                viewModel.onSelect(pickerOption: .photoLibrary)
-            }
-            
-            Button("from_camera".localize) {
-                viewModel.onSelect(pickerOption: .camera)
-            }
-        }, message: {
-            Text("Get image from gallery or camera")
-        })
-        
+                
         .fullScreenCover(isPresented: $viewModel.showImagePicker, content: {
             ImagePicker(
                 sourceType: viewModel.sourceType,
