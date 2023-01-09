@@ -88,7 +88,7 @@ struct HomeView: View {
                 .padding(.horizontal, Padding.default)
             
             Button(action: {
-                
+                viewModel.onClickNotification()
             }, label: {
                 Image("icon_bell")
                     .resizable()

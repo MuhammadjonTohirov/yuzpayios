@@ -31,7 +31,7 @@ struct NotificationsView: View {
                 type: .technical)
         }
         .listStyle(.plain)
-        
+        .navigationTitle("notifications".localize)
     }
 }
 

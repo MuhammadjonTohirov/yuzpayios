@@ -81,7 +81,7 @@ struct SideBarView: View {
                     .padding(.vertical, 4)
                     .background(
                         RoundedRectangle(cornerRadius: 4)
-                            .foregroundColor(isVerifiedUser ? Color("accent") : .systemYellow)
+                            .foregroundColor(isVerifiedUser ? Color("accent") : .systemOrange)
                     )
                 }
                 Spacer()

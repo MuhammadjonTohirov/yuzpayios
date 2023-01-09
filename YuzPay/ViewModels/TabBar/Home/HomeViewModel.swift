@@ -34,8 +34,10 @@ enum HomeViewRoute: ScreenRoute {
     @ViewBuilder
     var screen: some View {
         switch self {
-        case .menu, .notification:
+        case .menu:
             EmptyView()
+        case .notification:
+            NotificationsView()
         case .cards:
             CardsAndWalletsView()
         case .addNewCard:
@@ -66,8 +68,8 @@ final class HomeViewModel: NSObject, ObservableObject {
         delegate?.homeView(model: self, onClick: .menu)
     }
     
-    func onNotification() {
-        delegate?.homeView(model: self, onClick: .notification)
+    func onClickNotification() {
+        router = .notification
     }
     
     func onClickAddNewCard() {
