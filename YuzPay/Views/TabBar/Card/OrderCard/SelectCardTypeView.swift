@@ -55,7 +55,7 @@ struct SelectCardTypeView: View {
                 .padding(4)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.secondarySystemBackground)
+                        .stroke(Color.opaqueSeparator)
                         .foregroundColor(.systemBackground)
                 )
             Text(type.name)
@@ -63,8 +63,7 @@ struct SelectCardTypeView: View {
             
             Spacer()
             
-            Image(systemName: "chevron.right")
-                .foregroundColor(.secondaryLabel)
+            RightChevron()
         }
     }
 

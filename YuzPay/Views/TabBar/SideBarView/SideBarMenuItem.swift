@@ -69,10 +69,7 @@ enum SideBarMenuItem: Identifiable {
                 Text(text)
                     .font(.mont(.regular, size: 14))
                 Spacer()
-                Image(systemName: "chevron.right")
-                    .renderingMode(.template)
-                    .resizable()
-                    .frame(width: 5, height: 10)
+                RightChevron()
             }
             .foregroundColor(Color("label_color"))
         }

@@ -33,6 +33,8 @@ enum CardsAndWalletsRoute: Hashable, ScreenRoute {
             return "addCard"
         case .cardDetails:
             return "cardDetails"
+        case .orderCard:
+            return "orderCard"
         }
     }
 
@@ -42,6 +44,7 @@ enum CardsAndWalletsRoute: Hashable, ScreenRoute {
         
     case addCard
     case cardDetails(id: String)
+    case orderCard
     
     @ViewBuilder
     var screen: some View {
@@ -50,6 +53,8 @@ enum CardsAndWalletsRoute: Hashable, ScreenRoute {
             AddNewCardView()
         case .cardDetails(let id):
             CardDetailsView(cardId: id)
+        case .orderCard:
+            OrderCardView()
         }
     }
 }

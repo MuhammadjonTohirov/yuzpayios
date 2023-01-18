@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct SideBarView: View {
+struct SideBarContent: View {
     @ObservedObject var viewModel: SideBarViewModel
     var isVerifiedUser: Bool {
         UserSettings.shared.isVerifiedUser ?? false
@@ -104,7 +104,7 @@ struct SideBarView: View {
 
 struct SideBarView_Preview: PreviewProvider {
     static var previews: some View {
-        SideBarView(viewModel: SideBarViewModel())
+        SideBarContent(viewModel: SideBarViewModel())
     }
 }
 

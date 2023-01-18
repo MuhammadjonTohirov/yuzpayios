@@ -26,15 +26,32 @@ struct TabBarView: View {
     var innerBody: some View {
         ZStack(alignment: .leading) {
             sideView
-                .opacity(viewModel.isSideBarVisible ? 1 : 0)
                 .zIndex(1)
             
             TabView {
-                HomeView()
-                    .environmentObject(viewModel.homeViewModel)
-                    .tabItem {
-                        Label("home".localize, image: "icon_home")
-                    }
+                ZStack {
+                    HomeView()
+                        .environmentObject(viewModel.homeViewModel)
+                    
+                    Rectangle()
+                        .foregroundColor(.systemBackground.opacity(0.01))
+                        .frame(maxWidth: 8)
+                        .ignoresSafeArea(edges: .top)
+                        .fill(alignment: .leading)
+                        .gesture(
+                            DragGesture(minimumDistance: 0)
+                                .onChanged({ value in
+                                    let distance = value.startLocation.x - value.location.x
+                                    viewModel.onDragSideMenu((abs(distance) + -viewModel.sideMenuWidth).limitTop(0))
+                                })
+                                .onEnded({ value in
+                                    viewModel.onEndOpeningSideMenu(value.predictedEndTranslation)
+                                })
+                        )
+                }
+                .tabItem {
+                    Label("home".localize, image: "icon_home")
+                }
                 
                 Text("Transactions")
                     .tabItem {
@@ -46,14 +63,16 @@ struct TabBarView: View {
                         Label("payment".localize, image: "icon_cart")
                     }
                 
-                Text("Help")
+                HelpView()
+                    .navigationTitle("help".localize)
                     .tabItem {
                         Label("help".localize, image: "icon_message")
                     }
                 
-                Text("Settings")
+                SettingsView()
+                    .navigationTitle("settings".localize)
                     .tabItem {
-                        Label("settings".localize, image: "icon_menu_hamburg")
+                        Label("settings".localize, image: "icon_gear")
                     }
             }
             .zIndex(0)
@@ -71,30 +90,33 @@ struct TabBarView: View {
             Rectangle()
                 .foregroundColor(Color("black").opacity(0.5))
                 .ignoresSafeArea()
+                .opacity(Double(1 - abs(viewModel.sideMenuOffset.x) / viewModel.sideMenuWidth))
                 .zIndex(1)
                 .onTapGesture {
                     viewModel.hideSideBar()
                 }
+                
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged({ value in
                             let distance = value.startLocation.x - value.location.x
-                            viewModel.onDragSideMenu(distance)
+                            viewModel.onDragSideMenu(distance.limitBottom(0))
                         })
                         .onEnded({ value in
                             viewModel.onEndDragSideMenu(value.predictedEndTranslation)
                         })
                 )
-            
+                
             Rectangle()
                 .foregroundColor(Color("background"))
                 .ignoresSafeArea()
-                .frame(width: UIScreen.screen.width * 0.8)
+                .frame(width: viewModel.sideMenuWidth)
                 .zIndex(2)
                 .overlay {
-                    SideBarView(viewModel: viewModel.sideViewModel)
+                    SideBarContent(viewModel: viewModel.sideViewModel)
                 }
                 .offset(x: viewModel.sideMenuOffset.x)
+
         }
     }
 }

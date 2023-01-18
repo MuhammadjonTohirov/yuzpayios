@@ -53,8 +53,6 @@ enum SideBarRoute: Hashable, ScreenRoute {
 }
 
 final class TabViewModel: NSObject, ObservableObject {
-    @Published var isSideBarVisible = false
-    
     var homeViewModel: HomeViewModel = HomeViewModel()
     
     var sideViewModel: SideBarViewModel = SideBarViewModel()
@@ -62,6 +60,10 @@ final class TabViewModel: NSObject, ObservableObject {
     @Published var sideMenuOffset: CGPoint = .zero
     
     @Published var pushSideMenuActions: Bool = false
+    
+    var sideMenuWidth: CGFloat {
+        UIScreen.screen.width * 0.8
+    }
     
     var sideMenuRouter: SideBarRoute? {
         didSet  {
@@ -75,7 +77,7 @@ final class TabViewModel: NSObject, ObservableObject {
     func onAppear() {
         homeViewModel.delegate = self
         sideViewModel.delegate = self
-        sideMenuOffset = CGPoint(x: -UIScreen.screen.width * 0.8, y: 0)
+        sideMenuOffset = CGPoint(x: -sideMenuWidth, y: 0)
         
         MockData.shared.initMockData()
     }
@@ -83,27 +85,32 @@ final class TabViewModel: NSObject, ObservableObject {
     func showSideBar() {
         withAnimation(.easeIn(duration: 0.2)) {
             self.sideMenuOffset.x = 0
-            self.isSideBarVisible = true
         }
     }
     
     func hideSideBar() {
-        withAnimation(.easeIn(duration: 0.2)) {
+        withAnimation(.easeOut(duration: 0.2)) {
             self.sideMenuOffset.x = -UIScreen.screen.width * 0.8
-            self.isSideBarVisible = false
         }
     }
     
     func onDragSideMenu(_ value: CGFloat) {
-        self.sideMenuOffset.x = -(value.limitBottom(0))
+        self.sideMenuOffset.x = -abs(value)
     }
     
-    func onEndDragSideMenu(_ predictedEndTransition: CGSize) {
-        print(predictedEndTransition.width, predictedEndTransition.height)
+    func onEndDragSideMenu(_ predictedEndTransition: CGSize) {        
         if abs(predictedEndTransition.width) > 150 {
             hideSideBar()
         } else {
             showSideBar()
+        }
+    }
+    
+    func onEndOpeningSideMenu(_ predictedEndTransition: CGSize) {
+        if abs(predictedEndTransition.width) >= 150 {
+            showSideBar()
+        } else {
+            hideSideBar()
         }
     }
 }
@@ -130,8 +137,6 @@ extension TabViewModel: HomeViewDelegate, SideBarDelegate {
             sideMenuRouter = .cards
         case .monitoring:
             sideMenuRouter = .monitoring
-        case .orderCard:
-            sideMenuRouter = .ordercard
         }
     }
 }

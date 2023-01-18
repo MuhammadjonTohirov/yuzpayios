@@ -12,7 +12,8 @@ import RealmSwift
 struct CardsAndWalletsView: View {
     @State private var selectedId: String = "0"
     @StateObject var viewModel: CardsAndWalletsViewModel = CardsAndWalletsViewModel()
-        
+    @State var cardTypesMenu: Bool = false
+    
     var body: some View {
         ZStack {
             NavigationLink("", isActive: $viewModel.pushNavigation) {
@@ -56,7 +57,7 @@ struct CardsAndWalletsView: View {
                             leftIcon: Image(systemName: "plus.circle.fill"),
                             backgroundColor: Color("accent_light"),
                             titleColor: .white) {
-                    self.viewModel.route = .addCard
+                    cardTypesMenu = true
                 }
                 .padding(.horizontal, Padding.default)
                 
@@ -66,6 +67,29 @@ struct CardsAndWalletsView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("my_cards".localize)
+            
+            BottomSheetView(isOpen: $cardTypesMenu, maxHeight: 284) {
+                VStack(spacing: 16) {
+                    FlatButton(title: "Add", borderColor: .clear) {
+                        self.cardTypesMenu = false
+                        
+                        self.viewModel.route = .addCard
+                    }
+                    
+                    FlatButton(title: "Order a Card", borderColor: .clear) {
+                        self.cardTypesMenu = false
+                        
+                        self.viewModel.route = .orderCard
+                    }
+                    
+                    FlatButton(title: "Virtual Card", borderColor: .clear) {
+                        
+                    }
+                }
+                .padding(.horizontal, Padding.large)
+                .mont(.semibold, size: 16)
+            }
+            .ignoresSafeArea(edges: .bottom)
         }
         .onDisappear {
             print("Disappear cards and wallets")

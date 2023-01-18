@@ -13,7 +13,6 @@ enum SideMenuItem {
     case identify
     case cards
     case monitoring
-    case orderCard
 }
 
 protocol SideBarDelegate: NSObject {
@@ -26,10 +25,8 @@ final class SideBarViewModel: ObservableObject {
         .payment,
         .transfer,
         .cardsAndWallets,
-        .orderCard,
         .issuedInvoices,
-        .monitoring,
-        .autopayment
+        .monitoring
     ]
     
     weak var delegate: SideBarDelegate?
@@ -46,9 +43,7 @@ final class SideBarViewModel: ObservableObject {
             break
         case .cardsAndWallets:
             delegate?.sideBar(sideBar: self, onClick: .cards)
-        case .orderCard:
-            delegate?.sideBar(sideBar: self, onClick: .orderCard)
-        case .issuedInvoices:
+        case .issuedInvoices, .orderCard:
             break
         case .monitoring:
             delegate?.sideBar(sideBar: self, onClick: .monitoring)
