@@ -53,12 +53,12 @@ struct TabBarView: View {
                     Label("home".localize, image: "icon_home")
                 }
                 
-                Text("Transactions")
+                TransferTypesView()
                     .tabItem {
                         Label("transfer".localize, image: "icon_transfer")
                     }
                 
-                Text("Payments")
+                MerchantsView()
                     .tabItem {
                         Label("payment".localize, image: "icon_cart")
                     }

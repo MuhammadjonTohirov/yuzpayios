@@ -95,3 +95,35 @@
 "verified" = "Подтверждено";
 
 "notifications" = "Уведомления";
+
+"transfer_to_card" = "Перевод на карту";
+"transfer_to_me" = "Перевести на себя";
+"exchange" = "Обмен";
+"transfer_international" = "Международная транзакция";
+"select_receiver_card" = "Выберите карту получателя";
+
+"language" = "Язык";
+
+"change_pin" = "Изменить PIN-код";
+
+"delete_account" = "Удалить аккаунт";
+
+"mobile" = "Мобильный";
+
+"internet" = "Интернет";
+
+"see_all" = "Все";
+
+"collapse" = "Cвернуть";
+
+"amount" = "Cумма";
+
+"note" = "Примечание";
+
+"send" = "Отправить";
+
+"payments" = "Платежи";
+
+"card_number" = "Номер карты";
+
+"pay" = "Платить";

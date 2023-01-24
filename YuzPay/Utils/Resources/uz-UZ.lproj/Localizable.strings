@@ -95,3 +95,34 @@
 "verified" = "Tasdiqlangan";
 
 "notifications" = "Habarlar";
+
+"transfer_to_card" = "Kartaga o'tkazma";
+"transfer_to_me" = "O'zimga o'tkazma";
+"exchange" = "Ayriboshlash";
+"select_receiver_card" = "Qabul qiluvchi kartani tanlang";
+
+"language" = "Til";
+
+"change_pin" = "PIN-kodni o'zgartirish";
+
+"delete_account" = "Hisobni o'chirish";
+
+"mobile" = "Mobil";
+
+"internet" = "Internet";
+
+"see_all" = "Barchasi";
+
+"collapse" = "Yig'ish";
+
+"amount" = "Summa";
+
+"note" = "Izoh";
+
+"send" = "Yuborish";
+
+"payments" = "To'lovlar";
+
+"card_number" = "Karta raqami";
+
+"pay" = "To'lash";

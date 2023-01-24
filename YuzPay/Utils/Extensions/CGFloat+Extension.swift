@@ -22,10 +22,10 @@ extension CGFloat {
     }
     
     func sw(limit: CGFloat = 1.2) -> CGFloat {
-        width(UIScreen.screen.width, limit: limit).limitBottom(self)
+        width(375, limit: limit).limitBottom(self)
     }
     
     func sh(limit: CGFloat = 0.8) -> CGFloat {
-        height(UIScreen.screen.height, limit: limit).limitTop(self)
+        height(812, limit: limit).limitTop(self)
     }
 }

@@ -95,3 +95,35 @@
 "verified" = "Verified";
 
 "notifications" = "Notifications";
+
+"transfer_to_card" = "Transfer to card";
+"transfer_to_me" = "Transfer to myself";
+"exchange" = "Exchange";
+"transfer_international" = "International transaction";
+"select_receiver_card" = "Select receiver card";
+
+"language" = "Language";
+
+"change_pin" = "Change PIN code";
+
+"delete_account" = "Delete account";
+
+"mobile" = "Mobile";
+
+"internet" = "Internet";
+
+"see_all" = "See all";
+
+"collapse" = "Collapse";
+
+"amount" = "Amount";
+
+"note" = "Note";
+
+"send" = "Send";
+
+"payments" = "Payments";
+
+"card_number" = "Card number";
+
+"pay" = "Pay";

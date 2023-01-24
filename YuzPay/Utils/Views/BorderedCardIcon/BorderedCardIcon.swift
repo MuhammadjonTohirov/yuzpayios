@@ -20,6 +20,7 @@ struct BorderedCardIcon: View {
                     .padding(4)
                     .frame(width: 32, height: 32)
             }
+            .padding(2)
     }
 }
 

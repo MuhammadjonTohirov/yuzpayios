@@ -22,29 +22,13 @@ struct SavedPaymentsView: View {
             .padding(.horizontal, Padding.default)
             
             HStack(spacing: 10) {
-                listItem(icon: "image_mobiuz", title: "Mobi uz")
-                listItem(icon: "image_clouds", title: "Cloud")
-                listItem(icon: "image_sarkor_telecom", title: "Sarkor telecom")
+                MerchantItemView(icon: "image_mobiuz", title: "Mobi uz")
+                MerchantItemView(icon: "image_clouds", title: "Cloud")
+                MerchantItemView(icon: "image_sarkor_telecom", title: "Sarkor telecom")
             }
             .padding(.horizontal, Padding.default)
             .scrollable(axis: .horizontal)
         }
-    }
-    
-    func listItem(icon: String, title: String) -> some View {
-        VStack {
-            Image(icon)
-                .resizable()
-                .frame(width: 60.f.sw(), height: 60.f.sw())
-
-            Text(title)
-                .padding(.horizontal, Padding.small)
-                .padding(.bottom, Padding.medium)
-                .font(.mont(.regular, size: 12))
-        }
-        .frame(width: 100.f.sw(), height: 100.f.sw())
-        .background(Color.secondarySystemBackground)
-        .cornerRadius(16, style: .circular)
     }
 }
 

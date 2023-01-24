@@ -13,6 +13,7 @@ struct RowButton: View {
     var details: String? = nil
     var onClick: () -> Void
     var accessoryIcon: (() -> AnyView)? = nil
+    
     var body: some View {
         Button {
             onClick()
@@ -20,6 +21,7 @@ struct RowButton: View {
             innerBody
         }
     }
+    
     var innerBody: some View {
         HStack(spacing: Padding.small.sw()) {
             Rectangle()
@@ -28,7 +30,7 @@ struct RowButton: View {
                     icon
                         .renderingMode(.template)
                         .resizable(true)
-                        .foregroundColor(Color.tertiaryLabel)
+                        .foregroundColor(Color(uiColor: .label))
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 20, alignment: .center)
                 }
@@ -37,6 +39,7 @@ struct RowButton: View {
             
             Text(text)
                 .mont(.regular, size: 14)
+                .foregroundColor(Color(uiColor: .label))
             
             Spacer()
             

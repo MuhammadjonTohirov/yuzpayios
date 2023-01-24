@@ -55,8 +55,12 @@ struct MobilePaymentView: View {
             }
             
             ToolbarItem(placement: .keyboard) {
-                Button("done".localize) {
+                Button {
                     UIApplication.shared.endEditing()
+                    
+                } label: {
+                    Image(systemName: "keyboard.chevron.compact.down")
+                    
                 }
             }
         }

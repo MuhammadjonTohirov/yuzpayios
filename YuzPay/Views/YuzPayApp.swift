@@ -22,3 +22,13 @@ struct YuzPayApp: SwiftUI.App {
         }
     }
 }
+
+struct YuzPayApp_Preview: PreviewProvider {
+    static var previews: some View {
+        MainView(viewModel: MainViewModel(route: .pin))
+            .environment(\.realmConfiguration, Realm.config)
+            .onAppear {
+                print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])
+            }
+    }
+}

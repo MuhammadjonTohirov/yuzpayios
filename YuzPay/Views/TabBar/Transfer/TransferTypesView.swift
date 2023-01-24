@@ -8,36 +8,50 @@
 import SwiftUI
 
 struct TransferTypesView: View {
+    @ObservedObject var viewModel: TransferViewModel = TransferViewModel()
+    
     var body: some View {
-        VStack {
-            Text("Transfer")
-                .font(.system(size: 16), weight: .semibold)
-                .padding()
-            RowButton(icon: Image("icon_card"), text: "transfer_to_card".localize) {
-                
-            } accessoryIcon: {
-                AnyView(RightChevron())
-            }
-            RowButton(icon: Image("icon_wallet"), text: "transfer_to_wallet".localize) {
-                
-            } accessoryIcon: {
-                AnyView(RightChevron())
-            }
-            RowButton(icon: Image("icon_account_card"), text: "transfer_to_account".localize) {
-                
-            } accessoryIcon: {
-                AnyView(RightChevron())
+        ZStack {
+            NavigationLink("", isActive: $viewModel.showPage) {
+                self.viewModel.route?.screen
+                    .environmentObject(self.viewModel)
             }
             
-            Spacer()
+            VStack {
+                Text("transfer".localize)
+                    .font(.system(size: 16), weight: .semibold)
+                    .padding()
+                
+                TransferType.transferToOther.rowButton {
+                    viewModel.route = .transferToOther
+                }
+                
+                TransferType.transferToMe.rowButton {
+                    viewModel.route = .transferToMe
+                }
+                
+                TransferType.exchange.rowButton {
+                    viewModel.route = .exchange
+                }
+                
+                TransferType.transferInternational.rowButton {
+                    viewModel.route = .transferInternational
+                }
+                
+                Spacer()
+            }
+            .padding(.horizontal, Padding.default)
         }
-        .padding(.horizontal, Padding.default)
-        
+        .onAppear {
+            viewModel.onAppear()
+        }
     }
 }
 
 struct TransferTypesView_Previews: PreviewProvider {
     static var previews: some View {
-        TransferTypesView()
+        NavigationView {
+            TransferTypesView()
+        }
     }
 }

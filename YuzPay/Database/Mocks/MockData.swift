@@ -14,8 +14,8 @@ struct MockData {
     func initMockData() {
         clearAll()
         createMockCards()
-        createPaymentCategories()
         createTransactions()
+        createMerchants()
     }
     
     func createMockCards() {
@@ -39,14 +39,17 @@ struct MockData {
         
     }
     
-    func createPaymentCategories() {
-        PaymentCategoryManager.init().add(
-            .init(id: "0", title: "famous", icon: "icon_star"),
-            .init(id: "1", title: "mobile_service", icon: "icon_smartphone"),
-            .init(id: "2", title: "mobile_service", icon: "icon_wifi"),
-            .init(id: "3", title: "tv_service", icon: "icon_tv"),
-            .init(id: "4", title: "telephone_service", icon: "icon_phone_2"),
-            .init(id: "5", title: "hosting_service", icon: "icon_server")
+    func createMerchants() {
+        let manager = MerchantManager()
+        manager.add(
+            .init(id: "0", title: "Ucell", icon: "image_ucell", type: "mobile"),
+            .init(id: "0_1", title: "Mobi uz", icon: "image_mobiuz", type: "mobile"),
+            .init(id: "0_2", title: "Mobi uz 1", icon: "image_mobiuz", type: "mobile"),
+            .init(id: "0_3", title: "Mobi uz 2", icon: "image_mobiuz", type: "mobile"),
+            .init(id: "0_4", title: "Mobi uz 3", icon: "image_mobiuz", type: "mobile"),
+            .init(id: "0_5", title: "Mobi uz 4", icon: "image_mobiuz", type: "mobile"),
+            .init(id: "1", title: "Clouds", icon: "image_clouds", type: "internet"),
+            .init(id: "1_1", title: "Sarkor telecom", icon: "image_sarkor_telecom", type: "internet")
         )
     }
     

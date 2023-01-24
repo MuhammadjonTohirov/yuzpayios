@@ -42,7 +42,7 @@ struct TransactionsView: View {
                     .ignoresSafeArea()
             )
                 
-            ForEach(sections) { section in
+            ForEach(sections.filter("items.@count > %d", 0)) { section in
                 sectionBar(section)
                     .padding(.top, Padding.small)
                     .background(RoundedRectangle(cornerRadius: 16).foregroundColor(Color.systemBackground))
@@ -58,7 +58,11 @@ struct TransactionsView: View {
     
     func sectionBar(_ section: DTransactionSection) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            sectionView(title: section.title)
+            HStack {
+                sectionView(title: section.title)
+                Spacer()
+            }
+            .padding(.vertical, Padding.small)
 
             ForEach(section.items) { item in
                 rowItem(item)
@@ -70,7 +74,7 @@ struct TransactionsView: View {
                 }
             }
         }
-        .padding(.top, Padding.small)
+
     }
     
     func rowItem(_ item: DTransactionItem) -> some View {

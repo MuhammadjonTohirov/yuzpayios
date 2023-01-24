@@ -22,7 +22,7 @@ struct YTextField: View, TextFieldProtocol {
     var haveTitle: Bool = false
     
     private var font: Font = {
-        return .mont(.medium, size: 16)
+        return .mont(.medium, size: 14)
     }()
     
     private var contentType: UITextContentType = .name
@@ -35,7 +35,7 @@ struct YTextField: View, TextFieldProtocol {
     
     @State private var hintOpacity: Double = 0
     @State private var zStackAlignment: Alignment = .leading
-    @State private var hintFontSize: CGFloat = 16
+    @State private var hintFontSize: CGFloat = 13
     @State private var hintColor: Color = Color("dark_gray")
     private var placeholderAlignment: Alignment = .leading
     private var topupHintColor: Color = Color("dark_gray")
@@ -47,7 +47,7 @@ struct YTextField: View, TextFieldProtocol {
         text: Binding<String>,
         placeholder: String,
         isSecure: Bool = false,
-        contentType: UITextContentType = .name,
+        contentType: UITextContentType = .nickname,
         autoCapitalization: TextInputAutocapitalization = .sentences,
         left: (() -> any View)? = nil,
         right: (() -> any View)? = nil,
