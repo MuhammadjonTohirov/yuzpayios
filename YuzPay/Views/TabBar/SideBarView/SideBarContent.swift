@@ -39,11 +39,11 @@ struct SideBarContent: View {
                 
                 ZStack {
                     HStack {
-                        Image(systemName: "gear")
+                        Image(systemName: "power")
                             .renderingMode(.template)
                         Spacer()
                     }
-                    Text("settings".localize)
+                    Text("logout".localize)
                         .font(.mont(.regular, size: 14))
                 }
                 .foregroundColor(Color("dark_gray"))
