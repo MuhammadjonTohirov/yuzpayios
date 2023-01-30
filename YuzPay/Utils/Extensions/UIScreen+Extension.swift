@@ -10,6 +10,6 @@ import UIKit
 
 extension UIScreen {
     static var screen: CGRect {
-        return UIApplication.shared.connectedScenes.first(where: {$0.activationState == .foregroundActive}).flatMap({$0 as? UIWindowScene})?.windows.first(where: {$0.isKeyWindow})?.bounds ?? .zero
+        return UIApplication.shared.firstKeyWindow?.screen.bounds ?? .zero
     }
 }

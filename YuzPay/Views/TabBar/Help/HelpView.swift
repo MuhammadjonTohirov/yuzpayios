@@ -71,7 +71,7 @@ struct HelpView: View {
                     .height(40)
                     .lineLimit(2)
                     
-                Text(item.date.formatted(date: .numeric, time: .shortened))
+                Text(item.date.toExtendedString(format: "dd.mm.YYYY"))
                     .mont(.regular, size: 12)
                     .foregroundColor(.secondaryLabel)
             }

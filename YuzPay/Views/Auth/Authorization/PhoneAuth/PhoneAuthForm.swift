@@ -13,7 +13,7 @@ struct PhoneAuthForm: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            YPhoneField(text: $viewModel.phoneNumber, placeholder: "login", left: {
+            YPhoneField(text: $viewModel.phoneNumber, placeholder: "login".localize, left: {
                 HStack {
                     Text("+998")
                         .font(.mont(.medium, size: 16))

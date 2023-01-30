@@ -13,6 +13,8 @@ enum SideMenuItem {
     case identify
     case cards
     case monitoring
+    case payment
+    case transfer
 }
 
 protocol SideBarDelegate: NSObject {
@@ -38,17 +40,15 @@ final class SideBarViewModel: ObservableObject {
     func onClick(menu: SideBarMenuItem) {
         switch menu {
         case .payment:
-            break
+            delegate?.sideBar(sideBar: self, onClick: .payment)
         case .transfer:
-            break
+            delegate?.sideBar(sideBar: self, onClick: .transfer)
         case .cardsAndWallets:
             delegate?.sideBar(sideBar: self, onClick: .cards)
-        case .issuedInvoices, .orderCard:
+        case .issuedInvoices, .orderCard, .autopayment:
             break
         case .monitoring:
             delegate?.sideBar(sideBar: self, onClick: .monitoring)
-        case .autopayment:
-            break
         }
     }
     

@@ -61,6 +61,8 @@ final class TabViewModel: NSObject, ObservableObject {
     
     @Published var pushSideMenuActions: Bool = false
     
+    @Published var selectedTab: Int = 0
+    
     var sideMenuWidth: CGFloat {
         UIScreen.screen.width * 0.8
     }
@@ -137,6 +139,12 @@ extension TabViewModel: HomeViewDelegate, SideBarDelegate {
             sideMenuRouter = .cards
         case .monitoring:
             sideMenuRouter = .monitoring
+        case .payment:
+            hideSideBar()
+            selectedTab = 2
+        case .transfer:
+            hideSideBar()
+            selectedTab = 1
         }
     }
 }

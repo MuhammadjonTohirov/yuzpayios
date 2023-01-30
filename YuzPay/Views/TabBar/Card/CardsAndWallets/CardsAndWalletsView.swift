@@ -70,19 +70,19 @@ struct CardsAndWalletsView: View {
             
             BottomSheetView(isOpen: $cardTypesMenu, maxHeight: 284) {
                 VStack(spacing: 16) {
-                    FlatButton(title: "Add", borderColor: .clear) {
+                    FlatButton(title: "add".localize, borderColor: .clear) {
                         self.cardTypesMenu = false
                         
                         self.viewModel.route = .addCard
                     }
                     
-                    FlatButton(title: "Order a Card", borderColor: .clear) {
+                    FlatButton(title: "order_card".localize, borderColor: .clear) {
                         self.cardTypesMenu = false
                         
                         self.viewModel.route = .orderCard
                     }
                     
-                    FlatButton(title: "Virtual Card", borderColor: .clear) {
+                    FlatButton(title: "virtual_card".localize, borderColor: .clear) {
                         
                     }
                 }

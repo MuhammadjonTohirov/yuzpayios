@@ -84,9 +84,13 @@ class PinCodeViewModel: ObservableObject {
         
         if isFilled {
             if pin == UserSettings.shared.appPin {
-                mainRouter?.navigate(to: .main)
+                onSuccessLogin()
             }
         }
+    }
+    
+    func onSuccessLogin() {
+        mainRouter?.navigate(to: .main)
     }
     
     func onClickNext() {

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import LocalAuthentication
 
 
 struct PinCodeView: View {
@@ -59,12 +60,39 @@ struct PinCodeView: View {
         .fullScreenCover(unwrapping: $viewModel.route) { dest in
             dest.wrappedValue.screen
         }
+        .onAppear {
+            if viewModel.reason == .login {
+                authenticate()
+            }
+        }
     }
     
-    func pinItem(_ id: Int) -> some View {
+    private func pinItem(_ id: Int) -> some View {
         Circle()
             .frame(width: 20.f.sh(limit: 0.2))
             .foregroundColor(id >= viewModel.pin.count ? Color("gray") : Color("accent_light_2"))
+    }
+    
+    private func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+
+        // check whether biometric authentication is possible
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            // it's possible, so go ahead and use it
+            let reason = "login_with_biometric_id".localize
+
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
+                // authentication has now completed
+                if success {
+                    viewModel.onSuccessLogin()
+                } else {
+                    // there was a problem
+                }
+            }
+        } else {
+            // no biometrics
+        }
     }
 }
 

@@ -18,7 +18,7 @@ struct FAQDetailsView: View {
                 .mont(.regular, size: 14)
                 .foregroundColor(.secondaryLabel)
                 
-            Text(item.date.formatted(date: .numeric, time: .shortened))
+            Text(item.date.toExtendedString(format: "dd.mm.YYYY"))
                 .mont(.regular, size: 12)
                 .foregroundColor(.secondaryLabel)
                 .padding(.top, Padding.medium)

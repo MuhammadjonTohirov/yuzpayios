@@ -68,33 +68,39 @@ struct HomeView: View {
     }
     
     var navbar: some View {
-        HStack(spacing: 0) {
-            Button(action: {
-                self.viewModel.onClickMenu()
-            }, label: {
-                Image("icon_menu_hamburg")
-                    .resizable()
-                    .frame(width: 20, height: 20)
-            })
-            
-            YTextField(text: $viewModel.searchText, placeholder: "Search")
-                .set(font: .mont(.medium, size: 14))
-                .padding(.horizontal, Padding.default)
-                .frame(height: 40)
-                .background(
-                    RoundedRectangle(cornerRadius: 8)
-                        .foregroundColor(Color("gray_light"))
-                )
-                .padding(.horizontal, Padding.default)
-            
-            Button(action: {
-                viewModel.onClickNotification()
-            }, label: {
-                Image("icon_bell")
-                    .resizable()
-                    .frame(width: 20, height: 20)
+        ZStack {
+            HStack(spacing: 0) {
+                Button(action: {
+                    self.viewModel.onClickMenu()
+                }, label: {
+                    Image("icon_menu_hamburg")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                })
                 
-            })
+                Spacer()
+                
+                Button(action: {
+                    viewModel.onClickNotification()
+                }, label: {
+                    Image("icon_bell")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .overlay(alignment: .topTrailing) {
+                            Circle()
+                                .offset(x: 4, y: -4)
+                                .frame(width: 12, height: 12)
+                                .foregroundColor(.systemRed)
+                            
+                        }
+
+                })
+            }
+            
+            Text("home".localize)
+                .font(.system(size: 16), weight: .semibold)
+                .padding()
+
         }
     }
     
@@ -124,6 +130,7 @@ struct HomeView: View {
 struct HomeView_Preview: PreviewProvider {
     static var previews: some View {
         HomeView()
+            .environmentObject(HomeViewModel())
     }
 }
 

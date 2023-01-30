@@ -12,15 +12,21 @@ import SwiftUI
 struct TabBarView: View {
     
     @StateObject var viewModel = TabViewModel()
-    
+    @State var size: CGRect = .zero
     var body: some View {
         StackNavigationView {
-            innerBody
-                .navigationBarTitleDisplayMode(.inline) 
+            if size == .zero {
+                EmptyView()
+            } else {
+                innerBody
+                    .navigationBarTitleDisplayMode(.inline)
+                    .onAppear {
+                        viewModel.onAppear()
+                    }
+            }
         }
-        .onAppear {
-            viewModel.onAppear()
-        }
+
+        .readSize($size)
     }
     
     var innerBody: some View {
@@ -28,7 +34,7 @@ struct TabBarView: View {
             sideView
                 .zIndex(1)
             
-            TabView {
+            TabView(selection: $viewModel.selectedTab) {
                 ZStack {
                     HomeView()
                         .environmentObject(viewModel.homeViewModel)
@@ -52,28 +58,32 @@ struct TabBarView: View {
                 .tabItem {
                     Label("home".localize, image: "icon_home")
                 }
-                
+                .tag(0)
+
                 TransferTypesView()
                     .tabItem {
                         Label("transfer".localize, image: "icon_transfer")
                     }
-                
+                    .tag(1)
                 MerchantsView()
                     .tabItem {
                         Label("payment".localize, image: "icon_cart")
                     }
-                
+                    .tag(2)
+
                 HelpView()
                     .navigationTitle("help".localize)
                     .tabItem {
                         Label("help".localize, image: "icon_message")
                     }
-                
+                    .tag(3)
+
                 SettingsView()
                     .navigationTitle("settings".localize)
                     .tabItem {
                         Label("settings".localize, image: "icon_gear")
                     }
+                    .tag(4)
             }
             .zIndex(0)
             NavigationLink("", isActive: $viewModel.pushSideMenuActions) {

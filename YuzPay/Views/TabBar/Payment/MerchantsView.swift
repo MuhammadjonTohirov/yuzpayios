@@ -37,7 +37,9 @@ struct MerchantsView: View {
     @State private var showPaymentView: Bool = false
     
     @State private var selectedMerchant: DMerchant?
-
+    
+    @FocusState private var focusedSearchField: Bool
+    
     var innerBody: some View {
         GeometryReader { proxy in
             Group {
@@ -155,55 +157,56 @@ struct MerchantsView: View {
     
     var navigationView: some View {
         ZStack {
-            if isSearching {
-                YTextField(text: $searchText, placeholder: "Search")
-                    .set(font: .mont(.medium, size: 14))
-                    .padding(.horizontal, Padding.default)
-                    .frame(height: 40)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .foregroundColor(Color("gray_light"))
-                    )
-                    .padding(.horizontal, Padding.default)
-                    .padding(.trailing, 32)
-                    .transition(.asymmetric(
-                        insertion: .move(edge: .top).combined(with: .opacity),
-                        removal: .move(edge: .bottom).combined(with: .opacity))
-                    )
-            } else {
-                Text("payments".localize)
-                    .font(.system(size: 16), weight: .semibold)
-                    .padding()
-                    .transition(.asymmetric(
-                        insertion: .move(edge: .top).combined(with: .opacity),
-                        removal: .move(edge: .bottom).combined(with: .opacity))
-                    )
+            Group {
+                if isSearching {
+                    YTextField(text: $searchText, placeholder: "Search")
+                        .set(font: .mont(.medium, size: 14))
+                        .focused($focusedSearchField)
+                        .padding(.horizontal, Padding.default)
+                        .frame(height: 40)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .foregroundColor(Color("gray_light"))
+                        )
+                        .padding(.horizontal, Padding.default)
+                        .padding(.trailing, 32)
+                    
+                    
+                } else {
+                    Text("payments".localize)
+                        .font(.system(size: 16), weight: .semibold)
+                        .padding()
+                }
             }
+            .transition(.asymmetric(
+                insertion: .move(edge: .top).combined(with: .opacity),
+                removal: .move(edge: .bottom).combined(with: .opacity))
+            )
             
             Button {
                 withAnimation {
                     isSearching.toggle()
-                    
+
+                    focusedSearchField = isSearching
+
                     if !isSearching {
                         searchText = ""
                     }
                 }
             } label: {
-                if isSearching {
-                    Image(systemName: isSearching ? "x.circle" : "magnifyingglass")
-                        .padding(.trailing, Padding.default)
-                        .transition(.asymmetric(
-                            insertion: .move(edge: .top).combined(with: .opacity),
-                            removal: .move(edge: .bottom).combined(with: .opacity))
-                        )
-                } else {
-                    Image(systemName: isSearching ? "x.circle" : "magnifyingglass")
-                        .padding(.trailing, Padding.default)
-                        .transition(.asymmetric(
-                            insertion: .move(edge: .top).combined(with: .opacity),
-                            removal: .move(edge: .bottom).combined(with: .opacity))
-                        )
+                Group {
+                    if isSearching {
+                        Image(systemName: "x.circle")
+                    } else {
+                        Image(systemName: "magnifyingglass")
+                    }
                 }
+                .padding(.trailing, Padding.large)
+                .transition(.asymmetric(
+                    insertion: .move(edge: .top).combined(with: .opacity),
+                    removal: .move(edge: .bottom).combined(with: .opacity))
+                )
+
             }
             .frame(width: 24, height: 24)
             .horizontal(alignment: .trailing)

@@ -27,11 +27,6 @@ struct AuthSelectLanguage: View {
             VStack(spacing: Padding.medium) {
                 Spacer()
                 
-                FlatButton(title: Language.english.name, borderColor: borderColor(.english)) {
-                    viewModel.select(language: .english)
-                }
-                .padding(.horizontal, Padding.default * 2)
-                
                 FlatButton(title: Language.uzbek.name, borderColor: borderColor(.uzbek)) {
                     viewModel.select(language: .uzbek)
                 }
@@ -39,6 +34,11 @@ struct AuthSelectLanguage: View {
                 
                 FlatButton(title: Language.russian.name, borderColor: borderColor(.russian)) {
                     viewModel.select(language: .russian)
+                }
+                .padding(.horizontal, Padding.default * 2)
+                
+                FlatButton(title: Language.english.name, borderColor: borderColor(.english)) {
+                    viewModel.select(language: .english)
                 }
                 .padding(.horizontal, Padding.default * 2)
                 
