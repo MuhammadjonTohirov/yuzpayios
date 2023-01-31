@@ -135,3 +135,9 @@
 "order_card" = "Order a card";
 
 "virtual_card" = "Virtual card";
+
+"want_to_delete_account" = "Do you want to delete account?";
+
+"warning" = "Warning";
+
+"want_to_logout" = "Do you want to logout?";

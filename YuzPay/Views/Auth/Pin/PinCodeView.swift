@@ -11,7 +11,7 @@ import LocalAuthentication
 
 
 struct PinCodeView: View {
-    @ObservedObject var viewModel = PinCodeViewModel(title: "setup_pin".localize, reason: .confirm(pin: "12"))
+    @StateObject var viewModel = PinCodeViewModel(title: "setup_pin".localize, reason: .confirm(pin: "12"))
     
     let keyboardHeight: CGFloat = 288.f.sh(limit: 0.2)
     

@@ -8,17 +8,77 @@
 import SwiftUI
 import RealmSwift
 
+class MerchantsViewModel: ObservableObject {
+    @Published var categories: Results<DMerchantCategory>?
+    @Published var merchants: Results<DMerchant>?
+    @Published var selectedMerchant: DMerchant?
+    
+    private var catsNotification: NotificationToken?
+    private var mersNotification: NotificationToken?
+    
+    init() {
+        Logging.l("MerchantsViewModel init")
+    }
+    
+    func onAppear() {
+        setupSubscribers()
+        Logging.l("On appear merchantsviewmodel")
+    }
+    
+    private func setupSubscribers() {
+        
+        invalidate()
+        categories = Realm.new?.objects(DMerchantCategory.self)
+        merchants = Realm.new?.objects(DMerchant.self)
+        catsNotification = categories?.observe(on: .main, { [weak self] changes in
+            switch changes {
+            case let .update(items, _, _, _):
+                withAnimation {
+                    self?.categories = items
+                }
+            default:
+                break
+            }
+        })
+        
+        mersNotification = merchants?.observe(on: .main, { [weak self] changes in
+            switch changes {
+            case let .update(items, _, _, _):
+                withAnimation {
+                    self?.merchants = items
+                }
+            default:
+                break
+            }
+        })
+    }
+    
+    func setSelected(merchant: DMerchant?) {
+        self.selectedMerchant = merchant
+    }
+    
+    func invalidate() {
+        catsNotification?.invalidate()
+        mersNotification?.invalidate()
+    }
+    
+    deinit {
+        invalidate()
+        Logging.l("deinit merchantsviewmodel")
+    }
+}
+
 struct MerchantsView: View {
-    @ObservedResults(DMerchantCategory.self, configuration: Realm.config) var categories
-    @ObservedResults(DMerchant.self, configuration: Realm.config) var merchants
+    @StateObject var viewModel: MerchantsViewModel = .init()
+
     @State var searchText: String = ""
     
     @State var isSearching: Bool = false
     var body: some View {
         ZStack {
             NavigationLink("", isActive: $showPaymentView) {
-                if let m = selectedMerchant {
-                    MerchantPaymentView(merchant: m)
+                if let m = viewModel.selectedMerchant, !m.isInvalidated {
+                    MerchantPaymentView(merchantId: m.id)
                 }
             }
             
@@ -27,6 +87,12 @@ struct MerchantsView: View {
 
                 innerBody
             }
+        }.onAppear {
+            Logging.l("On appear merchants view")
+            viewModel.onAppear()
+        }
+        .onDisappear {
+            Logging.l("On disappear merchats view")
         }
     }
     
@@ -36,8 +102,6 @@ struct MerchantsView: View {
     
     @State private var showPaymentView: Bool = false
     
-    @State private var selectedMerchant: DMerchant?
-    
     @FocusState private var focusedSearchField: Bool
     
     var innerBody: some View {
@@ -46,26 +110,30 @@ struct MerchantsView: View {
                 if searchText.isEmpty {
                     merchatsView
                 } else {
-                    searchResult {
-                        ForEach(merchants.filter({ merchant in
-                            merchant.title.lowercased().contains(searchText.lowercased()) ||
-                            merchant.type.lowercased().contains(searchText.lowercased())
-                        }), id: \.title) { merchant in
-                            Button {
-                                selectedMerchant = merchant
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                    showPaymentView = true
+                    if let merchants = viewModel.merchants {
+                        searchResult {
+                            ForEach(merchants.filter({ merchant in
+                                merchant.title.lowercased().contains(searchText.lowercased()) ||
+                                merchant.type.lowercased().contains(searchText.lowercased())
+                            }), id: \.title) { merchant in
+                                if !merchant.isInvalidated {
+                                    Button {
+                                        viewModel.setSelected(merchant: merchant)
+                                        
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                            showPaymentView = true
+                                        }
+                                    } label: {
+                                        MerchantItemView(
+                                            icon: merchant.icon,
+                                            title: merchant.title
+                                        )
+                                    }
                                 }
-                            } label: {
-                                MerchantItemView(
-                                    icon: merchant.icon,
-                                    title: merchant.title
-                                )
                             }
                         }
+                        .padding(.top, 26)
                     }
-                    .padding(.top, 26)
                 }
             }
             .onAppear {
@@ -79,46 +147,48 @@ struct MerchantsView: View {
     
     var merchatsView: some View {
         LazyVStack(alignment: .center) {
-            ForEach(categories, id: \.self) { category in
-                VStack {
-                    HStack {
-                        Text(category.title.localize)
-                            .mont(.medium, size: 14)
-                        Spacer()
-                        Button {
-                            if isExpanded(category.title) {
-                                expandedCategories.remove(category.title)
-                            } else {
-                                expandedCategories.insert(category.title)
-                            }
-                        } label: {
-                            Text(isExpanded(category.title) ? "collapse".localize : "see_all".localize)
-                                .mont(.regular, size: 14)
-                        }
-                        .visible(category.items.count > 3)
-                    }
-                    .padding(.horizontal, Padding.large.sw())
-                    
-                    merchantsContains(expanded: isExpanded(category.title)) {
-                        ForEach(category.items, id: \.title) { merchant in
+            if let categories = viewModel.categories {
+                ForEach(categories, id: \.self) { category in
+                    VStack {
+                        HStack {
+                            Text(category.title.localize)
+                                .mont(.medium, size: 14)
+                            Spacer()
                             Button {
-                                selectedMerchant = merchant
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                    showPaymentView = true
+                                if isExpanded(category.title) {
+                                    expandedCategories.remove(category.title)
+                                } else {
+                                    expandedCategories.insert(category.title)
                                 }
                             } label: {
-                                MerchantItemView(
-                                    icon: merchant.icon,
-                                    title: merchant.title
-                                )
+                                Text(isExpanded(category.title) ? "collapse".localize : "see_all".localize)
+                                    .mont(.regular, size: 14)
+                            }
+                            .visible(category.items.count > 3)
+                        }
+                        .padding(.horizontal, Padding.large.sw())
+                        
+                        merchantsContains(expanded: isExpanded(category.title)) {
+                            ForEach(category.items, id: \.title) { merchant in
+                                Button {
+                                    viewModel.setSelected(merchant: merchant)
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                        showPaymentView = true
+                                    }
+                                } label: {
+                                    MerchantItemView(
+                                        icon: merchant.icon,
+                                        title: merchant.title
+                                    )
+                                }
                             }
                         }
+                        .padding(.horizontal, isExpanded(category.title) ? 0 : Padding.default)
+                        .scrollable(axis: isExpanded(category.title) ? .vertical : .horizontal)
                     }
-                    .padding(.horizontal, isExpanded(category.title) ? 0 : Padding.default)
-                    .scrollable(axis: isExpanded(category.title) ? .vertical : .horizontal)
+                    .padding(.bottom, Padding.small)
                 }
-                .padding(.bottom, Padding.small)
             }
         }
         .scrollable()
@@ -221,6 +291,7 @@ struct MerchantsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             MerchantsView()
+                .environmentObject(MerchantsViewModel())
                 .onAppear {
                     MockData.shared.createMerchants()
                 }

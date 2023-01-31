@@ -7,8 +7,20 @@
 
 import Foundation
 import SwiftUI
-
+import AlertToast
 extension View {
+    func toast(_ presenting: Binding<Bool>, _ alert: AlertToast, duration: CGFloat = 0.3) -> some View {
+        self.toast(isPresenting: presenting) {
+            alert
+        }.onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+                presenting.wrappedValue = false
+            }
+            
+            SEffect.rigid()
+        }
+    }
+    
     func scrollable(axis: Axis.Set = .vertical, showIndicators: Bool = false) -> some View {
         self.modifier(ScrollableModifier(axis: axis, indicators: showIndicators))
     }

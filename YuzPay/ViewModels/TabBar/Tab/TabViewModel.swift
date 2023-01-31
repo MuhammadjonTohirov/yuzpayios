@@ -55,13 +55,19 @@ enum SideBarRoute: Hashable, ScreenRoute {
 final class TabViewModel: NSObject, ObservableObject {
     var homeViewModel: HomeViewModel = HomeViewModel()
     
-    var sideViewModel: SideBarViewModel = SideBarViewModel()
+    var sideViewModel = SideBarViewModel()
     
     @Published var sideMenuOffset: CGPoint = .zero
     
     @Published var pushSideMenuActions: Bool = false
     
     @Published var selectedTab: Int = 0
+    
+    @Published var update: Date = Date() {
+        didSet {
+            homeViewModel.update = update
+        }
+    }
     
     var sideMenuWidth: CGFloat {
         UIScreen.screen.width * 0.8

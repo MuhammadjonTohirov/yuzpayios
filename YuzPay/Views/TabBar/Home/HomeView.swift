@@ -32,7 +32,7 @@ struct HomeView: View {
                 
                 VStack(spacing: Padding.large) {
                     totalAmountView
-                        .padding(.top, 40.f.sh())
+                        .padding(.top, Padding.default.sh())
                         .padding(.horizontal, Padding.default)
 
                     HCardListView(viewModel: viewModel.cardListViewModel)

@@ -9,10 +9,13 @@ import Foundation
 import SwiftUI
 
 struct SideBarContent: View {
-    @ObservedObject var viewModel: SideBarViewModel
+    @StateObject var viewModel: SideBarViewModel
+    
     var isVerifiedUser: Bool {
         UserSettings.shared.isVerifiedUser ?? false
     }
+    
+    @State var showLogoutAlert = false
     @State var showIdentifier = false
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -34,7 +37,7 @@ struct SideBarContent: View {
             Spacer()
             
             Button {
-                
+                showLogoutAlert = true
             } label: {
                 
                 ZStack {
@@ -99,6 +102,25 @@ struct SideBarContent: View {
             
             Spacer()
         }
+        .alert("warning".localize, isPresented: $showLogoutAlert, actions: {
+            Button {
+            } label: {
+                Text("cancel".localize)
+            }
+
+            Button {
+                UserSettings.shared.appPin = nil
+                UserSettings.shared.userInfoDetails = nil
+                mainRouter?.navigate(to: .auth)
+            } label: {
+                Text("logout".localize)
+            }
+            .foregroundColor(.systemRed)
+            
+            
+        }, message: {
+            Text("want_to_logout".localize)
+        })
     }
 }
 

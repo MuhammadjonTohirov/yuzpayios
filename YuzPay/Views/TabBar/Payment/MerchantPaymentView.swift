@@ -8,7 +8,12 @@
 import SwiftUI
 import RealmSwift
 struct MerchantPaymentView: View {
-    let merchant: DMerchant
+    var merchantId: String
+    
+    var merchant: DMerchant? {
+        Realm.new?.object(ofType: DMerchant.self, forPrimaryKey: merchantId)
+    }
+    
     @State var amount: String = ""
     @State var phone: String = ""
     
@@ -47,11 +52,13 @@ struct MerchantPaymentView: View {
                 .navigationTitle("transfer".localize)
             }
             
-            innerBody
+            if let m = merchant {
+                innerBody(m)
+            }
         }
     }
     
-    var innerBody: some View {
+    func innerBody(_ merchant: DMerchant) -> some View {
         VStack {
             RoundedRectangle(cornerRadius: 10)
                 .foregroundColor(.secondarySystemBackground)
@@ -111,7 +118,7 @@ struct MerchantPaymentView: View {
 struct MerchantPaymentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MerchantPaymentView(merchant: Realm.new!.objects(DMerchant.self).first!)
+            MerchantPaymentView(merchantId: Realm.new!.objects(DMerchant.self).first!.id)
         }
     }
 }

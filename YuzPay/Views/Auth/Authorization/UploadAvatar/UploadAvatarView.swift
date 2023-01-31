@@ -46,6 +46,7 @@ struct UploadAvatarView: View {
             Text("capture_avatar_from_camera".localize)
                 .font(.mont(.regular, size: 16))
                 .foregroundColor(Color("label_color"))
+                .padding(.horizontal, Padding.large)
          
             Spacer()
             

@@ -10,23 +10,22 @@ import SwiftUIX
 import SwiftUI
 
 struct TabBarView: View {
-    
-    @StateObject var viewModel = TabViewModel()
+    @ObservedObject var viewModel = TabViewModel()
     @State var size: CGRect = .zero
+    
     var body: some View {
-        StackNavigationView {
+        NavigationView {
             if size == .zero {
                 EmptyView()
             } else {
                 innerBody
                     .navigationBarTitleDisplayMode(.inline)
-                    .onAppear {
-                        viewModel.onAppear()
-                    }
             }
         }
-
         .readSize($size)
+        .onAppear {
+            viewModel.onAppear()
+        }
     }
     
     var innerBody: some View {
@@ -38,7 +37,8 @@ struct TabBarView: View {
                 ZStack {
                     HomeView()
                         .environmentObject(viewModel.homeViewModel)
-                    
+                        .environmentObject(viewModel)
+
                     Rectangle()
                         .foregroundColor(.systemBackground.opacity(0.01))
                         .frame(maxWidth: 8)
@@ -61,17 +61,20 @@ struct TabBarView: View {
                 .tag(0)
 
                 TransferTypesView()
+                    .environmentObject(viewModel)
                     .tabItem {
                         Label("transfer".localize, image: "icon_transfer")
                     }
                     .tag(1)
                 MerchantsView()
+                    .environmentObject(viewModel)
                     .tabItem {
                         Label("payment".localize, image: "icon_cart")
                     }
                     .tag(2)
 
                 HelpView()
+                    .environmentObject(viewModel)
                     .navigationTitle("help".localize)
                     .tabItem {
                         Label("help".localize, image: "icon_message")
@@ -79,6 +82,7 @@ struct TabBarView: View {
                     .tag(3)
 
                 SettingsView()
+                    .environmentObject(viewModel)
                     .navigationTitle("settings".localize)
                     .tabItem {
                         Label("settings".localize, image: "icon_gear")

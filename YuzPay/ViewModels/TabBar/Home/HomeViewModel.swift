@@ -56,6 +56,7 @@ final class HomeViewModel: NSObject, ObservableObject {
     weak var delegate: HomeViewDelegate?
     @Published var searchText: String = ""
     @Published var router: HomeViewRoute?
+    @Published var update: Date = Date()
     lazy var cardListViewModel: HCardListViewModel = {
         return HCardListViewModel()
     }()

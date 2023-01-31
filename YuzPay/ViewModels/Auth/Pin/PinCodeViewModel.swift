@@ -69,10 +69,10 @@ class PinCodeViewModel: ObservableObject {
     
     @Published var route: PinViewRoute?
     
-    init(title: String, reason: PinViewReason) {
+    init(title: String, reason: PinViewReason, onResult: ((Bool) -> Void)? = nil) {
         self.title = title
         self.reason = reason
-        
+        self.onResult = onResult
         
         keyboardModel = .init(type: reason == .login ? .withExit : .withClear)
     }
@@ -83,8 +83,13 @@ class PinCodeViewModel: ObservableObject {
         isButtonEnabled = isFilled
         
         if isFilled {
-            if pin == UserSettings.shared.appPin {
-                onSuccessLogin()
+            switch reason {
+            case .login:
+                if pin == UserSettings.shared.appPin {
+                    onSuccessLogin()
+                }
+            default:
+                break
             }
         }
     }

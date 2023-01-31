@@ -15,6 +15,8 @@ struct HelpItem: Identifiable {
 }
 
 struct HelpView: View {
+    @EnvironmentObject var viewModel: TabViewModel
+    
     @State var showDetails: Bool = false
     @State var items: [HelpItem] = []
     @State var selectedItem: HelpItem?
@@ -86,6 +88,7 @@ struct HelpView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             HelpView()
+                .environmentObject(TabViewModel())
         }
     }
 }

@@ -119,6 +119,7 @@
 		2E68021B29522C45008BCB9C /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E68021A29522C45008BCB9C /* Logging.swift */; };
 		2E6802212952A540008BCB9C /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6802202952A540008BCB9C /* MockData.swift */; };
 		2E6802252952A5B4008BCB9C /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6802242952A5B4008BCB9C /* CardModel.swift */; };
+		2E7A33182988A190004EFABB /* SoundEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A33172988A190004EFABB /* SoundEffect.swift */; };
 		2E7FE8EF294FEBF800D15A4A /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FE8EE294FEBF800D15A4A /* LoadingViewModel.swift */; };
 		2E7FE8F2294FED6A00D15A4A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FE8F1294FED6A00D15A4A /* LoadingView.swift */; };
 		2E7FE8F429517D8A00D15A4A /* DCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FE8F329517D8900D15A4A /* DCard.swift */; };
@@ -392,6 +393,7 @@
 		2E68021A29522C45008BCB9C /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		2E6802202952A540008BCB9C /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		2E6802242952A5B4008BCB9C /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
+		2E7A33172988A190004EFABB /* SoundEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffect.swift; sourceTree = "<group>"; };
 		2E7FE8EE294FEBF800D15A4A /* LoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModel.swift; sourceTree = "<group>"; };
 		2E7FE8F1294FED6A00D15A4A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		2E7FE8F329517D8900D15A4A /* DCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCard.swift; sourceTree = "<group>"; };
@@ -1134,6 +1136,7 @@
 		2E5F2FB8293E115C00D0C060 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2E7A33162988A188004EFABB /* SoundEffect */,
 				2E85AF8F296B2C2B009CABC2 /* YCamera */,
 				2E85AF7C296A9D9C009CABC2 /* Camera */,
 				2ED87CC02955FEE600E1D477 /* SharkUtils */,
@@ -1225,6 +1228,14 @@
 				2E4A80F02961DA9F0032B7FF /* TransactionItem.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		2E7A33162988A188004EFABB /* SoundEffect */ = {
+			isa = PBXGroup;
+			children = (
+				2E7A33172988A190004EFABB /* SoundEffect.swift */,
+			);
+			path = SoundEffect;
 			sourceTree = "<group>";
 		};
 		2E7FE8ED294FEBEC00D15A4A /* Loading */ = {
@@ -2110,6 +2121,7 @@
 				2ED87CEC2955FEE600E1D477 /* Chainable.swift in Sources */,
 				2ED87D012955FEE600E1D477 /* ParallelResultRequests.swift in Sources */,
 				2EB4E44E2943731800F09751 /* PinCodeView.swift in Sources */,
+				2E7A33182988A190004EFABB /* SoundEffect.swift in Sources */,
 				2EB8E6BB2977211A00BBAFE3 /* HelpView.swift in Sources */,
 				2E1DA6B62941E6F9007A5F9F /* RectReader.swift in Sources */,
 				2E85AF8A296A9D9C009CABC2 /* CameraService.swift in Sources */,

@@ -134,3 +134,9 @@
 "order_card" = "Buyurtma berish";
 
 "virtual_card" = "Virtual karta";
+
+"want_to_delete_account" = "Hisobni o'chirmoqchimisiz?";
+
+"warning" = "Ogohlantirish";
+
+"want_to_logout" = "Chiqishni xohlaysizmi?";
