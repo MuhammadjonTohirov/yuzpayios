@@ -95,7 +95,9 @@ class PinCodeViewModel: ObservableObject {
     }
     
     func onSuccessLogin() {
-        mainRouter?.navigate(to: .main)
+        DispatchQueue.main.async {
+            mainRouter?.navigate(to: .main)
+        }
     }
     
     func onClickNext() {

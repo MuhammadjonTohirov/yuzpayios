@@ -39,7 +39,6 @@ struct SideBarContent: View {
             Button {
                 showLogoutAlert = true
             } label: {
-                
                 ZStack {
                     HStack {
                         Image(systemName: "power")
@@ -64,9 +63,13 @@ struct SideBarContent: View {
     var innerBody: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image("image_avatar")
-                    .resizable()
-                    .frame(width: 88.f.sw(), height: 88.f.sw())
+                Button {
+                    viewModel.onClickProfile()
+                } label: {
+                    Image("image_avatar")
+                        .resizable()
+                        .frame(width: 88.f.sw(), height: 88.f.sw())
+                }
                 
                 VStack(alignment: .leading) {
                     Text("+998 93 585 24 15")

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Introspect
 import SwiftUIX
 
 struct TransferToCardView: View {
@@ -24,6 +25,10 @@ struct TransferToCardView: View {
     @State private var showStatusView: Bool = false
     
     @State private var exchangeType: ExchangeType = .buy
+    
+    @State private var showSavedCards = false
+    
+    @State private var showScanCard = false
     
     private var title: String {
         transferType.title
@@ -45,6 +50,11 @@ struct TransferToCardView: View {
                     
                 }
             }
+            
+            NavigationLink("", isActive: $showSavedCards) {
+                SavedCardsListView()
+            }
+            
             NavigationLink("", isActive: $showPaymentView) {
                 ReceiptAndPayView(rowItems: [
                     .init(name: "Receiver card number", value: "•••• 1212"),
@@ -63,6 +73,7 @@ struct TransferToCardView: View {
             
             innerBody
             
+            
             BottomSheetView(isOpen: $cardSelectionView, maxHeight: UIScreen.screen.height / 2) {
                 SelectCardView(cards: viewModel.cards?.compactMap({$0}) ?? []) { newSelectedCard in
                     selectedCard = newSelectedCard
@@ -71,8 +82,12 @@ struct TransferToCardView: View {
             }
             .ignoresSafeArea(edges: .bottom)
         }
+        .fullScreenCover(isPresented: $showScanCard) {scanCardView}
         .onAppear {
             selectedCard = viewModel.cards?.first
+        }
+        .onDisappear {
+            print("On transfer page disappear")
         }
     }
     
@@ -107,17 +122,8 @@ struct TransferToCardView: View {
                     .horizontal(alignment: .leading)
                     .padding(.bottom, Padding.medium)
                 
-                
-                TextView(text: $note, onCommit: {
-                    UIApplication.shared.endEditing()
-                })
-                    .lineLimit(7)
-                    .placeholder("note".localize, when: note.isEmpty, alignment: .topLeading)
-                    .keyboardDismissMode(.onDragWithAccessory)
-                    .frame(height: 100)
-                    .padding(.horizontal, Padding.default)
-                    .padding(.top, Padding.medium)
-                    .modifier(YTextFieldBackgroundCleanStyle())
+                noteView
+                currencyRateView
                 Spacer()
             }
             .padding(.top, Padding.large)
@@ -155,6 +161,31 @@ struct TransferToCardView: View {
         }
     }
     
+    @ViewBuilder
+    var noteView: some View {
+        if transferType == TransferType.transferToOther {
+            TextView(text: $note, onCommit: {
+                UIApplication.shared.endEditing()
+            })
+                .lineLimit(7)
+                .placeholder("note".localize, when: note.isEmpty, alignment: .topLeading)
+                .keyboardDismissMode(.onDragWithAccessory)
+                .frame(height: 100)
+                .padding(.horizontal, Padding.default)
+                .padding(.top, Padding.medium)
+                .modifier(YTextFieldBackgroundCleanStyle())
+        }
+    }
+    
+    @ViewBuilder
+    var currencyRateView: some View {
+        if transferType == .transferInternational || transferType == .exchange {
+            ReceiptRowItem(name: "Dollar", value: "11250 uzs").row
+            ReceiptRowItem(name: "Euro", value: "13000 uzs").row
+            ReceiptRowItem(name: "Ruble", value: "500 uzs").row
+        }
+    }
+    
     var myCardsView: some View {
         Button {
             cardSelectionView = true
@@ -187,7 +218,9 @@ struct TransferToCardView: View {
                 .frame(width: 40, height: 40)
                 .foregroundColor(.secondarySystemBackground)
                 .overlay {
-                    Button {} label: {
+                    Button {
+                        showSavedCards = true
+                    } label: {
                         Image("icon_card")
                             .renderingMode(.template)
                         .foregroundColor(Color(uiColor: .appDarkGray))
@@ -198,7 +231,9 @@ struct TransferToCardView: View {
                 .frame(width: 40, height: 40)
                 .foregroundColor(.secondarySystemBackground)
                 .overlay {
-                    Button {} label: {
+                    Button {
+                        showScanCard = true
+                    } label: {
                         Image("icon_camera")
                             .renderingMode(.template)
                             .foregroundColor(Color(uiColor: .appDarkGray))
@@ -210,7 +245,7 @@ struct TransferToCardView: View {
     @ViewBuilder
     var receiverView: some View {
         switch transferType {
-        case .transferToOther:
+        case .transferToOther, .transferInternational:
             receiverCardView
         case .transferToMe:
             myCardsView
@@ -221,9 +256,14 @@ struct TransferToCardView: View {
                 
                 myCardsView
             }
-        case .transferInternational:
-            EmptyView()
         }
+    }
+    
+    @ViewBuilder var scanCardView: some View {
+        CardReaderWrapper { cardNumber, expireDate in
+            
+        }
+        .ignoresSafeArea(.all)
     }
 }
 
@@ -270,7 +310,7 @@ struct ExchangeTypeView: View {
 struct TransferToCardView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView(content: {
-            TransferToCardView(transferType: .exchange)
+            TransferToCardView(transferType: .transferToOther)
                 .navigationBarTitleDisplayMode(.inline)
                 .environmentObject(TransferViewModel())
         })

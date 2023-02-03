@@ -141,3 +141,19 @@
 "warning" = "Warning";
 
 "want_to_logout" = "Do you want to logout?";
+
+"buy" = "Buy";
+
+"sell" = "Sell";
+
+"invoices" = "Invoices";
+
+"success_pin_change" = "Pin code changed";
+
+"devices" = "Devices";
+
+"passport_id" = "Passport ID";
+
+"expiration_date" = "Expiration date";
+
+"profile" = "Profile";

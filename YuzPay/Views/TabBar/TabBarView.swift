@@ -14,7 +14,7 @@ struct TabBarView: View {
     @State var size: CGRect = .zero
     
     var body: some View {
-        NavigationView {
+        StackNavigationView {
             if size == .zero {
                 EmptyView()
             } else {
@@ -59,13 +59,14 @@ struct TabBarView: View {
                     Label("home".localize, image: "icon_home")
                 }
                 .tag(0)
-
+                
                 TransferTypesView()
                     .environmentObject(viewModel)
-                    .tabItem {
-                        Label("transfer".localize, image: "icon_transfer")
-                    }
-                    .tag(1)
+                .tabItem {
+                    Label("transfer".localize, image: "icon_transfer")
+                }
+                .tag(1)
+                
                 MerchantsView()
                     .environmentObject(viewModel)
                     .tabItem {

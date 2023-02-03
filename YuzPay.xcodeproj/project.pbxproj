@@ -120,6 +120,11 @@
 		2E6802212952A540008BCB9C /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6802202952A540008BCB9C /* MockData.swift */; };
 		2E6802252952A5B4008BCB9C /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6802242952A5B4008BCB9C /* CardModel.swift */; };
 		2E7A33182988A190004EFABB /* SoundEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A33172988A190004EFABB /* SoundEffect.swift */; };
+		2E7A3325298D5D8D004EFABB /* InvoicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A3324298D5D8D004EFABB /* InvoicesView.swift */; };
+		2E7A3328298D7CF2004EFABB /* SavedCardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A3327298D7CF2004EFABB /* SavedCardsListView.swift */; };
+		2E7A332B298D8C97004EFABB /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 2E7A332A298D8C97004EFABB /* Introspect */; };
+		2E7A332E298D960F004EFABB /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A332D298D960F004EFABB /* UserProfileView.swift */; };
+		2E7A3331298D9C11004EFABB /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A3330298D9C11004EFABB /* RoundedCorner.swift */; };
 		2E7FE8EF294FEBF800D15A4A /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FE8EE294FEBF800D15A4A /* LoadingViewModel.swift */; };
 		2E7FE8F2294FED6A00D15A4A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FE8F1294FED6A00D15A4A /* LoadingView.swift */; };
 		2E7FE8F429517D8A00D15A4A /* DCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FE8F329517D8900D15A4A /* DCard.swift */; };
@@ -394,6 +399,10 @@
 		2E6802202952A540008BCB9C /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		2E6802242952A5B4008BCB9C /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		2E7A33172988A190004EFABB /* SoundEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffect.swift; sourceTree = "<group>"; };
+		2E7A3324298D5D8D004EFABB /* InvoicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoicesView.swift; sourceTree = "<group>"; };
+		2E7A3327298D7CF2004EFABB /* SavedCardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCardsListView.swift; sourceTree = "<group>"; };
+		2E7A332D298D960F004EFABB /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		2E7A3330298D9C11004EFABB /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		2E7FE8EE294FEBF800D15A4A /* LoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModel.swift; sourceTree = "<group>"; };
 		2E7FE8F1294FED6A00D15A4A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		2E7FE8F329517D8900D15A4A /* DCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCard.swift; sourceTree = "<group>"; };
@@ -550,6 +559,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E437489294E601B00F78FEC /* SwiftUIX in Frameworks */,
+				2E7A332B298D8C97004EFABB /* Introspect in Frameworks */,
 				2E374FC32948112A0007D146 /* RealmSwift in Frameworks */,
 				2E1DA6B92942044E007A5F9F /* FancyScrollView in Frameworks */,
 				2E1DA6BC29420599007A5F9F /* AlertToast in Frameworks */,
@@ -898,6 +908,9 @@
 		2E437484294E5F2500F78FEC /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				2E7A332C298D9604004EFABB /* UserProfile */,
+				2E7A3326298D7CD3004EFABB /* SavedCardsListView */,
+				2E7A3323298D5D82004EFABB /* Invoices */,
 				2EB8E6BE2978966400BBAFE3 /* Transfer */,
 				2E85AF92296B517A009CABC2 /* Notifications */,
 				2E85AF79296A898D009CABC2 /* UserIdentification */,
@@ -1136,6 +1149,7 @@
 		2E5F2FB8293E115C00D0C060 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2E7A332F298D9C08004EFABB /* Shape */,
 				2E7A33162988A188004EFABB /* SoundEffect */,
 				2E85AF8F296B2C2B009CABC2 /* YCamera */,
 				2E85AF7C296A9D9C009CABC2 /* Camera */,
@@ -1236,6 +1250,38 @@
 				2E7A33172988A190004EFABB /* SoundEffect.swift */,
 			);
 			path = SoundEffect;
+			sourceTree = "<group>";
+		};
+		2E7A3323298D5D82004EFABB /* Invoices */ = {
+			isa = PBXGroup;
+			children = (
+				2E7A3324298D5D8D004EFABB /* InvoicesView.swift */,
+			);
+			path = Invoices;
+			sourceTree = "<group>";
+		};
+		2E7A3326298D7CD3004EFABB /* SavedCardsListView */ = {
+			isa = PBXGroup;
+			children = (
+				2E7A3327298D7CF2004EFABB /* SavedCardsListView.swift */,
+			);
+			path = SavedCardsListView;
+			sourceTree = "<group>";
+		};
+		2E7A332C298D9604004EFABB /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				2E7A332D298D960F004EFABB /* UserProfileView.swift */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		2E7A332F298D9C08004EFABB /* Shape */ = {
+			isa = PBXGroup;
+			children = (
+				2E7A3330298D9C11004EFABB /* RoundedCorner.swift */,
+			);
+			path = Shape;
 			sourceTree = "<group>";
 		};
 		2E7FE8ED294FEBEC00D15A4A /* Loading */ = {
@@ -1768,6 +1814,7 @@
 				2E374FC22948112A0007D146 /* RealmSwift */,
 				2E437488294E601B00F78FEC /* SwiftUIX */,
 				2E4374B0294FE83500F78FEC /* SwiftKeychainWrapper */,
+				2E7A332A298D8C97004EFABB /* Introspect */,
 			);
 			productName = YuzPay;
 			productReference = 2E5F2F8B293E0E6000D0C060 /* YuzPay.app */;
@@ -1854,6 +1901,7 @@
 				2E374FBF2948112A0007D146 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				2E437487294E601B00F78FEC /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				2E4374AF294FE83500F78FEC /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+				2E7A3329298D8C97004EFABB /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = 2E5F2F8C293E0E6000D0C060 /* Products */;
 			projectDirPath = "";
@@ -1995,6 +2043,7 @@
 				2E2CBA792954369500D7C352 /* HCardListViewModel.swift in Sources */,
 				2E4EC1CB29631B8400A7BE81 /* SelectCardDeliveryTypeView.swift in Sources */,
 				2EC5F0FA29465F3800BA54E3 /* Date+Extension.swift in Sources */,
+				2E7A332E298D960F004EFABB /* UserProfileView.swift in Sources */,
 				2EC5F0F829465DF700BA54E3 /* OtpViewModel.swift in Sources */,
 				2ED87CE72955FEE600E1D477 /* UIStackViewConstructor.swift in Sources */,
 				2E85AF94296B5182009CABC2 /* NotificationsView.swift in Sources */,
@@ -2028,7 +2077,9 @@
 				2E4A80E529603BDF0032B7FF /* CardDetailsView.swift in Sources */,
 				2E2EBEC0297F716A00C218CF /* MerchantsView.swift in Sources */,
 				2E2CBA9029546D2600D7C352 /* CurrencyRateView.swift in Sources */,
+				2E7A3325298D5D8D004EFABB /* InvoicesView.swift in Sources */,
 				2EC5F0EB294644C900BA54E3 /* String+Extensions.swift in Sources */,
+				2E7A3331298D9C11004EFABB /* RoundedCorner.swift in Sources */,
 				2EBCA81E29417A9500F89E6F /* YTextField.swift in Sources */,
 				2E437495294F191400F78FEC /* SideBarMenuItem.swift in Sources */,
 				2E433AA5295A875700D6F1F6 /* Destination1.swift in Sources */,
@@ -2126,6 +2177,7 @@
 				2E1DA6B62941E6F9007A5F9F /* RectReader.swift in Sources */,
 				2E85AF8A296A9D9C009CABC2 /* CameraService.swift in Sources */,
 				2E68021929522B9D008BCB9C /* DatabaseConfig.swift in Sources */,
+				2E7A3328298D7CF2004EFABB /* SavedCardsListView.swift in Sources */,
 				2EC5F0C329444BD500BA54E3 /* KeyboardView.swift in Sources */,
 				2E9943942941B18B00D20795 /* YTextField+Extension.swift in Sources */,
 				2ED87CF12955FEE600E1D477 /* WeakClosure.swift in Sources */,
@@ -2315,7 +2367,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;
@@ -2323,13 +2375,15 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YuzPay/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
-				INFOPLIST_KEY_NSCameraUsageDescription = "YuzApp wants to access camera to scan a credit card";
+				INFOPLIST_KEY_NSCameraUsageDescription = "YuzApp wants to access camera to scan or take a pickture";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Login with FaceId";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "YuzApp wants to get current location for get nearby bank branches";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2358,7 +2412,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;
@@ -2366,13 +2420,15 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YuzPay/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
-				INFOPLIST_KEY_NSCameraUsageDescription = "YuzApp wants to access camera to scan a credit card";
+				INFOPLIST_KEY_NSCameraUsageDescription = "YuzApp wants to access camera to scan or take a pickture";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Login with FaceId";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "YuzApp wants to get current location for get nearby bank branches";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2558,6 +2614,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		2E7A3329298D8C97004EFABB /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2610,6 +2674,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2E4374AF294FE83500F78FEC /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
 			productName = SwiftKeychainWrapper;
+		};
+		2E7A332A298D8C97004EFABB /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E7A3329298D8C97004EFABB /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

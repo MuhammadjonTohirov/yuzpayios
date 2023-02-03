@@ -2,12 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSFaceIDUsageDescription</key>
-	<string>Login with FaceId</string>
 	<key>NSIdentityUsageDescription</key>
 	<string>We need to identify you</string>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AvenirNextCyr-Bold.ttf</string>

@@ -28,6 +28,7 @@
 
 "home" = "Asosiy";
 "transfer" = "O'tkazma";
+"transfer_international" = "Xalqaro o'tkazma";
 "payment" = "To'lov";
 "help" = "Yordam";
 "settings" = "Sozlamalar";
@@ -140,3 +141,19 @@
 "warning" = "Ogohlantirish";
 
 "want_to_logout" = "Chiqishni xohlaysizmi?";
+
+"buy" = "Olish";
+
+"sell" = "Sotish";
+
+"invoices" = "Invoislar";
+
+"success_pin_change" = "Pin-kod o'zgardi";
+
+"devices" = "Qurilmalar";
+
+"passport_id" = "Pasport ID";
+
+"expiration_date" = "Yaroqlilik muddati";
+
+"profile" = "Profil";

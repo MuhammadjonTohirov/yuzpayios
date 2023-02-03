@@ -8,16 +8,25 @@
 import Foundation
 import SwiftUI
 import AlertToast
+
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape(RoundedCorner(radius: radius, corners: corners))
+    }
+}
+
 extension View {
     func toast(_ presenting: Binding<Bool>, _ alert: AlertToast, duration: CGFloat = 0.3) -> some View {
         self.toast(isPresenting: presenting) {
             alert
         }.onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-                presenting.wrappedValue = false
+            if presenting.wrappedValue {
+                DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+                    presenting.wrappedValue = false
+                }
+                
+                SEffect.rigid()
             }
-            
-            SEffect.rigid()
         }
     }
     

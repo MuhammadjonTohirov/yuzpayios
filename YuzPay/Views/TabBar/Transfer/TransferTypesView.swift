@@ -8,10 +8,19 @@
 import SwiftUI
 
 struct TransferTypesView: View {
-    @ObservedObject var viewModel: TransferViewModel = TransferViewModel()
+    @StateObject var viewModel: TransferViewModel = TransferViewModel()
+    @EnvironmentObject var homeViewModel: TabViewModel
     
     var body: some View {
+        innerBody.onAppear {
+            viewModel.onAppear()
+        }
+    }
+    
+    var innerBody: some View {
         ZStack {
+            Text("\(homeViewModel.update.toExtendedString())")
+                .opacity(0)
             NavigationLink("", isActive: $viewModel.showPage) {
                 self.viewModel.route?.screen
                     .environmentObject(self.viewModel)
@@ -42,9 +51,7 @@ struct TransferTypesView: View {
             }
             .padding(.horizontal, Padding.default)
         }
-        .onAppear {
-            viewModel.onAppear()
-        }
+        
     }
 }
 

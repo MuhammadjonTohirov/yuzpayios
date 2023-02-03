@@ -24,6 +24,10 @@ enum SideBarRoute: Hashable, ScreenRoute {
             return "order_card"
         case .identify:
             return "identify"
+        case .invoices:
+            return "invoices"
+        case .profile:
+            return "profile"
         }
     }
 
@@ -35,6 +39,9 @@ enum SideBarRoute: Hashable, ScreenRoute {
     case monitoring
     case ordercard
     case identify
+    case invoices
+    case profile
+    
     @ViewBuilder
     var screen: some View {
         switch self {
@@ -43,11 +50,13 @@ enum SideBarRoute: Hashable, ScreenRoute {
         case .monitoring:
             TransactionsView()
         case .ordercard:
-            StackNavigationView {
-                OrderCardView()
-            }
+            OrderCardView()
         case .identify:
             UserIdentificationView()
+        case .invoices:
+            InvoicesView()
+        case .profile:
+            UserProfileView()
         }
     }
 }
@@ -151,6 +160,11 @@ extension TabViewModel: HomeViewDelegate, SideBarDelegate {
         case .transfer:
             hideSideBar()
             selectedTab = 1
+        case .invoices:
+            hideSideBar()
+            sideMenuRouter = .invoices
+        case .profile:
+            sideMenuRouter = .profile
         }
     }
 }

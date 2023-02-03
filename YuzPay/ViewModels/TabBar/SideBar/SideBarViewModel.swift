@@ -15,6 +15,8 @@ enum SideMenuItem {
     case monitoring
     case payment
     case transfer
+    case invoices
+    case profile
 }
 
 protocol SideBarDelegate: NSObject {
@@ -45,8 +47,10 @@ final class SideBarViewModel: ObservableObject {
             delegate?.sideBar(sideBar: self, onClick: .transfer)
         case .cardsAndWallets:
             delegate?.sideBar(sideBar: self, onClick: .cards)
-        case .issuedInvoices, .orderCard, .autopayment:
+        case .orderCard, .autopayment:
             break
+        case .issuedInvoices:
+            delegate?.sideBar(sideBar: self, onClick: .invoices)
         case .monitoring:
             delegate?.sideBar(sideBar: self, onClick: .monitoring)
         }
@@ -54,5 +58,9 @@ final class SideBarViewModel: ObservableObject {
     
     func onClickIdentify() {
         delegate?.sideBar(sideBar: self, onClick: .identify)
+    }
+    
+    func onClickProfile() {
+        delegate?.sideBar(sideBar: self, onClick: .profile)
     }
 }
