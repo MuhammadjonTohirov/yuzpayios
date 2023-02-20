@@ -10,6 +10,7 @@ import Foundation
 final class PhoneAuthFormViewModel: ObservableObject {
     @Published var phoneNumber: String = ""
     @Published var isOfferAccepted: Bool = false
+    
     var onValidityChanged: ((Bool) -> Void)?
     var offerIconName: String {
         isOfferAccepted ? "icon_checkbox_on" : "icon_checkbox_off"

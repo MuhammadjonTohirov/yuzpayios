@@ -19,7 +19,7 @@ struct NotificationsView: View {
             .listRowSeparator(.hidden, edges: .top)
 
             NotificationItemView(
-                title: "Информационное уведомление",
+                title: "Информационное  уведомление",
                 details: "Небольшое количество никому не нужной информации, которую Вы всё равно не прочтёте.",
                 dateTime: Date(),
                 type: .blockCard)

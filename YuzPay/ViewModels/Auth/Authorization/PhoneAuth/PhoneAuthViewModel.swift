@@ -8,78 +8,114 @@
 import Foundation
 import SwiftUI
 
-enum PhoneAuthRoute: ScreenRoute, Identifiable, Hashable {
-    var id: String {
-        switch self {
-        case .uploadPhoto:
-            return "uploadPhoto"
-        }
-    }
-    
-    case uploadPhoto(model: UploadAvatarViewModel)
-    
-    @ViewBuilder var screen: some View {
-        switch self {
-        case let .uploadPhoto(model):
-            UploadAvatarView(viewModel: model)
-        }
-    }
-    
-    static func == (lhs: PhoneAuthRoute, rhs: PhoneAuthRoute) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-}
-
-enum PhoneAuthRoutePopup: ScreenRoute, Identifiable, Hashable {
-    var id: String {
-        switch self {
-        case .otp:
-            return "otp"
-        }
-    }
-    
-    case otp(model: OtpViewModel)
-    
-    @ViewBuilder var screen: some View {
-        switch self {
-        case let .otp(model):
-            OTPView(viewModel: model)
-        }
-    }
-    
-    static func == (lhs: PhoneAuthRoutePopup, rhs: PhoneAuthRoutePopup) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-}
-
 final class PhoneAuthViewModel: NSObject, ObservableObject {
     let formViewModel = PhoneAuthFormViewModel()
     @Published var isButtonEnabled: Bool = false
-    @Published var route: PhoneAuthRoute?
+    @Published var route: PhoneAuthRoute? {
+        didSet {
+            pushToPage = route != nil
+        }
+    }
+    
     @Published var routePopup: PhoneAuthRoutePopup?
+    @Published var loading = false
+    @Published var pushToPage = false
+    private var isUserExists = false
     
     func onAppear() {
         formViewModel.onValidityChanged = { [weak self] isOK in
             self?.isButtonEnabled = isOK
-        }
+        }        
     }
     
     func onClickNext() {
+        checkPhone()
+    }
+        
+    func checkPhone() {
+        let number = formViewModel.phoneNumber.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: "")
+        guard formViewModel.isValidForm else {return}
+        loading = true
+        
+        Task {
+            guard let result = await UserService().getOTP(forNumber: number), let body = result.data, result.success else {
+                return
+            }
+            
+            await MainActor.run {
+                self.loading = false
+                UserSettings.shared.userPhone = number
+                UserSettings.shared.checkPhoneToken = body.token
+                UserSettings.shared.lastOTP = body.code
+
+                Logging.l("token \(body.token), isUserExists \(body.exists)")
+                
+                self.isUserExists = body.exists
+                self.onSuccess()
+            }
+        }
+    }
+    
+    func onSuccess() {
+        showOtp()
+    }
+    
+    func onFailure() {
+        
+    }
+    
+    func showOtp() {
         let number = formViewModel.phoneNumber
-        let model = OtpViewModel(number: "+998 \(number)")
+        let model = OtpViewModel(number: number.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: ""), countryCode: "+998")
         model.delegate = self
         routePopup = .otp(model: model)
     }
     
     func onSuccessOtp() {
+        if isUserExists {
+            getAccessToken()
+        } else {
+            showUploadAvatar()
+        }
+    }
+    
+    private func getAccessToken() {
+        self.loading = true
+        Task {
+            let success = await UserService.shared.getAccessToken()
+            await MainActor.run {
+                self.loading = false
+                let hasPin = UserSettings.shared.appPin != nil
+                if success {
+                    hasPin ? showMain() : showPinSetup()
+                } else {
+                    
+                }
+            }
+        }
+    }
+    
+    private func showMain() {
+        mainRouter?.navigate(to: .main)
+    }
+    
+    private func showPinSetup() {
+        let model: PinCodeViewModel = .init(title: "setup_pin".localize, reason: .setup)
+        model.onResult = { [weak self] isOK in
+            
+            guard let _ = self else {
+                return
+            }
+            
+            if isOK {
+                mainRouter?.navigate(to: .main)
+            }
+        }
+        
+        route = .setupPin(model: model)
+    }
+    
+    private func showUploadAvatar() {
         let model = UploadAvatarViewModel()
         route = .uploadPhoto(model: model)
     }

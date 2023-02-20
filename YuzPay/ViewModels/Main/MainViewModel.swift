@@ -76,6 +76,8 @@ final class MainViewModel: ObservableObject {
 
 extension MainViewModel: AppDelegate {
     func navigate(to destination: AppDestination) {
-        route = destination
+        DispatchQueue.main.async {
+            self.route = destination
+        }
     }
 }

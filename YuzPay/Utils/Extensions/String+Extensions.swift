@@ -77,4 +77,46 @@ extension String {
         
         return text.format(with: "XXXX XXXX")
     }
+    
+    var nilIfEmpty: String? {
+        return self.isEmpty ? nil : self
+    }
+    
+    var isNilOrEmpty: Bool {
+        return self.nilIfEmpty == nil
+    }
+}
+
+public extension Encodable {
+    /// Turns json into a Dictionary
+    func asDictionary() throws -> [String: Any] {
+        let data = try JSONEncoder().encode(self)
+        guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+            throw NSError()
+        }
+        return dictionary
+    }
+    
+    /// Turn json into a string
+    var asString: String {
+        guard let jsonData = try? JSONEncoder().encode(self) else {
+            return ""
+        }
+        
+        return String(data: jsonData, encoding: .utf8) ?? ""
+    }
+    
+    func toJSONString(_ encoder: JSONEncoder = JSONEncoder()) throws -> NSString {
+        let data = try encoder.encode(self)
+        let result = String(decoding: data, as: UTF8.self)
+        return NSString(string: result)
+    }
+    
+    var asData: Data? {
+        try? JSONEncoder().encode(self)
+    }
+}
+
+extension String: NetResBody {
+    
 }

@@ -40,6 +40,14 @@ final class UploadAvatarViewModel: ObservableObject {
 
     @Published var avatar: UIImage = #imageLiteral(resourceName: "image_avatar_placeholder_2.png")
     
+    @Published var imageUrl: URL?
+    
+    @Published var uploading: Bool = false
+    
+    var alertMessage: String?
+    
+    @Published var showAlert = false
+    
     var route: UploadAvatarRoute? {
         didSet {
             push = route != nil
@@ -47,7 +55,19 @@ final class UploadAvatarViewModel: ObservableObject {
     }
     
     @Published var push = false
-    var sourceType: UIImagePickerController.SourceType = UIImagePickerController.SourceType.photoLibrary
+    var sourceType: UIImagePickerController.SourceType = UIImagePickerController.SourceType.camera
+    
+    func onAppear() {
+        #if DEBUG
+        self.imageUrl = Bundle.main.url(forResource: "default_avatar", withExtension: "jpg")
+        
+        if let url = imageUrl,
+            let data = try? Data.init(contentsOf: url),
+            let image = UIImage.init(data: data) {
+            self.avatar = image
+        }
+        #endif
+    }
     
     func onSelect(pickerOption option: UIImagePickerController.SourceType) {
         sourceType = option
@@ -55,7 +75,29 @@ final class UploadAvatarViewModel: ObservableObject {
     }
     
     func onClickSave() {
-        setupPin()
+        guard let url = self.imageUrl else {
+            self.alert(with: "first_select_photo")
+            return
+        }
+        self.startUploading()
+        
+        UserService.shared.uploadAvatar(url: url) { success, error in
+            self.stopUploading()
+            if success {
+                Logging.l("Uploading avatar is successfull")
+                mainRouter?.navigate(to: .auth)
+            } else {
+                self.alert(with: error ?? "Unknown")
+                Logging.l("Failure \(error ?? "Unknown")")
+            }
+        }
+    }
+    
+    func alert(with message: String) {
+        DispatchQueue.main.async {
+            self.showAlert = true
+            self.alertMessage = message
+        }
     }
     
     private func setupPin() {
@@ -72,5 +114,17 @@ final class UploadAvatarViewModel: ObservableObject {
         }
         
         route = .setupPin(model: model)
+    }
+    
+    private func startUploading() {
+        DispatchQueue.main.async {
+            self.uploading = true
+        }
+    }
+    
+    private func stopUploading() {
+        DispatchQueue.main.async {
+            self.uploading = false
+        }
     }
 }

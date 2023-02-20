@@ -82,7 +82,7 @@ struct TabBarView: View {
                     }
                     .tag(3)
 
-                SettingsView()
+                SettingsView(viewModel: viewModel.settingsViewModel)
                     .environmentObject(viewModel)
                     .navigationTitle("settings".localize)
                     .tabItem {

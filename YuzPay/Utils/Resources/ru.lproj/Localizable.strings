@@ -157,3 +157,7 @@
 "expiration_date" = "Срок действия";
 
 "profile" = "Профиль";
+
+"confirm" = "Подтвердить";
+
+"not_valid_otp" = "Недействительный OTP";

@@ -11,7 +11,7 @@ import SwiftUI
 struct OTPView: View {
     @ObservedObject var viewModel: OtpViewModel
     @Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
         innerBody
             .modifier(TopLeftDismissModifier())
@@ -58,15 +58,15 @@ struct OTPView: View {
             
             Spacer()
             
-            HoverButton(title: "Подтвердить", backgroundColor: Color("accent_light_2"), titleColor: .white, isEnabled: viewModel.isValidForm) {
+            HoverButton(title: "confirm".localize, backgroundColor: Color("accent_light_2"), titleColor: .white, isEnabled: viewModel.isValidForm) {
                 viewModel.onClickConfirm()
             }
+            .set(animated: viewModel.loading)
             .padding(.horizontal, Padding.default)
             .padding(.bottom, 8)
             
             Button {
-                viewModel.resetCounter()
-                viewModel.startCounter()
+                viewModel.requestForOTP()
             } label: {
                 Text("send_again".localize)
                     .foregroundColor(viewModel.shouldResend ? Color("accent_light_2") : Color("dark_gray"))
@@ -74,14 +74,21 @@ struct OTPView: View {
             .disabled(!viewModel.shouldResend)
 
         }
+        .toast(
+            $viewModel.showAlert,
+            .init(
+                displayMode: .banner(.pop),
+                type: .error(.systemRed),
+                title: viewModel.otpErrorMessage)
+        )
         .onAppear {
-            viewModel.startCounter()
+            viewModel.onAppear()
         }
     }
 }
 
 struct OTPView_Preview: PreviewProvider {
     static var previews: some View {
-        OTPView(viewModel: OtpViewModel())
+        OTPView(viewModel: OtpViewModel(number: "935852415", countryCode: "+998"))
     }
 }

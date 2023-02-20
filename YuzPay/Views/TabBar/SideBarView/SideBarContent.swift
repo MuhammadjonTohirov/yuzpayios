@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Kingfisher
 
 struct SideBarContent: View {
     @StateObject var viewModel: SideBarViewModel
@@ -66,9 +67,12 @@ struct SideBarContent: View {
                 Button {
                     viewModel.onClickProfile()
                 } label: {
-                    Image("image_avatar")
-                        .resizable()
+                    KF(imageUrl: UserSettings.shared.userAvatarURL)
                         .frame(width: 88.f.sw(), height: 88.f.sw())
+                        .background {
+                            Circle()
+                                .foregroundColor(.systemGray)
+                        }
                 }
                 
                 VStack(alignment: .leading) {

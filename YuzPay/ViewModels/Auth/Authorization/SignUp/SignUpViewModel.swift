@@ -78,9 +78,13 @@ final class SignUpViewModel: NSObject, ObservableObject {
     }
     
     func onClickRegister() {
-        let otpViewModel = OtpViewModel()
+        let otpViewModel = OtpViewModel(
+            number: formViewModel.login
+                .replacingOccurrences(of: "+998", with: "")
+                .replacingOccurrences(of: " ", with: "")
+                .replacingOccurrences(of: "-", with: ""),
+            countryCode: "+998")
         otpViewModel.delegate = self
-        otpViewModel.number = "+998 \(formViewModel.login.replacingOccurrences(of: "+998", with: ""))"
         route = .otp(otpViewModel)
     }
 }

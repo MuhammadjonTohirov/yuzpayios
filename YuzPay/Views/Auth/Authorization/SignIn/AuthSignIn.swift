@@ -34,7 +34,7 @@ struct AuthSignIn: View {
                 VStack {
                     bodyScrollView(proxy)
                                         
-                    HoverButton(title: "Войти", width: proxy.size.width - Padding.default * 2, backgroundColor: Color("accent_light_2"), titleColor: Color.white, isEnabled: viewModel.isFormValid) {
+                    HoverButton(title: "Войти", backgroundColor: Color("accent_light_2"), titleColor: Color.white, isEnabled: viewModel.isFormValid) {
                         
                     }
                     .padding(.horizontal, Padding.default)

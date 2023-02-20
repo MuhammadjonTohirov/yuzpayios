@@ -26,8 +26,7 @@ struct UserProfileView: View {
     var innerBody: some View {
         VStack(alignment: .leading) {
             VStack {
-                Image("image_avatar")
-                    .resizable(true)
+                KF(imageUrl: UserSettings.shared.userAvatarURL)
                     .frame(width: 120, height: 120)
                     .padding(.vertical, Padding.small)
                 

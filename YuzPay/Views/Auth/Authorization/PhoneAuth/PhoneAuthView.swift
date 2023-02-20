@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import SwiftUIX
 
 struct PhoneAuthView: View {
     @ObservedObject var viewModel = PhoneAuthViewModel()
@@ -15,11 +14,10 @@ struct PhoneAuthView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                NavigationLink(tag: .uploadPhoto(model: UploadAvatarViewModel()), selection: $viewModel.route) {
+                NavigationLink("", isActive: $viewModel.pushToPage) {
                     viewModel.route?.screen
-                } label: {
-                    Text("")
                 }
+                
                 innerBody
             }
         }
@@ -27,6 +25,7 @@ struct PhoneAuthView: View {
             dest.screen
         })
     }
+    
     var innerBody: some View {
         VStack {
             Spacer()
@@ -46,6 +45,7 @@ struct PhoneAuthView: View {
                         isEnabled: viewModel.isButtonEnabled) {
                 viewModel.onClickNext()
             }
+                        .set(animated: viewModel.loading)
                         .padding(.horizontal, Padding.large)
                         .padding(.bottom, Padding.medium)
         }
@@ -60,4 +60,3 @@ struct PhoneAuthView_Preview: PreviewProvider {
         PhoneAuthView()
     }
 }
-

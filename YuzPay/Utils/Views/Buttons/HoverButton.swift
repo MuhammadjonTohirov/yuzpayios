@@ -13,30 +13,53 @@ struct HoverButton: View {
     var title: String
     var leftIcon: Image?
 
-    var width: CGFloat = 200.f.sh(limit: 1.2)
     var height: CGFloat = 56.f.sh(limit: 0.8)
     var backgroundColor: Color = Color("background")
     var titleColor: Color = Color.black
     var isEnabled: Bool = true
     var onClick: () -> Void
+
+    init(title: String, leftIcon: Image? = nil,
+         height: CGFloat = 56.f.sh(limit: 0.8),
+         backgroundColor: Color = Color("background"),
+         titleColor: Color = Color.black, isEnabled: Bool = true, onClick: @escaping () -> Void) {
+        self.title = title
+        self.leftIcon = leftIcon
+        self.height = height
+        self.backgroundColor = backgroundColor
+        self.titleColor = titleColor
+        self.isEnabled = isEnabled
+        self.onClick = onClick
+    }
+        
+    var animated: Bool = false
         
     var body: some View {
-        Button {
-            onClick()
-        } label: {
-            VStack {
-                titleView
-                    .font(.mont(.medium, size: 16))
-                    .foregroundColor(titleColor)
+        ZStack {
+            if animated {
+                ProgressView()
+            } else {
+                Button {
+                    onClick()
+                } label: {
+                    VStack {
+                        titleView
+                            .font(.mont(.medium, size: 16))
+                            .foregroundColor(titleColor)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                .disabled(!isEnabled)
+                .frame(height: height)
             }
-            .frame(height: height)
-            .frame(maxWidth: .infinity)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .foregroundColor(backgroundColor.opacity(isEnabled ? 1 : 0.5))
-                    .shadow(color: Color("accent").opacity(0.12), radius: isEnabled ? 8 : 0, y: isEnabled ? 4 : 0)
-            )
-        }.disabled(!isEnabled)
+        }
+        .frame(height: height)
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .foregroundColor(!animated ? backgroundColor.opacity(isEnabled ? 1 : 0.5) : .secondarySystemBackground)
+                .shadow(color: Color("accent").opacity(0.12), radius: isEnabled ? 8 : 0, y: isEnabled ? 4 : 0)
+        )
     }
     
     @ViewBuilder
@@ -50,6 +73,12 @@ struct HoverButton: View {
         } else {
             Text(title)
         }
+    }
+    
+    func set(animated: Bool) -> Self {
+        var v = self
+        v.animated = animated
+        return v
     }
 }
 

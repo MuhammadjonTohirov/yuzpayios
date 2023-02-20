@@ -157,3 +157,7 @@
 "expiration_date" = "Expiration date";
 
 "profile" = "Profile";
+
+"confirm" = "Confirm";
+
+"not_valid_otp" = "Invalid OTP";

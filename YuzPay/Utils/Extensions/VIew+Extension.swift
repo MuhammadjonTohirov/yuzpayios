@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import AlertToast
 
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {

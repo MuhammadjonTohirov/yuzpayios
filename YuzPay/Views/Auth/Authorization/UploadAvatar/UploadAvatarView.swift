@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import SwiftUIX
 
 struct UploadAvatarView: View {
     @ObservedObject var viewModel: UploadAvatarViewModel = UploadAvatarViewModel()
@@ -15,10 +14,13 @@ struct UploadAvatarView: View {
     @ViewBuilder var body: some View {
         ZStack {
             NavigationLink("", isActive: $viewModel.push, destination: {
-                viewModel.route?.screen ?? EmptyView()
+                viewModel.route?.screen
             })
             .zIndex(2)
             innerBody
+        }
+        .onAppear {
+            viewModel.onAppear()
         }
     }
     
@@ -31,6 +33,7 @@ struct UploadAvatarView: View {
             
             Image(uiImage: viewModel.avatar)
                 .resizable(true)
+                .aspectRatio(contentMode: .fill)
                 .frame(width: 140.f.sw(), height: 140.f.sw())
                 .cornerRadius(70)
                 .foregroundLinearGradient(
@@ -38,6 +41,11 @@ struct UploadAvatarView: View {
                     startPoint: .bottom,
                     endPoint: .top
                 )
+                .overlay {
+                    if viewModel.uploading {
+                        SpringLoaderView()
+                    }
+                }
                 .padding(.bottom, 48)
                 .onTapGesture {
                     viewModel.onSelect(pickerOption: .camera)
@@ -53,6 +61,7 @@ struct UploadAvatarView: View {
             HoverButton(title: "next".localize, backgroundColor: Color("accent_light_2"), titleColor: .white) {
                 viewModel.onClickSave()
             }
+            .set(animated: viewModel.uploading)
             .padding(.horizontal, Padding.large)
             .padding(.bottom, Padding.medium)
         }
@@ -61,10 +70,12 @@ struct UploadAvatarView: View {
         .fullScreenCover(isPresented: $viewModel.showImagePicker, content: {
             ImagePicker(
                 sourceType: viewModel.sourceType,
-                selectedImage: $viewModel.avatar)
+                selectedImage: $viewModel.avatar,
+                imageUrl: $viewModel.imageUrl)
             .ignoresSafeArea()
         })
         .zIndex(2)
+        .toast($viewModel.showAlert, .init(displayMode: .banner(.pop), type: .error(.systemRed), title: self.viewModel.alertMessage))
     }
 }
 

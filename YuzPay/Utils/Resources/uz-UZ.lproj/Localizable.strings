@@ -157,3 +157,7 @@
 "expiration_date" = "Yaroqlilik muddati";
 
 "profile" = "Profil";
+
+"confirm" = "Tasdiqlash";
+
+"not_valid_otp" = "Yaroqsiz OTP";

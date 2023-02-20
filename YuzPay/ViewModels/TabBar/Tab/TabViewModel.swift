@@ -62,7 +62,8 @@ enum SideBarRoute: Hashable, ScreenRoute {
 }
 
 final class TabViewModel: NSObject, ObservableObject {
-    var homeViewModel: HomeViewModel = HomeViewModel()
+    private(set) lazy var homeViewModel: HomeViewModel = { HomeViewModel() }()
+    private(set) lazy var settingsViewModel: SettingsViewModel = { SettingsViewModel() }()
     
     var sideViewModel = SideBarViewModel()
     
