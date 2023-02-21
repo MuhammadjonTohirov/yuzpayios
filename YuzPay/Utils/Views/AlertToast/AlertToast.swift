@@ -273,8 +273,8 @@ public struct AlertToast: View{
     
     ///HUD View
     public var hud: some View{
-        Group{
-            HStack(spacing: 16){
+        Group {
+            HStack(spacing: 16) {
                 switch type{
                 case .complete(let color):
                     Image(systemName: "checkmark")
@@ -322,15 +322,16 @@ public struct AlertToast: View{
             .frame(minHeight: 50)
             .alertBackground(style?.backgroundColor ?? nil)
             .clipShape(Capsule())
-            .overlay(Capsule().stroke(Color.gray.opacity(0.2), lineWidth: 1))
+            .overlay(Capsule().stroke(Color.gray.opacity(0.2), lineWidth: 0.5))
             .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 6)
             .compositingGroup()
         }
         .padding(.top)
+        .padding(.top, 8)
     }
     
     ///Alert View
-    public var alert: some View{
+    public var alert: some View {
         VStack{
             switch type{
             case .complete(let color):

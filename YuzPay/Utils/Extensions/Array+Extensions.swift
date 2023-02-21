@@ -15,4 +15,16 @@ extension Array {
         
         return nil
     }
+    
+    var nilIfEmpty: [Element]? {
+        self.isEmpty ? nil : self
+    }
+    
+    var nilOrEmpty: Bool {
+        nilIfEmpty == nil
+    }
+}
+
+extension Array: NetResBody where Element: Codable {
+    
 }

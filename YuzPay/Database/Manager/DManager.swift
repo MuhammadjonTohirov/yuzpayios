@@ -9,8 +9,8 @@ import Foundation
 import RealmSwift
 
 protocol DManager {
-    associatedtype Obj = DItemProtocol
-    func add(_ items: Obj...)
+
+    func add<T: ModelProtocol>(_ items: T...)
     func removeAll()
     func execute(completion: @escaping (Realm) -> Void)
 }
@@ -28,11 +28,25 @@ extension DManager {
         }
     }
     
-    func add(_ items: Obj...) {
+    func add<T: ModelProtocol>(_ items: T...) {
         fatalError("not implemented yet")
     }
     
     func removeAll() {
         fatalError("not implemented yet")
+    }
+}
+
+class ObjectManager: DManager {
+    let manager: any DManager
+    
+    init(_ manager: any DManager) {
+        self.manager = manager
+    }
+    
+    func add<T: ModelProtocol>(_ items: T...) {
+        items.forEach { item in
+            manager.add(item)
+        }
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum UserServiceRoute: URLRequestProtocol {
+enum UserNetworkServiceRoute: URLRequestProtocol {
     
     func request() -> URLRequest {
         var request: URLRequest?
@@ -16,7 +16,7 @@ enum UserServiceRoute: URLRequestProtocol {
         case let .phoneRegister(_, photoUrl, _, otp):
             request = URLRequest.fromDataRequest(url: url, boundary: "Boundary-\(otp)")
             request?.addValue("\(photoUrl.fileSize)", forHTTPHeaderField: "Content-Length")
-        case .getUserAvatar:
+        case .getUserInfo:
             request = URLRequest.new(url: url)
             request?.setValue("image/png", forHTTPHeaderField: "accept")
         default:
@@ -45,8 +45,8 @@ enum UserServiceRoute: URLRequestProtocol {
             return URL.base.appendingPath("api", "Cabinet", "UserSessions")
         case .getUserLogs:
             return URL.base.appendingPath("api", "Cabinet", "UserLogs")
-        case .getUserAvatar:
-            return URL.base.appendingPath("img", "Client", "ProfileAvatar.png")
+        case .getUserInfo:
+            return URL.base.appendingPath("api", "Client", "UserInfo")
         }
     }
     
@@ -82,7 +82,7 @@ enum UserServiceRoute: URLRequestProtocol {
             return .post
         case .deleteAccount:
             return .delete
-        case .getUserLogs, .getSessions, .getUserAvatar:
+        case .getUserLogs, .getSessions, .getUserInfo:
             return .get
         }
     }
@@ -94,5 +94,5 @@ enum UserServiceRoute: URLRequestProtocol {
     case logout
     case getSessions
     case getUserLogs
-    case getUserAvatar
+    case getUserInfo
 }

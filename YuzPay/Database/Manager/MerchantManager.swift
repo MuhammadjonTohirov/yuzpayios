@@ -13,12 +13,14 @@ final class MerchantManager: DManager {
     
     func add(_ items: MerchantItemModel...) {
         execute { realm in
-            items.forEach { item in
-                let merchant = realm.object(ofType: DMerchantCategory.self, forPrimaryKey: item.type) ?? DMerchantCategory.init(title: item.type)
-                
-                realm.add(merchant, update: .modified)
-                merchant.add(item: item)
+            items.forEach { merchant in
+                if let category = realm.object(ofType: DMerchantCategory.self, forPrimaryKey: merchant.type) {
+                    realm.add(category, update: .modified)
+                    category.add(item: merchant)
+                }
             }
         }
     }
 }
+
+

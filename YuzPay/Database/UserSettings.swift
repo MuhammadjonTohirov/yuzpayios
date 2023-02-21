@@ -40,6 +40,22 @@ final public class UserSettings {
     @anyWrapper(key: "refreshToken", defaultValue: nil)
     public var refreshToken: String?
     
+    public var isAccessTokenExpired: Bool {
+        if let date = accessTokenExpireDate {
+            return Date(timeIntervalSince1970: date) <= Date()
+        }
+        
+        return true
+    }
+    
+    public var isRefreshTokenExpired: Bool {
+        if let date = refresTokenExpireDate {
+            return Date(timeIntervalSince1970: date) <= Date()
+        }
+        
+        return true
+    }
+    
     @anyWrapper(key: "accessTokenExpire", defaultValue: nil)
     public var accessTokenExpireDate: Double?
 

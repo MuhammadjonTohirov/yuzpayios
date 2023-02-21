@@ -15,11 +15,12 @@ extension View {
 }
 
 extension View {
-    func toast(_ presenting: Binding<Bool>, _ alert: AlertToast, duration: CGFloat = 0.3) -> some View {
+    func toast(_ presenting: Binding<Bool>, _ alert: AlertToast, duration: CGFloat = 0.5) -> some View {
         self.toast(isPresenting: presenting) {
             alert
-        }.onAppear {
-            if presenting.wrappedValue {
+        }
+        .onChange(of: presenting.wrappedValue) { newValue in
+            if newValue {
                 DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
                     presenting.wrappedValue = false
                 }

@@ -32,7 +32,7 @@ class SettingsViewModel: ObservableObject {
     
     func deleteAccount() {
         Task {
-            let isDeleted = await UserService.shared.deleteAccount()
+            let isDeleted = await UserNetworkService.shared.deleteAccount()
             if isDeleted {
                 UserSettings.shared.clearUserDetails()
                 mainRouter?.navigate(to: .auth)

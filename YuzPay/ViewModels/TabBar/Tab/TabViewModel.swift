@@ -61,12 +61,14 @@ enum SideBarRoute: Hashable, ScreenRoute {
     }
 }
 
-final class TabViewModel: NSObject, ObservableObject {
+final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loadable, Alertable {
     private(set) lazy var homeViewModel: HomeViewModel = { HomeViewModel() }()
     private(set) lazy var settingsViewModel: SettingsViewModel = { SettingsViewModel() }()
     
     var sideViewModel = SideBarViewModel()
-    
+
+    var alert: AlertToast = .init(displayMode: .alert, type: .regular)
+
     @Published var sideMenuOffset: CGPoint = .zero
     
     @Published var pushSideMenuActions: Bool = false
@@ -79,6 +81,10 @@ final class TabViewModel: NSObject, ObservableObject {
         }
     }
     
+    @Published var isLoading: Bool = false
+    
+    @Published var shouldShowAlert: Bool = false
+        
     var sideMenuWidth: CGFloat {
         UIScreen.screen.width * 0.8
     }

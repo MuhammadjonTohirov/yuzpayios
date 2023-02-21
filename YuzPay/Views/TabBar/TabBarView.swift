@@ -14,7 +14,7 @@ struct TabBarView: View {
     @State var size: CGRect = .zero
     
     var body: some View {
-        StackNavigationView {
+        NavigationView {
             if size == .zero {
                 EmptyView()
             } else {
@@ -25,7 +25,9 @@ struct TabBarView: View {
         .readSize($size)
         .onAppear {
             viewModel.onAppear()
+            viewModel.showError(message: "Gamers")
         }
+        .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1)
     }
     
     var innerBody: some View {

@@ -94,7 +94,7 @@ final class OtpViewModel: ObservableObject {
             self.hideLoader()
         }
         Task {
-            let _ = await UserService.shared.getOTP(forNumber: self.number)
+            let _ = await UserNetworkService.shared.getOTP(forNumber: self.number)
             
             await MainActor.run {
                 self.startCounter()
@@ -107,7 +107,7 @@ final class OtpViewModel: ObservableObject {
         self.showLoader()
         
         Task {
-            let result = await UserService.shared.confirm(otp: self.otp)
+            let result = await UserNetworkService.shared.confirm(otp: self.otp)
             
             await MainActor.run {
                 self.hideLoader()

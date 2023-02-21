@@ -81,7 +81,7 @@ final class UploadAvatarViewModel: ObservableObject {
         }
         self.startUploading()
         
-        UserService.shared.uploadAvatar(url: url) { success, error in
+        UserNetworkService.shared.uploadAvatar(url: url) { success, error in
             self.stopUploading()
             if success {
                 Logging.l("Uploading avatar is successfull")

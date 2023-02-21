@@ -54,18 +54,6 @@ struct Network {
             completion(res)
         }.resume()
     }
-    
-    static func download(request: URLRequestProtocol) async -> String? {
-        Logging.l("--- --- REQUEST --- ---")
-        Logging.l(request.url.absoluteString)
-                
-        let result = try? await URLSession.shared.data(for: request.request())
-        if let d = result?.0 {
-            print(d)
-//            d.write(to: URL(string: "")!)
-        }
-        return "res"
-    }
 }
 
 class NetUploadHandler: NSObject, URLSessionDataDelegate {

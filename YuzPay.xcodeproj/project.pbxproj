@@ -155,14 +155,14 @@
 		2E9287CD299C15F900A7CDC0 /* NetReqCheckPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287CC299C15F900A7CDC0 /* NetReqCheckPhone.swift */; };
 		2E9287CF299C160D00A7CDC0 /* NetRes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287CE299C160D00A7CDC0 /* NetRes.swift */; };
 		2E9287D1299C181F00A7CDC0 /* NetBodyCheckPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287D0299C181F00A7CDC0 /* NetBodyCheckPhone.swift */; };
-		2E9287D4299C185700A7CDC0 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287D3299C185700A7CDC0 /* UserService.swift */; };
+		2E9287D4299C185700A7CDC0 /* UserNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287D3299C185700A7CDC0 /* UserNetworkService.swift */; };
 		2E9287DA299C9D4F00A7CDC0 /* URLRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287D9299C9D4F00A7CDC0 /* URLRequestProtocol.swift */; };
 		2E9287DC299C9DBA00A7CDC0 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287DB299C9DBA00A7CDC0 /* Network.swift */; };
 		2E9287E0299D3FBE00A7CDC0 /* URLRequest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287DF299D3FBE00A7CDC0 /* URLRequest+Extensions.swift */; };
 		2E9287E2299D41B800A7CDC0 /* PhoneAuthRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287E1299D41B800A7CDC0 /* PhoneAuthRoute.swift */; };
 		2E9287E4299DA9AD00A7CDC0 /* NSMutableData+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287E3299DA9AD00A7CDC0 /* NSMutableData+Extensions.swift */; };
 		2E9287E7299DAB0800A7CDC0 /* MultipartForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287E6299DAB0800A7CDC0 /* MultipartForm.swift */; };
-		2E9287EA299E132800A7CDC0 /* UserServiceRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287E9299E132800A7CDC0 /* UserServiceRoute.swift */; };
+		2E9287EA299E132800A7CDC0 /* UserNetworkServiceRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287E9299E132800A7CDC0 /* UserNetworkServiceRoute.swift */; };
 		2E9287EC299E135400A7CDC0 /* NetReqPhoneLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287EB299E135400A7CDC0 /* NetReqPhoneLogin.swift */; };
 		2E9287EE299E13FA00A7CDC0 /* NetResBodyPhoneLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287ED299E13FA00A7CDC0 /* NetResBodyPhoneLogin.swift */; };
 		2E9287F4299FDD0400A7CDC0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287F3299FDD0400A7CDC0 /* SettingsViewModel.swift */; };
@@ -298,6 +298,15 @@
 		2ED87D032955FEE600E1D477 /* ObservableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED87CE32955FEE600E1D477 /* ObservableExtensions.swift */; };
 		2ED87D042955FEE600E1D477 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED87CE42955FEE600E1D477 /* Observable.swift */; };
 		2ED87D052955FEE600E1D477 /* ObserverSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED87CE52955FEE600E1D477 /* ObserverSet.swift */; };
+		2EDE333A29A43729005E151C /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE333929A43729005E151C /* Loadable.swift */; };
+		2EDE333C29A437D4005E151C /* BaseViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE333B29A437D4005E151C /* BaseViewModelProtocol.swift */; };
+		2EDE333E29A43D80005E151C /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE333D29A43D80005E151C /* Alertable.swift */; };
+		2EDE334029A44DF1005E151C /* DUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE333F29A44DF1005E151C /* DUserInfo.swift */; };
+		2EDE334429A450DC005E151C /* TabDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE334329A450DC005E151C /* TabDataService.swift */; };
+		2EDE334629A483B9005E151C /* NetResMerchantCategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE334529A483B9005E151C /* NetResMerchantCategoryItem.swift */; };
+		2EDE334829A48430005E151C /* MainNetworkServiceRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE334729A48430005E151C /* MainNetworkServiceRoute.swift */; };
+		2EDE334A29A484C3005E151C /* MainNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE334929A484C3005E151C /* MainNetworkService.swift */; };
+		2EDE334C29A4871B005E151C /* MerchantCategoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE334B29A4871B005E151C /* MerchantCategoryManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -460,14 +469,14 @@
 		2E9287CC299C15F900A7CDC0 /* NetReqCheckPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetReqCheckPhone.swift; sourceTree = "<group>"; };
 		2E9287CE299C160D00A7CDC0 /* NetRes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetRes.swift; sourceTree = "<group>"; };
 		2E9287D0299C181F00A7CDC0 /* NetBodyCheckPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetBodyCheckPhone.swift; sourceTree = "<group>"; };
-		2E9287D3299C185700A7CDC0 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		2E9287D3299C185700A7CDC0 /* UserNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkService.swift; sourceTree = "<group>"; };
 		2E9287D9299C9D4F00A7CDC0 /* URLRequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestProtocol.swift; sourceTree = "<group>"; };
 		2E9287DB299C9DBA00A7CDC0 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		2E9287DF299D3FBE00A7CDC0 /* URLRequest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extensions.swift"; sourceTree = "<group>"; };
 		2E9287E1299D41B800A7CDC0 /* PhoneAuthRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthRoute.swift; sourceTree = "<group>"; };
 		2E9287E3299DA9AD00A7CDC0 /* NSMutableData+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableData+Extensions.swift"; sourceTree = "<group>"; };
 		2E9287E6299DAB0800A7CDC0 /* MultipartForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartForm.swift; sourceTree = "<group>"; };
-		2E9287E9299E132800A7CDC0 /* UserServiceRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceRoute.swift; sourceTree = "<group>"; };
+		2E9287E9299E132800A7CDC0 /* UserNetworkServiceRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkServiceRoute.swift; sourceTree = "<group>"; };
 		2E9287EB299E135400A7CDC0 /* NetReqPhoneLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetReqPhoneLogin.swift; sourceTree = "<group>"; };
 		2E9287ED299E13FA00A7CDC0 /* NetResBodyPhoneLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResBodyPhoneLogin.swift; sourceTree = "<group>"; };
 		2E9287F3299FDD0400A7CDC0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -603,6 +612,15 @@
 		2ED87CE32955FEE600E1D477 /* ObservableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableExtensions.swift; sourceTree = "<group>"; };
 		2ED87CE42955FEE600E1D477 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		2ED87CE52955FEE600E1D477 /* ObserverSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObserverSet.swift; sourceTree = "<group>"; };
+		2EDE333929A43729005E151C /* Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
+		2EDE333B29A437D4005E151C /* BaseViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModelProtocol.swift; sourceTree = "<group>"; };
+		2EDE333D29A43D80005E151C /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
+		2EDE333F29A44DF1005E151C /* DUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DUserInfo.swift; sourceTree = "<group>"; };
+		2EDE334329A450DC005E151C /* TabDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDataService.swift; sourceTree = "<group>"; };
+		2EDE334529A483B9005E151C /* NetResMerchantCategoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResMerchantCategoryItem.swift; sourceTree = "<group>"; };
+		2EDE334729A48430005E151C /* MainNetworkServiceRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNetworkServiceRoute.swift; sourceTree = "<group>"; };
+		2EDE334929A484C3005E151C /* MainNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNetworkService.swift; sourceTree = "<group>"; };
+		2EDE334B29A4871B005E151C /* MerchantCategoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MerchantCategoryManager.swift; sourceTree = "<group>"; };
 		2EEED6D0293F13BF000B35E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -849,6 +867,7 @@
 				2E7FE8F329517D8900D15A4A /* DCard.swift */,
 				2E2CBA612952DF3600D7C352 /* DMerchant.swift */,
 				2E4A80EE2961DA0D0032B7FF /* DTransactionItem.swift */,
+				2EDE333F29A44DF1005E151C /* DUserInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1071,6 +1090,7 @@
 			isa = PBXGroup;
 			children = (
 				2E43749E294F411B00F78FEC /* TabViewModel.swift */,
+				2EDE334329A450DC005E151C /* TabDataService.swift */,
 			);
 			path = Tab;
 			sourceTree = "<group>";
@@ -1228,6 +1248,7 @@
 		2E5F2FB9293E116000D0C060 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				2EDE333829A4370D005E151C /* Common */,
 				2EB8E6D12979D2CB00BBAFE3 /* Transfer */,
 				2E2CBA9B2954B9D800D7C352 /* CardsAndWallets */,
 				2E437496294F2B8F00F78FEC /* TabBar */,
@@ -1377,6 +1398,7 @@
 				2E2CBA5F2952D8BA00D7C352 /* DManager.swift */,
 				2E7FE8F6295180F100D15A4A /* CreditCardManager.swift */,
 				2E2CBA652952E26200D7C352 /* MerchantManager.swift */,
+				2EDE334B29A4871B005E151C /* MerchantCategoryManager.swift */,
 				2E4A80F22961E56B0032B7FF /* TransactionSectionsManager.swift */,
 				2E4A80F42962A16D0032B7FF /* TransactionManager.swift */,
 			);
@@ -1476,6 +1498,7 @@
 				2E8C472E29A09C2B004D9817 /* NetResBodyUserInfo.swift */,
 				2E8C473029A09E7A004D9817 /* NetResBodySession.swift */,
 				2E8C473229A09EE1004D9817 /* NetResBodyUserLog.swift */,
+				2EDE334529A483B9005E151C /* NetResMerchantCategoryItem.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1493,7 +1516,8 @@
 		2E9287D2299C184E00A7CDC0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				2E9287D3299C185700A7CDC0 /* UserService.swift */,
+				2EDE334929A484C3005E151C /* MainNetworkService.swift */,
+				2E9287D3299C185700A7CDC0 /* UserNetworkService.swift */,
 				2E9287DB299C9DBA00A7CDC0 /* Network.swift */,
 			);
 			path = Services;
@@ -1518,7 +1542,8 @@
 		2E9287E8299E132000A7CDC0 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				2E9287E9299E132800A7CDC0 /* UserServiceRoute.swift */,
+				2E9287E9299E132800A7CDC0 /* UserNetworkServiceRoute.swift */,
+				2EDE334729A48430005E151C /* MainNetworkServiceRoute.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -1950,6 +1975,16 @@
 			path = Observable;
 			sourceTree = "<group>";
 		};
+		2EDE333829A4370D005E151C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2EDE333929A43729005E151C /* Loadable.swift */,
+				2EDE333B29A437D4005E151C /* BaseViewModelProtocol.swift */,
+				2EDE333D29A43D80005E151C /* Alertable.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		2EEED6AD293EFFBB000B35E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -2206,7 +2241,7 @@
 				2E9287E4299DA9AD00A7CDC0 /* NSMutableData+Extensions.swift in Sources */,
 				2E374FCD2948535C0007D146 /* AuthIntroViewModel.swift in Sources */,
 				2E8C472F29A09C2B004D9817 /* NetResBodyUserInfo.swift in Sources */,
-				2E9287D4299C185700A7CDC0 /* UserService.swift in Sources */,
+				2E9287D4299C185700A7CDC0 /* UserNetworkService.swift in Sources */,
 				2E85AF7B296A89A1009CABC2 /* UserIdentification.swift in Sources */,
 				2E2CBAA02954DF9900D7C352 /* AddNewCardView.swift in Sources */,
 				2E2CBA7E29543C1A00D7C352 /* ScrollableModifier.swift in Sources */,
@@ -2229,6 +2264,7 @@
 				2EC5F0D92945BC0D00BA54E3 /* SignUpFormViewModel.swift in Sources */,
 				2E4EC1C9296312E900A7BE81 /* SelectCardTypeView.swift in Sources */,
 				2EC5F0DC2945E71200BA54E3 /* OTPView.swift in Sources */,
+				2EDE333C29A437D4005E151C /* BaseViewModelProtocol.swift in Sources */,
 				2ED87CB42955EC0100E1D477 /* PixelBufferStream.swift in Sources */,
 				2E2CBA87295440E000D7C352 /* MobilePaymentView.swift in Sources */,
 				2E9287EC299E135400A7CDC0 /* NetReqPhoneLogin.swift in Sources */,
@@ -2291,7 +2327,7 @@
 				2EBCA81E29417A9500F89E6F /* YTextField.swift in Sources */,
 				2E437495294F191400F78FEC /* SideBarMenuItem.swift in Sources */,
 				2E433AA5295A875700D6F1F6 /* Destination1.swift in Sources */,
-				2E9287EA299E132800A7CDC0 /* UserServiceRoute.swift in Sources */,
+				2E9287EA299E132800A7CDC0 /* UserNetworkServiceRoute.swift in Sources */,
 				2E9287E2299D41B800A7CDC0 /* PhoneAuthRoute.swift in Sources */,
 				2E2EBECA297FF5AF00C218CF /* YGridView.swift in Sources */,
 				2E1DA6B42941C45A007A5F9F /* DeviceRotationViewModifier.swift in Sources */,
@@ -2299,9 +2335,11 @@
 				2E7FE8F7295180F100D15A4A /* CreditCardManager.swift in Sources */,
 				2E374FF7294DF15B0007D146 /* PhoneAuthFormViewModel.swift in Sources */,
 				2E437493294F03B900F78FEC /* SideBarContent.swift in Sources */,
+				2EDE333E29A43D80005E151C /* Alertable.swift in Sources */,
 				2EC5F0DE2945EE7C00BA54E3 /* Text+Extension.swift in Sources */,
 				2EC5F0C52944510200BA54E3 /* KeyboardKey.swift in Sources */,
 				2EC5F0F02946455B00BA54E3 /* UserSettings.swift in Sources */,
+				2EDE334A29A484C3005E151C /* MainNetworkService.swift in Sources */,
 				2E437490294EFB0000F78FEC /* HomeView.swift in Sources */,
 				2ED87CF92955FEE600E1D477 /* UIStackView.swift in Sources */,
 				2ED87CB52955EC0100E1D477 /* CardScannerExtensions.swift in Sources */,
@@ -2319,6 +2357,7 @@
 				2E7FE8F2294FED6A00D15A4A /* LoadingView.swift in Sources */,
 				2E2EBEB6297F04F000C218CF /* YPaginationView.swift in Sources */,
 				2E4A80EF2961DA0D0032B7FF /* DTransactionItem.swift in Sources */,
+				2EDE334C29A4871B005E151C /* MerchantCategoryManager.swift in Sources */,
 				2E9287F7299FF7E600A7CDC0 /* SpringLoaderView.swift in Sources */,
 				2EC5F0D32945B48C00BA54E3 /* YTextFieldBottomInfo.swift in Sources */,
 				2E85AF85296A9D9C009CABC2 /* CameraPreview.swift in Sources */,
@@ -2335,11 +2374,13 @@
 				2E433AAD295AB9AE00D6F1F6 /* UIView+Extensions.swift in Sources */,
 				2ED87D002955FEE600E1D477 /* ParallelRequests.swift in Sources */,
 				2ED87CFF2955FEE600E1D477 /* AsyncRequest.swift in Sources */,
+				2EDE334629A483B9005E151C /* NetResMerchantCategoryItem.swift in Sources */,
 				2E4A80F12961DA9F0032B7FF /* TransactionItem.swift in Sources */,
 				2EBCA8152941663A00F89E6F /* HoverButton.swift in Sources */,
 				2E4A80E829614EC70032B7FF /* CardLargeView.swift in Sources */,
 				2E6802212952A540008BCB9C /* MockData.swift in Sources */,
 				2E85AF88296A9D9C009CABC2 /* PhotoCaptureProcessor.swift in Sources */,
+				2EDE333A29A43729005E151C /* Loadable.swift in Sources */,
 				2E1DA6BF29420808007A5F9F /* SignInViewModel.swift in Sources */,
 				2E5F2F8F293E0E6000D0C060 /* YuzPayApp.swift in Sources */,
 				2EC5F0ED294644E700BA54E3 /* Language.swift in Sources */,
@@ -2350,6 +2391,7 @@
 				2EC5F0FD2946740E00BA54E3 /* FacePayStartView.swift in Sources */,
 				2ED87CB92955EC0100E1D477 /* Styling.swift in Sources */,
 				2EC5F0CA2944957700BA54E3 /* AuthSignUp.swift in Sources */,
+				2EDE334429A450DC005E151C /* TabDataService.swift in Sources */,
 				2E2EBEC5297FCF1700C218CF /* MerchantPaymentView.swift in Sources */,
 				2ED2419C2997BA8A00063632 /* URL+Extensions.swift in Sources */,
 				2EC5F108294710E700BA54E3 /* ResetPasswordView.swift in Sources */,
@@ -2371,6 +2413,7 @@
 				2E9287F4299FDD0400A7CDC0 /* SettingsViewModel.swift in Sources */,
 				2E85AF98296B51C7009CABC2 /* NotificationModel.swift in Sources */,
 				2ED87D052955FEE600E1D477 /* ObserverSet.swift in Sources */,
+				2EDE334829A48430005E151C /* MainNetworkServiceRoute.swift in Sources */,
 				2E2CBA682952E29300D7C352 /* DItemProtocol.swift in Sources */,
 				2EBCA80629415A9100F89E6F /* AuthIntroView.swift in Sources */,
 				2E374FEB294D6C9C0007D146 /* AuthSelectLanguage.swift in Sources */,
@@ -2385,6 +2428,7 @@
 				2E9287EE299E13FA00A7CDC0 /* NetResBodyPhoneLogin.swift in Sources */,
 				2E2CBA8E295468B600D7C352 /* SavedPaymentsView.swift in Sources */,
 				2E4A80F52962A16D0032B7FF /* TransactionManager.swift in Sources */,
+				2EDE334029A44DF1005E151C /* DUserInfo.swift in Sources */,
 				2ED87CEF2955FEE600E1D477 /* ThreadSafe.swift in Sources */,
 				2E2CBA712952EC5300D7C352 /* DMerchantCategory.swift in Sources */,
 				2E2EBEBA297F15B000C218CF /* TransferFinishPaymentView.swift in Sources */,

@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct UserService {
-    typealias S = UserServiceRoute
+struct UserNetworkService {
+    typealias S = UserNetworkServiceRoute
     
-    public static var shared = UserService()
+    public static var shared = UserNetworkService()
     
     func getOTP(forNumber phone: String) async -> NetRes<NetBodyCheckPhone>? {
         return await Network.send(request: S.checkPhone(withNumber: phone))
@@ -77,7 +77,9 @@ struct UserService {
         return await Network.send(request: S.getSessions)
     }
     
-    func getUserAvatar() async -> String? {
-        return await Network.download(request: S.getUserAvatar)
+    func getUserInfo() async -> NetResBodyUserInfo? {
+        let res: NetRes<NetResBodyUserInfo>? = await Network.send(request: S.getUserInfo)
+        
+        return res?.data
     }
 }

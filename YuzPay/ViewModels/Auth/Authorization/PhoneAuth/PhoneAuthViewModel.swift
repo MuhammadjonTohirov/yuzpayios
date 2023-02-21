@@ -38,7 +38,7 @@ final class PhoneAuthViewModel: NSObject, ObservableObject {
         loading = true
         
         Task {
-            guard let result = await UserService().getOTP(forNumber: number), let body = result.data, result.success else {
+            guard let result = await UserNetworkService().getOTP(forNumber: number), let body = result.data, result.success else {
                 return
             }
             
@@ -82,7 +82,7 @@ final class PhoneAuthViewModel: NSObject, ObservableObject {
     private func getAccessToken() {
         self.loading = true
         Task {
-            let success = await UserService.shared.getAccessToken()
+            let success = await UserNetworkService.shared.getAccessToken()
             await MainActor.run {
                 self.loading = false
                 let hasPin = UserSettings.shared.appPin != nil
