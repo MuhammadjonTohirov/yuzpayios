@@ -23,6 +23,10 @@ final class CreditCardManager: DManager {
         Realm.new?.objects(DCard.self)
     }
     
+    var all: Results<DCard>? {
+        cards
+    }
+    
     func removeAll() {
         execute { realm in
             realm.delete(realm.objects(DCard.self))

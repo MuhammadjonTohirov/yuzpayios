@@ -15,4 +15,5 @@ struct NetRes<T: NetResBody>: Codable {
     let success: Bool
     let data: T?
     let error: String?
+    let code: Int?
 }

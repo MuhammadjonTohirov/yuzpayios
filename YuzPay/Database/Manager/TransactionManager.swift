@@ -32,4 +32,8 @@ final class TransactionsManager: DManager {
             }
         }
     }
+    
+    var all: Results<DTransactionItem>? {
+        Realm.new?.objects(DTransactionItem.self)
+    }
 }

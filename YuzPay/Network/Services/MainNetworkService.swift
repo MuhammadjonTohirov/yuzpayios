@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MainNetworkService {
+struct MainNetworkService: NetworkServiceProtocol {
     typealias S = MainNetworkServiceRoute
     
     public static var shared = MainNetworkService()
@@ -18,5 +18,18 @@ struct MainNetworkService {
             ObjectManager(MerchantCategoryManager()).add(cat)
         })
         return categories?.data?.nilIfEmpty != nil
+    }
+    
+    func syncMerchants(forCategory category: Int, limit: Int? = nil, completion: @escaping (Bool) -> Void) {
+        Task {
+            let merchants: NetRes<[NetResMerchantItem]>? = await Network.send(request: S.getMerchants(byCategory: category, limit: limit))
+            let merchantsList = merchants?.data?.compactMap({MerchantItemModel(id: "\($0.id)", title: $0.title, icon: $0.logo, categoryId: category)}) ?? []
+            
+            ObjectManager(MerchantManager()).addAll(merchantsList)
+            
+            DispatchQueue.main.async {
+                completion(merchants?.success ?? false)
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 final class TransactionSectionsManager: DManager {
     typealias Obj = TransactionSection
@@ -16,5 +17,9 @@ final class TransactionSectionsManager: DManager {
                 realm.add(DTransactionSection(date: $0.date), update: .modified)
             })
         }
+    }
+    
+    var all: Results<DTransactionSection>? {
+        Realm.new?.objects(DTransactionSection.self)
     }
 }

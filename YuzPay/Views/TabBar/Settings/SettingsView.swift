@@ -147,7 +147,7 @@ struct SettingsView_Preview: PreviewProvider {
     static var previews: some View {
         NavigationView {
             SettingsView(viewModel: SettingsViewModel())
-                .environmentObject(TabViewModel())
+                .environmentObject(TabViewModel(dataService: TabDataService()))
         }
     }
 }

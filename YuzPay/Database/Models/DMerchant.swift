@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class DMerchant: Object, DItemProtocol, PaymentServiceProtocol {
+final class DMerchant: Object, DItemProtocol, Identifiable, PaymentServiceProtocol {
 
     @Persisted(primaryKey: true) var id: String
     
@@ -16,16 +16,16 @@ final class DMerchant: Object, DItemProtocol, PaymentServiceProtocol {
     
     @Persisted var icon: String
 
-    @Persisted var type: String
+    @Persisted var categoryId: Int
     
     var category: DMerchantCategory? {
-        self.realm?.object(ofType: DMerchantCategory.self, forPrimaryKey: type)
+        self.realm?.object(ofType: DMerchantCategory.self, forPrimaryKey: id)
     }
     
-    init(id: String, title: String, icon: String, type: String) {
+    init(id: String, title: String, icon: String, category: Int) {
         self.title = title
         self.icon = icon
-        self.type = type
+        self.categoryId = category
         super.init()
         self.id = id
     }
@@ -37,7 +37,7 @@ final class DMerchant: Object, DItemProtocol, PaymentServiceProtocol {
 
 extension DMerchant {
     static func build(withModel model: MerchantItemModel) -> any DItemProtocol {
-        DMerchant.init(id: model.id, title: model.title, icon: model.icon, type: model.type)
+        DMerchant.init(id: model.id, title: model.title, icon: model.icon, category: model.categoryId)
     }
     
     public func update(withModel model: MerchantItemModel) {

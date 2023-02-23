@@ -16,11 +16,13 @@ struct MerchantItemView: View {
     
     var body: some View {
         VStack {
-            Image(icon)
-                .resizable()
-                .frame(width: 60.f.sw(), height: 60.f.sw())
+            KF(imageUrl: URL(string: icon))
+                .frame(width: 40.f.sw(), height: 40.f.sw())
+                .background(Circle().foregroundColor(.systemBackground))
+                .padding(.top, 4)
 
             Text(title)
+                .lineLimit(2)
                 .padding(.horizontal, Padding.small)
                 .padding(.bottom, Padding.medium)
                 .font(.mont(.regular, size: 12))

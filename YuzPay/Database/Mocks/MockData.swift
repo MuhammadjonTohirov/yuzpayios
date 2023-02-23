@@ -40,17 +40,7 @@ struct MockData {
     }
     
     func createMerchants() {
-        let manager = MerchantManager()
-        manager.add(
-            .init(id: "0", title: "Ucell", icon: "image_ucell", type: "mobile"),
-            .init(id: "0_1", title: "Mobi uz", icon: "image_mobiuz", type: "mobile"),
-            .init(id: "0_2", title: "Mobi uz 1", icon: "image_mobiuz", type: "mobile"),
-            .init(id: "0_3", title: "Mobi uz 2", icon: "image_mobiuz", type: "mobile"),
-            .init(id: "0_4", title: "Mobi uz 3", icon: "image_mobiuz", type: "mobile"),
-            .init(id: "0_5", title: "Mobi uz 4", icon: "image_mobiuz", type: "mobile"),
-            .init(id: "1", title: "Clouds", icon: "image_clouds", type: "internet"),
-            .init(id: "1_1", title: "Sarkor telecom", icon: "image_sarkor_telecom", type: "internet")
-        )
+        
     }
     
     func createTransactions() {

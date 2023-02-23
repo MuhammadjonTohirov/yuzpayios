@@ -88,7 +88,7 @@ struct HelpView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             HelpView()
-                .environmentObject(TabViewModel())
+                .environmentObject(TabViewModel(dataService: TabDataService()))
         }
     }
 }

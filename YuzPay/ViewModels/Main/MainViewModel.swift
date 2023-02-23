@@ -60,6 +60,7 @@ class MainViewRouter {
 
 protocol AppDelegate {
     func navigate(to destination: AppDestination)
+    func confirmOTP(number: String)
 }
 
 var routerObject = MainViewRouter()
@@ -67,6 +68,7 @@ var mainRouter: AppDelegate? = routerObject.delegate
 
 final class MainViewModel: ObservableObject {
     @Published var route: AppDestination = .loading
+    @Published var confirmOTP: Bool = false
     
     init(route: AppDestination = .loading) {
         self.route = route
@@ -78,6 +80,12 @@ extension MainViewModel: AppDelegate {
     func navigate(to destination: AppDestination) {
         DispatchQueue.main.async {
             self.route = destination
+        }
+    }
+
+    func confirmOTP(number: String) {
+        DispatchQueue.main.async {
+            self.confirmOTP = true
         }
     }
 }

@@ -17,20 +17,35 @@ struct Network {
             Logging.l(json)
         }
         
-        let result = try? await URLSession.shared.data(for: request.request())
+        guard let result = try? await URLSession.shared.data(for: request.request()) else {
+            return nil
+        }
         
-        guard let data = result?.0 else {
+        let data = result.0
+
+        let code = (result.1 as! HTTPURLResponse).statusCode
+
+        if code == 401 {
+            await URLSession.shared.cancelAllTasks()
+            mainRouter?.navigate(to: .auth)
             return nil
         }
         
         guard let res = try? JSONDecoder().decode(NetRes<T>.self, from: data) else {
-            return nil
+            onFail(forUrl: request.url.absoluteString)
+            Logging.l("Status code \(code)")
+            return .init(success: false, data: nil, error: nil, code: code)
         }
         
         Logging.l("--- --- RESPONSE --- ---")
         Logging.l(res.asString)
         
         return res
+    }
+    
+    private static func onFail(forUrl url: String) {
+        Logging.l("--- --- RESPONSE --- ---")
+        Logging.l("nil data received from \(url)")
     }
     
     static func upload<T: NetResBody>(body: T.Type, request: URLRequestProtocol, completion: @escaping (NetRes<T>?) -> Void) {

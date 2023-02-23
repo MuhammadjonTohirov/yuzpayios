@@ -11,7 +11,14 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     var url: URL {
         switch self {
         case .getCategories:
-            return URL.base.appendingPath("api", "Client", "PaymentCategoryList")
+            return URL.base.appendingPath("api", "Client", "PaynetCategoryList")
+        case let .getMerchants(cat, limit):
+            if let l = limit {
+                let url = URL.base.appendingPath("api", "Client", "PaynetProviderList", "\(cat)").queries(.init(name: "topRecords", value: "\(l)"))
+                return url
+            }
+            
+            return URL.base.appendingPath("api", "Client", "PaynetProviderList", "\(cat)")
         }
     }
     
@@ -32,4 +39,5 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     }
     
     case getCategories
+    case getMerchants(byCategory: Int, limit: Int?)
 }

@@ -63,6 +63,12 @@ extension URL {
     private func mimeTypeForPath(pathExtension: String) -> String {
         return UTType(filenameExtension: pathExtension)?.preferredMIMEType ?? ""
     }
+    
+    func queries(_ queries: URLQueryItem...) -> URL {
+        var components = URLComponents(string: self.absoluteString)
+        components?.queryItems = Array(queries)
+        return components?.url ?? self
+    }
 }
 
 extension Language {

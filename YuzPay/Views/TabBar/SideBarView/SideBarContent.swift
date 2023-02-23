@@ -116,8 +116,8 @@ struct SideBarContent: View {
             }
 
             Button {
-                UserSettings.shared.appPin = nil
-                UserSettings.shared.userInfoDetails = nil
+                UserSettings.shared.clearUserDetails()
+                
                 mainRouter?.navigate(to: .auth)
             } label: {
                 Text("logout".localize)

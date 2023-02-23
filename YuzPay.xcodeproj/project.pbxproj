@@ -57,7 +57,6 @@
 		2E374FBE2948079C0007D146 /* _SwiftUINavigationState in Frameworks */ = {isa = PBXBuildFile; productRef = 2E374FBD2948079C0007D146 /* _SwiftUINavigationState */; };
 		2E374FC12948112A0007D146 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 2E374FC02948112A0007D146 /* Realm */; };
 		2E374FC32948112A0007D146 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2E374FC22948112A0007D146 /* RealmSwift */; };
-		2E374FC6294811540007D146 /* UserPassportInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FC5294811540007D146 /* UserPassportInfo.swift */; };
 		2E374FCA29484E7D0007D146 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FC929484E7D0007D146 /* MainViewModel.swift */; };
 		2E374FCD2948535C0007D146 /* AuthIntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FCC2948535C0007D146 /* AuthIntroViewModel.swift */; };
 		2E374FD529487B5E0007D146 /* EnvironmentValues+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FD429487B5E0007D146 /* EnvironmentValues+Extensions.swift */; };
@@ -167,6 +166,11 @@
 		2E9287EE299E13FA00A7CDC0 /* NetResBodyPhoneLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287ED299E13FA00A7CDC0 /* NetResBodyPhoneLogin.swift */; };
 		2E9287F4299FDD0400A7CDC0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287F3299FDD0400A7CDC0 /* SettingsViewModel.swift */; };
 		2E9287F7299FF7E600A7CDC0 /* SpringLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9287F6299FF7E600A7CDC0 /* SpringLoaderView.swift */; };
+		2E965EE329A6E77C0021E414 /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E965EE229A6E77C0021E414 /* URLSession+Extensions.swift */; };
+		2E965EE529A6F0B40021E414 /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E965EE429A6F0B40021E414 /* NetworkServiceProtocol.swift */; };
+		2E965EE729A712740021E414 /* NetResMerchantItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E965EE629A712740021E414 /* NetResMerchantItem.swift */; };
+		2E965EEA29A719620021E414 /* MerchantsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E965EE929A719620021E414 /* MerchantsViewModel.swift */; };
+		2E965EEC29A72B9E0021E414 /* CoveredLoaderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E965EEB29A72B9E0021E414 /* CoveredLoaderModifier.swift */; };
 		2E99438C29419DD300D20795 /* TextFieldProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E99438B29419DD300D20795 /* TextFieldProtocol.swift */; };
 		2E9943902941A8AB00D20795 /* YTextFieldBackgroundGrayStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E99438F2941A8AB00D20795 /* YTextFieldBackgroundGrayStyle.swift */; };
 		2E9943922941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9943912941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift */; };
@@ -373,7 +377,6 @@
 		2E2EBEC4297FCF1700C218CF /* MerchantPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MerchantPaymentView.swift; sourceTree = "<group>"; };
 		2E2EBEC6297FE10100C218CF /* TranserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranserType.swift; sourceTree = "<group>"; };
 		2E2EBEC9297FF5AF00C218CF /* YGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YGridView.swift; sourceTree = "<group>"; };
-		2E374FC5294811540007D146 /* UserPassportInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPassportInfo.swift; sourceTree = "<group>"; };
 		2E374FC929484E7D0007D146 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		2E374FCC2948535C0007D146 /* AuthIntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthIntroViewModel.swift; sourceTree = "<group>"; };
 		2E374FD429487B5E0007D146 /* EnvironmentValues+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+Extensions.swift"; sourceTree = "<group>"; };
@@ -481,6 +484,11 @@
 		2E9287ED299E13FA00A7CDC0 /* NetResBodyPhoneLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResBodyPhoneLogin.swift; sourceTree = "<group>"; };
 		2E9287F3299FDD0400A7CDC0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		2E9287F6299FF7E600A7CDC0 /* SpringLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpringLoaderView.swift; sourceTree = "<group>"; };
+		2E965EE229A6E77C0021E414 /* URLSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
+		2E965EE429A6F0B40021E414 /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
+		2E965EE629A712740021E414 /* NetResMerchantItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResMerchantItem.swift; sourceTree = "<group>"; };
+		2E965EE929A719620021E414 /* MerchantsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MerchantsViewModel.swift; sourceTree = "<group>"; };
+		2E965EEB29A72B9E0021E414 /* CoveredLoaderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoveredLoaderModifier.swift; sourceTree = "<group>"; };
 		2E99438B29419DD300D20795 /* TextFieldProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldProtocol.swift; sourceTree = "<group>"; };
 		2E99438F2941A8AB00D20795 /* YTextFieldBackgroundGrayStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTextFieldBackgroundGrayStyle.swift; sourceTree = "<group>"; };
 		2E9943912941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTextFieldBackgroundCleanStyle.swift; sourceTree = "<group>"; };
@@ -863,7 +871,6 @@
 			children = (
 				2E2CBA702952EC5300D7C352 /* DMerchantCategory.swift */,
 				2E2CBA672952E29300D7C352 /* DItemProtocol.swift */,
-				2E374FC5294811540007D146 /* UserPassportInfo.swift */,
 				2E7FE8F329517D8900D15A4A /* DCard.swift */,
 				2E2CBA612952DF3600D7C352 /* DMerchant.swift */,
 				2E4A80EE2961DA0D0032B7FF /* DTransactionItem.swift */,
@@ -1061,6 +1068,7 @@
 		2E437496294F2B8F00F78FEC /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				2E965EE829A7195B0021E414 /* Merchants */,
 				2E9287F2299FDCF800A7CDC0 /* Settings */,
 				2E43749D294F411100F78FEC /* Tab */,
 				2E43749A294F3EFE00F78FEC /* Home */,
@@ -1291,6 +1299,7 @@
 				2E1DA6B52941E6F9007A5F9F /* RectReader.swift */,
 				2E4374AA294FE54F00F78FEC /* TopLeftDismissModifier.swift */,
 				2E2CBA7D29543C1A00D7C352 /* ScrollableModifier.swift */,
+				2E965EEB29A72B9E0021E414 /* CoveredLoaderModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -1499,6 +1508,7 @@
 				2E8C473029A09E7A004D9817 /* NetResBodySession.swift */,
 				2E8C473229A09EE1004D9817 /* NetResBodyUserLog.swift */,
 				2EDE334529A483B9005E151C /* NetResMerchantCategoryItem.swift */,
+				2E965EE629A712740021E414 /* NetResMerchantItem.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1519,6 +1529,7 @@
 				2EDE334929A484C3005E151C /* MainNetworkService.swift */,
 				2E9287D3299C185700A7CDC0 /* UserNetworkService.swift */,
 				2E9287DB299C9DBA00A7CDC0 /* Network.swift */,
+				2E965EE429A6F0B40021E414 /* NetworkServiceProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1570,6 +1581,14 @@
 				2E9287F6299FF7E600A7CDC0 /* SpringLoaderView.swift */,
 			);
 			path = SpringLoaderView;
+			sourceTree = "<group>";
+		};
+		2E965EE829A7195B0021E414 /* Merchants */ = {
+			isa = PBXGroup;
+			children = (
+				2E965EE929A719620021E414 /* MerchantsViewModel.swift */,
+			);
+			path = Merchants;
 			sourceTree = "<group>";
 		};
 		2EB4E44929436E8900F09751 /* SignInType */ = {
@@ -1869,6 +1888,7 @@
 				2ED2419B2997BA8A00063632 /* URL+Extensions.swift */,
 				2E9287DF299D3FBE00A7CDC0 /* URLRequest+Extensions.swift */,
 				2E9287E3299DA9AD00A7CDC0 /* NSMutableData+Extensions.swift */,
+				2E965EE229A6E77C0021E414 /* URLSession+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2225,9 +2245,11 @@
 				2ED87CF62955FEE600E1D477 /* AdditiveArithmetic.swift in Sources */,
 				2E2CBA602952D8BA00D7C352 /* DManager.swift in Sources */,
 				2EBCA80329414C8A00F89E6F /* UIFont+Extension.swift in Sources */,
+				2E965EEC29A72B9E0021E414 /* CoveredLoaderModifier.swift in Sources */,
 				2ED87D032955FEE600E1D477 /* ObservableExtensions.swift in Sources */,
 				2EBCA809294160BC00F89E6F /* Padding.swift in Sources */,
 				2E2CBA8429543D7900D7C352 /* PayWithFaceView.swift in Sources */,
+				2E965EEA29A719620021E414 /* MerchantsViewModel.swift in Sources */,
 				2E85AF8C296AA1D5009CABC2 /* CameraView.swift in Sources */,
 				2ED87CBA2955EC0100E1D477 /* CardScanner.swift in Sources */,
 				2E437499294F2B9600F78FEC /* SideBarViewModel.swift in Sources */,
@@ -2236,6 +2258,7 @@
 				2EB8E6AD29770F4A00BBAFE3 /* SettingsView.swift in Sources */,
 				2E4A80F82962BC8A0032B7FF /* OrderCardView.swift in Sources */,
 				2E374FCA29484E7D0007D146 /* MainViewModel.swift in Sources */,
+				2E965EE729A712740021E414 /* NetResMerchantItem.swift in Sources */,
 				2ED87CFC2955FEE600E1D477 /* OptionalExtensions.swift in Sources */,
 				2EC5F0D12944EA8000BA54E3 /* YPhoneField.swift in Sources */,
 				2E9287E4299DA9AD00A7CDC0 /* NSMutableData+Extensions.swift in Sources */,
@@ -2394,10 +2417,10 @@
 				2EDE334429A450DC005E151C /* TabDataService.swift in Sources */,
 				2E2EBEC5297FCF1700C218CF /* MerchantPaymentView.swift in Sources */,
 				2ED2419C2997BA8A00063632 /* URL+Extensions.swift in Sources */,
+				2E965EE329A6E77C0021E414 /* URLSession+Extensions.swift in Sources */,
 				2EC5F108294710E700BA54E3 /* ResetPasswordView.swift in Sources */,
 				2ED87CF52955FEE600E1D477 /* GenericArrayBuilder.swift in Sources */,
 				2E2EBEBD297F1C2500C218CF /* PaymentStatusView.swift in Sources */,
-				2E374FC6294811540007D146 /* UserPassportInfo.swift in Sources */,
 				2E433AA7295A875D00D6F1F6 /* Destination2.swift in Sources */,
 				2EBCA8192941777000F89E6F /* AuthSignIn.swift in Sources */,
 				2E02F4B9296431C600D2A2AB /* LocationManager.swift in Sources */,
@@ -2422,6 +2445,7 @@
 				2E43749F294F411B00F78FEC /* TabViewModel.swift in Sources */,
 				2EBCA8112941645800F89E6F /* Number+Extension.swift in Sources */,
 				2EB8E6AB2977079100BBAFE3 /* BottomSheetView.swift in Sources */,
+				2E965EE529A6F0B40021E414 /* NetworkServiceProtocol.swift in Sources */,
 				2ED87D022955FEE600E1D477 /* RepeatingRequest.swift in Sources */,
 				2EC5F10329468B1600BA54E3 /* PassportRegisterStepOne.swift in Sources */,
 				2ED87CF72955FEE600E1D477 /* UIView.swift in Sources */,

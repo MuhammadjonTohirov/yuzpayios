@@ -8,66 +8,6 @@
 import SwiftUI
 import RealmSwift
 
-class MerchantsViewModel: ObservableObject {
-    @Published var categories: Results<DMerchantCategory>?
-    @Published var merchants: Results<DMerchant>?
-    @Published var selectedMerchant: DMerchant?
-    
-    private var catsNotification: NotificationToken?
-    private var mersNotification: NotificationToken?
-    
-    init() {
-        Logging.l("MerchantsViewModel init")
-    }
-    
-    func onAppear() {
-        setupSubscribers()
-        Logging.l("On appear merchantsviewmodel")
-    }
-    
-    private func setupSubscribers() {
-        
-        invalidate()
-        categories = Realm.new?.objects(DMerchantCategory.self)
-        merchants = Realm.new?.objects(DMerchant.self)
-        catsNotification = categories?.observe(on: .main, { [weak self] changes in
-            switch changes {
-            case let .update(items, _, _, _):
-                withAnimation {
-                    self?.categories = items
-                }
-            default:
-                break
-            }
-        })
-        
-        mersNotification = merchants?.observe(on: .main, { [weak self] changes in
-            switch changes {
-            case let .update(items, _, _, _):
-                withAnimation {
-                    self?.merchants = items
-                }
-            default:
-                break
-            }
-        })
-    }
-    
-    func setSelected(merchant: DMerchant?) {
-        self.selectedMerchant = merchant
-    }
-    
-    func invalidate() {
-        catsNotification?.invalidate()
-        mersNotification?.invalidate()
-    }
-    
-    deinit {
-        invalidate()
-        Logging.l("deinit merchantsviewmodel")
-    }
-}
-
 struct MerchantsView: View {
     @StateObject var viewModel: MerchantsViewModel = .init()
 
@@ -94,11 +34,10 @@ struct MerchantsView: View {
         .onDisappear {
             Logging.l("On disappear merchats view")
         }
+        .modifier(CoveredLoaderModifier(isLoading: $viewModel.isLoading))
     }
     
     @State private var itemsPadding: CGFloat = 0
-    
-    @State private var expandedCategories: Set<String> = []
     
     @State private var showPaymentView: Bool = false
     
@@ -112,10 +51,7 @@ struct MerchantsView: View {
                 } else {
                     if let merchants = viewModel.merchants {
                         searchResult {
-                            ForEach(merchants.filter({ merchant in
-                                merchant.title.lowercased().contains(searchText.lowercased()) ||
-                                merchant.type.lowercased().contains(searchText.lowercased())
-                            }), id: \.title) { merchant in
+                            ForEach(merchants.filter("title CONTAINS %@", searchText)) { merchant in
                                 if !merchant.isInvalidated {
                                     Button {
                                         viewModel.setSelected(merchant: merchant)
@@ -148,28 +84,27 @@ struct MerchantsView: View {
     var merchatsView: some View {
         LazyVStack(alignment: .center) {
             if let categories = viewModel.categories {
-                ForEach(categories, id: \.self) { category in
+                ForEach(categories) { category in
                     VStack {
                         HStack {
                             Text(category.title.localize)
                                 .mont(.medium, size: 14)
                             Spacer()
                             Button {
-                                if isExpanded(category.title) {
-                                    expandedCategories.remove(category.title)
+                                if isExpanded(category.id) {
+                                    viewModel.collapse()
                                 } else {
-                                    expandedCategories.insert(category.title)
+                                    viewModel.expand(category: category.id)
                                 }
                             } label: {
-                                Text(isExpanded(category.title) ? "collapse".localize : "see_all".localize)
+                                Text(isExpanded(category.id) ? "collapse".localize : "see_all".localize)
                                     .mont(.regular, size: 14)
                             }
-                            .visible(category.items.count > 3)
                         }
                         .padding(.horizontal, Padding.large.sw())
                         
-                        merchantsContains(expanded: isExpanded(category.title)) {
-                            ForEach(category.items, id: \.title) { merchant in
+                        merchantsContains(expanded: isExpanded(category.id)) {
+                            ForEach(category.items[isExpanded(category.id) ? 0..<category.items.count : 0..<3.limitTop(category.items.count)]) { merchant in
                                 Button {
                                     viewModel.setSelected(merchant: merchant)
                                     
@@ -184,8 +119,8 @@ struct MerchantsView: View {
                                 }
                             }
                         }
-                        .padding(.horizontal, isExpanded(category.title) ? 0 : Padding.default)
-                        .scrollable(axis: isExpanded(category.title) ? .vertical : .horizontal)
+                        .padding(.horizontal, isExpanded(category.id) ? 0 : Padding.default)
+                        .scrollable(axis: isExpanded(category.id) ? .vertical : .horizontal)
                     }
                     .padding(.bottom, Padding.small)
                 }
@@ -194,8 +129,8 @@ struct MerchantsView: View {
         .scrollable()
     }
     
-    func isExpanded(_ title: String) -> Bool {
-        expandedCategories.contains(title)
+    func isExpanded(_ id: Int) -> Bool {
+        viewModel.expandedCategory == id
     }
     
     func searchResult<Content: View>(body: () -> Content) -> some View {

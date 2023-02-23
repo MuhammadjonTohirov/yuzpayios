@@ -98,12 +98,33 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
         }
     }
     
+    var dataService: any TabDataServiceProtocol
+    
+    init(dataService: any TabDataServiceProtocol) {
+        self.dataService = dataService
+    }
+    
     func onAppear() {
         homeViewModel.delegate = self
         sideViewModel.delegate = self
         sideMenuOffset = CGPoint(x: -sideMenuWidth, y: 0)
         
-        MockData.shared.initMockData()
+        if DataBase.shouldLoadPrerequisites {
+            getPrerequisites()
+        }
+    }
+    
+    private func getPrerequisites() {
+        if DataBase.shouldLoadPrerequisites {
+            showLoader()
+        }
+        
+        Task {
+            let _ = await dataService.loadUserInfo()
+            let _ = await dataService.loadMerchants()
+            
+            hideLoader()
+        }
     }
     
     func showSideBar() {

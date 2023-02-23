@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftKeychainWrapper
+import RealmSwift
 
 final public class UserSettings {
     public static let shared = UserSettings()
@@ -16,8 +17,7 @@ final public class UserSettings {
     @codableWrapper(key: "language")
     public var language: Language?
     
-    @codableWrapper(key: "userInfo")
-    public var userInfoDetails: UserInfoDetails?
+    public private(set) var currentUserLocalId: String = "asio1@ioas99!!ao2is;alwww"
     
     @anyWrapper(key: "isFillUserDetailsSkipped", defaultValue: false)
     public var isFillUserDetailsSkipped: Bool?
@@ -66,6 +66,9 @@ final public class UserSettings {
     public var lastOTP: String?
     
     func clearUserDetails() {
+        if let realm = Realm.new, let userInfo = realm.object(ofType: DUserInfo.self, forPrimaryKey: self.currentUserLocalId) {
+            realm.delete(userInfo)
+        }
         self.accessToken = nil
         self.accessTokenExpireDate = nil
         self.refreshToken = nil

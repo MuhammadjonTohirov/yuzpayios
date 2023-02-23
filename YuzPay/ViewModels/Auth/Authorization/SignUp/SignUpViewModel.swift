@@ -95,7 +95,7 @@ extension SignUpViewModel: OtpModelDelegate {
             route = nil
         }
 
-        let shouldRegisterPassport = !UserSettings.shared.isFillUserDetailsSkipped! && UserSettings.shared.userInfoDetails == nil
+        let shouldRegisterPassport = !UserSettings.shared.isFillUserDetailsSkipped!
         
         if shouldRegisterPassport {
             route = .faceInfoIntro

@@ -46,7 +46,7 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
         case .getUserLogs:
             return URL.base.appendingPath("api", "Cabinet", "UserLogs")
         case .getUserInfo:
-            return URL.base.appendingPath("api", "Client", "UserInfo")
+            return URL.base.appendingPath("api", "Cabinet", "UserInfo")
         }
     }
     

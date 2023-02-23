@@ -10,7 +10,7 @@ import SwiftUIX
 import SwiftUI
 
 struct TabBarView: View {
-    @ObservedObject var viewModel = TabViewModel()
+    @ObservedObject var viewModel = TabViewModel(dataService: TabDataService())
     @State var size: CGRect = .zero
     
     var body: some View {
@@ -24,8 +24,8 @@ struct TabBarView: View {
         }
         .readSize($size)
         .onAppear {
+            Logging.l("On Appear tabview nav")
             viewModel.onAppear()
-            viewModel.showError(message: "Gamers")
         }
         .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1)
     }
@@ -93,13 +93,12 @@ struct TabBarView: View {
                     .tag(4)
             }
             .zIndex(0)
+            
             NavigationLink("", isActive: $viewModel.pushSideMenuActions) {
                 viewModel.sideMenuRouter?.screen
             }
         }
-        .onAppear {
-            Logging.l("On Appear tabview nav")
-        }
+        .modifier(CoveredLoaderModifier(isLoading: $viewModel.isLoading))
     }
     
     var sideView: some View {

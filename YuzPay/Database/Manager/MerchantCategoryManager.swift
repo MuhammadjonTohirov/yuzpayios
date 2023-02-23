@@ -13,13 +13,19 @@ final class MerchantCategoryManager: DManager {
     
     static let shared = MerchantCategoryManager()
     
-    func add(_ items: NetResMerchantCategoryItem...) {
+    func add<T>(_ items: T...) where T : ModelProtocol {
         execute { realm in
             items.forEach { item in
-                let cat = DMerchantCategory.init(id: item.id, title: item.title, order: item.order)
-                realm.add(cat, update: .modified)
+                if let _item = item as? NetResMerchantCategoryItem {
+                    let cat = DMerchantCategory.init(id: _item.id, title: _item.title, order: _item.order)
+                    realm.add(cat, update: .modified)
+                }
             }
         }
+    }
+    
+    var all: Results<DMerchantCategory>? {
+        Realm.new?.objects(DMerchantCategory.self)
     }
 }
 

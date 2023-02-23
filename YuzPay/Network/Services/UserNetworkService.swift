@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserNetworkService {
+struct UserNetworkService: NetworkServiceProtocol {
     typealias S = UserNetworkServiceRoute
     
     public static var shared = UserNetworkService()
@@ -41,12 +41,12 @@ struct UserNetworkService {
     }
     
     func deleteAccount() async -> Bool {
-        let result: NetRes<String> = await Network.send(request: S.deleteAccount) ?? .init(success: false, data: nil, error: nil)
+        let result: NetRes<String> = await Network.send(request: S.deleteAccount) ?? .init(success: false, data: nil, error: nil, code: -1)
         return result.success
     }
     
     func logout() async -> Bool {
-        let result: NetRes<String> = await Network.send(request: S.logout) ?? .init(success: false, data: nil, error: nil)
+        let result: NetRes<String> = await Network.send(request: S.logout) ?? .init(success: false, data: nil, error: nil, code: -1)
         return result.success
     }
     
@@ -79,7 +79,7 @@ struct UserNetworkService {
     
     func getUserInfo() async -> NetResBodyUserInfo? {
         let res: NetRes<NetResBodyUserInfo>? = await Network.send(request: S.getUserInfo)
-        
+            
         return res?.data
     }
 }

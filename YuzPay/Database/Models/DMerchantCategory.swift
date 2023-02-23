@@ -33,7 +33,7 @@ final class DMerchantCategory: Object, Identifiable {
             return
         }
         
-        items.append(.init(id: item.id, title: item.title, icon: item.icon, type: title))
+        items.append(.init(id: item.id, title: item.title, icon: item.icon, category: item.categoryId))
     }
 }
 

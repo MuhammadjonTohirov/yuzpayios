@@ -8,18 +8,29 @@
 import Foundation
 import RealmSwift
 
-final class MerchantManager: DManager {
+struct MerchantManager: DManager {
     typealias Obj = MerchantItemModel
-    
-    func add(_ items: MerchantItemModel...) {
+        
+    func add<T>(_ items: T...) where T : ModelProtocol {
         execute { realm in
-            items.forEach { merchant in
-                if let category = realm.object(ofType: DMerchantCategory.self, forPrimaryKey: merchant.type) {
+            items.forEach { _merchant in
+                if let merchant = _merchant as? MerchantItemModel, let category = realm.object(ofType: DMerchantCategory.self, forPrimaryKey: merchant.categoryId) {
                     realm.add(category, update: .modified)
                     category.add(item: merchant)
                 }
             }
         }
+    }
+    
+    func addAll<T>(_ items: [T]) where T : ModelProtocol {
+        execute { realm in
+            let objs = items.compactMap({DMerchant.build(withModel: $0 as!MerchantItemModel)})
+            realm.add(objs, update: .modified)
+        }
+    }
+    
+    var all: Results<DMerchant>? {
+        Realm.new?.objects(DMerchant.self)
     }
 }
 

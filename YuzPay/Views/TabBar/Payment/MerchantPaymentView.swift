@@ -64,10 +64,10 @@ struct MerchantPaymentView: View {
                 .foregroundColor(.secondarySystemBackground)
                 .frame(width: 100, height: 100)
                 .overlay {
-                    Image(merchant.icon)
-                        .resizable(true)
+                    KF(imageUrl: URL(string: merchant.icon))
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: 80)
+                        .background(Circle().foregroundColor(.systemBackground))
                 }
                 .padding(.top, Padding.default)
                 .padding(.bottom, Padding.default)
