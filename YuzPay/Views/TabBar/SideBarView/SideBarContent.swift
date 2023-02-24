@@ -58,6 +58,8 @@ struct SideBarContent: View {
                 .padding(.horizontal, Padding.default)
                 .frame(maxWidth: .infinity)
             }
+        }.onAppear {
+            self.viewModel.onAppear()
         }
     }
     
@@ -76,7 +78,7 @@ struct SideBarContent: View {
                 }
                 
                 VStack(alignment: .leading) {
-                    Text("+998 93 585 24 15")
+                    Text(viewModel.username)
                         .font(.mont(.semibold, size: 16))
 
                     Button {

@@ -52,11 +52,15 @@ class ObjectManager {
     
     func add<T: ModelProtocol>(_ items: T...) {
         items.forEach { item in
-            manager.add(item)
+            autoreleasepool {
+                manager.add(item)
+            }
         }
     }
     
     func addAll<T: ModelProtocol>(_ items: [T]) {
-        manager.addAll(items)
+        autoreleasepool {
+            manager.addAll(items)
+        }
     }
 }

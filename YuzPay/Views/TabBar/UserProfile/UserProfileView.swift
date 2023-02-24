@@ -6,20 +6,27 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct UserProfileView: View {
     @State private var showDevices = false
-    @State private var devices: [String] = ["1"]
-    
+
+    @ObservedResults(DUserSession.self, configuration: Realm.config) var sections;
+
     var body: some View {
         ZStack {
             NavigationLink("", isActive: $showDevices) {
-                List(devices, id: \.self) { dev in
-                    deviceItemView
+                List(sections) { dev in
+                    deviceItemView(title: dev.userAgent,
+                                   detail: dev.userID,
+                                   date: Date.from(string: dev.loginTime)?.toExtendedString(format: "HH:mm, dd/MM/YYYY") ?? "")
                 }
                 .navigationTitle("devices".localize)
             }
             innerBody
+        }
+        .onAppear {
+            
         }
     }
     
@@ -93,20 +100,20 @@ struct UserProfileView: View {
         .frame(height: 60)
     }
     
-    var deviceItemView: some View {
-        HStack {
+    func deviceItemView(title: String, detail: String, date: String) -> some View {
+        VStack(alignment: .leading) {
             VStack(alignment: .leading, spacing: 4) {
-                Text("iPhone 12.0")
+                Text(title)
                     .mont(.regular, size: 14)
                 
-                Text("abdclkajs123poiq9wi90we1")
+                Text(detail)
                     .mont(.semibold, size: 14)
                     .foregroundColor(.systemBlue)
             }
+            .padding(.bottom, Padding.small)
             
-            Spacer()
-            Text("15:32 12.12.2022")
-                .mont(.regular, size: 14)
+            Text(date)
+                .mont(.regular, size: 12)
                 .foregroundColor(.secondaryLabel)
         }
         .padding(.vertical, Padding.small)

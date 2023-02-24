@@ -15,13 +15,13 @@ extension Date {
     
     static let transactionSectionFormat = "d MMM yyyy, E"
     
-    static func from(string: String, format: String) -> Date? {
+    static func from(string: String, format: String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS") -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = format
         return formatter.date(from: string)
     }
     
-    func toExtendedString(format: String = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX") -> String {
+    func toExtendedString(format: String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS") -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format
         return formatter.string(from: self)

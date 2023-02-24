@@ -73,21 +73,13 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
         self.selectedMerchant = merchant
     }
     
-    func invalidate() {
+    private func invalidate() {
         catsNotification?.invalidate()
         mersNotification?.invalidate()
     }
     
     func expand(category: Int) {
-        
         self.expandedCategory = category
-        
-        if MerchantManager().all!.count < 3 {
-            self.showLoader()
-            MainNetworkService.shared.syncMerchants(forCategory: category, limit: nil) { _ in
-                self.hideLoader()
-            }
-        }
     }
     
     func collapse() {
@@ -99,25 +91,32 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
         Logging.l("deinit merchantsviewmodel")
     }
     
-    func fetchMerchants() {
-        self.showLoader()
-        guard let allCategories: Results<DMerchantCategory> = Realm.new?.objects(DMerchantCategory.self) else {
-            return
-        }
-        
-        let categoryIdList = allCategories.map({$0.id})
-        
-        let dispatchGroup = DispatchGroup()
-        
-        for id in categoryIdList {
-            dispatchGroup.enter()
-            MainNetworkService.shared.syncMerchants(forCategory: id, limit: 3) { _ in
-                dispatchGroup.leave()
+    private func fetchMerchants() {
+        Logging.l("Fetch merchats")
+        DispatchQueue(label: "merchantLoader", qos: .utility).async {
+            self.showLoader()
+
+            guard let allCategories: Results<DMerchantCategory> = Realm.new?.objects(DMerchantCategory.self) else {
+                return
             }
-        }
-        
-        dispatchGroup.notify(queue: .main) {
-            self.hideLoader()
+            
+            let categoryIdList = allCategories.map({$0.id})
+            
+            let dispatchGroup = DispatchGroup()
+            let dispatchSemaphore = DispatchSemaphore(value: 1)
+
+            for id in categoryIdList {
+                dispatchGroup.enter()
+                MainNetworkService.shared.syncMerchants(forCategory: id, limit: 10) { _ in
+                    dispatchGroup.leave()
+                    dispatchSemaphore.signal()
+                }
+                dispatchSemaphore.wait()
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                self.hideLoader()
+            }
         }
     }
 }

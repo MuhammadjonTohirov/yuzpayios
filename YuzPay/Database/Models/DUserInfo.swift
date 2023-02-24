@@ -38,6 +38,10 @@ class DUserInfo: Object {
         self.init(id: id, sub: res.sub ?? "", preferredUsername: res.preferredUsername ?? "", familyName: res.familyName, givenName: res.givenName, name: res.name, email: res.email, emailVerified: res.emailVerified ?? false, locale: res.locale ?? UserSettings.shared.language?.code)
     }
     
+    convenience init(id: String, res: NetResUserEntity) {
+        self.init(id: id, sub: res.id, preferredUsername: res.username ?? "", familyName: res.lastName, givenName: res.firstName, name: res.username, email: res.email, emailVerified: res.emailVerified ?? false, locale: UserSettings.shared.language?.code)
+    }
+    
     override init() {
         super.init()
     }

@@ -71,4 +71,12 @@ extension View {
         self
             .frame(maxHeight: .infinity, alignment: alignment)
     }
+    
+    func didAppear(action: @escaping () -> Void) -> some View {
+        self.onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                action()
+            }
+        }
+    }
 }

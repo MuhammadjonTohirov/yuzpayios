@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import RealmSwift
 
 enum SideMenuItem {
     case close
@@ -24,7 +25,7 @@ protocol SideBarDelegate: NSObject {
 }
 
 final class SideBarViewModel: ObservableObject {
-    
+    private var userInfoToken: NotificationToken?
     @Published var menus: [SideBarMenuItem] = [
         .payment,
         .transfer,
@@ -34,6 +35,39 @@ final class SideBarViewModel: ObservableObject {
     ]
     
     weak var delegate: SideBarDelegate?
+    
+    @Published var username: String = ""
+    
+    private var isAppeared = false
+    
+    func onAppear() {
+        if !isAppeared {
+            subscriberUserInfo()
+            isAppeared = true
+        }
+    }
+    
+    private func subscriberUserInfo() {
+        guard let realm = Realm.new else {
+            return
+        }
+        
+        let userModel = realm.object(ofType: DUserInfo.self, forPrimaryKey: UserSettings.shared.currentUserLocalId)
+        
+        reloadUserInfo(userModel)
+        
+        userInfoToken = userModel?.observe({[weak self] _ in
+            self?.reloadUserInfo(userModel)
+        })
+    }
+    
+    private func reloadUserInfo(_ info: DUserInfo?) {
+        guard let info else {
+            return
+        }
+        
+        self.username = info.name ?? ""
+    }
     
     func onClickClose() {
         delegate?.sideBar(sideBar: self, onClick: .close)

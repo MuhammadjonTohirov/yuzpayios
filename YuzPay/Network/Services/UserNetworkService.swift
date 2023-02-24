@@ -69,16 +69,24 @@ struct UserNetworkService: NetworkServiceProtocol {
         return result.success
     }
     
-    func getUserSession() async -> NetRes<NetResBodySession>? {
-        return await Network.send(request: S.getSessions)
+    func getUserSession() async -> Bool {
+        let userSessions: NetRes<[NetResUserSession]>? = await Network.send(request: S.getSessions)
+        ObjectManager(UserSessionsManager()).addAll(userSessions?.data ?? [])
+        return true
     }
     
-    func getNotifications() async -> NetRes<NetResBodyUserLog>? {
-        return await Network.send(request: S.getSessions)
+    func getNotifications() async -> NetRes<[NetResBodyUserLog]>? {
+        return await Network.send(request: S.getUserLogs)
     }
     
     func getUserInfo() async -> NetResBodyUserInfo? {
         let res: NetRes<NetResBodyUserInfo>? = await Network.send(request: S.getUserInfo)
+        
+        return res?.data
+    }
+    
+    func getUserEntity() async -> NetResUserEntity? {
+        let res: NetRes<NetResUserEntity>? = await Network.send(request: S.getUserEntity)
             
         return res?.data
     }

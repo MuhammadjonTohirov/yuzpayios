@@ -14,9 +14,8 @@ struct MerchantManager: DManager {
     func add<T>(_ items: T...) where T : ModelProtocol {
         execute { realm in
             items.forEach { _merchant in
-                if let merchant = _merchant as? MerchantItemModel, let category = realm.object(ofType: DMerchantCategory.self, forPrimaryKey: merchant.categoryId) {
-                    realm.add(category, update: .modified)
-                    category.add(item: merchant)
+                if let merchant = _merchant as? MerchantItemModel {
+                    realm.add(DMerchant.build(withModel: merchant), update: .modified)
                 }
             }
         }

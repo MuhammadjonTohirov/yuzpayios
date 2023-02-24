@@ -25,9 +25,7 @@ struct Network {
 
         let code = (result.1 as! HTTPURLResponse).statusCode
 
-        if code == 401 {
-            await URLSession.shared.cancelAllTasks()
-            mainRouter?.navigate(to: .auth)
+        guard await onReceive(code: code) else {
             return nil
         }
         
@@ -40,7 +38,22 @@ struct Network {
         Logging.l("--- --- RESPONSE --- ---")
         Logging.l(res.asString)
         
+        guard await onReceive(code: res.code ?? code) else {
+            return nil
+        }
+        
         return res
+    }
+    
+    private static func onReceive(code: Int) async -> Bool {
+        if code == 401 {
+            await URLSession.shared.cancelAllTasks()
+            UserSettings.shared.clearUserDetails()
+            mainRouter?.navigate(to: .auth)
+            return false
+        }
+        
+        return true
     }
     
     private static func onFail(forUrl url: String) {

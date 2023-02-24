@@ -124,6 +124,7 @@
 		2E7A332E298D960F004EFABB /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A332D298D960F004EFABB /* UserProfileView.swift */; };
 		2E7A3331298D9C11004EFABB /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A3330298D9C11004EFABB /* RoundedCorner.swift */; };
 		2E7A33362995218C004EFABB /* NetResMerchants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A33352995218C004EFABB /* NetResMerchants.swift */; };
+		2E7AF50729A9199400693013 /* AllMerchantsInCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7AF50629A9199400693013 /* AllMerchantsInCategoryView.swift */; };
 		2E7FE8EF294FEBF800D15A4A /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FE8EE294FEBF800D15A4A /* LoadingViewModel.swift */; };
 		2E7FE8F2294FED6A00D15A4A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FE8F1294FED6A00D15A4A /* LoadingView.swift */; };
 		2E7FE8F429517D8A00D15A4A /* DCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FE8F329517D8900D15A4A /* DCard.swift */; };
@@ -142,8 +143,14 @@
 		2E85AF94296B5182009CABC2 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF93296B5182009CABC2 /* NotificationsView.swift */; };
 		2E85AF96296B5192009CABC2 /* NotificationItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF95296B5192009CABC2 /* NotificationItemView.swift */; };
 		2E85AF98296B51C7009CABC2 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E85AF97296B51C7009CABC2 /* NotificationModel.swift */; };
+		2E8A015829A9200E001DCD91 /* MerchantsView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A015729A9200E001DCD91 /* MerchantsView+Extension.swift */; };
+		2E8A015A29A92626001DCD91 /* AllMerchantsInCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A015929A92626001DCD91 /* AllMerchantsInCategoryViewModel.swift */; };
+		2E8A015C29A92FC6001DCD91 /* DNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A015B29A92FC6001DCD91 /* DNotification.swift */; };
+		2E8A015E29A932C5001DCD91 /* NetResUserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A015D29A932C5001DCD91 /* NetResUserEntity.swift */; };
+		2E8A016029A94385001DCD91 /* DUserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A015F29A94385001DCD91 /* DUserSession.swift */; };
+		2E8A016229A945F7001DCD91 /* UserSessionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A016129A945F7001DCD91 /* UserSessionsManager.swift */; };
 		2E8C472F29A09C2B004D9817 /* NetResBodyUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8C472E29A09C2B004D9817 /* NetResBodyUserInfo.swift */; };
-		2E8C473129A09E7A004D9817 /* NetResBodySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8C473029A09E7A004D9817 /* NetResBodySession.swift */; };
+		2E8C473129A09E7A004D9817 /* NetResUserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8C473029A09E7A004D9817 /* NetResUserSession.swift */; };
 		2E8C473329A09EE1004D9817 /* NetResBodyUserLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8C473229A09EE1004D9817 /* NetResBodyUserLog.swift */; };
 		2E8C473529A0B12E004D9817 /* default_avatar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2E8C473429A0B12E004D9817 /* default_avatar.jpg */; };
 		2E8C473A29A134CF004D9817 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8C473729A134CF004D9817 /* BlurView.swift */; };
@@ -443,6 +450,7 @@
 		2E7A332D298D960F004EFABB /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		2E7A3330298D9C11004EFABB /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		2E7A33352995218C004EFABB /* NetResMerchants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResMerchants.swift; sourceTree = "<group>"; };
+		2E7AF50629A9199400693013 /* AllMerchantsInCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMerchantsInCategoryView.swift; sourceTree = "<group>"; };
 		2E7FE8EE294FEBF800D15A4A /* LoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModel.swift; sourceTree = "<group>"; };
 		2E7FE8F1294FED6A00D15A4A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		2E7FE8F329517D8900D15A4A /* DCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCard.swift; sourceTree = "<group>"; };
@@ -461,8 +469,14 @@
 		2E85AF93296B5182009CABC2 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		2E85AF95296B5192009CABC2 /* NotificationItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationItemView.swift; sourceTree = "<group>"; };
 		2E85AF97296B51C7009CABC2 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		2E8A015729A9200E001DCD91 /* MerchantsView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MerchantsView+Extension.swift"; sourceTree = "<group>"; };
+		2E8A015929A92626001DCD91 /* AllMerchantsInCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMerchantsInCategoryViewModel.swift; sourceTree = "<group>"; };
+		2E8A015B29A92FC6001DCD91 /* DNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNotification.swift; sourceTree = "<group>"; };
+		2E8A015D29A932C5001DCD91 /* NetResUserEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResUserEntity.swift; sourceTree = "<group>"; };
+		2E8A015F29A94385001DCD91 /* DUserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DUserSession.swift; sourceTree = "<group>"; };
+		2E8A016129A945F7001DCD91 /* UserSessionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionsManager.swift; sourceTree = "<group>"; };
 		2E8C472E29A09C2B004D9817 /* NetResBodyUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResBodyUserInfo.swift; sourceTree = "<group>"; };
-		2E8C473029A09E7A004D9817 /* NetResBodySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResBodySession.swift; sourceTree = "<group>"; };
+		2E8C473029A09E7A004D9817 /* NetResUserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResUserSession.swift; sourceTree = "<group>"; };
 		2E8C473229A09EE1004D9817 /* NetResBodyUserLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResBodyUserLog.swift; sourceTree = "<group>"; };
 		2E8C473429A0B12E004D9817 /* default_avatar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default_avatar.jpg; sourceTree = "<group>"; };
 		2E8C473729A134CF004D9817 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
@@ -875,6 +889,8 @@
 				2E2CBA612952DF3600D7C352 /* DMerchant.swift */,
 				2E4A80EE2961DA0D0032B7FF /* DTransactionItem.swift */,
 				2EDE333F29A44DF1005E151C /* DUserInfo.swift */,
+				2E8A015B29A92FC6001DCD91 /* DNotification.swift */,
+				2E8A015F29A94385001DCD91 /* DUserSession.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1033,7 +1049,8 @@
 		2E43748C294EFAF100F78FEC /* Payment */ = {
 			isa = PBXGroup;
 			children = (
-				2E2EBEBF297F716A00C218CF /* MerchantsView.swift */,
+				2E8A015629A92005001DCD91 /* MerchantsView */,
+				2E7AF50629A9199400693013 /* AllMerchantsInCategoryView.swift */,
 				2E2EBEC4297FCF1700C218CF /* MerchantPaymentView.swift */,
 			);
 			path = Payment;
@@ -1410,6 +1427,7 @@
 				2EDE334B29A4871B005E151C /* MerchantCategoryManager.swift */,
 				2E4A80F22961E56B0032B7FF /* TransactionSectionsManager.swift */,
 				2E4A80F42962A16D0032B7FF /* TransactionManager.swift */,
+				2E8A016129A945F7001DCD91 /* UserSessionsManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1471,6 +1489,15 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
+		2E8A015629A92005001DCD91 /* MerchantsView */ = {
+			isa = PBXGroup;
+			children = (
+				2E2EBEBF297F716A00C218CF /* MerchantsView.swift */,
+				2E8A015729A9200E001DCD91 /* MerchantsView+Extension.swift */,
+			);
+			path = MerchantsView;
+			sourceTree = "<group>";
+		};
 		2E8C473629A134CF004D9817 /* AlertToast */ = {
 			isa = PBXGroup;
 			children = (
@@ -1505,10 +1532,11 @@
 				2E9287D0299C181F00A7CDC0 /* NetBodyCheckPhone.swift */,
 				2E9287ED299E13FA00A7CDC0 /* NetResBodyPhoneLogin.swift */,
 				2E8C472E29A09C2B004D9817 /* NetResBodyUserInfo.swift */,
-				2E8C473029A09E7A004D9817 /* NetResBodySession.swift */,
+				2E8C473029A09E7A004D9817 /* NetResUserSession.swift */,
 				2E8C473229A09EE1004D9817 /* NetResBodyUserLog.swift */,
 				2EDE334529A483B9005E151C /* NetResMerchantCategoryItem.swift */,
 				2E965EE629A712740021E414 /* NetResMerchantItem.swift */,
+				2E8A015D29A932C5001DCD91 /* NetResUserEntity.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1587,6 +1615,7 @@
 			isa = PBXGroup;
 			children = (
 				2E965EE929A719620021E414 /* MerchantsViewModel.swift */,
+				2E8A015929A92626001DCD91 /* AllMerchantsInCategoryViewModel.swift */,
 			);
 			path = Merchants;
 			sourceTree = "<group>";
@@ -2259,6 +2288,7 @@
 				2E4A80F82962BC8A0032B7FF /* OrderCardView.swift in Sources */,
 				2E374FCA29484E7D0007D146 /* MainViewModel.swift in Sources */,
 				2E965EE729A712740021E414 /* NetResMerchantItem.swift in Sources */,
+				2E8A015829A9200E001DCD91 /* MerchantsView+Extension.swift in Sources */,
 				2ED87CFC2955FEE600E1D477 /* OptionalExtensions.swift in Sources */,
 				2EC5F0D12944EA8000BA54E3 /* YPhoneField.swift in Sources */,
 				2E9287E4299DA9AD00A7CDC0 /* NSMutableData+Extensions.swift in Sources */,
@@ -2297,6 +2327,7 @@
 				2ED87CFB2955FEE600E1D477 /* CGSize.swift in Sources */,
 				2E374FF9294DF19F0007D146 /* PhoneAuthForm.swift in Sources */,
 				2E8C473C29A134CF004D9817 /* ActivityIndicator.swift in Sources */,
+				2E8A015C29A92FC6001DCD91 /* DNotification.swift in Sources */,
 				2E4374A9294FD76000F78FEC /* KeyboardViewModel.swift in Sources */,
 				2E374FD82948869E0007D146 /* FacePayIntroViewModel.swift in Sources */,
 				2E85AF89296A9D9C009CABC2 /* ImageResizer.swift in Sources */,
@@ -2333,7 +2364,7 @@
 				2ED87CBB2955EC0100E1D477 /* DateExtensions.swift in Sources */,
 				2ED87D042955FEE600E1D477 /* Observable.swift in Sources */,
 				2E2CBAA22954E0A800D7C352 /* YFormattedField.swift in Sources */,
-				2E8C473129A09E7A004D9817 /* NetResBodySession.swift in Sources */,
+				2E8C473129A09E7A004D9817 /* NetResUserSession.swift in Sources */,
 				2E4374A7294F886C00F78FEC /* ImagePicker.swift in Sources */,
 				2E85AF86296A9D9C009CABC2 /* gesture.swift in Sources */,
 				2E433AAB295AB0B900D6F1F6 /* CardReaderWrapper.swift in Sources */,
@@ -2373,6 +2404,7 @@
 				2E9287CF299C160D00A7CDC0 /* NetRes.swift in Sources */,
 				2E68021B29522C45008BCB9C /* Logging.swift in Sources */,
 				2E9287DC299C9DBA00A7CDC0 /* Network.swift in Sources */,
+				2E8A016029A94385001DCD91 /* DUserSession.swift in Sources */,
 				2E2CBA752954359200D7C352 /* HCardListView.swift in Sources */,
 				2E9287CD299C15F900A7CDC0 /* NetReqCheckPhone.swift in Sources */,
 				2E4374AB294FE54F00F78FEC /* TopLeftDismissModifier.swift in Sources */,
@@ -2410,6 +2442,7 @@
 				2E4374B3294FE88100F78FEC /* YKeychainWrapper.swift in Sources */,
 				2E7FE8F429517D8A00D15A4A /* DCard.swift in Sources */,
 				2EB8E6C92978990B00BBAFE3 /* BorderedCardIcon.swift in Sources */,
+				2E8A015A29A92626001DCD91 /* AllMerchantsInCategoryViewModel.swift in Sources */,
 				2EB8E6C6297897CD00BBAFE3 /* TransferToCardView.swift in Sources */,
 				2EC5F0FD2946740E00BA54E3 /* FacePayStartView.swift in Sources */,
 				2ED87CB92955EC0100E1D477 /* Styling.swift in Sources */,
@@ -2433,6 +2466,7 @@
 				2E99438C29419DD300D20795 /* TextFieldProtocol.swift in Sources */,
 				2ED87CE82955FEE600E1D477 /* PinningConstraintHelpers.swift in Sources */,
 				2EC5F1052946E4C900BA54E3 /* PassportRegisterStepTwo.swift in Sources */,
+				2E8A016229A945F7001DCD91 /* UserSessionsManager.swift in Sources */,
 				2E9287F4299FDD0400A7CDC0 /* SettingsViewModel.swift in Sources */,
 				2E85AF98296B51C7009CABC2 /* NotificationModel.swift in Sources */,
 				2ED87D052955FEE600E1D477 /* ObserverSet.swift in Sources */,
@@ -2444,10 +2478,12 @@
 				2E2CBA8C2954635100D7C352 /* PaymentCategoriesView.swift in Sources */,
 				2E43749F294F411B00F78FEC /* TabViewModel.swift in Sources */,
 				2EBCA8112941645800F89E6F /* Number+Extension.swift in Sources */,
+				2E7AF50729A9199400693013 /* AllMerchantsInCategoryView.swift in Sources */,
 				2EB8E6AB2977079100BBAFE3 /* BottomSheetView.swift in Sources */,
 				2E965EE529A6F0B40021E414 /* NetworkServiceProtocol.swift in Sources */,
 				2ED87D022955FEE600E1D477 /* RepeatingRequest.swift in Sources */,
 				2EC5F10329468B1600BA54E3 /* PassportRegisterStepOne.swift in Sources */,
+				2E8A015E29A932C5001DCD91 /* NetResUserEntity.swift in Sources */,
 				2ED87CF72955FEE600E1D477 /* UIView.swift in Sources */,
 				2E9287EE299E13FA00A7CDC0 /* NetResBodyPhoneLogin.swift in Sources */,
 				2E2CBA8E295468B600D7C352 /* SavedPaymentsView.swift in Sources */,

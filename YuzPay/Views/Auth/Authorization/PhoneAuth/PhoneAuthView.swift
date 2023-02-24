@@ -24,6 +24,7 @@ struct PhoneAuthView: View {
         .fullScreenCover(item: $viewModel.routePopup, content: { dest in
             dest.screen
         })
+        .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1)
     }
     
     var innerBody: some View {
@@ -45,7 +46,7 @@ struct PhoneAuthView: View {
                         isEnabled: viewModel.isButtonEnabled) {
                 viewModel.onClickNext()
             }
-                        .set(animated: viewModel.loading)
+                        .set(animated: viewModel.isLoading)
                         .padding(.horizontal, Padding.large)
                         .padding(.bottom, Padding.medium)
         }

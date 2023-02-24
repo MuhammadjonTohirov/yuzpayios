@@ -13,8 +13,10 @@ final class DMerchantCategory: Object, Identifiable {
     @Persisted var title: String
     @Persisted var order: Int
     
-    @Persisted var items = List<DMerchant>()
-    
+    var merchants: Results<DMerchant>? {
+        self.realm?.objects(DMerchant.self).filter("categoryId = %d", id)
+    }
+ 
     init(id: Int, title: String, order: Int) {
         self.title = title
         self.order = order
@@ -25,15 +27,6 @@ final class DMerchantCategory: Object, Identifiable {
     
     override init() {
         super.init()
-    }
-    
-    func add(item: MerchantItemModel) {
-        if let ditem = realm?.object(ofType: DMerchant.self, forPrimaryKey: item.id) {
-            ditem.update(withModel: item)
-            return
-        }
-        
-        items.append(.init(id: item.id, title: item.title, icon: item.icon, category: item.categoryId))
     }
 }
 

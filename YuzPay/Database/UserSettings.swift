@@ -67,7 +67,9 @@ final public class UserSettings {
     
     func clearUserDetails() {
         if let realm = Realm.new, let userInfo = realm.object(ofType: DUserInfo.self, forPrimaryKey: self.currentUserLocalId) {
-            realm.delete(userInfo)
+            realm.trySafeWrite {
+                realm.delete(userInfo)
+            }
         }
         self.accessToken = nil
         self.accessTokenExpireDate = nil

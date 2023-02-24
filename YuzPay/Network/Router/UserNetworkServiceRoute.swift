@@ -47,6 +47,8 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
             return URL.base.appendingPath("api", "Cabinet", "UserLogs")
         case .getUserInfo:
             return URL.base.appendingPath("api", "Cabinet", "UserInfo")
+        case .getUserEntity:
+            return URL.base.appendingPath("api", "Cabinet", "UserEntity")
         }
     }
     
@@ -82,7 +84,7 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
             return .post
         case .deleteAccount:
             return .delete
-        case .getUserLogs, .getSessions, .getUserInfo:
+        case .getUserLogs, .getSessions, .getUserInfo, .getUserEntity:
             return .get
         }
     }
@@ -95,4 +97,5 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
     case getSessions
     case getUserLogs
     case getUserInfo
+    case getUserEntity
 }

@@ -7,11 +7,15 @@
 
 import SwiftUI
 
-struct NetResBodyUserLog: NetResBody {
-    let logID: Int
-    let logTitle, createdDate: String
-    let logStatus: Int
-    let logDetails, userID: String
+struct NetResBodyUserLog: NotificationProtocol, NetResBody {
+    var id: Int {
+        logID
+    }
+    
+    var logID: Int
+    var logTitle, createdDate: String?
+    var logStatus: Int?
+    var logDetails, userID: String?
 
     enum CodingKeys: String, CodingKey {
         case logID = "logId"

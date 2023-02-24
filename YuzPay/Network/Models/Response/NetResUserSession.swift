@@ -7,9 +7,13 @@
 
 import SwiftUI
 
-struct NetResBodySession: NetResBody {
-    let sessionID: Int
-    let userID, loginTime, clientIP, userAgent: String
+struct NetResUserSession: NetResBody, UserSessionProtocol {
+    var id: Int {
+        sessionID
+    }
+    
+    var sessionID: Int
+    var userID, loginTime, clientIP, userAgent: String
 
     enum CodingKeys: String, CodingKey {
         case sessionID = "sessionId"

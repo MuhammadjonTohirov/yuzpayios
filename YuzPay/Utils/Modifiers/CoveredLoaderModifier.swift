@@ -29,3 +29,9 @@ struct CoveredLoaderModifier: ViewModifier {
         }
     }
 }
+
+extension View {
+    func loadable(_ loading: Binding<Bool>, message: String = "loading".localize) -> some View {
+        self.modifier(CoveredLoaderModifier(isLoading: loading, message: message))
+    }
+}

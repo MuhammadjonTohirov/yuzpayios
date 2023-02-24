@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-final class PhoneAuthViewModel: NSObject, ObservableObject {
+final class PhoneAuthViewModel: NSObject, ObservableObject, Loadable, Alertable {
     let formViewModel = PhoneAuthFormViewModel()
     @Published var isButtonEnabled: Bool = false
     @Published var route: PhoneAuthRoute? {
@@ -18,8 +18,10 @@ final class PhoneAuthViewModel: NSObject, ObservableObject {
     }
     
     @Published var routePopup: PhoneAuthRoutePopup?
-    @Published var loading = false
+    @Published var isLoading = false
     @Published var pushToPage = false
+    var alert: AlertToast = .init(displayMode: .alert, type: .complete(.systemGreen))
+    @Published var shouldShowAlert: Bool = false
     private var isUserExists = false
     
     func onAppear() {
@@ -32,18 +34,27 @@ final class PhoneAuthViewModel: NSObject, ObservableObject {
         checkPhone()
     }
         
-    func checkPhone() {
+    private func checkPhone() {
         let number = formViewModel.phoneNumber.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: "")
         guard formViewModel.isValidForm else {return}
-        loading = true
+        showLoader()
         
         Task {
-            guard let result = await UserNetworkService().getOTP(forNumber: number), let body = result.data, result.success else {
+            
+            defer {
+                hideLoader()
+            }
+            guard let result = await UserNetworkService().getOTP(forNumber: number) else {
+                showError(message: "unknown_error")
+                return
+            }
+            
+            guard let body = result.data, result.success else {
+                showError(message: result.error ?? "unknown_error")
                 return
             }
             
             await MainActor.run {
-                self.loading = false
                 UserSettings.shared.userPhone = number
                 UserSettings.shared.checkPhoneToken = body.token
                 UserSettings.shared.lastOTP = body.code
@@ -80,11 +91,11 @@ final class PhoneAuthViewModel: NSObject, ObservableObject {
     }
     
     private func getAccessToken() {
-        self.loading = true
+        showLoader()
         Task {
             let success = await UserNetworkService.shared.getAccessToken()
             await MainActor.run {
-                self.loading = false
+                hideLoader()
                 let hasPin = UserSettings.shared.appPin != nil
                 if success {
                     hasPin ? showMain() : showPinSetup()

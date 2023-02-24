@@ -16,6 +16,11 @@ struct KF: View {
         KFImage(imageUrl)
             .setHTTPHeader(name: "Authorization", value: "Bearer \(UserSettings.shared.accessToken ?? "")")
             .resizable()
+            .placeholder({
+                Image("image_placeholder")
+                    .resizable(true)
+                    .frame(width: 40, height: 40)
+            })
             .aspectRatio(contentMode: .fill)
             .mask({
                 Circle()
