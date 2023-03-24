@@ -34,6 +34,8 @@ final class SideBarViewModel: ObservableObject {
         .monitoring
     ]
     
+    var isVerified = false
+    
     weak var delegate: SideBarDelegate?
     
     @Published var username: String = ""
@@ -56,8 +58,19 @@ final class SideBarViewModel: ObservableObject {
         
         reloadUserInfo(userModel)
         
-        userInfoToken = userModel?.observe({[weak self] _ in
-            self?.reloadUserInfo(userModel)
+        userInfoToken = userModel?.observe({[weak self] changeObject in
+            switch changeObject {
+            case let .change(base, _):
+                guard let model = base as? DUserInfo, !(model.isInvalidated) else {
+                    return
+                }
+                
+                self?.reloadUserInfo(model)
+                
+                break
+            default:
+                break
+            }
         })
     }
     
@@ -67,6 +80,7 @@ final class SideBarViewModel: ObservableObject {
         }
         
         self.username = info.name ?? ""
+        self.isVerified = info.isVerified
     }
     
     func onClickClose() {

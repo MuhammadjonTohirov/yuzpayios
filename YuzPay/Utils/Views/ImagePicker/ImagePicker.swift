@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SwiftUI
+import Photos
 
 struct ImagePicker: UIViewControllerRepresentable {
     @Environment(\.presentationMode) private var presentationMode
@@ -42,14 +43,34 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
 
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
-            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage, let url = info[UIImagePickerController.InfoKey.imageURL] as? URL {
-                parent.selectedImage = image
-                parent.imageUrl = url
-            }
             
-            parent.presentationMode.wrappedValue.dismiss()
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                parent.selectedImage = image
+                
+                saveImageToPhotos(image: image) { [weak self] url in
+                    DispatchQueue.main.async {
+                        self?.parent.imageUrl = url
+                        self?.parent.presentationMode.wrappedValue.dismiss()
+                    }
+                }
+            }
         }
-
+        
+        func saveImageToPhotos(image: UIImage, completion: @escaping (URL?) -> Void) {
+            DispatchQueue.global(qos: .background).async {
+                guard let data = image.jpegData(compressionQuality: 0.5 ) else {
+                    completion(nil)
+                    return
+                }
+                let temporaryFileURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString).appendingPathExtension("jpeg")
+                do {
+                    try data.write(to: temporaryFileURL, options: .atomic)
+                    completion(temporaryFileURL)
+                } catch {
+                    print("Error saving image: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
+        }
     }
 }

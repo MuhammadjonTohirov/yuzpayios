@@ -15,9 +15,9 @@ extension View {
 }
 
 extension View {
-    func toast(_ presenting: Binding<Bool>, _ alert: AlertToast, duration: CGFloat = 0.5) -> some View {
+    func toast(_ presenting: Binding<Bool>, _ alert: @autoclosure @escaping () -> AlertToast, duration: CGFloat = 0.5) -> some View {
         self.toast(isPresenting: presenting) {
-            alert
+            alert()
         }
         .onChange(of: presenting.wrappedValue) { newValue in
             if newValue {

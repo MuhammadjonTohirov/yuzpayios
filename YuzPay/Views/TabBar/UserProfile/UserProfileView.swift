@@ -11,8 +11,16 @@ import RealmSwift
 struct UserProfileView: View {
     @State private var showDevices = false
 
-    @ObservedResults(DUserSession.self, configuration: Realm.config) var sections;
-
+    @ObservedResults(DUserSession.self, configuration: Realm.config)
+    private var sections;
+    
+    @ObservedResults(DUserInfo.self, configuration: Realm.config)
+    private var userInfoList;
+    
+    private var userInfo: DUserInfo? {
+        userInfoList.first
+    }
+    
     var body: some View {
         ZStack {
             NavigationLink("", isActive: $showDevices) {
@@ -37,10 +45,10 @@ struct UserProfileView: View {
                     .frame(width: 120, height: 120)
                     .padding(.vertical, Padding.small)
                 
-                Text("Имя Фамилия")
+                Text(userInfo?.familyName ?? "")
                     .mont(.semibold, size: 21)
                 
-                Text("+998 93 585 24 15")
+                Text("+998\((userInfo?.phoneNumber ?? "").format(with: "XX XXX XX XX"))")
                     .mont(.regular, size: 14)
             }
             .frame(maxWidth: .infinity)
@@ -54,9 +62,12 @@ struct UserProfileView: View {
             )
             
             VStack(alignment: .leading) {
-                rowItem(title: "address".localize + ":", description: "12, Fergana")
-                rowItem(title: "passport_id".localize + ":", description: "AB0112432")
-                rowItem(title: "expiration_date".localize + ":", description: "10.09.2026")
+                rowItem(
+                    title: "address".localize + ":",
+                    description: userInfo?.address?.nilIfEmpty ?? "-"
+                )
+                rowItem(title: "passport_id".localize + ":", description: userInfo?.passportNumber?.nilIfEmpty ?? "-")
+                rowItem(title: "is_user_verified".localize + ":", description: "\(userInfo?.verificationStatus ?? "-")")
             }
             .padding(.horizontal, Padding.default)
                 
@@ -81,7 +92,7 @@ struct UserProfileView: View {
                 VStack(alignment: .leading) {
                     Text("profile".localize)
                         .mont(.bold, size: 20)
-                    Text("ID: 175239")
+                    Text("ID: \(userInfo?.sub ?? "")")
                         .mont(.medium, size: 12)
                 }
             }
@@ -116,7 +127,7 @@ struct UserProfileView: View {
                 .mont(.regular, size: 12)
                 .foregroundColor(.secondaryLabel)
         }
-        .padding(.vertical, Padding.small)
+        .padding(.vertical, Padding.small / 2)
     }
 }
 

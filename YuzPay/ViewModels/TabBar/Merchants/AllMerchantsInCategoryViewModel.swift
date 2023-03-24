@@ -10,28 +10,46 @@ import RealmSwift
 
 class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
     var mersNotification: NotificationToken?
-    private var category: DMerchantCategory
+    private var category: DMerchantCategory?
     @Published var isLoading: Bool = false
     @Published var merchants: Results<DMerchant>?
     @Published var selectedMerchant: DMerchant?
+    
     private var didAppear: Bool = false
-    var title: String {
-        category.title
+    private var id: String
+    override init() {
+        self.id = UUID().uuidString
+        super.init()
+        Logging.l(tag: String(describing: AllMerchantsInCategoryViewModel.self), "Init \(id)")
     }
     
-    init(category: DMerchantCategory) {
+    var title: String {
+        category?.title ?? ""
+    }
+    
+    func setCategory(_ category: DMerchantCategory) {
         self.category = category
+        self.setupSubscribers()
+        self.fetchAllMerchants()
     }
     
     func onAppear() {
-        if !didAppear {
+        if merchants == nil {
             self.setupSubscribers()
-            self.fetchAllMerchants()
-            self.didAppear = true
         }
     }
     
+    func onDisappear() {
+        self.merchants = nil
+        self.selectedMerchant = nil
+        Logging.l(tag: String(describing: AllMerchantsInCategoryViewModel.self), "On disappear \(id)")
+    }
+    
     private func fetchAllMerchants() {
+        guard let category else {
+            return
+        }
+        
         showLoader()
         MainNetworkService.shared.syncMerchants(forCategory: category.id, limit: nil) { [weak self] _ in
             self?.hideLoader()
@@ -39,11 +57,17 @@ class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
     }
 
     private func setupSubscribers() {
+        guard let category else {
+            return
+        }
+        
         invalidate()
         
         mersNotification = category.merchants?.observe(on: .main, { [weak self] changes in
             withAnimation {
-                self?.merchants = self?.category.merchants
+                if let mrts = category.merchants, !mrts.isEmpty {
+                    self?.merchants = mrts
+                }
             }
         })
     }
@@ -54,5 +78,9 @@ class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
     
     func invalidate() {
         mersNotification?.invalidate()
+    }
+    
+    deinit {
+        Logging.l(tag: String(describing: AllMerchantsInCategoryViewModel.self), "Deinit \(id)")
     }
 }

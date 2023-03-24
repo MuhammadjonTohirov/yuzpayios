@@ -8,19 +8,26 @@
 import SwiftUI
 
 struct NetResBodyUserInfo: NetResBody {
-    let sub, preferredUsername: String?
-    let familyName, givenName: String?
-    let name, email: String?
-    let emailVerified: Bool?
-    let locale: String?
-
+    let userID, userName: String?
+    let isVerified: Bool?
+    let dateOfBirth, fullName, phoneNumber: String?
+    let phoneConfirmed: Bool?
+    let passportNumber: String?
+    let regionID: Int?
+    let regionName: String?
+    let districtID: Int?
+    let districtName, address: String?
+    let organizationID: Int?
+    let organizationName, cashierDevice: String?
+    
     enum CodingKeys: String, CodingKey {
-        case sub
-        case preferredUsername = "preferred_username"
-        case familyName = "family_name"
-        case givenName = "given_name"
-        case name, email
-        case emailVerified = "email_verified"
-        case locale
+        case userID = "userId"
+        case userName, isVerified, dateOfBirth, fullName, phoneNumber, phoneConfirmed, passportNumber
+        case regionID = "regionId"
+        case regionName
+        case districtID = "districtId"
+        case districtName, address
+        case organizationID = "organizationId"
+        case organizationName, cashierDevice
     }
 }

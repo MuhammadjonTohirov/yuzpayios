@@ -84,10 +84,4 @@ struct UserNetworkService: NetworkServiceProtocol {
         
         return res?.data
     }
-    
-    func getUserEntity() async -> NetResUserEntity? {
-        let res: NetRes<NetResUserEntity>? = await Network.send(request: S.getUserEntity)
-            
-        return res?.data
-    }
 }

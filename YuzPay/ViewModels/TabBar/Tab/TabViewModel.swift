@@ -110,7 +110,10 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
         sideMenuOffset = CGPoint(x: -sideMenuWidth, y: 0)
         
         getPrerequisites()
-        MockData.shared.createMockCards()
+        DispatchQueue(label: "mock", qos: .utility).async {
+            MockData.shared.createMockCards()
+            MockData.shared.createTransactions()
+        }
     }
     
     private func getPrerequisites() {
@@ -120,7 +123,11 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
         
         Task {
             Logging.l(tag: "AccessToken", UserSettings.shared.accessToken ?? "")
-            let _ = await dataService.loadUserEntity()
+            if !(await dataService.loadUserEntity()) {
+                UserSettings.shared.clearUserDetails()
+                mainRouter?.navigate(to: .auth)
+                return
+            }
             let _ = await dataService.loadMerchants()
             let _ = await dataService.loadSessions()
             hideLoader()

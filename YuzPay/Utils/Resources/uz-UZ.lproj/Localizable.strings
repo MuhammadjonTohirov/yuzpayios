@@ -161,3 +161,7 @@
 "confirm" = "Tasdiqlash";
 
 "not_valid_otp" = "Yaroqsiz OTP";
+
+"is_user_verified" = "Tasdiq holati";
+
+"add_card_success" = "Yangi karta muvaffaqiyatli kiritildi";

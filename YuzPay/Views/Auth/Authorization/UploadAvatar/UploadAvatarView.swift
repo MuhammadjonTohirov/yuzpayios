@@ -75,7 +75,7 @@ struct UploadAvatarView: View {
             .ignoresSafeArea()
         })
         .zIndex(2)
-        .toast($viewModel.showAlert, .init(displayMode: .banner(.pop), type: .error(.systemRed), title: self.viewModel.alertMessage))
+        .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1)
     }
 }
 

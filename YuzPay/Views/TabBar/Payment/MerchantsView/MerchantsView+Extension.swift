@@ -26,6 +26,7 @@ extension MerchantsView {
                                 viewModel.expand(category: category.id)
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    viewModel.allMerchantsViewModel?.setCategory(category)
                                     showAllMerchants = true
                                 }
 
@@ -37,7 +38,11 @@ extension MerchantsView {
                         }
                         .padding(.horizontal, Padding.default.sw())
                         .padding(.bottom, Padding.small.sw())
-                        
+                        .onChange(of: showAllMerchants) { newValue in
+                            if !newValue {
+                                viewModel.collapse()
+                            }
+                        }
                         merchantsContains(expanded: false) {
                             merchantsForEach(cat: category)
                         }

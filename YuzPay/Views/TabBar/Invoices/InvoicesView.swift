@@ -7,11 +7,12 @@
 
 import SwiftUI
 import Introspect
+import RealmSwift
 
 struct InvoicesView: View {
-    @State private var invoices: [String] = ["a", "b", "c", "d"]
     @State private var searchText: String = ""
     @State private var showPayment = false
+    @ObservedResults(DInvoiceItem.self, configuration: Realm.config) var invoices;
     
     var body: some View {
         ZStack {
@@ -20,15 +21,18 @@ struct InvoicesView: View {
             }
             innerBody
         }
+        .onAppear {
+            MainNetworkService.shared.syncInvoiceList()
+        }
     }
     
     var innerBody: some View {
         List {
-            ForEach(invoices, id: \.self) { _ in
+            ForEach(invoices) { item in
                 Button {
                     showPayment = true
                 } label: {
-                    invoiceItem()
+                    invoiceItem(item)
                         .padding(.vertical, Padding.small)
                 }
             }
@@ -38,7 +42,7 @@ struct InvoicesView: View {
         .navigationTitle("invoices".localize)
     }
     
-    func invoiceItem() -> some View {
+    func invoiceItem(_ invoice: DInvoiceItem) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 6) {
                 Text("Korzinka #12093239")

@@ -71,6 +71,7 @@ final public class UserSettings {
                 realm.delete(userInfo)
             }
         }
+        
         self.accessToken = nil
         self.accessTokenExpireDate = nil
         self.refreshToken = nil

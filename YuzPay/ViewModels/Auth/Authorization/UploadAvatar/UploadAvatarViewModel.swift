@@ -35,7 +35,11 @@ enum UploadAvatarRoute: ScreenRoute, Identifiable, Hashable {
     }
 }
 
-final class UploadAvatarViewModel: ObservableObject {
+final class UploadAvatarViewModel: NSObject, ObservableObject, Alertable {
+    var alert: AlertToast = .init(displayMode: .hud, type: .regular)
+    
+    @Published var shouldShowAlert: Bool = false
+    
     @Published var showImagePicker = false
 
     @Published var avatar: UIImage = #imageLiteral(resourceName: "image_avatar_placeholder_2.png")
@@ -44,10 +48,10 @@ final class UploadAvatarViewModel: ObservableObject {
     
     @Published var uploading: Bool = false
     
-    var alertMessage: String?
+    @Published var dismiss = false
     
-    @Published var showAlert = false
-    
+    private(set) var uploadAvatarResult = false
+        
     var route: UploadAvatarRoute? {
         didSet {
             push = route != nil
@@ -55,18 +59,20 @@ final class UploadAvatarViewModel: ObservableObject {
     }
     
     @Published var push = false
+    
     var sourceType: UIImagePickerController.SourceType = UIImagePickerController.SourceType.camera
     
+    private var didAppear = false
+    
     func onAppear() {
-        #if DEBUG
-        self.imageUrl = Bundle.main.url(forResource: "default_avatar", withExtension: "jpg")
         
-        if let url = imageUrl,
-            let data = try? Data.init(contentsOf: url),
-            let image = UIImage.init(data: data) {
-            self.avatar = image
+        if !didAppear {
+            didAppear = true
         }
-        #endif
+    }
+    
+    private func trackSuccessRegistration() {
+        
     }
     
     func onSelect(pickerOption option: UIImagePickerController.SourceType) {
@@ -76,7 +82,7 @@ final class UploadAvatarViewModel: ObservableObject {
     
     func onClickSave() {
         guard let url = self.imageUrl else {
-            self.alert(with: "first_select_photo")
+            self.showError(message: "first_select_photo".localize)
             return
         }
         self.startUploading()
@@ -85,18 +91,11 @@ final class UploadAvatarViewModel: ObservableObject {
             self.stopUploading()
             if success {
                 Logging.l("Uploading avatar is successfull")
-                mainRouter?.navigate(to: .auth)
+                self.onSuccessRegister()
             } else {
-                self.alert(with: error ?? "Unknown")
+                self.showError(message: error ?? "Unknown")
                 Logging.l("Failure \(error ?? "Unknown")")
             }
-        }
-    }
-    
-    func alert(with message: String) {
-        DispatchQueue.main.async {
-            self.showAlert = true
-            self.alertMessage = message
         }
     }
     
@@ -114,6 +113,19 @@ final class UploadAvatarViewModel: ObservableObject {
         }
         
         route = .setupPin(model: model)
+    }
+    
+    private func onSuccessRegister() {
+        self.showCustomAlert(alert: .init(displayMode: .banner(.pop),
+                                          type: .complete(.accentColor),
+                                          title: "Account created!"))
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.goToAuthScreen()
+        }
+    }
+    
+    private func goToAuthScreen() {
+        mainRouter?.navigate(to: .auth)
     }
     
     private func startUploading() {

@@ -49,11 +49,12 @@ struct SideBarContent: View {
                     Text("logout".localize)
                         .font(.mont(.regular, size: 14))
                 }
-                .foregroundColor(Color("dark_gray"))
+                .foregroundColor(.label)
                 .padding(12)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
                         .foregroundColor(Color("gray").opacity(0.3))
+                        .border(Color("gray"), width: 1, cornerRadius: 8)
                 )
                 .padding(.horizontal, Padding.default)
                 .frame(maxWidth: .infinity)
@@ -69,7 +70,7 @@ struct SideBarContent: View {
                 Button {
                     viewModel.onClickProfile()
                 } label: {
-                    KF(imageUrl: UserSettings.shared.userAvatarURL)
+                    KF(imageUrl: UserSettings.shared.userAvatarURL, storageExpiration: .expired, memoryExpiration: .expired)
                         .frame(width: 88.f.sw(), height: 88.f.sw())
                         .background {
                             Circle()
@@ -78,7 +79,7 @@ struct SideBarContent: View {
                 }
                 
                 VStack(alignment: .leading) {
-                    Text(viewModel.username)
+                    Text(UserSettings.shared.userPhone ?? "")
                         .font(.mont(.semibold, size: 16))
 
                     Button {
@@ -124,9 +125,6 @@ struct SideBarContent: View {
             } label: {
                 Text("logout".localize)
             }
-            .foregroundColor(.systemRed)
-            
-            
         }, message: {
             Text("want_to_logout".localize)
         })

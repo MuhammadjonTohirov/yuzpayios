@@ -55,7 +55,7 @@ struct CardsAndWalletsView: View {
                 
                 HoverButton(title: "add_new_card".localize,
                             leftIcon: Image(systemName: "plus.circle.fill"),
-                            backgroundColor: Color("accent_light"),
+                            backgroundColor: Color("accent"),
                             titleColor: .white) {
                     cardTypesMenu = true
                 }

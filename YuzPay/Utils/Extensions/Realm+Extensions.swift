@@ -17,6 +17,16 @@ extension Realm {
         return try? Realm.init(configuration: config)
     }
 
+    public static func asyncNew(_ completion: @escaping (Result<Realm, NSError>) -> Void) {
+        Realm.asyncOpen(configuration: config) { result in
+            switch result {
+            case .success(let realm):
+                completion(.success(realm))
+            case .failure(let error):
+                completion(.failure(error as NSError))
+            }
+        }
+    }
 }
 
 extension Realm {

@@ -14,6 +14,17 @@ struct AddNewCardView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
+        Rectangle()
+            .ignoresSafeArea()
+            .foregroundColor(.systemBackground)
+            .overlay {
+                innerBody
+            }
+            .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1)
+
+    }
+    
+    private var innerBody: some View {
         ZStack {
             VStack(spacing: Padding.default) {
                 Text("add_new_card".localize)
@@ -59,9 +70,13 @@ struct AddNewCardView: View {
                     }
                 
                 HoverButton(title: "Save", backgroundColor: Color("accent"), titleColor: .white, isEnabled: viewModel.isActive) {
-                    viewModel.addNewCard()
-                    dismiss()
+                    viewModel.addNewCard {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                            dismiss()
+                        }
+                    }
                 }
+                .set(animated: viewModel.isLoading)
                 .padding(.top, 20)
             }
             .padding(Padding.default)

@@ -10,13 +10,9 @@ import RealmSwift
 
 struct AllMerchantsInCategoryView: View {
     @State private var itemsPadding: CGFloat = 0
-    @ObservedObject var viewModel: AllMerchantsInCategoryViewModel
+    @StateObject var viewModel: AllMerchantsInCategoryViewModel
     @State private var showPaymentView = false
-    
-    init(category: DMerchantCategory) {
-        self.viewModel = .init(category: category)
-    }
-    
+        
     var body: some View {
         ZStack {
             if let m = viewModel.selectedMerchant, !m.isInvalidated {
@@ -43,9 +39,11 @@ struct AllMerchantsInCategoryView: View {
             let itemWidth: CGFloat = 100.f.sw()
             let requiredWidth = itemsCount * itemWidth
             itemsPadding = (UIScreen.screen.width  - 2 * Padding.default - requiredWidth) / 2
-        }
-        .didAppear {
+            
             viewModel.onAppear()
+        }
+        .onDisappear {
+            viewModel.onDisappear()
         }
     }
     

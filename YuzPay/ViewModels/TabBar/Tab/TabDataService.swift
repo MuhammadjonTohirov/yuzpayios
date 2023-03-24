@@ -31,10 +31,10 @@ struct TabDataService: TabDataServiceProtocol {
     }
     
     func loadUserEntity() async -> Bool {
-        guard let entity = await UserNetworkService.shared.getUserEntity() else {
+        guard let entity = await UserNetworkService.shared.getUserInfo() else {
             return false
         }
-        
+
         Realm.new?.trySafeWrite({
             Realm.new?.add(DUserInfo.init(id: UserSettings.shared.currentUserLocalId, res: entity), update: .modified)
         })

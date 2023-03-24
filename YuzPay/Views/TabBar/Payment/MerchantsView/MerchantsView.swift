@@ -7,15 +7,20 @@
 
 import SwiftUI
 import RealmSwift
+import Combine
 
 struct MerchantsView: View {
     @StateObject var viewModel: MerchantsViewModel = .init()
 
-    @State var searchText: String = ""
+    @StateObject var searchText: DebouncedString = .init(value: "")
     
     @State var isSearching: Bool = false
     
     @State var showAllMerchants = false
+    
+    @State private var isViewLoaded = false
+    
+    @State private var cancellable: AnyCancellable?
     
     var body: some View {
         ZStack {
@@ -24,9 +29,10 @@ struct MerchantsView: View {
             }
             
             if let catId = viewModel.expandedCategory,
-                let category = viewModel.categories?.first(where: {$0.id == catId}), !category.isInvalidated {
+               let category = viewModel.categories?.first(where: {$0.id == catId}), !category.isInvalidated,
+                let vm = viewModel.allMerchantsViewModel {
                 NavigationLink("", isActive: $showAllMerchants) {
-                    AllMerchantsInCategoryView(category: category)
+                    AllMerchantsInCategoryView(viewModel: vm)
                 }
             }
             
@@ -40,15 +46,29 @@ struct MerchantsView: View {
                 navigationView
                     .frame(height: 44)
                 innerBody
+                    .opacity(isViewLoaded ? 1 : 0)
             }
         }.onAppear {
             Logging.l("On appear merchants view")
+            viewModel.onAppear()
         }
         .didAppear {
-            viewModel.onAppear()
+            withAnimation {
+                isViewLoaded = true
+            }
         }
         .onDisappear {
             Logging.l("On disappear merchats view")
+        }
+        .onChange(of: viewModel.merchants) { _ in
+            DispatchQueue.main.async {
+                self.viewModel.hideLoader()
+            }
+        }
+        .onChange(of: searchText.debouncedValue) { searchValue in
+            if searchValue.count >= 3 {
+                viewModel.searchMerchant(withName: searchValue)
+            }
         }
     }
     
@@ -61,28 +81,27 @@ struct MerchantsView: View {
     var innerBody: some View {
         GeometryReader { proxy in
             Group {
-                if searchText.isEmpty {
+                if searchText.value.isEmpty {
                     merchatsView
                 } else {
-                    if let _ = viewModel.merchants {
+                    if let merchants = viewModel.merchants {
                         searchResult {
-                            Text("Search has not been implemented yet")
-//                            ForEach(merchants) { merchant in
-//                                if !merchant.isInvalidated {
-//                                    Button {
-//                                        viewModel.setSelected(merchant: merchant)
-//
-//                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//                                            showPaymentView = true
-//              9                          }
-//                                    } label: {
-//                                        MerchantItemView(
-//                                            icon: merchant.icon,
-//                                            title: merchant.title
-//                                        )
-//                                    }
-//                                }
-//                            }
+                            ForEach(merchants.filter("title CONTAINS[cd] %@", searchText.debouncedValue).prefix(20)) { merchant in
+                                if !merchant.isInvalidated {
+                                    Button {
+                                        viewModel.setSelected(merchant: merchant)
+
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                            showPaymentView = true
+                                        }
+                                    } label: {
+                                        MerchantItemView(
+                                            icon: merchant.icon,
+                                            title: merchant.title
+                                        )
+                                    }
+                                }
+                            }
                         }
                         .padding(.top, 26)
                     }
@@ -111,7 +130,7 @@ struct MerchantsView: View {
         ZStack {
             Group {
                 if isSearching {
-                    YTextField(text: $searchText, placeholder: "Search")
+                    YTextField(text: $searchText.value, placeholder: "Search")
                         .set(font: .mont(.medium, size: 14))
                         .focused($focusedSearchField)
                         .padding(.horizontal, Padding.default)
@@ -142,7 +161,7 @@ struct MerchantsView: View {
                     focusedSearchField = isSearching
 
                     if !isSearching {
-                        searchText = ""
+                        searchText.value = ""
                     }
                 }
             } label: {
@@ -162,7 +181,6 @@ struct MerchantsView: View {
             }
             .frame(width: 24, height: 24)
             .horizontal(alignment: .trailing)
-
         }
         .frame(height: 44)
     }

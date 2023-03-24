@@ -20,6 +20,8 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     @Published var merchants: Results<DMerchant>?
     @Published var selectedMerchant: DMerchant?
     @Published var expandedCategory: Int?
+    @Published var allMerchantsViewModel: AllMerchantsInCategoryViewModel?
+    
     private var isViewAppeared = false
     private var catsNotification: NotificationToken?
     private var mersNotification: NotificationToken?
@@ -30,43 +32,52 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     }
     
     func onAppear() {
-        if !isViewAppeared {
-            setupSubscribers()
-            Logging.l("On appear merchantsviewmodel")
-            isViewAppeared = true
+        setupSubscribers()
+        
+        if isViewAppeared {
+            return
         }
+        
+        Logging.l("On appear merchantsviewmodel")
+        isViewAppeared = true
+        fetchMerchants()
     }
     
     private func setupSubscribers() {
-        
         invalidate()
-        categories = Realm.new?.objects(DMerchantCategory.self)
-        merchants = Realm.new?.objects(DMerchant.self)
-        catsNotification = categories?.observe(on: .main, { [weak self] changes in
-            switch changes {
-            case let .update(items, _, _, _):
-                withAnimation {
-                    self?.categories = items
+        Realm.asyncNew { result in
+            if let realm = result.successValue {
+                autoreleasepool {
+                    self.catsNotification = realm.objects(DMerchantCategory.self).observe(on: .main, { [weak self] changes in
+                        switch changes {
+                        case let .update(items, _, _, _):
+                            withAnimation {
+                                self?.categories = items
+                            }
+                            break
+                        case let .initial(items):
+                            self?.categories = items
+                        default:
+                            break
+                        }
+                    })
+                    
+                    self.mersNotification = realm.objects(DMerchant.self).observe(on: .main, { [weak self] changes in
+                        switch changes {
+                        case let .update(items, _, _, _):
+                            withAnimation {
+                                self?.merchants = items
+                            }
+                            break
+                        case let .initial(items):
+                            self?.merchants = items
+                        default:
+                            break
+                        }
+                    })
                 }
-                break
-            default:
-                break
             }
-        })
-        
-        mersNotification = merchants?.observe(on: .main, { [weak self] changes in
-            switch changes {
-            case let .update(items, _, _, _):
-                withAnimation {
-                    self?.merchants = items
-                }
-                break
-            default:
-                break
-            }
-        })
-        
-        fetchMerchants()
+        }
     }
     
     func setSelected(merchant: DMerchant?) {
@@ -79,16 +90,33 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     }
     
     func expand(category: Int) {
+        self.allMerchantsViewModel = .init()
         self.expandedCategory = category
     }
     
+    func onDisappear() {
+        invalidate()
+        categories = nil
+        merchants = nil
+    }
+    
     func collapse() {
+        self.allMerchantsViewModel = nil
         self.expandedCategory = nil
     }
     
     deinit {
         invalidate()
         Logging.l("deinit merchantsviewmodel")
+    }
+    
+    func searchMerchant(withName name: String) {
+        // filter merchants if name count is more than 3 character, do nothing
+        // if name is empty, show all merchants
+        // do all of them in background thread
+        MainNetworkService.shared.searchMerchants(text: name) { result in
+            Logging.l(tag: "MerchantesView", "Search for \(name) is \(result)")
+        }
     }
     
     private func fetchMerchants() {

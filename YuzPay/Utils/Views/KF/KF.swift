@@ -11,9 +11,13 @@ import Kingfisher
 struct KF: View {
     var imageUrl: URL?
     @State private var didAppear = false
+    var storageExpiration: StorageExpiration? = nil
+    var memoryExpiration: StorageExpiration? = nil
     
     var body: some View {
         KFImage(imageUrl)
+//            .memoryCacheExpiration(memoryExpiration)
+//            .diskCacheExpiration(storageExpiration)
             .setHTTPHeader(name: "Authorization", value: "Bearer \(UserSettings.shared.accessToken ?? "")")
             .resizable()
             .placeholder({

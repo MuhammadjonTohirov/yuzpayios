@@ -79,7 +79,8 @@ struct OTPView: View {
             .init(
                 displayMode: .banner(.pop),
                 type: .error(.systemRed),
-                title: viewModel.otpErrorMessage)
+                title: viewModel.otpErrorMessage),
+            duration: 1
         )
         .onAppear {
             viewModel.onAppear()

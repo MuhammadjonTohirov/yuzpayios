@@ -52,5 +52,101 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5BFAB690-31B5-432F-A82F-0F1DBC413933"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YuzPay/Network/Services/Network.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "send(request:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5BFAB690-31B5-432F-A82F-0F1DBC413933 - 1c6b68529df5d73f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for static YuzPay.Network.send&lt;&#x3c4;_0_0 where &#x3c4;_0_0: YuzPay.NetResBody&gt;(request: YuzPay.URLRequestProtocol) async -&gt; Swift.Optional&lt;YuzPay.NetRes&lt;&#x3c4;_0_0&gt;&gt;"
+                  moduleName = "YuzPay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/applebro/Documents/Development/Work/YuzPay/YuzPay/Network/Services/Network.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "496">
+               </Location>
+               <Location
+                  uuid = "5BFAB690-31B5-432F-A82F-0F1DBC413933 - d3b7660212952d3a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(8) suspend resume partial function for static YuzPay.Network.send&lt;&#x3c4;_0_0 where &#x3c4;_0_0: YuzPay.NetResBody&gt;(request: YuzPay.URLRequestProtocol) async -&gt; Swift.Optional&lt;YuzPay.NetRes&lt;&#x3c4;_0_0&gt;&gt;"
+                  moduleName = "YuzPay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/applebro/Documents/Development/Work/YuzPay/YuzPay/Network/Services/Network.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "480">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8BD4835C-7609-41B9-95FB-1C44779DB302"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YuzPay/Network/Services/Network.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "send(request:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8BD4835C-7609-41B9-95FB-1C44779DB302 - 1c6b68529df5d792"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for static YuzPay.Network.send&lt;&#x3c4;_0_0 where &#x3c4;_0_0: YuzPay.NetResBody&gt;(request: YuzPay.URLRequestProtocol) async -&gt; Swift.Optional&lt;YuzPay.NetRes&lt;&#x3c4;_0_0&gt;&gt;"
+                  moduleName = "YuzPay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/applebro/Documents/Development/Work/YuzPay/YuzPay/Network/Services/Network.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "260">
+               </Location>
+               <Location
+                  uuid = "8BD4835C-7609-41B9-95FB-1C44779DB302 - d3b7660212952d97"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(8) suspend resume partial function for static YuzPay.Network.send&lt;&#x3c4;_0_0 where &#x3c4;_0_0: YuzPay.NetResBody&gt;(request: YuzPay.URLRequestProtocol) async -&gt; Swift.Optional&lt;YuzPay.NetRes&lt;&#x3c4;_0_0&gt;&gt;"
+                  moduleName = "YuzPay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/applebro/Documents/Development/Work/YuzPay/YuzPay/Network/Services/Network.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "248">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

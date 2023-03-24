@@ -161,3 +161,7 @@
 "confirm" = "Confirm";
 
 "not_valid_otp" = "Invalid OTP";
+
+"is_user_verified" = "Verification status";
+
+"add_card_success" = "Successful inserted a new card";

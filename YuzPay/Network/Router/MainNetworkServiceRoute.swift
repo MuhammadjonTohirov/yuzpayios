@@ -17,8 +17,14 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
                 let url = URL.base.appendingPath("api", "Client", "PaynetProviderList", "\(cat)").queries(.init(name: "topRecords", value: "\(l)"))
                 return url
             }
-            
             return URL.base.appendingPath("api", "Client", "PaynetProviderList", "\(cat)")
+        case let .searchMerchants(text, limit):
+            return URL.base.appendingPath("api", "Client", "PaynetSearchProviders").queries(
+                .init(name: "topRecords", value: "\(limit ?? 20)"),
+                .init(name: "searchTerm", value: text)
+            )
+        case .getInvoiceList:
+            return URL.base.appendingPath("api", "Client", "InvoiceList")
         }
     }
     
@@ -27,7 +33,12 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     }
     
     var method: HTTPMethod {
-        return .get
+        switch self {
+        case .searchMerchants:
+            return .post
+        default:
+            return .get
+        }
     }
     
     func request() -> URLRequest {
@@ -40,4 +51,6 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     
     case getCategories
     case getMerchants(byCategory: Int, limit: Int?)
+    case searchMerchants(text: String, limit: Int?)
+    case getInvoiceList
 }

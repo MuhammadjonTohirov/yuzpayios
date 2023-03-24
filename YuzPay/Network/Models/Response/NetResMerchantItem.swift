@@ -11,6 +11,12 @@ struct NetResMerchantItem: Codable {
     let id: Int
     let title, logo: String
     let services: [MerchantService]?
+    let categoryId: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case id, title, logo, services
+        case categoryId = "category_id"
+    }
 }
 
 // MARK: - Service

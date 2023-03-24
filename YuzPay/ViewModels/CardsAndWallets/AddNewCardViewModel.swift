@@ -7,7 +7,12 @@
 
 import Foundation
 
-final class AddNewCardViewModel: ObservableObject {
+final class AddNewCardViewModel: NSObject, ObservableObject, Loadable, Alertable {
+    @Published var isLoading: Bool = false
+    
+    @Published var alert: AlertToast = .init(displayMode: .alert, type: .loading)
+    
+    @Published var shouldShowAlert: Bool = false
     
     @Published var cardNumber: String = ""
     @Published var expireDate: String = ""
@@ -32,14 +37,24 @@ final class AddNewCardViewModel: ObservableObject {
         isActive = !cardNumber.isEmpty && !expireDate.isEmpty && !cardName.isEmpty
     }
     
-    func addNewCard() {
-        CreditCardManager.shared.add(
-            .init(id: UUID().uuidString,
-                  cardNumber: cardNumber.maskAsCardNumber,
-                  expirationDate: Date.cardExpireDateToDateObject(expireDate) ?? Date(),
-                  name: cardName.isEmpty ? "A card name" : cardName,
-                  isMain: false, cardType: .visa, status: .active, moneyAmount: 800)
-        )
+    func addNewCard(completion: @escaping () -> Void) {
+        self.showLoader()
+        
+        DispatchQueue.init(label: "add_card", qos: .utility).async {
+            sleep(2)
+            CreditCardManager.shared.add(
+                .init(id: UUID().uuidString,
+                      cardNumber: self.cardNumber.maskAsCardNumber,
+                      expirationDate: Date.cardExpireDateToDateObject(self.expireDate) ?? Date(),
+                      name: self.cardName.isEmpty ? "A card name" : self.cardName,
+                      isMain: false, cardType: .visa, status: .active, moneyAmount: 800)
+            )
+            
+            self.hideLoader()
+            
+            self.showCustomAlert(alert: .init(displayMode: .banner(.pop), type: .regular, title: "add_card_success".localize))
+            completion()
+        }
     }
     
     deinit {

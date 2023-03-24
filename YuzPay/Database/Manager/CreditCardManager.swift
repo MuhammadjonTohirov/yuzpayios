@@ -37,6 +37,14 @@ final class CreditCardManager: DManager {
         Realm.new?.object(ofType: DCard.self, forPrimaryKey: id)
     }
     
+    func deleteCard(withId id: String) {
+        if let realm = Realm.new, let card = realm.object(ofType: DCard.self, forPrimaryKey: id) {
+            realm.trySafeWrite {
+                realm.delete(card)
+            }
+        }
+    }
+    
     func updateCard(forId id: String, withCard model: CardModel) {
         execute { realm in
             realm.object(ofType: DCard.self, byKey: "id", value: id)?.update(by: model)

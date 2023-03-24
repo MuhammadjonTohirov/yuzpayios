@@ -18,7 +18,6 @@ struct OrderCardReceiptView: View {
             NavigationLink("", isActive: $showPaymentStatusView) {
                 OrderCardPaymentStatusView(isSuccess: Bool.random())
                     .environmentObject(viewModel)
-                
             }
             
             ReceiptAndPayView(rowItems: [

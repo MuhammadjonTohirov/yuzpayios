@@ -8,13 +8,14 @@
 import Foundation
 import SwiftUIX
 import SwiftUI
+import Kingfisher
 
 struct TabBarView: View {
     @ObservedObject var viewModel = TabViewModel(dataService: TabDataService())
     @State var size: CGRect = .zero
     
     var body: some View {
-        NavigationView {
+        StackNavigationView {
             if size == .zero {
                 EmptyView()
             } else {
@@ -26,6 +27,9 @@ struct TabBarView: View {
         .onAppear {
             Logging.l("On Appear tabview nav")
             viewModel.onAppear()
+            
+            KingfisherManager.shared.cache.clearMemoryCache()
+            KingfisherManager.shared.cache.cleanExpiredDiskCache()
         }
         .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1)
     }

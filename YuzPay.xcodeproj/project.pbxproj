@@ -146,7 +146,6 @@
 		2E8A015829A9200E001DCD91 /* MerchantsView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A015729A9200E001DCD91 /* MerchantsView+Extension.swift */; };
 		2E8A015A29A92626001DCD91 /* AllMerchantsInCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A015929A92626001DCD91 /* AllMerchantsInCategoryViewModel.swift */; };
 		2E8A015C29A92FC6001DCD91 /* DNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A015B29A92FC6001DCD91 /* DNotification.swift */; };
-		2E8A015E29A932C5001DCD91 /* NetResUserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A015D29A932C5001DCD91 /* NetResUserEntity.swift */; };
 		2E8A016029A94385001DCD91 /* DUserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A015F29A94385001DCD91 /* DUserSession.swift */; };
 		2E8A016229A945F7001DCD91 /* UserSessionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8A016129A945F7001DCD91 /* UserSessionsManager.swift */; };
 		2E8C472F29A09C2B004D9817 /* NetResBodyUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8C472E29A09C2B004D9817 /* NetResBodyUserInfo.swift */; };
@@ -182,6 +181,10 @@
 		2E9943902941A8AB00D20795 /* YTextFieldBackgroundGrayStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E99438F2941A8AB00D20795 /* YTextFieldBackgroundGrayStyle.swift */; };
 		2E9943922941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9943912941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift */; };
 		2E9943942941B18B00D20795 /* YTextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9943932941B18B00D20795 /* YTextField+Extension.swift */; };
+		2EB2CFC529CD9AFE00439591 /* NetResInvoiceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2CFC429CD9AFE00439591 /* NetResInvoiceItem.swift */; };
+		2EB2CFC729CD9F6000439591 /* DInvoiceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2CFC629CD9F6000439591 /* DInvoiceItem.swift */; };
+		2EB2CFC929CD9FA800439591 /* InvoiceItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2CFC829CD9FA800439591 /* InvoiceItemModel.swift */; };
+		2EB2CFCB29CDA1AC00439591 /* InvoiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2CFCA29CDA1AC00439591 /* InvoiceManager.swift */; };
 		2EB4E44B29436E9700F09751 /* SignInTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4E44A29436E9700F09751 /* SignInTypeView.swift */; };
 		2EB4E44E2943731800F09751 /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4E44D2943731800F09751 /* PinCodeView.swift */; };
 		2EB8E6AB2977079100BBAFE3 /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8E6AA2977079100BBAFE3 /* BottomSheetView.swift */; };
@@ -309,6 +312,7 @@
 		2ED87D032955FEE600E1D477 /* ObservableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED87CE32955FEE600E1D477 /* ObservableExtensions.swift */; };
 		2ED87D042955FEE600E1D477 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED87CE42955FEE600E1D477 /* Observable.swift */; };
 		2ED87D052955FEE600E1D477 /* ObserverSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED87CE52955FEE600E1D477 /* ObserverSet.swift */; };
+		2ED88EC429BB5CB600B82881 /* Boolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED88EC329BB5CB600B82881 /* Boolean.swift */; };
 		2EDE333A29A43729005E151C /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE333929A43729005E151C /* Loadable.swift */; };
 		2EDE333C29A437D4005E151C /* BaseViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE333B29A437D4005E151C /* BaseViewModelProtocol.swift */; };
 		2EDE333E29A43D80005E151C /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE333D29A43D80005E151C /* Alertable.swift */; };
@@ -472,7 +476,6 @@
 		2E8A015729A9200E001DCD91 /* MerchantsView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MerchantsView+Extension.swift"; sourceTree = "<group>"; };
 		2E8A015929A92626001DCD91 /* AllMerchantsInCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMerchantsInCategoryViewModel.swift; sourceTree = "<group>"; };
 		2E8A015B29A92FC6001DCD91 /* DNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNotification.swift; sourceTree = "<group>"; };
-		2E8A015D29A932C5001DCD91 /* NetResUserEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResUserEntity.swift; sourceTree = "<group>"; };
 		2E8A015F29A94385001DCD91 /* DUserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DUserSession.swift; sourceTree = "<group>"; };
 		2E8A016129A945F7001DCD91 /* UserSessionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionsManager.swift; sourceTree = "<group>"; };
 		2E8C472E29A09C2B004D9817 /* NetResBodyUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResBodyUserInfo.swift; sourceTree = "<group>"; };
@@ -507,6 +510,10 @@
 		2E99438F2941A8AB00D20795 /* YTextFieldBackgroundGrayStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTextFieldBackgroundGrayStyle.swift; sourceTree = "<group>"; };
 		2E9943912941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTextFieldBackgroundCleanStyle.swift; sourceTree = "<group>"; };
 		2E9943932941B18B00D20795 /* YTextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YTextField+Extension.swift"; sourceTree = "<group>"; };
+		2EB2CFC429CD9AFE00439591 /* NetResInvoiceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResInvoiceItem.swift; sourceTree = "<group>"; };
+		2EB2CFC629CD9F6000439591 /* DInvoiceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DInvoiceItem.swift; sourceTree = "<group>"; };
+		2EB2CFC829CD9FA800439591 /* InvoiceItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceItemModel.swift; sourceTree = "<group>"; };
+		2EB2CFCA29CDA1AC00439591 /* InvoiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceManager.swift; sourceTree = "<group>"; };
 		2EB4E44A29436E9700F09751 /* SignInTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTypeView.swift; sourceTree = "<group>"; };
 		2EB4E44D2943731800F09751 /* PinCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
 		2EB8E6AA2977079100BBAFE3 /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
@@ -634,6 +641,7 @@
 		2ED87CE32955FEE600E1D477 /* ObservableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableExtensions.swift; sourceTree = "<group>"; };
 		2ED87CE42955FEE600E1D477 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		2ED87CE52955FEE600E1D477 /* ObserverSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObserverSet.swift; sourceTree = "<group>"; };
+		2ED88EC329BB5CB600B82881 /* Boolean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boolean.swift; sourceTree = "<group>"; };
 		2EDE333929A43729005E151C /* Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
 		2EDE333B29A437D4005E151C /* BaseViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModelProtocol.swift; sourceTree = "<group>"; };
 		2EDE333D29A43D80005E151C /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
@@ -891,6 +899,7 @@
 				2EDE333F29A44DF1005E151C /* DUserInfo.swift */,
 				2E8A015B29A92FC6001DCD91 /* DNotification.swift */,
 				2E8A015F29A94385001DCD91 /* DUserSession.swift */,
+				2EB2CFC629CD9F6000439591 /* DInvoiceItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1344,6 +1353,7 @@
 				2E6802242952A5B4008BCB9C /* CardModel.swift */,
 				2E2CBA632952E0D000D7C352 /* MerchantItemModel.swift */,
 				2E4A80F02961DA9F0032B7FF /* TransactionItem.swift */,
+				2EB2CFC829CD9FA800439591 /* InvoiceItemModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1428,6 +1438,7 @@
 				2E4A80F22961E56B0032B7FF /* TransactionSectionsManager.swift */,
 				2E4A80F42962A16D0032B7FF /* TransactionManager.swift */,
 				2E8A016129A945F7001DCD91 /* UserSessionsManager.swift */,
+				2EB2CFCA29CDA1AC00439591 /* InvoiceManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1536,7 +1547,7 @@
 				2E8C473229A09EE1004D9817 /* NetResBodyUserLog.swift */,
 				2EDE334529A483B9005E151C /* NetResMerchantCategoryItem.swift */,
 				2E965EE629A712740021E414 /* NetResMerchantItem.swift */,
-				2E8A015D29A932C5001DCD91 /* NetResUserEntity.swift */,
+				2EB2CFC429CD9AFE00439591 /* NetResInvoiceItem.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1756,6 +1767,7 @@
 			children = (
 				2EBCA808294160BC00F89E6F /* Padding.swift */,
 				2EC5F0EC294644E700BA54E3 /* Language.swift */,
+				2ED88EC329BB5CB600B82881 /* Boolean.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2272,6 +2284,7 @@
 				2EB8E6D02979CFDF00BBAFE3 /* SelectCardView.swift in Sources */,
 				2E9287E7299DAB0800A7CDC0 /* MultipartForm.swift in Sources */,
 				2ED87CF62955FEE600E1D477 /* AdditiveArithmetic.swift in Sources */,
+				2EB2CFC529CD9AFE00439591 /* NetResInvoiceItem.swift in Sources */,
 				2E2CBA602952D8BA00D7C352 /* DManager.swift in Sources */,
 				2EBCA80329414C8A00F89E6F /* UIFont+Extension.swift in Sources */,
 				2E965EEC29A72B9E0021E414 /* CoveredLoaderModifier.swift in Sources */,
@@ -2383,6 +2396,7 @@
 				2E433AA5295A875700D6F1F6 /* Destination1.swift in Sources */,
 				2E9287EA299E132800A7CDC0 /* UserNetworkServiceRoute.swift in Sources */,
 				2E9287E2299D41B800A7CDC0 /* PhoneAuthRoute.swift in Sources */,
+				2EB2CFCB29CDA1AC00439591 /* InvoiceManager.swift in Sources */,
 				2E2EBECA297FF5AF00C218CF /* YGridView.swift in Sources */,
 				2E1DA6B42941C45A007A5F9F /* DeviceRotationViewModifier.swift in Sources */,
 				2EC5F0CC2944E4EA00BA54E3 /* SignUpForm.swift in Sources */,
@@ -2468,6 +2482,7 @@
 				2EC5F1052946E4C900BA54E3 /* PassportRegisterStepTwo.swift in Sources */,
 				2E8A016229A945F7001DCD91 /* UserSessionsManager.swift in Sources */,
 				2E9287F4299FDD0400A7CDC0 /* SettingsViewModel.swift in Sources */,
+				2EB2CFC929CD9FA800439591 /* InvoiceItemModel.swift in Sources */,
 				2E85AF98296B51C7009CABC2 /* NotificationModel.swift in Sources */,
 				2ED87D052955FEE600E1D477 /* ObserverSet.swift in Sources */,
 				2EDE334829A48430005E151C /* MainNetworkServiceRoute.swift in Sources */,
@@ -2483,9 +2498,9 @@
 				2E965EE529A6F0B40021E414 /* NetworkServiceProtocol.swift in Sources */,
 				2ED87D022955FEE600E1D477 /* RepeatingRequest.swift in Sources */,
 				2EC5F10329468B1600BA54E3 /* PassportRegisterStepOne.swift in Sources */,
-				2E8A015E29A932C5001DCD91 /* NetResUserEntity.swift in Sources */,
 				2ED87CF72955FEE600E1D477 /* UIView.swift in Sources */,
 				2E9287EE299E13FA00A7CDC0 /* NetResBodyPhoneLogin.swift in Sources */,
+				2ED88EC429BB5CB600B82881 /* Boolean.swift in Sources */,
 				2E2CBA8E295468B600D7C352 /* SavedPaymentsView.swift in Sources */,
 				2E4A80F52962A16D0032B7FF /* TransactionManager.swift in Sources */,
 				2EDE334029A44DF1005E151C /* DUserInfo.swift in Sources */,
@@ -2515,6 +2530,7 @@
 				2E02F4BC29644F5F00D2A2AB /* MapView.swift in Sources */,
 				2E2CBA97295480F400D7C352 /* UINavigationController+Extensions.swift in Sources */,
 				2E4374AE294FE6E700F78FEC /* YNavigationView.swift in Sources */,
+				2EB2CFC729CD9F6000439591 /* DInvoiceItem.swift in Sources */,
 				2ED87CB72955EC0100E1D477 /* LayoutContentView.swift in Sources */,
 				2E7FE8EF294FEBF800D15A4A /* LoadingViewModel.swift in Sources */,
 			);
@@ -2691,7 +2707,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;
@@ -2736,7 +2752,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;
