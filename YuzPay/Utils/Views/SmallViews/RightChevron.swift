@@ -12,7 +12,7 @@ struct RightChevron: View {
     var body: some View {
         Image(systemName: "chevron.right")
             .renderingMode(.template)
-            .resizable(true)
+            .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(height: 12)
             .foregroundColor(.tertiaryLabel)

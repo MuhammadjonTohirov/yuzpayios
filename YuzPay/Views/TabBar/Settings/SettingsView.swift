@@ -11,7 +11,7 @@ import SwiftUI
 struct SettingsView: View {
     @StateObject var viewModel: SettingsViewModel
 
-    @State private var alertBody: AlertToast = .init(type: .complete(.systemGreen))
+    @State private var alertBody: AlertToast = .init(type: .complete(.init(uiColor: .systemGreen)))
     @EnvironmentObject var tabViewModel: TabViewModel
     
     var body: some View {
@@ -78,7 +78,7 @@ struct SettingsView: View {
     private var innerBody: some View {
         VStack {
             Text("settings".localize)
-                .font(.system(size: 16), weight: .semibold)
+                .font(.mont(.semibold, size: 16))
                 .padding()
 
             RowButton(
@@ -124,7 +124,7 @@ struct SettingsView: View {
             } label: {
                 Text("delete".localize)
             }
-            .foregroundColor(.systemRed)
+            .foregroundColor(.init(uiColor: .systemRed))
             
             
         }, message: {
@@ -137,7 +137,7 @@ struct SettingsView: View {
     
     private func alert(_ message: String) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.alertBody = .init(displayMode: .alert, type: .complete(.systemGray), title: message)
+            self.alertBody = .init(displayMode: .alert, type: .complete(.init(uiColor: .systemGray)), title: message)
             self.viewModel.showDeleteAccountAlert()
         }
     }

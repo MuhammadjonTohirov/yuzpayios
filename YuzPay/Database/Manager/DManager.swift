@@ -19,8 +19,8 @@ protocol DManager {
 
 extension DManager {
     func execute(completion: @escaping (Realm) -> Void) {
-        DataBase.writeThread.async {
-            guard let r = Realm.new else {
+        Realm.asyncNew { result in
+            guard let r = result.successValue else {
                 return
             }
 

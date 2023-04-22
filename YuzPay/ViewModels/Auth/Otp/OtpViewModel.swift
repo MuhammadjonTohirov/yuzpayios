@@ -33,6 +33,10 @@ final class OtpViewModel: ObservableObject {
     }
     @Published var loading = false
     @Published var showAlert: Bool = false
+    
+    var resetOTP: (() async -> Void)?
+    var confirmOTP: ((String) async -> (Bool, String?))?
+    
     weak var delegate: OtpModelDelegate?
     
     private var maxCounterValue: Double = 120
@@ -94,7 +98,11 @@ final class OtpViewModel: ObservableObject {
             self.hideLoader()
         }
         Task {
-            let _ = await UserNetworkService.shared.getOTP(forNumber: self.number)
+            if let resetOTP {
+                await resetOTP()
+            } else {
+                let _ = await UserNetworkService.shared.getOTP(forNumber: self.number)
+            }
             
             await MainActor.run {
                 self.startCounter()
@@ -105,16 +113,27 @@ final class OtpViewModel: ObservableObject {
     func onClickConfirm() {
             
         self.showLoader()
-        
         Task {
-            let result = await UserNetworkService.shared.confirm(otp: self.otp)
-            
-            await MainActor.run {
-                self.hideLoader()
-                self.otpErrorMessage = result ? "" : "not_valid_otp".localize
-                self.delegate?.otp(model: self, isSuccess: result)
+            if let confirmOTP {
+                let result = await confirmOTP(self.otp)
+                
+                await MainActor.run(body: {
+                    self.onResultConfirm(result.0, result.1)
+                })
+            } else {
+                let result = await UserNetworkService.shared.confirm(otp: self.otp)
+                
+                await MainActor.run(body: {
+                    self.onResultConfirm(result, nil)
+                })
             }
         }
+    }
+    
+    private func onResultConfirm(_ result: Bool, _ error: String?) {
+        self.hideLoader()
+        self.otpErrorMessage = result ? "" : (error ?? "not_valid_otp".localize)
+        self.delegate?.otp(model: self, isSuccess: result)
     }
     
     private func showLoader() {

@@ -35,6 +35,7 @@ struct OTPView: View {
                 }
                 .font(.mont(.regular, size: 14))
                 .multilineTextAlignment(.center)
+                .padding(.horizontal, Padding.default)
                 
                 YTextField(text: $viewModel.otp, placeholder: "Код подтверждения", contentType: .oneTimeCode, right: {
                     HStack {

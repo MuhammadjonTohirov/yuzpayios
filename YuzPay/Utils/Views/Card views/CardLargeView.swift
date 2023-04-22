@@ -23,7 +23,7 @@ struct CardLargeView: View {
         RoundedRectangle(cornerRadius: 16)
             .foregroundColor(Color("accent"))
             .frame(height: 240.f.sh(limit: 0.2))
-            .overlay({
+            .overlay {
                 VStack(alignment: .leading) {
                     HStack {
                         cardType.whiteIcon
@@ -67,8 +67,7 @@ struct CardLargeView: View {
                     .font(.mont(.regular, size: 12))
                 }
                 .foregroundColor(.white)
-                .padding(Padding.default)
-                
-            })
+                .padding(Padding.default)   
+            }
     }
 }

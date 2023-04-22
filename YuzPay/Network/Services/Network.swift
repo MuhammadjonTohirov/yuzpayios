@@ -10,39 +10,39 @@ import Foundation
 struct Network {
     
     static func send<T: NetResBody>(request: URLRequestProtocol) async -> NetRes<T>? {
-        Logging.l("--- --- REQUEST --- ---")
-        Logging.l(request.url.absoluteString)
-        
-        if let requestBody = request.request().httpBody, let json = try? JSONSerialization.jsonObject(with: requestBody, options: .fragmentsAllowed) as? [String: Any] {
-            Logging.l(json)
-        }
-        
-        guard let result = try? await URLSession.shared.data(for: request.request()) else {
-            return nil
-        }
-        
-        let data = result.0
+        do {
+            Logging.l("--- --- REQUEST --- ---")
+            Logging.l(request.url.absoluteString)
+            
+            if let requestBody = request.request().httpBody, let json = try JSONSerialization.jsonObject(with: requestBody, options: .fragmentsAllowed) as? [String: Any] {
+                Logging.l(json)
+            }
+            
+            let result = try await URLSession.shared.data(for: request.request())
+            
+            let data = result.0
 
-        let code = (result.1 as! HTTPURLResponse).statusCode
+            let code = (result.1 as! HTTPURLResponse).statusCode
 
-        guard await onReceive(code: code) else {
+            guard await onReceive(code: code) else {
+                return nil
+            }
+            
+            let res = try JSONDecoder().decode(NetRes<T>.self, from: data)
+            
+            Logging.l("--- --- RESPONSE --- ---")
+            Logging.l(res.asString)
+            
+            guard await onReceive(code: res.code ?? code) else {
+                return nil
+            }
+            
+            return res
+
+        } catch let error {
+            Logging.l(error.localizedDescription)
             return nil
         }
-        
-        guard let res = try? JSONDecoder().decode(NetRes<T>.self, from: data) else {
-            onFail(forUrl: request.url.absoluteString)
-            Logging.l("Status code \(code)")
-            return .init(success: false, data: nil, error: nil, code: code)
-        }
-        
-        Logging.l("--- --- RESPONSE --- ---")
-        Logging.l(res.asString)
-        
-        guard await onReceive(code: res.code ?? code) else {
-            return nil
-        }
-        
-        return res
     }
     
     private static func onReceive(code: Int) async -> Bool {

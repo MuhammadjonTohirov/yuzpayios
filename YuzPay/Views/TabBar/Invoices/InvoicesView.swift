@@ -17,7 +17,7 @@ struct InvoicesView: View {
     var body: some View {
         ZStack {
             NavigationLink("", isActive: $showPayment) {
-                MerchantPaymentView(merchantId: "0")
+                MerchantPaymentView(viewModel: .init(merchantId: "0"))
             }
             innerBody
         }

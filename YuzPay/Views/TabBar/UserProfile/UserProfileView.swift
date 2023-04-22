@@ -56,7 +56,7 @@ struct UserProfileView: View {
             .padding(.top, Padding.large.sh())
             .background(
                 Rectangle()
-                    .cornerRadius([.bottomLeft, .bottomRight], 100)
+                    .cornerRadius(100, corners: [.bottomLeft, .bottomRight])
                     .ignoresSafeArea()
                     .foregroundColor(.secondarySystemBackground)
             )

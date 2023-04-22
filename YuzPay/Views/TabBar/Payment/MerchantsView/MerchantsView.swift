@@ -38,7 +38,7 @@ struct MerchantsView: View {
             
             if let m = viewModel.selectedMerchant, !m.isInvalidated {
                 NavigationLink("", isActive: $showPaymentView) {
-                    MerchantPaymentView(merchantId: m.id)
+                    MerchantPaymentView(viewModel: .init(merchantId: m.id))
                 }
             }
             
@@ -125,34 +125,37 @@ struct MerchantsView: View {
             body()
         }
     }
-        
+    
+    @ViewBuilder
+    private var navigationTitle: some View {
+        if isSearching {
+            YTextField(text: $searchText.value, placeholder: "Search")
+                .set(font: .mont(.medium, size: 14))
+                .focused($focusedSearchField)
+                .padding(.horizontal, Padding.default)
+                .frame(height: 40)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundColor(Color("gray_light"))
+                )
+                .padding(.horizontal, Padding.default)
+                .padding(.trailing, 32)
+            
+            
+        } else {
+            Text("payments".localize)
+                .mont(.semibold, size: 16)
+                .padding()
+        }
+    }
+    
     var navigationView: some View {
         ZStack {
-            Group {
-                if isSearching {
-                    YTextField(text: $searchText.value, placeholder: "Search")
-                        .set(font: .mont(.medium, size: 14))
-                        .focused($focusedSearchField)
-                        .padding(.horizontal, Padding.default)
-                        .frame(height: 40)
-                        .background(
-                            RoundedRectangle(cornerRadius: 8)
-                                .foregroundColor(Color("gray_light"))
-                        )
-                        .padding(.horizontal, Padding.default)
-                        .padding(.trailing, 32)
-                    
-                    
-                } else {
-                    Text("payments".localize)
-                        .font(.system(size: 16), weight: .semibold)
-                        .padding()
-                }
-            }
-            .transition(.asymmetric(
-                insertion: .move(edge: .top).combined(with: .opacity),
-                removal: .move(edge: .bottom).combined(with: .opacity))
-            )
+            navigationTitle
+                .transition(.asymmetric(
+                    insertion: .move(edge: .top).combined(with: .opacity),
+                    removal: .move(edge: .bottom).combined(with: .opacity))
+                )
             
             Button {
                 withAnimation {

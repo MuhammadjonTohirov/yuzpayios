@@ -20,7 +20,7 @@ final class PhoneAuthViewModel: NSObject, ObservableObject, Loadable, Alertable 
     @Published var routePopup: PhoneAuthRoutePopup?
     @Published var isLoading = false
     @Published var pushToPage = false
-    var alert: AlertToast = .init(displayMode: .alert, type: .complete(.systemGreen))
+    var alert: AlertToast = .init(displayMode: .alert, type: .complete(.init(uiColor: .systemGreen)))
     @Published var shouldShowAlert: Bool = false
     private var isUserExists = false
     

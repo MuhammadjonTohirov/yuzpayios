@@ -17,13 +17,14 @@ struct SelectDeliveryTypeView: View {
             NavigationLink("", isActive: $showBankBranchesView) {
                 SelectBankBranchView()
                     .environmentObject(viewModel)
-                    
             }
+            
             
             NavigationLink("", isActive: $showAddressView) {
                 InsertDeliveryDetailsView()
                     .environmentObject(viewModel)
             }
+            
             
             Text("Как Вы желаете получить карту?")
                 .mont(.semibold, size: 28)

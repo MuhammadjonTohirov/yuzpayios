@@ -7,15 +7,15 @@
 
 import Foundation
 import SwiftUI
-import SwiftUIX
 
 struct InsertDeliveryDetailsView: View {
+    @EnvironmentObject var viewModel: OrderCardViewModel
+
     @State private var address: String = ""
     @State private var street: String = ""
     @State private var home: String = ""
     @State private var phone: String = ""
     @State private var note: String = ""
-    @EnvironmentObject var viewModel: OrderCardViewModel
     @State var showReceipt = false
     var body: some View {
         ZStack {
@@ -23,10 +23,10 @@ struct InsertDeliveryDetailsView: View {
                 OrderCardReceiptView()
                     .environmentObject(viewModel)
             }
+            
             innerBody
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle("order_card".localize)
-            
         }
     }
     
@@ -61,12 +61,10 @@ struct InsertDeliveryDetailsView: View {
                     .padding(.horizontal, Padding.default)
                 
 
-                TextView(text: $note)
+                TextField("Note", text: $note, axis: .vertical)
                     .lineLimit(7)
-                    .placeholder("Note", when: note.isEmpty, alignment: .topLeading)
                     .frame(height: 150)
                     .padding(.horizontal, Padding.default)
-                    .padding(.top, Padding.medium)
                     .modifier(YTextFieldBackgroundGrayStyle())
                     .padding(.horizontal, Padding.default)
             }.scrollable()
@@ -91,5 +89,6 @@ struct InsertDeliveryDetailsView: View {
 struct InsertDeliveryDetailsView_Preview: PreviewProvider {
     static var previews: some View {
         InsertDeliveryDetailsView()
+            .environmentObject(OrderCardViewModel())
     }
 }

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftUIX
 import RealmSwift
 
 struct OrderCardReceiptView: View {
@@ -18,6 +17,7 @@ struct OrderCardReceiptView: View {
             NavigationLink("", isActive: $showPaymentStatusView) {
                 OrderCardPaymentStatusView(isSuccess: Bool.random())
                     .environmentObject(viewModel)
+
             }
             
             ReceiptAndPayView(rowItems: [

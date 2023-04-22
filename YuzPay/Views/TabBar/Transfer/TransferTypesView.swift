@@ -21,6 +21,7 @@ struct TransferTypesView: View {
         ZStack {
             Text("\(homeViewModel.update.toExtendedString())")
                 .opacity(0)
+
             NavigationLink("", isActive: $viewModel.showPage) {
                 self.viewModel.route?.screen
                     .environmentObject(self.viewModel)
@@ -28,7 +29,7 @@ struct TransferTypesView: View {
             
             VStack {
                 Text("transfer".localize)
-                    .font(.system(size: 16), weight: .semibold)
+                    .mont(.semibold, size: 16)
                     .padding()
                 
                 TransferType.transferToOther.rowButton {
@@ -51,14 +52,31 @@ struct TransferTypesView: View {
             }
             .padding(.horizontal, Padding.default)
         }
-        
+//        .fullScreenCover(isPresented: $viewModel.showPage) {
+//
+//        } content: {
+//            NavigationView {
+//                self.viewModel.route?.screen
+//                    .environmentObject(self.viewModel)
+//                    .navigationBarTitleDisplayMode(.inline)
+//                    .toolbar(content: {
+//                        ToolbarItem(placement: .navigationBarLeading) {
+//                            Button {
+//                                self.viewModel.route = nil
+//                            } label: {
+//                                Image(systemName: "xmark")
+//                            }
+//
+//                        }
+//                    })
+//            }
+//        }
     }
 }
 
 struct TransferTypesView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            TransferTypesView()
-        }
+        TransferTypesView()
+            .environmentObject(TabViewModel(dataService: TabDataService()))
     }
 }

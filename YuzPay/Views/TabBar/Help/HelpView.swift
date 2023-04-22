@@ -30,7 +30,7 @@ struct HelpView: View {
             }
             VStack {
                 Text("help".localize)
-                    .font(.system(size: 16), weight: .semibold)
+                    .mont(.semibold, size: 16)
                     .padding()
                 List {
                     ForEach(items) { item in

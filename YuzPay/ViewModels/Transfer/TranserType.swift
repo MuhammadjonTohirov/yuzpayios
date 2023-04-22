@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum TransferType: String, Identifiable {
+enum TransferType: String, Identifiable, Hashable {
     var id: String {
         self.rawValue
     }
@@ -48,5 +48,9 @@ enum TransferType: String, Identifiable {
         RowButton(icon: Image(iconName), text: title, onClick: onClick) {
             AnyView(RightChevron())
         }
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.rawValue)
     }
 }

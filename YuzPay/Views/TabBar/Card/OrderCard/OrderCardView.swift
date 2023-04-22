@@ -7,20 +7,16 @@
 
 import Foundation
 import SwiftUI
-import SwiftUIX
 
 class OrderCardViewModel: ObservableObject {
-    var shouldDismiss: Bool = false {
-        didSet {
-            if shouldDismiss {
-                showCardTypeView = false
-                onDismiss?()
-            }
-        }
-    }
-    
     @Published var showCardTypeView: Bool = false
+    @Published var dismissToCardList: Bool = false
     var onDismiss: (() -> Void)?
+    
+    func dismiss() {
+        showCardTypeView = false
+        onDismiss?()
+    }
 }
 
 struct OrderCardView: View {
@@ -37,15 +33,15 @@ struct OrderCardView: View {
             
             selectBank
         }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("order_card".localize)
-            .onAppear {
-                viewModel.onDismiss = {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                        dismiss()
-                    }
-                }
-            }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("order_card".localize)
+        .onAppear {
+//            viewModel.onDismiss = {
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+//                    dismiss()
+//                }
+//            }
+        }
     }
     
     func title(_ text: String) -> some View {
@@ -139,7 +135,7 @@ struct OrderCardView: View {
 
 struct OrderCardView_Preview: PreviewProvider {
     static var previews: some View {
-        StackNavigationView {
+        NavigationView {
             OrderCardView()
         }
     }

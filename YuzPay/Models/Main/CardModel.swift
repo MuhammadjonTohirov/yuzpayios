@@ -31,6 +31,8 @@ struct CardModel: ModelProtocol, CardProtocol {
     
     var name: String
     
+    var holderName: String
+    
     var isMain: Bool
     
     var bankName: String?
@@ -46,4 +48,20 @@ struct CardModel: ModelProtocol, CardProtocol {
     var colorCode: String?
     
     var moneyAmount: Float
+    
+    static func create(res card: NetResCardItem) -> CardModel {
+        let exDate = Date.from(string: card.expirationDate ?? "", format: "MM/yy") ?? Date()
+        
+        let cardModel = CardModel(id: "\(card.id)",
+                                  cardNumber: card.cardNumber ?? "",
+                                  expirationDate: exDate,
+                                  name: card.cardName ?? "", holderName: card.cardHolder ?? "", isMain: false,
+                                  bankName: nil,
+                                  icon: nil, cardType: .create(cardTypeId: card.type ?? 0),
+                                  status: .init(rawValue: card.statusCode ?? 0) ?? .active,
+                                  backgroundImage: nil, colorCode: nil, moneyAmount: Float(card.balance ?? 0))
+        return cardModel
+    }
 }
+
+

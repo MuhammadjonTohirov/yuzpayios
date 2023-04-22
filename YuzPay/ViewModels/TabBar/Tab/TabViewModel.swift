@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import SwiftUIX
 
 enum SideBarRoute: Hashable, ScreenRoute {
     static func == (lhs: SideBarRoute, rhs: SideBarRoute) -> Bool {
@@ -61,6 +60,60 @@ enum SideBarRoute: Hashable, ScreenRoute {
     }
 }
 
+enum Tab: String, CaseIterable, Tabbable {
+    case home
+    case transfer
+    case payment
+    case help
+    case settings
+    
+    var symbolImage : String {
+        switch self {
+        case .home:
+            return "icon_home"
+        case .transfer:
+            return "icon_payment"
+        case .payment:
+            return "icon_cart"
+        case .help:
+            return "icon_message"
+        case .settings:
+            return "icon_gear"
+        }
+    }
+    
+    var icon: String {
+        selectedIcon
+    }
+    
+    var selectedIcon: String {
+        switch self {
+        case .home:
+            return "icon_home"
+        case .transfer:
+            return "icon_transfer"
+        case .payment:
+            return "icon_cart"
+        case .help:
+            return "icon_message"
+        case .settings:
+            return "icon_gear"
+        }
+    }
+    
+    var title: String {
+        self.rawValue.localize
+    }
+    
+    // implement deeplink path convertion
+    static func convert(from: String) -> Self? {
+        return Tab.allCases.first { tab in
+            tab.rawValue.lowercased() == from.lowercased()
+        }
+    }
+}
+
+
 final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loadable, Alertable {
     private(set) lazy var homeViewModel: HomeViewModel = { HomeViewModel() }()
     private(set) lazy var settingsViewModel: SettingsViewModel = { SettingsViewModel() }()
@@ -73,7 +126,7 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
     
     @Published var pushSideMenuActions: Bool = false
     
-    @Published var selectedTab: Int = 0
+    @Published var selectedTab: Tab = .home
     
     @Published var update: Date = Date() {
         didSet {
@@ -84,6 +137,8 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
     @Published var isLoading: Bool = false
     
     @Published var shouldShowAlert: Bool = false
+    
+    @Published var tabBarStackPath: [String] = []
         
     var sideMenuWidth: CGFloat {
         UIScreen.screen.width * 0.8
@@ -111,7 +166,6 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
         
         getPrerequisites()
         DispatchQueue(label: "mock", qos: .utility).async {
-            MockData.shared.createMockCards()
             MockData.shared.createTransactions()
         }
     }
@@ -130,6 +184,7 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
             }
             let _ = await dataService.loadMerchants()
             let _ = await dataService.loadSessions()
+            MainNetworkService.shared.syncCardList()
             hideLoader()
         }
     }
@@ -191,10 +246,10 @@ extension TabViewModel: HomeViewDelegate, SideBarDelegate {
             sideMenuRouter = .monitoring
         case .payment:
             hideSideBar()
-            selectedTab = 2
+            selectedTab = .payment
         case .transfer:
             hideSideBar()
-            selectedTab = 1
+            selectedTab = .transfer
         case .invoices:
             hideSideBar()
             sideMenuRouter = .invoices

@@ -5,7 +5,7 @@
 //  Created by applebro on 22/12/22.
 //
 
-import Foundation
+import Swift
 import UIKit
 
 extension UIApplication {
@@ -17,3 +17,13 @@ extension UIApplication {
         connectedScenes.first(where: {$0.activationState == .foregroundActive}).flatMap({$0 as? UIWindowScene})?.windows.first(where: {$0.isKeyWindow})?.safeAreaInsets ?? .zero
     }
 }
+
+#if os(iOS) || os(tvOS) || targetEnvironment(macCatalyst)
+
+extension UIApplication {
+    public var firstKeyWindow: UIWindow? {
+        windows.first(where: { $0.isKeyWindow })
+    }
+}
+
+#endif

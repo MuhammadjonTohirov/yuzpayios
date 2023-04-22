@@ -17,13 +17,13 @@ protocol Loadable: NSObject {
 
 extension Loadable {
     func showLoader() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.isLoading = true
         }
     }
     
     func hideLoader() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.isLoading = false
         }
     }

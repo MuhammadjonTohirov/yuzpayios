@@ -25,6 +25,8 @@ enum AppDestination: Hashable, ScreenRoute {
             return "loading"
         case .pin:
             return "pin"
+        case .test:
+            return "test"
         }
     }
 
@@ -37,6 +39,7 @@ enum AppDestination: Hashable, ScreenRoute {
     case main
     case loading
     case pin
+    case test
     
     @ViewBuilder var screen: some View {
         switch self {
@@ -50,6 +53,8 @@ enum AppDestination: Hashable, ScreenRoute {
             PhoneAuthView()
         case .main:
             TabBarView()
+        case .test:
+            MerchantPaymentView(viewModel: .init(merchantId: "0"))
         }
     }
 }

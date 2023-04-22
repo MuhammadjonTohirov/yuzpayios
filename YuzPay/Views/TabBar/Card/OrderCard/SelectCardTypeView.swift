@@ -22,7 +22,9 @@ struct SelectCardTypeView: View {
             NavigationLink("", isActive: $showDeliveryType) {
                 SelectDeliveryTypeView()
                     .environmentObject(viewModel)
+
             }
+            
             innerBody
         }
     }

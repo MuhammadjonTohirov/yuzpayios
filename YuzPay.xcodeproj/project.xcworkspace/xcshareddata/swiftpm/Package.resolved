@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "pageview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/fredyshox/PageView.git",
+      "state" : {
+        "revision" : "b70afdef6379006bc91444f144d83ffe4e48f949",
+        "version" : "1.5.1"
+      }
+    },
+    {
       "identity" : "realm-core",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/realm/realm-core.git",
@@ -88,15 +97,6 @@
       "state" : {
         "revision" : "270a754308f5440be52fc295242eb7031638bd15",
         "version" : "0.6.1"
-      }
-    },
-    {
-      "identity" : "swiftuix",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SwiftUIX/SwiftUIX.git",
-      "state" : {
-        "revision" : "1c2ba19b91a1541b803f9d1b01b360cae5a752fa",
-        "version" : "0.1.3"
       }
     },
     {

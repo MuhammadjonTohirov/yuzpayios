@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Introspect
-import SwiftUIX
 
 struct TransferToCardView: View {
     @EnvironmentObject var viewModel: TransferViewModel
@@ -35,6 +34,10 @@ struct TransferToCardView: View {
     }
     
     var body: some View {
+        bodyWithNavigations
+    }
+    
+    var bodyWithNavigations: some View {
         ZStack {
             NavigationLink("", isActive: $showStatusView) {
                 PaymentStatusView(title: "Success", detail: "Payment is successfull") {
@@ -42,13 +45,18 @@ struct TransferToCardView: View {
                         .renderingMode(.template)
                         .resizable(true)
                         .frame(width: 100, height: 100)
-                } onClickRetry: {
-                    
-                } onClickCancel: {
-                    self.showStatusView = false
-                } onClickFinish: {
-                    
                 }
+                .environmentObject(PaymentStatusViewModel(onClickRetry: {
+                
+                }, onClickFinish: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        showPaymentView = false
+                    }
+                }, onClickCancel: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        showPaymentView = false
+                    }
+                }))
             }
             
             NavigationLink("", isActive: $showSavedCards) {
@@ -61,9 +69,7 @@ struct TransferToCardView: View {
                     .init(name: "Receiver name", value: "Master shifu"),
                     .init(name: "Date", value: "12.12.2023"),
                     .init(name: "Amount", value: "10 000 sum"),
-                ], submitButtonTitle: "pay".localize) {
-                    showPaymentView = false
-                    
+                ], submitButtonTitle: "pay".localize) {                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                         self.showStatusView = true
                     }
@@ -164,11 +170,10 @@ struct TransferToCardView: View {
     @ViewBuilder
     var noteView: some View {
         if transferType == TransferType.transferToOther {
-            TextView(text: $note, onCommit: {
+            TextField("note".localize, text: $note, onCommit: {
                 UIApplication.shared.endEditing()
             })
                 .lineLimit(7)
-                .placeholder("note".localize, when: note.isEmpty, alignment: .topLeading)
                 .keyboardDismissMode(.onDragWithAccessory)
                 .frame(height: 100)
                 .padding(.horizontal, Padding.default)
@@ -309,10 +314,8 @@ struct ExchangeTypeView: View {
 
 struct TransferToCardView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView(content: {
-            TransferToCardView(transferType: .transferToOther)
-                .navigationBarTitleDisplayMode(.inline)
-                .environmentObject(TransferViewModel())
-        })
+        TransferToCardView(transferType: .transferToOther)
+            .navigationBarTitleDisplayMode(.inline)
+            .environmentObject(TransferViewModel())
     }
 }

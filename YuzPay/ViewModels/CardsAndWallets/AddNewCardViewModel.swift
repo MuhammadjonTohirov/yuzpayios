@@ -20,6 +20,16 @@ final class AddNewCardViewModel: NSObject, ObservableObject, Loadable, Alertable
     @Published var scanCard = false
     @Published var isActive = false
     
+    private(set) var addCardResponse: NetResAddCard?
+    
+    @Published var confirmAddCard: Bool = false
+    
+    lazy var otpViewModel: OtpViewModel = {
+        return .init(title: "confirm_card".localize,
+                     number: UserSettings.shared.userPhone ?? "",
+                     countryCode: "+998")
+    }()
+    
     init(cardNumber: String = "", expireDate: String = "", cardName: String = "", scanCard: Bool = false) {
         self.cardNumber = cardNumber
         self.expireDate = expireDate
@@ -37,27 +47,80 @@ final class AddNewCardViewModel: NSObject, ObservableObject, Loadable, Alertable
         isActive = !cardNumber.isEmpty && !expireDate.isEmpty && !cardName.isEmpty
     }
     
-    func addNewCard(completion: @escaping () -> Void) {
+    func addNewCard() {
+        setupOTPViewModel()
+        
+        let cardNumber = self.cardNumber.replacingOccurrences(of: " ", with: "")
+        let cardName = self.cardName
+        let expireDate = self.expireDate
+        
         self.showLoader()
         
-        DispatchQueue.init(label: "add_card", qos: .utility).async {
-            sleep(2)
-            CreditCardManager.shared.add(
-                .init(id: UUID().uuidString,
-                      cardNumber: self.cardNumber.maskAsCardNumber,
-                      expirationDate: Date.cardExpireDateToDateObject(self.expireDate) ?? Date(),
-                      name: self.cardName.isEmpty ? "A card name" : self.cardName,
-                      isMain: false, cardType: .visa, status: .active, moneyAmount: 800)
-            )
-            
-            self.hideLoader()
-            
-            self.showCustomAlert(alert: .init(displayMode: .banner(.pop), type: .regular, title: "add_card_success".localize))
-            completion()
+        Task {
+            let result = await MainNetworkService.shared.addCard(card: .init(cardNumber: cardNumber, cardName: cardName, expirationDate: expireDate))
+                        
+            await MainActor.run(body: {
+                self.hideLoader()
+
+                if let data = result.success {
+                    self.addCardResponse = data
+                    showOTP()
+                } else {
+                    onFailAddCard(result.error)
+                }
+            })
         }
+    }
+    
+    private func showOTP() {
+        confirmAddCard = true
+    }
+    
+    private func setupOTPViewModel() {
+        otpViewModel.delegate = self
+        
+        otpViewModel.confirmOTP = { [weak self] otp in
+            guard let self else {
+                return (false, nil)
+            }
+            
+            guard let res = self.addCardResponse else {
+                return (false, nil)
+            }
+            
+            let (card, error) = await MainNetworkService.shared.confirmCard(cardId: res.cardId, card: .init(token: res.token, code: otp))
+            
+            if card != nil {
+                MainNetworkService.shared.syncCardList()
+                return (true, nil)
+            }
+            
+            return (false, error)
+        }
+        
+        otpViewModel.resetOTP = { [weak self] in
+            self?.confirmAddCard = false
+        }
+    }
+    
+    private func onSuccessAddCard() {
+        MainNetworkService.shared.syncCardList()
+        self.showCustomAlert(alert: .init(displayMode: .banner(.pop), type: .regular, title: "add_card_success".localize))
+    }
+    
+    private func onFailAddCard(_ error: String?) {
+        self.showCustomAlert(alert: .init(displayMode: .banner(.pop), type: .error(.systemRed), title: error ?? "add_card_failure".localize))
     }
     
     deinit {
         Logging.l("Deinit add new card view model")
+    }
+}
+
+extension AddNewCardViewModel: OtpModelDelegate {
+    func otp(model: OtpViewModel, isSuccess: Bool) {
+        if isSuccess {
+            confirmAddCard = false
+        }
     }
 }

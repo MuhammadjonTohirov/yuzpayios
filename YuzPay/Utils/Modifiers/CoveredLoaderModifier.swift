@@ -22,9 +22,10 @@ struct CoveredLoaderModifier: ViewModifier {
                         VStack(spacing: 16) {
                             ProgressView()
                             Text(message.capitalized)
-                                .font(.system(size: 14))
+                                .mont(.regular, size: 13)
                         }
                     }
+                    .transition(.opacity.animation(.easeIn(duration: 0.3)))
             }
         }
     }

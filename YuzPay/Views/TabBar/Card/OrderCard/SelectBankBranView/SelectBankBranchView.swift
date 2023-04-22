@@ -31,12 +31,12 @@ struct SelectBankBranchView: View {
             YMapView(annotations: $annotations, currentLocation: $coordinate, annotationView:  { annotation in
                 AnyView (
                     Image("icon_bank_annotation")
-                        .resizable(true)
+                        .resizable(resizingMode: .stretch)
                         .frame(width: 32, height: 32)
                         .background(
                             Circle()
                                 .frame(width: 38, height: 38)
-                                .foregroundColor(.systemBackground.opacity(0.5))
+                                .foregroundColor(.init(uiColor: .systemBackground).opacity(0.5))
                         )
                 )
             }, annotationSelect: { annotation in
@@ -55,7 +55,7 @@ struct SelectBankBranchView: View {
                     coordinate = LocationManager.shared.location ?? coordinate
                 } label: {
                     Image(systemName: "location.circle.fill")
-                        .resizable(true)
+                        .resizable()
                         .frame(width: 40, height: 40, alignment: .bottomTrailing)
                         .padding(Padding.large)
                 }
@@ -74,7 +74,9 @@ struct SelectBankBranchView: View {
                             isShowingList.toggle()
                         }
                     } label: {
-                        Label(isShowingList ? "from_map".localize : "from_list".localize) {
+                        Label {
+                            Text(isShowingList ? "from_map".localize : "from_list".localize)
+                        } icon: {
                             Image(systemName: isShowingList ? "list.bullet" : "map")
                         }
                     }
@@ -106,7 +108,7 @@ struct SelectBankBranchView: View {
             ForEach(annotations) { bankItem in
                 HStack(spacing: Padding.medium) {
                     Image("icon_mappin")
-                        .resizable(true)
+                        .resizable()
                         .frame(width: 20, height: 20)
                     
                     VStack(alignment: .leading) {

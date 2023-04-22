@@ -15,7 +15,7 @@ struct SelectCardView: View {
     var body: some View {
         VStack {
             Text("My cards")
-                .font(.system(size: 16), weight: .semibold)
+                .mont(.semibold, size: 16)
                 .padding()
                 .horizontal(alignment: .leading)
             

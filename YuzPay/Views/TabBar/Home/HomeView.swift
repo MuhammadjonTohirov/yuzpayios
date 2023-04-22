@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import SwiftUIX
 import RealmSwift
 
 struct HomeView: View {
@@ -16,14 +15,6 @@ struct HomeView: View {
 
     var body: some View {
         ZStack {
-            NavigationLink(unwrapping: $viewModel.router) { isActive in
-                Logging.l("Is active \(isActive)")
-            } destination: { route in
-                route.wrappedValue.screen
-            } label: {
-                Text("")
-            }
-            
             VStack(spacing: 4) {
                 VStack(alignment: .leading) {
                     navbar
@@ -64,6 +55,14 @@ struct HomeView: View {
             .onAppear {
                 viewModel.onAppear()
             }
+            
+            NavigationLink(unwrapping: $viewModel.router) { isActive in
+                Logging.l("Is active \(isActive)")
+            } destination: { route in
+                route.wrappedValue.screen
+            } label: {
+                Text("")
+            }
         }
     }
     
@@ -98,7 +97,7 @@ struct HomeView: View {
             }
             
             Text("home".localize)
-                .font(.system(size: 16), weight: .semibold)
+                .mont(.semibold, size: 16)
                 .padding()
 
         }

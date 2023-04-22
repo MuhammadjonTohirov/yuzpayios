@@ -11,12 +11,14 @@ import RealmSwift
 class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
     var mersNotification: NotificationToken?
     private var category: DMerchantCategory?
+    
     @Published var isLoading: Bool = false
     @Published var merchants: Results<DMerchant>?
     @Published var selectedMerchant: DMerchant?
     
     private var didAppear: Bool = false
     private var id: String
+    
     override init() {
         self.id = UUID().uuidString
         super.init()

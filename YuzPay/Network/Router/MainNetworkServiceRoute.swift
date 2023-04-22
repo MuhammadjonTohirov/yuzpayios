@@ -25,17 +25,47 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
             )
         case .getInvoiceList:
             return URL.base.appendingPath("api", "Client", "InvoiceList")
+        case .getCardList:
+            return URL.base.appendingPath("api", "Client", "CardList")
+        case .addCard:
+            return URL.base.appendingPath("api", "Client", "AddCard")
+        
+        case let .updateCard(id, _):
+            return URL.base.appendingPath("api", "Client", "UpdateCard", "\(id)")
+        case .deleteCard(let cardId):
+            return URL.base.appendingPath("api", "Client", "DeleteCard", "\(cardId)")
+        case let .getMerchantDetails(id, categoryId):
+            return URL.base.appendingPath("api", "Client", "PaynetServiceList", "\(categoryId)", "\(id)")
+        case let .confirmCard(cardId, _):
+            return URL.base.appendingPath("api", "Client", "ConfirmCard", "\(cardId)")
+        case let .doPayment(id, categoryId, _):
+            return URL.base.appendingPath("api", "Client", "PaynetPerformService", "\(categoryId)", "\(id)")
         }
     }
     
     var body: Data? {
-        return nil
+        switch self {
+        case let .addCard(card):
+            return card.asData
+        case let .updateCard(_, card):
+            return card.asData
+        case let .confirmCard(_, req):
+            return req.asData
+        case let .doPayment(_, _, req):
+            return req.asData
+        default:
+            return nil
+        }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .searchMerchants:
+        case .searchMerchants, .addCard, .confirmCard, .doPayment:
             return .post
+        case .updateCard:
+            return .put
+        case .deleteCard:
+            return .delete
         default:
             return .get
         }
@@ -53,4 +83,11 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     case getMerchants(byCategory: Int, limit: Int?)
     case searchMerchants(text: String, limit: Int?)
     case getInvoiceList
+    case getCardList
+    case addCard(_ card: NetReqAddCard)
+    case updateCard(_ id: Int, _ card: NetReqUpdateCard)
+    case deleteCard(_ id: Int)
+    case getMerchantDetails(id: Int, categoryId: Int)
+    case confirmCard(cardId: Int, _ request: NetReqConfirmAddCard)
+    case doPayment(id: Int, categoryId: Int, _ request: NetReqDoPayment)
 }

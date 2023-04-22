@@ -8,7 +8,6 @@
 import Foundation
 import CoreLocation
 import UIKit
-import SwiftUIX
 import MapKit
 import SwiftUI
 
@@ -64,9 +63,9 @@ extension MapView: MKMapViewDelegate {
             annotView.canShowCallout = true
             annotView.rightCalloutAccessoryView = UIImageView(image: UIImage(systemName: "info.circle"))
             
-            let v = UIHostingView(rootView: view)
-            v.center = annotView.center
-            annotView.addSubview(v)
+            let v = UIHostingController(rootView: view)
+            v.view.center = annotView.center
+            annotView.addSubview(v.view)
             annotView.rightCalloutAccessoryView?.onClick(self, #selector(onClickAnnotationInfo))
             return annotView
         }

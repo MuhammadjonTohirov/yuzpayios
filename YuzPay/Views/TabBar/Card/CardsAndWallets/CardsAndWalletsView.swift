@@ -19,6 +19,7 @@ struct CardsAndWalletsView: View {
             NavigationLink("", isActive: $viewModel.pushNavigation) {
                 viewModel.route?.screen
             }
+            
             VStack {
                 HStack {
                     cardTypeItem("0", title: "all".localize, count: viewModel.cardItems.count)

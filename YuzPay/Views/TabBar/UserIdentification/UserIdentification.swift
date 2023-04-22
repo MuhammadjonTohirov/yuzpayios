@@ -110,7 +110,7 @@ struct UserIdentificationView: View {
             Spacer()
             
             if let photo = cameraModel.photo, let image = photo.thumbnailImage?.cgImage {
-                Image(cgImage: image)
+                Image(uiImage: .init(cgImage: image))
             }
             
             button

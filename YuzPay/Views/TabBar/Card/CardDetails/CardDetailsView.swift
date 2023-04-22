@@ -108,6 +108,16 @@ struct CardDetailsView: View {
                 secondaryButton: .cancel()
             )
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    updateCard()
+                } label: {
+                    Text("save".localize)
+                }
+
+            }
+        }
     }
     
     private func showDeleteCardAlert() {
@@ -115,12 +125,52 @@ struct CardDetailsView: View {
     }
     
     private func deleteCard() {
-        CreditCardManager.shared.deleteCard(withId: cardId)
-        alertToast = .init(displayMode: .alert, type: .complete(.secondaryLabel), title: "Card has been delete")
-        showToastAlert = true
+        Task {
+            let result = await MainNetworkService.shared.deleteCard(cardId: cardId)
+            
+            if result.success {
+                CreditCardManager.shared.deleteCard(withId: cardId)
+                showAlert(.init(
+                    displayMode: .alert,
+                    type: .complete(.secondaryLabel),
+                    title: "Card has been delete"))
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    dismiss()
+                }
+            } else {
+                showAlert(.init(
+                    displayMode: .alert,
+                    type: .error(.systemRed),
+                    title: "Cannot delete the card"))
+            }
+        }
+    }
+    
+    private func updateCard() {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            dismiss()
+        Task {
+            guard let card else {
+                return
+            }
+            let req = NetReqUpdateCard.init(cardName: cardName)
+            let isOK = await MainNetworkService.shared.updateCard(cardId: Int(cardId) ?? 0, card: req)
+            var result = ""
+            if isOK.success {
+                result = "Card updated successfully"
+                CreditCardManager.shared.updateTitle(forId: cardId, name: cardName)
+            } else {
+                result = "Card updated filure"
+            }
+            
+            showAlert(.init(displayMode: .alert, type: isOK.success ? .complete(.secondaryLabel) : .error(.systemRed), title: result))
+        }
+    }
+    
+    private func showAlert(_ alert: AlertToast) {
+        DispatchQueue.main.async {
+            self.alertToast = alert
+            self.showToastAlert = true
         }
     }
     
@@ -149,7 +199,7 @@ struct CardDetailsView: View {
                 bankName: _card.bankName ?? "",
                 cardName: cardName,
                 deposit: _card.moneyAmount.asCurrency, currency: "sum", cardType: _card.cardType,
-                ownerName: _card.name,
+                ownerName: _card.holderName,
                 cardNumber: _card.cardNumber, expireDate: _card.expirationDate.toExtendedString(format: "MM/YY"),
                 isMain: isMain)
             .padding(Padding.default)

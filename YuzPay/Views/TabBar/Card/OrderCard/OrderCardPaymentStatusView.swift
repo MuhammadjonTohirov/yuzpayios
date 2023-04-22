@@ -10,6 +10,7 @@ import SwiftUI
 struct OrderCardPaymentStatusView: View {
     var isSuccess: Bool = false
     @EnvironmentObject var viewModel: OrderCardViewModel
+    
     private var title: String {
         isSuccess ? "card_order_success".localize : "card_order_failure".localize
     }
@@ -35,7 +36,7 @@ struct OrderCardPaymentStatusView: View {
             VStack {
                 Spacer()
                 FlatButton(title: isSuccess ? "finish".localize : "retry".localize, titleColor: .white) {
-                    viewModel.shouldDismiss = true
+                    viewModel.dismiss()
                 }
                 .background(
                     RoundedRectangle(cornerRadius: 12)

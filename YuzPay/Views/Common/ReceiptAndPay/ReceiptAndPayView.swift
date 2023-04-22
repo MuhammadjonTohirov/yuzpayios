@@ -7,19 +7,24 @@
 
 import SwiftUI
 import RealmSwift
+import PageView
 
 struct ReceiptAndPayView: View {
     typealias Action = (() -> Void)
     var rowItems: [ReceiptRowItem] = []
     var submitButtonTitle: String = "pay".localize
     var onClickSubmit: Action
+    
     @State var text: String = ""
     @State private var selectedId = ""
     @State private var selectedIndex = 0
-    @State private var cards: Results<DCard>?
+    
+    @ObservedResults(DCard.self, configuration: Realm.config) var cards;
+    @Environment(\.dismiss) var dismiss
     
     private var cardHeight: CGFloat = 120
     
+    @State private var isCardsVisible = false
     init(rowItems: [ReceiptRowItem],
          submitButtonTitle: String,
          onClickSubmit: @escaping Action) {
@@ -31,9 +36,14 @@ struct ReceiptAndPayView: View {
     var body: some View {
         innerBody
         .onAppear {
-            cards = CreditCardManager.shared.cards
-            selectedId = cards?.first?.id ?? ""
+            selectedId = cards.first?.id ?? ""
             selectedIndex = 0
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                withAnimation {
+                    isCardsVisible = true
+                }
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -45,10 +55,15 @@ struct ReceiptAndPayView: View {
             }
             Spacer()
             
-            cardsView
-                .background(Color.secondarySystemBackground)
+            if isCardsVisible {
+                cardsView
+                    .background(Color.secondarySystemBackground)
+                    .transition(.opacity)
+            }
             
             FlatButton(title: submitButtonTitle, titleColor: .white) {
+                dismiss()
+                
                 self.onClickSubmit()
             }
             .background(
@@ -70,17 +85,14 @@ struct ReceiptAndPayView: View {
             .padding(.bottom, Padding.small)
             .padding(.top, Padding.medium)
             
-            if let crds = self.cards {
-                cardsView(crds)
-            } else {
-                EmptyView()
-            }
+            cardsPageView
         }
     }
     
-    func cardsView(_ cardList: Results<DCard>) -> some View {
+    var cardsPageView: some View {
         VStack {
-            PageView(cardList.map({ element in
+
+            TPageView(cards.map({ element in
                 card(card: element)
             }), $selectedIndex)
 
@@ -101,7 +113,7 @@ struct ReceiptAndPayView: View {
             )
             .frame(height: cardHeight)
             .padding(.horizontal, Padding.default)
-            PageControl(numberOfPages: cardList.count, currentPage: $selectedIndex)
+            TPageControl(numberOfPages: cards.count, currentPage: $selectedIndex)
                 .foregroundColor(Color.accentColor)
                 .padding(.bottom, Padding.small)
         }

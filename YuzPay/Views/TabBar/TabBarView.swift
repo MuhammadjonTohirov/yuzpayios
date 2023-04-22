@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUIX
 import SwiftUI
 import Kingfisher
 
@@ -15,7 +14,7 @@ struct TabBarView: View {
     @State var size: CGRect = .zero
     
     var body: some View {
-        StackNavigationView {
+        NavigationView {
             if size == .zero {
                 EmptyView()
             } else {
@@ -44,7 +43,7 @@ struct TabBarView: View {
                     HomeView()
                         .environmentObject(viewModel.homeViewModel)
                         .environmentObject(viewModel)
-
+ 
                     Rectangle()
                         .foregroundColor(.systemBackground.opacity(0.01))
                         .frame(maxWidth: 8)
@@ -64,21 +63,21 @@ struct TabBarView: View {
                 .tabItem {
                     Label("home".localize, image: "icon_home")
                 }
-                .tag(0)
+                .tag(Tab.home)
                 
                 TransferTypesView()
                     .environmentObject(viewModel)
                 .tabItem {
                     Label("transfer".localize, image: "icon_transfer")
                 }
-                .tag(1)
+                .tag(Tab.transfer)
                 
                 MerchantsView()
                     .environmentObject(viewModel)
                     .tabItem {
                         Label("payment".localize, image: "icon_cart")
                     }
-                    .tag(2)
+                    .tag(Tab.payment)
 
                 HelpView()
                     .environmentObject(viewModel)
@@ -86,7 +85,7 @@ struct TabBarView: View {
                     .tabItem {
                         Label("help".localize, image: "icon_message")
                     }
-                    .tag(3)
+                    .tag(Tab.help)
 
                 SettingsView(viewModel: viewModel.settingsViewModel)
                     .environmentObject(viewModel)
@@ -94,13 +93,30 @@ struct TabBarView: View {
                     .tabItem {
                         Label("settings".localize, image: "icon_gear")
                     }
-                    .tag(4)
+                    .tag(Tab.settings)
             }
-            .zIndex(0)
             
-            NavigationLink("", isActive: $viewModel.pushSideMenuActions) {
-                viewModel.sideMenuRouter?.screen
+            .fullScreenCover(isPresented: $viewModel.pushSideMenuActions) {
+                NavigationView {
+                    viewModel.sideMenuRouter?.screen
+                        .toolbar(content: {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button {
+                                    viewModel.pushSideMenuActions = false
+                                } label: {
+                                    Image(systemName: "xmark")
+                                        .resizable(true)
+                                        .aspectRatio(contentMode: .fit)
+                                        .fixedSize()
+                                        .frame(.init(width: 18, height: 18))
+                                }
+
+                            }
+                        })
+                }
             }
+            .environment(\.rootPresentationMode, $viewModel.pushSideMenuActions)
+         
         }
         .modifier(CoveredLoaderModifier(isLoading: $viewModel.isLoading))
     }
@@ -133,6 +149,7 @@ struct TabBarView: View {
                 .frame(width: viewModel.sideMenuWidth)
                 .zIndex(2)
                 .overlay {
+                    // -MARK: Tab bar view
                     SideBarContent(viewModel: viewModel.sideViewModel)
                 }
                 .offset(x: viewModel.sideMenuOffset.x)

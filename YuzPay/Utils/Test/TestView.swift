@@ -8,14 +8,13 @@
 import Foundation
 import SwiftUI
 import RealmSwift
-import SwiftUIX
 
 struct TestView: View {
     
     @ObservedObject var viewModel: ItemsViewModel = ItemsViewModel()
     
     var body: some View {
-        StackNavigationView {
+        NavigationView {
             ZStack {
                 NavigationLink("", isActive: $viewModel.show, destination: {
                     viewModel.route?.screen

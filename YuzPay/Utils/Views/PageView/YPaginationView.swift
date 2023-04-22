@@ -8,11 +8,12 @@
 import UIKit
 import SwiftUI
 
-struct PageView<Page: View>: View {
+struct TPageView<Page: View>: View {
     var viewControllers: [UIHostingController<Page>]
     @Binding var currentPage: Int
     
     init(_ views: [Page], _ page: Binding<Int>) {
+        
         self.viewControllers = views.map { UIHostingController(rootView: $0) }
         self._currentPage = page
     }
@@ -24,7 +25,7 @@ struct PageView<Page: View>: View {
     }
 }
 
-struct PageControl: UIViewRepresentable {
+struct TPageControl: UIViewRepresentable {
     var numberOfPages: Int
     @Binding var currentPage: Int
     
@@ -36,6 +37,7 @@ struct PageControl: UIViewRepresentable {
         control.tintColor = .accent
         control.pageIndicatorTintColor = .accent.withAlphaComponent(0.3)
         control.currentPageIndicatorTintColor = .accent
+//        control.currentPage = currentPage
         return control
     }
     
@@ -83,11 +85,11 @@ struct PageViewController: UIViewControllerRepresentable {
                 return nil
             }
             
-            if index == 0 {
-                return parent.controllers.last
-            }
+//            if index == 0 {
+//                return parent.controllers.last
+//            }
             
-            return parent.controllers.item(at: index - 1)
+            return parent.controllers.item(at: (index - 1).limitTop(0))
         }
         
         func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -95,15 +97,17 @@ struct PageViewController: UIViewControllerRepresentable {
                 return nil
             }
             
-            if index + 1 == parent.controllers.count {
-                return parent.controllers.first
-            }
+//            if index + 1 == parent.controllers.count {
+//                return parent.controllers.first
+//            }
             
-            return parent.controllers.item(at: index + 1)
+            return parent.controllers.item(at: (index + 1).limitTop(parent.controllers.count))
         }
         
         func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-            if completed, let visibleViewController = pageViewController.viewControllers?.first, let index = parent.controllers.firstIndex(of: visibleViewController) {
+            if completed,
+                let visibleViewController = pageViewController.viewControllers?.first,
+                let index = parent.controllers.firstIndex(of: visibleViewController) {
                 parent.currentPage = index
             }
         }
@@ -115,7 +119,7 @@ struct YPaginationView_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
             Text("page \(page)")
-            PageView([
+            TPageView([
                 Rectangle().foregroundColor(.systemBlue),
                 Rectangle().foregroundColor(.systemRed),
                 Rectangle().foregroundColor(.systemOrange),

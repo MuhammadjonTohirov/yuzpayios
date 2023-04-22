@@ -10,7 +10,7 @@ import RealmSwift
 import SwiftUI
 
 class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
-    var isLoading: Bool = false
+    @Published var isLoading: Bool = false
     
     var alert: AlertToast = .init(type: .loading)
      

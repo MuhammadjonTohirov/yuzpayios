@@ -19,12 +19,30 @@ final class CreditCardManager: DManager {
         }
     }
     
+    func addAll<T>(_ items: [T]) where T : ModelProtocol {
+        execute { realm in
+            let models = items.map({$0 as! CardModel})
+            let deletingCards = realm.objects(DCard.self).filter("NOT (id IN %@)", models.map({"\($0.id)"}))
+            realm.delete(deletingCards)
+            
+            models.forEach { item in
+                realm.add(DCard.build(withModel: item), update: .modified)
+            }
+        }
+    }
+    
     var cards: Results<DCard>? {
         Realm.new?.objects(DCard.self)
     }
     
     var all: Results<DCard>? {
         cards
+    }
+    
+    func updateTitle(forId id: String, name: String) {
+        execute { realm in
+            realm.object(ofType: DCard.self, byKey: "id", value: id)?.name = name
+        }
     }
     
     func removeAll() {

@@ -7,7 +7,21 @@
 
 import SwiftUI
 
+class PaymentStatusViewModel: ObservableObject {
+    var onClickRetry: () -> Void
+    var onClickFinish: () -> Void
+    var onClickCancel: () -> Void
+    
+    init(onClickRetry: @escaping () -> Void, onClickFinish: @escaping () -> Void, onClickCancel: @escaping () -> Void) {
+        self.onClickRetry = onClickRetry
+        self.onClickFinish = onClickFinish
+        self.onClickCancel = onClickCancel
+    }
+}
+
 struct PaymentStatusView<Content: View>: View {
+    @EnvironmentObject var viewModel: PaymentStatusViewModel
+    @Environment(\.dismiss) var dismiss
     var isSuccess: Bool = false
     
     var title: String
@@ -15,13 +29,7 @@ struct PaymentStatusView<Content: View>: View {
     var detail: String
     
     var image: () -> Content
-    
-    var onClickRetry: () -> Void
-    
-    var onClickCancel: () -> Void
-    
-    var onClickFinish: () -> Void
-    
+        
     var body: some View {
         ZStack {
             VStack(spacing: 14) {
@@ -38,7 +46,11 @@ struct PaymentStatusView<Content: View>: View {
             VStack {
                 Spacer()
                 FlatButton(title: isSuccess ? "finish".localize : "retry".localize, titleColor: .white) {
-                    isSuccess ? self.onClickFinish() : self.onClickRetry()
+                    if isSuccess {
+                        dismiss()
+                    }
+                    
+                    isSuccess ? self.viewModel.onClickFinish() : self.viewModel.onClickRetry()
                 }
                 .background(
                     RoundedRectangle(cornerRadius: 12)
@@ -47,7 +59,9 @@ struct PaymentStatusView<Content: View>: View {
                 
                 if !isSuccess {
                     FlatButton(title: "cancel".localize, borderColor: .clear) {
-                        self.onClickCancel()
+                        self.viewModel.onClickCancel()
+                        
+                        dismiss()
                     }
                 }
             }
@@ -64,12 +78,14 @@ struct PaymentStatusView_Previews: PreviewProvider {
                 .renderingMode(.template)
                 .resizable(true)
                 .frame(width: 100, height: 100)
-        } onClickRetry: {
-            
-        } onClickCancel: {
-            
-        } onClickFinish: {
-            
         }
+        
+        .environmentObject(PaymentStatusViewModel(onClickRetry: {
+            
+        }, onClickFinish: {
+            
+        }, onClickCancel: {
+            
+        }))
     }
 }

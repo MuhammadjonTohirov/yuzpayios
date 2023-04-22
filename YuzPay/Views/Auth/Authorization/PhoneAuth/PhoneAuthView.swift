@@ -20,10 +20,13 @@ struct PhoneAuthView: View {
                 
                 innerBody
             }
+            .onAppear {
+                viewModel.onAppear()
+            }
+            .fullScreenCover(item: $viewModel.routePopup, content: { dest in
+                dest.screen
+            })
         }
-        .fullScreenCover(item: $viewModel.routePopup, content: { dest in
-            dest.screen
-        })
         .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1)
     }
     
@@ -49,9 +52,6 @@ struct PhoneAuthView: View {
                         .set(animated: viewModel.isLoading)
                         .padding(.horizontal, Padding.large)
                         .padding(.bottom, Padding.medium)
-        }
-        .onAppear {
-            viewModel.onAppear()
         }
     }
 }

@@ -8,6 +8,10 @@
 import Foundation
 import SwiftUI
 
+struct YTextFilter {
+    var filter: (_ text: String) -> Bool
+}
+
 struct YTextField: View, TextFieldProtocol {
     @Binding<String> var text: String
     
@@ -37,6 +41,10 @@ struct YTextField: View, TextFieldProtocol {
     @State private var zStackAlignment: Alignment = .leading
     @State private var hintFontSize: CGFloat = 13
     @State private var hintColor: Color = Color("dark_gray")
+    @State private var formatter: NumberFormatter?
+    
+    private var filters: [YTextFilter] = []
+    
     private var placeholderAlignment: Alignment = .leading
     private var topupHintColor: Color = Color("dark_gray")
     private var placeholderColor: Color = Color("dark_gray")
@@ -73,8 +81,14 @@ struct YTextField: View, TextFieldProtocol {
         self.onCommit = onCommit ?? {}
         
         self.passwordVisible = isSecure
+        self.oldValue = text.wrappedValue
     }
     
+    init(text: Binding<String>, placeholder: String, filters: [YTextFilter]) {
+        self.init(text: text, placeholder: placeholder)
+        self.filters = filters
+    }
+    @State private var oldValue: String = ""
     var body: some View {
         HStack(spacing: 0) {
             AnyView(left())
@@ -87,7 +101,7 @@ struct YTextField: View, TextFieldProtocol {
                     .opacity(hintOpacity)
 
                 textField
-                    .placeholder(placeholder, when: text.isEmpty, alignment: placeholderAlignment, color: Color("dark_gray"))
+                    .placeholder(placeholder, when: text.isEmpty, alignment: placeholderAlignment, color: .placeholderText)
                     .keyboardType(keyboardType)
                     .textContentType(contentType)
                     .frame(height: height)
@@ -97,8 +111,20 @@ struct YTextField: View, TextFieldProtocol {
                         if let _format = format {
                             _text.wrappedValue = newValue.onlyNumberFormat(with: _format)
                         }
+                        for filter in filters {
+                            if !filter.filter(newValue) {
+                                self.text = oldValue
+
+                                self.rearrangeHint()
+                                self.onEditing(true)
+
+                                break
+                            }
+                        }
+
                         self.rearrangeHint()
                         self.onEditing(true)
+                        self.oldValue = newValue
                     }
             }
 
@@ -135,7 +161,15 @@ struct YTextField: View, TextFieldProtocol {
         if !passwordVisible && isSecure {
             SecureField("", text: $text, onCommit: onCommit)
         } else {
-            TextField("", text: $text, onEditingChanged: onEditing, onCommit: onCommit)
+            _textField
+        }
+    }
+    
+    private var _textField: TextField<Text> {
+        if let formatter {
+            return TextField("", value: $text, formatter: formatter, onEditingChanged: onEditing, onCommit: onCommit)
+        } else {
+            return TextField("", text: $text, onEditingChanged: onEditing, onCommit: onCommit)
         }
     }
     
@@ -184,12 +218,17 @@ extension YTextField {
         view.placeholderAlignment = align
         return view
     }
+    
+    func set(formatter: NumberFormatter) -> YTextField {
+        var view = self
+        view.formatter = formatter
+        return view
+    }
 }
 
 struct YTextField_Preview: PreviewProvider {
     static var previews: some View {
         @State var text: String = "1123"
-        
         return VStack {
             YTextField(text: $text, placeholder: "placeholder", isSecure: false)
         }

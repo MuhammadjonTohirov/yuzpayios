@@ -29,7 +29,7 @@ struct AddNewCardView: View {
             VStack(spacing: Padding.default) {
                 Text("add_new_card".localize)
                     .font(.mont(.semibold, size: 28))
-                    .padding(.bottom, 50.f.sh())
+                    .padding(.bottom, 20.f.sh())
 
                 YFormattedField(text: $viewModel.cardNumber, placeholder: "Номер карты", format: "XXXX XXXX XXXX XXXX", right: {
                     Button {
@@ -70,16 +70,15 @@ struct AddNewCardView: View {
                     }
                 
                 HoverButton(title: "Save", backgroundColor: Color("accent"), titleColor: .white, isEnabled: viewModel.isActive) {
-                    viewModel.addNewCard {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                            dismiss()
-                        }
-                    }
+                    viewModel.addNewCard()
                 }
                 .set(animated: viewModel.isLoading)
                 .padding(.top, 20)
             }
             .padding(Padding.default)
+            .sheet(isPresented: $viewModel.confirmAddCard) {
+                OTPView(viewModel: viewModel.otpViewModel)
+            }
         }
     }
     

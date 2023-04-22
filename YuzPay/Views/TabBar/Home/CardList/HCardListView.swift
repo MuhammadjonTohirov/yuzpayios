@@ -38,7 +38,7 @@ struct HCardListView: View {
                     if let cards = viewModel.cards {
                         ForEach(cards) { element in
                             if !element.isInvalidated {
-                                cardItem(name: element.name, icon: element.cardType.localIcon, amount: "\(element.moneyAmount.asCurrency)")
+                                cardItem(name: element.cardNumber, icon: element.cardType.localIcon, amount: "\(element.moneyAmount.asCurrency)")
                                     .onTapGesture {
                                         self.homeModel.onClickCard(withId: element.id)
                                     }

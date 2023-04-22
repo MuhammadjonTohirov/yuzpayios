@@ -17,7 +17,7 @@ struct AllMerchantsInCategoryView: View {
         ZStack {
             if let m = viewModel.selectedMerchant, !m.isInvalidated {
                 NavigationLink("", isActive: $showPaymentView) {
-                    MerchantPaymentView(merchantId: m.id)
+                    MerchantPaymentView(viewModel: .init(merchantId: m.id))
                 }
             }
 

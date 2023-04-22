@@ -58,12 +58,30 @@ enum CreditCardType: String, PersistableEnum, Identifiable {
     var name: String {
         rawValue.localize.capitalized
     }
+    
+    static func create(cardTypeId: Int) -> CreditCardType {
+        switch cardTypeId {
+        case 0:
+            return .uzcard
+        case 1:
+            return .humo
+        case 2:
+            return .visa
+        case 3:
+            return .master
+        case 4:
+            return .unionpay
+        default:
+            return .wallet
+        }
+    }
 }
 
-enum CreditCardStatus: String, PersistableEnum {
-    case active
-    case waiting
-    case blocked
+enum CreditCardStatus: Int, PersistableEnum {
+    case active = 1
+    case notConfirmed = 0
+    case blocked = 2
+    case deleted = 3
 }
 
 class DCard: Object, ObjectKeyIdentifiable, DItemProtocol, CardProtocol {
@@ -71,6 +89,7 @@ class DCard: Object, ObjectKeyIdentifiable, DItemProtocol, CardProtocol {
     @Persisted var cardNumber: String
     @Persisted var expirationDate: Date
     @Persisted var name: String
+    @Persisted var holderName: String
     @Persisted var isMain: Bool
     @Persisted var bankName: String?
     @Persisted var icon: String?
@@ -81,12 +100,13 @@ class DCard: Object, ObjectKeyIdentifiable, DItemProtocol, CardProtocol {
     @Persisted var moneyAmount: Float
     
     init(id: String, cardNumber: String, expirationDate: Date,
-         name: String, isMain: Bool, bankName: String? = nil,
+         name: String, holderName: String, isMain: Bool, bankName: String? = nil,
          icon: String? = nil, cardType: CreditCardType, status: CreditCardStatus,
          backgroundImage: String? = nil, colorCode: String? = nil, moneyAmount: Float) {
         self.cardNumber = cardNumber
         self.expirationDate = expirationDate
         self.name = name
+        self.holderName = holderName
         self.isMain = isMain
         self.bankName = bankName
         self.icon = icon
@@ -109,14 +129,15 @@ class DCard: Object, ObjectKeyIdentifiable, DItemProtocol, CardProtocol {
 extension DCard {
     static func build(withModel model: CardModel) -> any DItemProtocol {
         return DCard(id: model.id, cardNumber: model.cardNumber, expirationDate: model.expirationDate,
-              name: model.name, isMain: model.isMain, cardType: model.cardType, status: model.status,
-              moneyAmount: model.moneyAmount)
+                     name: model.name, holderName: model.holderName, isMain: model.isMain, cardType: model.cardType, status: model.status,
+                     moneyAmount: model.moneyAmount)
     }
     
     func update(by model: CardModel) {
         self.cardNumber = model.cardNumber
         self.expirationDate = model.expirationDate
         self.name = model.name
+        self.holderName = model.holderName
         self.isMain = model.isMain
         self.bankName = model.bankName
         self.icon = model.icon

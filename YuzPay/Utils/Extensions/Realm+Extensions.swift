@@ -18,7 +18,7 @@ extension Realm {
     }
 
     public static func asyncNew(_ completion: @escaping (Result<Realm, NSError>) -> Void) {
-        Realm.asyncOpen(configuration: config) { result in
+        Realm.asyncOpen(configuration: config, callbackQueue: DataBase.writeThread) { result in
             switch result {
             case .success(let realm):
                 completion(.success(realm))

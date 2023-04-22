@@ -22,9 +22,9 @@ struct SavedPaymentsView: View {
             .padding(.horizontal, Padding.default)
             
             HStack(spacing: 10) {
-                MerchantItemView(icon: "image_mobiuz", title: "Mobi uz")
-                MerchantItemView(icon: "image_clouds", title: "Cloud")
-                MerchantItemView(icon: "image_sarkor_telecom", title: "Sarkor telecom")
+                MerchantItemView(icon: "https://google.com/image_mobiuz.png", title: "Mobi uz")
+                MerchantItemView(icon: "https://google.com/image_mobiuz.png", title: "Cloud")
+                MerchantItemView(icon: "https://google.com/image_mobiuz.png", title: "Sarkor telecom")
             }
             .padding(.horizontal, Padding.default)
             .scrollable(axis: .horizontal)
