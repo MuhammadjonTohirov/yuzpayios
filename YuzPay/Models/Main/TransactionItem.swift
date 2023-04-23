@@ -9,6 +9,14 @@ import Foundation
 import RealmSwift
 import SwiftUI
 
+
+enum TransactionType: Int {
+    case paynet
+    case store
+    case p2p
+    case exchange
+}
+
 enum TransactionStatus: String, PersistableEnum {
     case success
     case failure

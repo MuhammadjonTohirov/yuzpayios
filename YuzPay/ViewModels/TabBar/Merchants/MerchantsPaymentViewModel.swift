@@ -15,11 +15,11 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
     
     @Published var showStatusView = false
     @Published var showPaymentView = false
-
+    private var didAppear = false
     var merchant: DMerchant? {
         Realm.new?.object(ofType: DMerchant.self, forPrimaryKey: merchantId)
     }
-
+    
     @Published var formModel: FormModel?
     
     init(merchantId: String, formModel: FormModel? = nil) {
@@ -28,7 +28,10 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
     }
     
     func onAppear() {
-        loadDetails()
+        if !didAppear {
+            loadDetails()
+            didAppear = true
+        }
     }
     
     private func loadDetails() {
@@ -51,6 +54,10 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
     
     func doPayment() {
         guard let formModel = formModel else { return }
+        guard let serviceId = formModel.id else {
+            return
+        }
+        guard let cardId = CreditCardManager.shared.all?.first?.id else { return }
         let id = Int(merchantId) ?? 0
         let categoryId = merchant?.categoryId ?? 0
         self.showLoader()
@@ -58,7 +65,7 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
         Task {
             var fields: [String: String] = [:]
             
-            formModel.fields?.forEach({ f in
+            formModel.fields?.filter({$0.field.fieldRequired ?? false}).forEach({ f in
                 var value = f.text
                 
                 if f.field.fieldType == .phone {
@@ -67,11 +74,11 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
                 
                 fields[f.field.name] = value
             })
-        
+            
             let details = await MainNetworkService.shared.doPayment(id: id,
                                                                     category: categoryId,
                                                                     payment: .init(
-                                                                        cardId: 0, serviceId: id,
+                                                                        cardId: Int(cardId)!, serviceId: serviceId,
                                                                         fields: fields))
             
             DispatchQueue.main.async {

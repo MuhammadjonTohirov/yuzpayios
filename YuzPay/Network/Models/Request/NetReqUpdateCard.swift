@@ -9,4 +9,5 @@ import Foundation
 
 struct NetReqUpdateCard: Codable {
     var cardName: String = ""
+    var isDefault: Bool = false
 }

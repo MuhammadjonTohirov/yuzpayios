@@ -93,6 +93,7 @@ struct MainNetworkService: NetworkServiceProtocol {
     }
     
     func doPayment(id: Int, category: Int, payment: NetReqDoPayment) async -> (success: Bool, error: String?) {
+        Logging.l(payment.asString)
         let res: NetRes<String>? = await Network.send(request: S.doPayment(id: id, categoryId: category, payment))
         return (res?.success ?? false, res?.error)
     }

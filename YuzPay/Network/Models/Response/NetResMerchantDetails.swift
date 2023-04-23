@@ -36,6 +36,7 @@ enum FieldType: String, Codable {
     case combobox = "COMBOBOX"
     case list = "LIST"
     case combomoth = "COMBOMONTH"
+    case datebox = "DATEBOX"
 }
 
 // MARK: - Field

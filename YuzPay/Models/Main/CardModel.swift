@@ -55,7 +55,7 @@ struct CardModel: ModelProtocol, CardProtocol {
         let cardModel = CardModel(id: "\(card.id)",
                                   cardNumber: card.cardNumber ?? "",
                                   expirationDate: exDate,
-                                  name: card.cardName ?? "", holderName: card.cardHolder ?? "", isMain: false,
+                                  name: card.cardName ?? "", holderName: card.cardHolder ?? "", isMain: card.isDefault,
                                   bankName: nil,
                                   icon: nil, cardType: .create(cardTypeId: card.type ?? 0),
                                   status: .init(rawValue: card.statusCode ?? 0) ?? .active,

@@ -75,6 +75,23 @@ enum CreditCardType: String, PersistableEnum, Identifiable {
             return .wallet
         }
     }
+    
+    var code: Int {
+        switch self {
+        case .uzcard:
+            return 0
+        case .humo:
+            return 1
+        case .visa:
+            return 2
+        case .master:
+            return 3
+        case .unionpay:
+            return 4
+        case .wallet:
+            return 5
+        }
+    }
 }
 
 enum CreditCardStatus: Int, PersistableEnum {

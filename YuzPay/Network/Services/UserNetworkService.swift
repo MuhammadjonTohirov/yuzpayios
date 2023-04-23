@@ -20,6 +20,25 @@ struct UserNetworkService: NetworkServiceProtocol {
         sleep(1)
         return otp == UserSettings.shared.lastOTP
     }
+    
+    func refreshToken() async -> Bool {
+        guard let token = UserSettings.shared.refreshToken else {
+            return false
+        }
+        
+        let result: NetRes<NetResRefreshToken>? = await Network.send(request: S.refreshToken(token: token))
+        
+        guard let result = result?.data, let accessToken = result.accessToken?.nilIfEmpty else {
+            return false
+        }
+        
+        UserSettings.shared.accessToken = accessToken
+        UserSettings.shared.refreshToken = result.refreshToken
+        UserSettings.shared.accessTokenExpireDate = result.expiresIn
+        UserSettings.shared.refresTokenExpireDate = result.refreshExpiresIn
+        
+        return true
+    }
 
     func uploadAvatar(url: URL, completion: @escaping (Bool, String?) -> Void) {
         let defaultError = "Unknown failure"

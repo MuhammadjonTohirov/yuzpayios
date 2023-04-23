@@ -104,7 +104,7 @@ struct MerchantPaymentView: View {
 struct MerchantPaymentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MerchantPaymentView(viewModel: .init(merchantId: "2"))
+            MerchantPaymentView(viewModel: .init(merchantId: "44"))
         }
     }
 }

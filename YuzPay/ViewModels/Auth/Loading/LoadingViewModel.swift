@@ -15,17 +15,28 @@ protocol LoadingViewModelProtocol {
 
 final class LoadingViewModel: LoadingViewModelProtocol {
     func initialize() {
-        // this method needs to be modified
-        let hasPin = UserSettings.shared.appPin != nil
-        let hasLanguage = UserSettings.shared.language != nil
-        
-        if hasPin {
-            mainRouter?.navigate(to: .pin)
-        } else {
-            if hasLanguage {
-                mainRouter?.navigate(to: .auth)
-            } else {
-                mainRouter?.navigate(to: .intro)
+        Task(priority: .high) {
+            let isOK = await UserNetworkService.shared.refreshToken()
+            
+            let hasPin = UserSettings.shared.appPin != nil
+            let hasLanguage = UserSettings.shared.language != nil
+            
+            DispatchQueue.main.async {
+                
+                if !isOK {
+                    mainRouter?.navigate(to: .auth)
+                    return
+                }
+                
+                if hasPin {
+                    mainRouter?.navigate(to: .pin)
+                } else {
+                    if hasLanguage {
+                        mainRouter?.navigate(to: .auth)
+                    } else {
+                        mainRouter?.navigate(to: .intro)
+                    }
+                }
             }
         }
     }

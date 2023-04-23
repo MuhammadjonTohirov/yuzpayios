@@ -7,20 +7,6 @@
 
 import Foundation
 
-//{
-//      "cardId": 0,
-//      "cardNumber": "9973275050291192",
-//      "cardHolder": "string",
-//      "cardName": "string",
-//      "expirationDate": "21/11",
-//      "typeId": 0,
-//      "statusCode": 0,
-//      "isVirtual": true,
-//      "balance": 0,
-//      "createdTime": "2023-04-19T06:41:15.672Z",
-//      "modefiedTime": "2023-04-19T06:41:15.672Z"
-//    }
-
 struct NetResCardItem: Identifiable, Codable, NetResBody {
     var id: Int {
         cardId
@@ -37,4 +23,5 @@ struct NetResCardItem: Identifiable, Codable, NetResBody {
     var balance: Double? = 0
     var createdTime: String? = ""
     var modifiedTime: String? = ""
+    var isDefault: Bool
 }

@@ -87,6 +87,8 @@
 		2E374FF7294DF15B0007D146 /* PhoneAuthFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FF6294DF15B0007D146 /* PhoneAuthFormViewModel.swift */; };
 		2E374FF9294DF19F0007D146 /* PhoneAuthForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FF8294DF19F0007D146 /* PhoneAuthForm.swift */; };
 		2E374FFD294DF5C30007D146 /* UploadAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FFC294DF5C30007D146 /* UploadAvatarView.swift */; };
+		2E40E5EE29F4620000CD1EAB /* MainAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E40E5ED29F4620000CD1EAB /* MainAlertModel.swift */; };
+		2E40E5F029F4FDCC00CD1EAB /* NetResRefreshToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E40E5EF29F4FDCC00CD1EAB /* NetResRefreshToken.swift */; };
 		2E433A9A2959F5A400D6F1F6 /* AddNewCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E433A992959F5A400D6F1F6 /* AddNewCardViewModel.swift */; };
 		2E433AA5295A875700D6F1F6 /* Destination1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E433AA4295A875700D6F1F6 /* Destination1.swift */; };
 		2E433AA7295A875D00D6F1F6 /* Destination2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E433AA6295A875D00D6F1F6 /* Destination2.swift */; };
@@ -448,6 +450,8 @@
 		2E374FF6294DF15B0007D146 /* PhoneAuthFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthFormViewModel.swift; sourceTree = "<group>"; };
 		2E374FF8294DF19F0007D146 /* PhoneAuthForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthForm.swift; sourceTree = "<group>"; };
 		2E374FFC294DF5C30007D146 /* UploadAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadAvatarView.swift; sourceTree = "<group>"; };
+		2E40E5ED29F4620000CD1EAB /* MainAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAlertModel.swift; sourceTree = "<group>"; };
+		2E40E5EF29F4FDCC00CD1EAB /* NetResRefreshToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResRefreshToken.swift; sourceTree = "<group>"; };
 		2E433A992959F5A400D6F1F6 /* AddNewCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCardViewModel.swift; sourceTree = "<group>"; };
 		2E433AA4295A875700D6F1F6 /* Destination1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination1.swift; sourceTree = "<group>"; };
 		2E433AA6295A875D00D6F1F6 /* Destination2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination2.swift; sourceTree = "<group>"; };
@@ -1069,6 +1073,7 @@
 			isa = PBXGroup;
 			children = (
 				2E374FC929484E7D0007D146 /* MainViewModel.swift */,
+				2E40E5ED29F4620000CD1EAB /* MainAlertModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1709,6 +1714,7 @@
 				2E12871429EC5363002BBDC0 /* NetResCardItem.swift */,
 				2E73EFFF29ED0A4A00A1DD13 /* NetResMerchantDetails.swift */,
 				2E9504A129F050F2005D7667 /* NetResAddCard.swift */,
+				2E40E5EF29F4FDCC00CD1EAB /* NetResRefreshToken.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -2477,6 +2483,7 @@
 				2E9287D4299C185700A7CDC0 /* UserNetworkService.swift in Sources */,
 				2E85AF7B296A89A1009CABC2 /* UserIdentification.swift in Sources */,
 				2E2CBAA02954DF9900D7C352 /* AddNewCardView.swift in Sources */,
+				2E40E5F029F4FDCC00CD1EAB /* NetResRefreshToken.swift in Sources */,
 				2E2CBA7E29543C1A00D7C352 /* ScrollableModifier.swift in Sources */,
 				2E2EBEB8297F08E800C218CF /* Array+Extensions.swift in Sources */,
 				2EC5F10C294737D200BA54E3 /* ResetPasswordStartView.swift in Sources */,
@@ -2510,6 +2517,7 @@
 				2E8C473C29A134CF004D9817 /* ActivityIndicator.swift in Sources */,
 				2E8A015C29A92FC6001DCD91 /* DNotification.swift in Sources */,
 				2E4374A9294FD76000F78FEC /* KeyboardViewModel.swift in Sources */,
+				2E40E5EE29F4620000CD1EAB /* MainAlertModel.swift in Sources */,
 				2E374FD82948869E0007D146 /* FacePayIntroViewModel.swift in Sources */,
 				2E85AF89296A9D9C009CABC2 /* ImageResizer.swift in Sources */,
 				2E241F0F29E5D0BD00822321 /* AnyTabItemStyle.swift in Sources */,

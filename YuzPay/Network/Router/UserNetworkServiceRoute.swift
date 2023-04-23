@@ -47,6 +47,10 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
             return URL.base.appendingPath("api", "Cabinet", "UserLogs")
         case .getUserInfo:
             return URL.base.appendingPath("api", "Cabinet", "UserDetails")
+        case .refreshToken(let token):
+            return URL.base.appendingPath("Account", "RefreshToken").queries(
+                .init(name: "token", value: token)
+            )
         }
     }
     
@@ -78,7 +82,7 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
     
     var method: HTTPMethod {
         switch self {
-        case .checkPhone, .phoneRegister, .phoneLogin, .logout:
+        case .checkPhone, .phoneRegister, .phoneLogin, .logout, .refreshToken:
             return .post
         case .deleteAccount:
             return .delete
@@ -90,6 +94,7 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
     case checkPhone(withNumber: String)
     case phoneLogin(number: String, token: String, code: String)
     case phoneRegister(phone: String, photo: URL, token: String, otp: String)
+    case refreshToken(token: String)
     case deleteAccount
     case logout
     case getSessions

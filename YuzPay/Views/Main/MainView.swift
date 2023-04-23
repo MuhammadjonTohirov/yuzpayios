@@ -15,9 +15,6 @@ struct MainView: View {
     var body: some View {
         viewModel.route.screen
             .environment(\.rootPresentationMode, self.$isPresented)
-            .fullScreenCover(isPresented: $viewModel.confirmOTP) {
-                OTPView(viewModel: .init(number: "935852415", countryCode: "+998"))
-            }
     }
 }
 

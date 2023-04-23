@@ -272,9 +272,9 @@ struct TransferToCardView: View {
     }
 }
 
-enum ExchangeType {
+enum ExchangeType: Int {
+    case buy = 0
     case sell
-    case buy
 }
 
 struct ExchangeTypeView: View {

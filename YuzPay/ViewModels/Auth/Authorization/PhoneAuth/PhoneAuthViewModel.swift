@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 final class PhoneAuthViewModel: NSObject, ObservableObject, Loadable, Alertable {
-    let formViewModel = PhoneAuthFormViewModel()
+    final let formViewModel = PhoneAuthFormViewModel()
     @Published var isButtonEnabled: Bool = false
     @Published var route: PhoneAuthRoute? {
         didSet {
