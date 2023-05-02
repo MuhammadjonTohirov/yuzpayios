@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import YuzSDK
 
 final class AddNewCardViewModel: NSObject, ObservableObject, Loadable, Alertable {
     @Published var isLoading: Bool = false

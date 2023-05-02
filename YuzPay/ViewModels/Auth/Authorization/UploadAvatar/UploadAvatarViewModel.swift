@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SwiftUI
+import YuzSDK
 
 enum UploadAvatarRoute: ScreenRoute, Identifiable, Hashable {
     static func == (lhs: UploadAvatarRoute, rhs: UploadAvatarRoute) -> Bool {

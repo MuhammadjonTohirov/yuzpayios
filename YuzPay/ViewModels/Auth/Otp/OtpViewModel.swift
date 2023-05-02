@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import YuzSDK
 
 protocol OtpModelDelegate: NSObject {
     func otp(model: OtpViewModel, isSuccess: Bool)

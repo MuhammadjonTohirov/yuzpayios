@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import RealmSwift
+import YuzSDK
 
 struct HomeView: View {
     @EnvironmentObject var viewModel: HomeViewModel

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import YuzSDK
 
 struct SettingsView: View {
     @StateObject var viewModel: SettingsViewModel

@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 import UIKit
+import YuzSDK
 import MapKit
 import SwiftUI
 

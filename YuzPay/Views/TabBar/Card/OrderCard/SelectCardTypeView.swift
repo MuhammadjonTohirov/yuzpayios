@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import YuzSDK
 
 struct SelectCardTypeView: View {
     var cardTypeList: [CreditCardType] = [

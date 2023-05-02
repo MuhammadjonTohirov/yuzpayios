@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import YuzSDK
 
 extension MField {
     func body(text: Binding<String>, placeholder: String) -> some View {
@@ -45,7 +46,6 @@ struct FieldView: View {
             })
             .modifier(YTextFieldBackgroundCleanStyle())
             .padding(.horizontal, Padding.default)
-//            .focused($focus)
 
         case .money:
             YTextField(text: $field.text, placeholder: placeholder, filters: [
@@ -58,7 +58,7 @@ struct FieldView: View {
                 .padding(.horizontal, Padding.default)
                 .modifier(YTextFieldBackgroundCleanStyle())
                 .padding(.horizontal, Padding.default)
-//                .focused($focus)
+
         default:
             YTextField(text: $field.text, placeholder: placeholder, filters: [
                 .init(filter: { text in
@@ -72,8 +72,7 @@ struct FieldView: View {
                 .padding(.horizontal, Padding.default)
                 .modifier(YTextFieldBackgroundCleanStyle())
                 .padding(.horizontal, Padding.default)
-//                .focused($focus)
+
         }
     }
 }
-

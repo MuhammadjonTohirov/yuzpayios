@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import YuzSDK
 
 final class PhoneAuthViewModel: NSObject, ObservableObject, Loadable, Alertable {
     final let formViewModel = PhoneAuthFormViewModel()
@@ -44,7 +45,7 @@ final class PhoneAuthViewModel: NSObject, ObservableObject, Loadable, Alertable 
             defer {
                 hideLoader()
             }
-            guard let result = await UserNetworkService().getOTP(forNumber: number) else {
+            guard let result = await UserNetworkService.shared.getOTP(forNumber: number) else {
                 showError(message: "unknown_error")
                 return
             }

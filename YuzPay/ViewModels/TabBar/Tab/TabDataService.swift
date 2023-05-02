@@ -7,6 +7,7 @@
 
 import Foundation
 import RealmSwift
+import YuzSDK
 
 protocol TabDataServiceProtocol {
     func loadUserInfo() async -> Bool

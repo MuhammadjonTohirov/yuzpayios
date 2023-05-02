@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import YuzSDK
 import SwiftUI
 
 struct AuthSelectLanguage: View {

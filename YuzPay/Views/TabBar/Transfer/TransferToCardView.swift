@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import YuzSDK
 import Introspect
 
 struct TransferToCardView: View {
@@ -40,22 +41,18 @@ struct TransferToCardView: View {
     var bodyWithNavigations: some View {
         ZStack {
             NavigationLink("", isActive: $showStatusView) {
-                PaymentStatusView(title: "Success", detail: "Payment is successfull") {
+                PaymentStatusView(image: {
                     Image("image_success_2")
                         .renderingMode(.template)
                         .resizable(true)
                         .frame(width: 100, height: 100)
-                }
-                .environmentObject(PaymentStatusViewModel(onClickRetry: {
-                
+                })
+                .environmentObject(PaymentStatusViewModel(isSuccess: true, title: "", details: "", onClickRetry: {
+                    
                 }, onClickFinish: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                        showPaymentView = false
-                    }
+                    
                 }, onClickCancel: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                        showPaymentView = false
-                    }
+                    
                 }))
             }
             
@@ -69,7 +66,7 @@ struct TransferToCardView: View {
                     .init(name: "Receiver name", value: "Master shifu"),
                     .init(name: "Date", value: "12.12.2023"),
                     .init(name: "Amount", value: "10 000 sum"),
-                ], submitButtonTitle: "pay".localize) {                    
+                ], submitButtonTitle: "pay".localize) { cardId in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                         self.showStatusView = true
                     }
@@ -161,7 +158,6 @@ struct TransferToCardView: View {
                     UIApplication.shared.endEditing()
                 } label: {
                     Image(systemName: "keyboard.chevron.compact.down")
-                    
                 }
             }
         }

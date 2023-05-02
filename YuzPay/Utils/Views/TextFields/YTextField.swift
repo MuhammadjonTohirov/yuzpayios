@@ -42,6 +42,7 @@ struct YTextField: View, TextFieldProtocol {
     @State private var hintFontSize: CGFloat = 13
     @State private var hintColor: Color = Color("dark_gray")
     @State private var formatter: NumberFormatter?
+    @State private var oldValue: String = ""
     
     private var filters: [YTextFilter] = []
     
@@ -88,7 +89,7 @@ struct YTextField: View, TextFieldProtocol {
         self.init(text: text, placeholder: placeholder)
         self.filters = filters
     }
-    @State private var oldValue: String = ""
+    
     var body: some View {
         HStack(spacing: 0) {
             AnyView(left())
@@ -99,7 +100,8 @@ struct YTextField: View, TextFieldProtocol {
                     .font(.mont(.medium, size: hintFontSize))
                     .foregroundColor(hintColor)
                     .opacity(hintOpacity)
-
+                    .zIndex(0)
+                
                 textField
                     .placeholder(placeholder, when: text.isEmpty, alignment: placeholderAlignment, color: .placeholderText)
                     .keyboardType(keyboardType)
@@ -126,7 +128,9 @@ struct YTextField: View, TextFieldProtocol {
                         self.onEditing(true)
                         self.oldValue = newValue
                     }
+                    .zIndex(1)
             }
+            .padding(.trailing, 2)
 
             rightView
         }
@@ -151,9 +155,11 @@ struct YTextField: View, TextFieldProtocol {
                     }
                     .padding(Padding.small / 2)
             })
+            
         }
         else {
             AnyView(right())
+                .padding(Padding.small / 2)
         }
     }
     
@@ -220,7 +226,7 @@ extension YTextField {
     }
     
     func set(formatter: NumberFormatter) -> YTextField {
-        var view = self
+        let view = self
         view.formatter = formatter
         return view
     }

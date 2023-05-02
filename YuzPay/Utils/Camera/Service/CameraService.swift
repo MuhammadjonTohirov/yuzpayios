@@ -11,6 +11,7 @@ import Combine
 import AVFoundation
 import Photos
 import UIKit
+import YuzSDK
 
 //  MARK: Class Camera Service, handles setup of AVFoundation needed for a basic camera app.
 public struct Photo: Identifiable, Equatable {

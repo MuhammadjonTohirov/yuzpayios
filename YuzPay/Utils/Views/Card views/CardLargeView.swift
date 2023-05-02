@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import YuzSDK
 
 struct CardLargeView: View {
     var bankName: String

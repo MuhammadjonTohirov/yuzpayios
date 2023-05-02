@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import YuzSDK
 
 class LocationManager: NSObject, CLLocationManagerDelegate {
     private let manager = CLLocationManager()

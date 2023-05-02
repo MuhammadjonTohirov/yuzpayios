@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import YuzSDK
 
 struct SelectCardView: View {
     var cards: [DCard] = []

@@ -8,29 +8,39 @@
 import SwiftUI
 import RealmSwift
 import PageView
+import YuzSDK
 
 struct ReceiptAndPayView: View {
-    typealias Action = (() -> Void)
+    typealias Action = ((_ cardId: String) -> Void)
     var rowItems: [ReceiptRowItem] = []
     var submitButtonTitle: String = "pay".localize
     var onClickSubmit: Action
     
+    var requiredPrice: Float = 0
     @State var text: String = ""
     @State private var selectedId = ""
     @State private var selectedIndex = 0
+    private var price: ReceiptRowItem? {
+        rowItems.first(where: {$0.type == .price})
+    }
     
     @ObservedResults(DCard.self, configuration: Realm.config) var cards;
-    @Environment(\.dismiss) var dismiss
     
+    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var alertModel: MainAlertModel
+
     private var cardHeight: CGFloat = 120
     
     @State private var isCardsVisible = false
     init(rowItems: [ReceiptRowItem],
          submitButtonTitle: String,
+         
          onClickSubmit: @escaping Action) {
         self.rowItems = rowItems
         self.submitButtonTitle = submitButtonTitle
         self.onClickSubmit = onClickSubmit
+        
+        self.requiredPrice = Float(self.price?.value ?? "0") ?? 0
     }
     
     var body: some View {
@@ -62,9 +72,7 @@ struct ReceiptAndPayView: View {
             }
             
             FlatButton(title: submitButtonTitle, titleColor: .white) {
-                dismiss()
-                
-                self.onClickSubmit()
+                onClickPay()
             }
             .background(
                 RoundedRectangle(cornerRadius: 12)
@@ -72,6 +80,20 @@ struct ReceiptAndPayView: View {
             )
             .padding()
         }
+    }
+    
+    private func onClickPay() {
+        guard let selectedCard = self.cards.item(at: selectedIndex) else {
+            return
+        }
+        
+        if (selectedCard.moneyAmount < requiredPrice) {
+            alertModel.show(title: "warning".localize, message: "insufficent_funds".localize)
+            return
+        }
+        
+        dismiss()
+        self.onClickSubmit(self.cards[selectedIndex].id)
     }
     
     var cardsView: some View {
@@ -91,31 +113,18 @@ struct ReceiptAndPayView: View {
     
     var cardsPageView: some View {
         VStack {
-
-            TPageView(cards.map({ element in
-                card(card: element)
-            }), $selectedIndex)
-
+            SnapCarousel(spacing: 0, trailingSpace: 0, index: $selectedIndex, items: self.cards.map({$0})) { item in
+                card(card: item)
+            }
             .mask {
                 RoundedRectangle(cornerRadius: 16)
                     .foregroundColor(Color.systemBackground)
                     .frame(height: cardHeight)
+                    .padding(.horizontal, Padding.default)
             }
-            .overlay {
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke()
-                    .foregroundColor(.separator.opacity(0.2))
-            }
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .foregroundColor(Color.systemBackground)
-                    .frame(height: cardHeight)
-            )
             .frame(height: cardHeight)
-            .padding(.horizontal, Padding.default)
-            TPageControl(numberOfPages: cards.count, currentPage: $selectedIndex)
-                .foregroundColor(Color.accentColor)
-                .padding(.bottom, Padding.small)
+            .padding(.bottom, Padding.medium)
+
         }
     }
 
@@ -138,7 +147,7 @@ struct ReceiptAndPayView: View {
                         .mont(.regular, size: 14)
                 }
             }
-            .padding(8)
+            .padding(Padding.small)
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(Color("accent"))
@@ -165,11 +174,32 @@ struct ReceiptAndPayView: View {
             }
         }
         .padding(Padding.small)
+        .padding(.horizontal, Padding.default)
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .padding(.horizontal, Padding.small)
                 .foregroundColor(Color.systemBackground)
         )
+        .overlay {
+            if requiredPrice > card.moneyAmount {
+                RoundedRectangle(cornerRadius: 16)
+                    .foregroundColor(.systemBackground)
+                    .opacity(0.7)
+                    .overlay {
+                        Text("insufficent_funds".localize)
+                            .foregroundColor(.white)
+                            .mont(.semibold, size: 16)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, Padding.small)
+                            .background {
+                                Rectangle()
+                                    .foregroundColor(.init(uiColor: .systemOrange))
+                            }
+                    }
+                    .padding(.horizontal, Padding.small)
+
+            }
+        }
     }
     
     func row(title: String, detais: String) -> some View {
@@ -190,6 +220,7 @@ struct ReceiptAndPayView: View {
 }
 
 struct ReceiptAndPayView_Previews: PreviewProvider {
+    
     static var previews: some View {
         ReceiptAndPayView(rowItems: [
             .init(name: "Карта:", value: "Uzcard от Anor Bank"),
@@ -197,10 +228,13 @@ struct ReceiptAndPayView_Previews: PreviewProvider {
             .init(name: "Адрес доставки:", value: "Мирабадский р-н, 17, 5"),
             .init(name: "Стоимость выпуска:", value: "30 000 сум"),
             .init(name: "Стоимость доставки:", value: "10 000 сум"),
-            .init(name: "Общая стоимость:", value: "40 000 сум")
-        ], submitButtonTitle: "transfer".localize) {
+            .init(name: "Общая стоимость:", value: "40 000 сум", type: .price)
+        ], submitButtonTitle: "transfer".localize) { cardId in
             
         }
         .navigationTitle("transfer_to_card".localize)
+        .onAppear {
+            MockData.shared.createMockCards()
+        }
     }
 }

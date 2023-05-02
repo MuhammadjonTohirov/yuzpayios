@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import RealmSwift
+import YuzSDK
 
 enum SideMenuItem {
     case close

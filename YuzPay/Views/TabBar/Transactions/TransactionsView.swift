@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import YuzSDK
 
 struct TransactionsView: View {
     @ObservedResults(DTransactionSection.self, configuration: Realm.config) var sections;

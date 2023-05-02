@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Kingfisher
+import YuzSDK
 
 struct KF: View {
     var imageUrl: URL?

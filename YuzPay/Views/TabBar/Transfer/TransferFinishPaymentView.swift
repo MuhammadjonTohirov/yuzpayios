@@ -18,7 +18,7 @@ struct TransferFinishPaymentView: View {
             .init(name: "Receiver name", value: "Master shifu"),
             .init(name: "Date", value: "12.12.2023"),
             .init(name: "Amount", value: "10 000 sum"),
-        ], submitButtonTitle: "pay".localize) {
+        ], submitButtonTitle: "pay".localize) { cardId in 
             
         }
     }

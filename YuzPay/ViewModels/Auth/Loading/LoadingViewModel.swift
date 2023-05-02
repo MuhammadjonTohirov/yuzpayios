@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import YuzSDK
 
 protocol LoadingViewModelProtocol {
     func initialize()

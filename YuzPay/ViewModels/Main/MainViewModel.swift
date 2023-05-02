@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import YuzSDK
 
 enum AppDestination: Hashable, ScreenRoute {
     static func == (lhs: AppDestination, rhs: AppDestination) -> Bool {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import YuzSDK
 
 protocol CardProtocol: ModelProtocol {
     var id: String {get set}

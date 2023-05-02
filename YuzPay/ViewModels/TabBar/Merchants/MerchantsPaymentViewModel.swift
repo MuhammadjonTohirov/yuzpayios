@@ -7,59 +7,49 @@
 
 import Foundation
 import RealmSwift
+import YuzSDK
 
 final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
     @Published var isLoading: Bool = false
-    
+    private(set) var paymentStatusViewModel: PaymentStatusViewModel?
     var merchantId: String
     
     @Published var showStatusView = false
     @Published var showPaymentView = false
-    private var didAppear = false
-    var merchant: DMerchant? {
-        Realm.new?.object(ofType: DMerchant.self, forPrimaryKey: merchantId)
-    }
-    
+    @Published var selectedCard: DCard?
     @Published var formModel: FormModel?
+
+    private var didAppear = false
+    private(set) var receiptItems: [ReceiptRowItem] = []
     
-    init(merchantId: String, formModel: FormModel? = nil) {
+    var merchant: DMerchant? {
+        let m = Realm.new?.object(ofType: DMerchant.self, forPrimaryKey: merchantId)
+        if m?.isInvalidated ?? true {
+            return nil
+        } else {
+            return m
+        }
+    }
+        
+    init(merchantId: String) {
         self.merchantId = merchantId
-        self.formModel = formModel
     }
     
     func onAppear() {
         if !didAppear {
-            loadDetails()
             didAppear = true
         }
     }
     
-    private func loadDetails() {
-        let categoryId = merchant?.categoryId ?? 0
-        let id = Int(merchantId) ?? 0
-        self.showLoader()
-        DispatchQueue(label: "load", qos: .utility).asyncAfter(deadline: .now() + 0.2) {
-            Task {
-                if let details = await MainNetworkService.shared.getMerchantDetails(id: id, category: categoryId) {
-                    DispatchQueue.main.async {
-                        self.formModel = .create(with: details)
-                    }
-                    self.hideLoader()
-                } else {
-                    self.hideLoader()
-                }
-            }
-        }
-    }
-    
-    func doPayment() {
+    func doPayment(cardId: String, formModel: FormModel?) {
         guard let formModel = formModel else { return }
         guard let serviceId = formModel.id else {
             return
         }
-        guard let cardId = CreditCardManager.shared.all?.first?.id else { return }
+        
         let id = Int(merchantId) ?? 0
         let categoryId = merchant?.categoryId ?? 0
+        
         self.showLoader()
         
         Task {
@@ -75,17 +65,87 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
                 fields[f.field.name] = value
             })
             
-            let details = await MainNetworkService.shared.doPayment(id: id,
-                                                                    category: categoryId,
-                                                                    payment: .init(
-                                                                        cardId: Int(cardId)!, serviceId: serviceId,
-                                                                        fields: fields))
-            
-            DispatchQueue.main.async {
-                Logging.l("Payment result \(details.success)  \(details.error ?? "")")
+            #if DEBUG
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.showPaymentStatus(formModel: formModel, true, nil)
+                self.hideLoader()
             }
-            self.hideLoader()
+            #else
+            let details = await MainNetworkService.shared.doPayment(
+                id: id,
+                category: categoryId,
+                payment: .init(cardId: Int(cardId)!, serviceId: serviceId, fields: fields)
+            )
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                Logging.l("Payment result \(details.success)  \(details.error ?? "")")
+                
+                self.showPaymentStatus(details.success, details.error)
+                self.hideLoader()
+            }
+            #endif
             
         }
+    }
+    
+    func onClickNext(formModel: FormModel?, completion: @escaping (Bool) -> Void) {
+        let fields = formModel?.fields?.filter({$0.field.fieldRequired ?? false}) ?? []
+        
+        guard fields.allSatisfy( { field in
+            !field.text.isEmpty
+        }) else {
+            completion(false)
+            return
+        }
+        
+        
+        generateReceipt(formModel: formModel, fields)
+        completion(true)
+        showPaymentView = true
+    }
+    
+    func showPaymentStatus(formModel: FormModel?, _ isSuccess: Bool, _ error: String?) {
+        let title = formModel?.title ?? "payment".localize
+        let details = isSuccess ? "Successful payment" : error ?? "Payment failed"
+        paymentStatusViewModel = .init(
+            isSuccess: isSuccess, title: title,
+            details: details,
+            onClickRetry: {
+                
+            }, onClickFinish: { [weak self] in
+                self?.hidePaymentStatus()
+            }, onClickCancel: { [weak self] in
+                self?.hidePaymentStatus()
+            }
+        )
+        showStatusView = true
+    }
+    
+    private func hidePaymentStatus() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            self.showStatusView = false
+        }
+    }
+    
+    private func generateReceipt(formModel: FormModel?, _ fields: [FieldItem]) {
+        guard let merchant else {
+            return
+        }
+        
+        receiptItems.removeAll()
+        receiptItems.append(.init(name: "category".localize, value: merchant.category?.title ?? ""))
+        receiptItems.append(.init(name: "service".localize, value: merchant.title))
+        receiptItems.append(.init(name: "date".localize, value: Date().toExtendedString(format: "dd.MM.YYYY")))
+        
+        fields.forEach { field in
+            
+            let rowType: ReceiptRowType = field.field.fieldType == .money ? .price : .regular
+            let rowItem: ReceiptRowItem = .init(name: field.field.title ?? field.field.name, value: field.text, type: rowType)
+            
+            receiptItems.append(rowItem)
+        }
+        
+        let comissionPercentage = formModel?.serviceCommission ?? 0
+        receiptItems.append(.init(name: "commission".localize, value: "\(Int(comissionPercentage))"))
     }
 }

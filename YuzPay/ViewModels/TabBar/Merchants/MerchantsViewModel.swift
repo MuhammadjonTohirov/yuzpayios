@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 import SwiftUI
-
+import YuzSDK
 class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     @Published var isLoading: Bool = false
     
@@ -18,9 +18,11 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     
     @Published var categories: Results<DMerchantCategory>?
     @Published var merchants: Results<DMerchant>?
-    @Published var selectedMerchant: DMerchant?
+    @Published var selectedMerchant: String?
     @Published var expandedCategory: Int?
     @Published var allMerchantsViewModel: AllMerchantsInCategoryViewModel?
+    
+    private(set) var merchantPaymentModel: MerchantsPaymentViewModel?
     
     private var isViewAppeared = false
     private var catsNotification: NotificationToken?
@@ -32,8 +34,9 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     }
     
     func onAppear() {
-        setupSubscribers()
-        
+        allMerchantsViewModel = nil
+        merchantPaymentModel = nil
+
         if isViewAppeared {
             return
         }
@@ -41,6 +44,7 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
         Logging.l("On appear merchantsviewmodel")
         isViewAppeared = true
         fetchMerchants()
+        setupSubscribers()
     }
     
     private func setupSubscribers() {
@@ -81,7 +85,8 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     }
     
     func setSelected(merchant: DMerchant?) {
-        self.selectedMerchant = merchant
+        self.selectedMerchant = merchant?.id
+        merchantPaymentModel = .init(merchantId: self.selectedMerchant!)
     }
     
     private func invalidate() {

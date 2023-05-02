@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import RealmSwift
+import YuzSDK
 
 class HCardListViewModel: ObservableObject {
     @Published var cards: Results<DCard>?

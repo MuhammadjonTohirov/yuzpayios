@@ -56,12 +56,14 @@ struct AddNewCardView: View {
                     .padding(.leading, Padding.medium)
                     
                     .modifier(YTextFieldBackgroundGrayStyle())
+                
                 YFormattedField(text: $viewModel.expireDate, placeholder: "Срок истечения", format: "XX/XX")
                     .padding(.leading, Padding.medium)
                     .modifier(YTextFieldBackgroundGrayStyle())
                     .onChange(of: viewModel.expireDate) { _ in
                         self.viewModel.reloadView()
                     }
+                
                 YTextField(text: $viewModel.cardName, placeholder: "Название карты")
                     .padding(.leading, Padding.medium)
                     .modifier(YTextFieldBackgroundGrayStyle())

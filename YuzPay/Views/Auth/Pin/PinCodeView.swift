@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 import LocalAuthentication
-
+import YuzSDK
 
 struct PinCodeView: View {
     @StateObject var viewModel = PinCodeViewModel(title: "setup_pin".localize, reason: .confirm(pin: "12"))

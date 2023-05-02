@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import YuzSDK
 
 final class SelectLanguageViewModel: ObservableObject {
     @Published var selectedLanguage: Language = (UserSettings.shared.language ?? .russian) {

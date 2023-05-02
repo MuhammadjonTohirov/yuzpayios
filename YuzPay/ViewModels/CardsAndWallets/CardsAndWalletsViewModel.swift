@@ -8,6 +8,7 @@
 import Foundation
 import RealmSwift
 import SwiftUI
+import YuzSDK
 
 struct CardTypeCounterItem: Identifiable, Hashable {
     var id: String {

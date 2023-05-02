@@ -8,9 +8,12 @@
 import SwiftUI
 import RealmSwift
 import Combine
+import YuzSDK
 
 struct MerchantsView: View {
-    @StateObject var viewModel: MerchantsViewModel = .init()
+    @EnvironmentObject var viewModel: MerchantsViewModel
+    
+    @EnvironmentObject var tabViewModel: TabViewModel
 
     @StateObject var searchText: DebouncedString = .init(value: "")
     
@@ -36,9 +39,9 @@ struct MerchantsView: View {
                 }
             }
             
-            if let m = viewModel.selectedMerchant, !m.isInvalidated {
+            if let m = viewModel.merchantPaymentModel {
                 NavigationLink("", isActive: $showPaymentView) {
-                    MerchantPaymentView(viewModel: .init(merchantId: m.id))
+                    MerchantPaymentView(viewModel: m)
                 }
             }
             
@@ -77,7 +80,7 @@ struct MerchantsView: View {
     @State var showPaymentView: Bool = false
     
     @FocusState private var focusedSearchField: Bool
-    
+    @EnvironmentObject var alertModel: MainAlertModel
     var innerBody: some View {
         GeometryReader { proxy in
             Group {
@@ -141,7 +144,6 @@ struct MerchantsView: View {
                 .padding(.horizontal, Padding.default)
                 .padding(.trailing, 32)
             
-            
         } else {
             Text("payments".localize)
                 .mont(.semibold, size: 16)
@@ -194,6 +196,7 @@ struct MerchantsView_Previews: PreviewProvider {
         NavigationView {
             MerchantsView()
                 .environmentObject(MerchantsViewModel())
+                .environmentObject(MainAlertModel())
                 .onAppear {
                     MockData.shared.createMerchants()
                 }

@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import RealmSwift
+import YuzSDK
 
 final class NotificationsViewModel: ObservableObject {
     var notifications: Results<DNotification>?

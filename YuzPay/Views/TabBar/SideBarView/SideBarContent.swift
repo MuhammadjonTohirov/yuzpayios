@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import YuzSDK
 import Kingfisher
 
 struct SideBarContent: View {

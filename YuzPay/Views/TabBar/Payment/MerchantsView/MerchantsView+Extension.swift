@@ -7,12 +7,13 @@
 
 import SwiftUI
 import RealmSwift
+import YuzSDK
 
 extension MerchantsView {
     var merchatsView: some View {
         VStack(alignment: .center) {
             if let categories = viewModel.categories {
-                ForEach(categories) { category in
+                ForEach(categories.sorted(byKeyPath: "order", ascending: true)) { category in
                     VStack {
                         HStack {
                             Image("cat\(category.id)")

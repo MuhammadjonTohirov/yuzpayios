@@ -167,3 +167,11 @@
 "add_card_success" = "Successful inserted a new card";
 
 "confirm_card" = "Confirm OTP";
+
+"date" = "Date";
+
+"category" = "Category";
+
+"service" = "Service";
+
+"commission" = "Commission";

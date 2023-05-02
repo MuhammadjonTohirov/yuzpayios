@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import YuzSDK
 
 enum SideBarRoute: Hashable, ScreenRoute {
     static func == (lhs: SideBarRoute, rhs: SideBarRoute) -> Bool {
@@ -117,7 +118,8 @@ enum Tab: String, CaseIterable, Tabbable {
 final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loadable, Alertable {
     private(set) lazy var homeViewModel: HomeViewModel = { HomeViewModel() }()
     private(set) lazy var settingsViewModel: SettingsViewModel = { SettingsViewModel() }()
-    
+    private(set) lazy var merchantsViewModel: MerchantsViewModel = { MerchantsViewModel() }()
+    private(set) var alertModel: MainAlertModel = MainAlertModel()
     var sideViewModel = SideBarViewModel()
 
     var alert: AlertToast = .init(displayMode: .alert, type: .regular)
@@ -158,8 +160,13 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
     init(dataService: any TabDataServiceProtocol) {
         self.dataService = dataService
     }
-    
+    private var isAppeared = false
     func onAppear() {
+        if isAppeared {
+            return
+        }
+        
+        isAppeared = true
         homeViewModel.delegate = self
         sideViewModel.delegate = self
         sideMenuOffset = CGPoint(x: -sideMenuWidth, y: 0)

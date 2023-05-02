@@ -8,6 +8,7 @@
 import Foundation
 import AVKit
 import UIKit
+import YuzSDK
 import SwiftUI
 
 struct YCamera: UIViewRepresentable {

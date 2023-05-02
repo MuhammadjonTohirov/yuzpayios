@@ -27,7 +27,7 @@ struct OrderCardReceiptView: View {
                 .init(name: "Стоимость выпуска:", value: "30 000 сум"),
                 .init(name: "Стоимость доставки:", value: "10 000 сум"),
                 .init(name: "Общая стоимость:", value: "40 000 сум")
-            ], submitButtonTitle: "transfer".localize) {
+            ], submitButtonTitle: "transfer".localize) { cardId in
                 showPaymentStatusView = true
             }
         }

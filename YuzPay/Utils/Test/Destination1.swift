@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import YuzSDK
 
 final class Dest1VM: ObservableObject {
     

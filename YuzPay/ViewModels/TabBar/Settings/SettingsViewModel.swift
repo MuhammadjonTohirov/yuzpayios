@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import YuzSDK
 
 class SettingsViewModel: ObservableObject {
     @Published var logout: Bool = false

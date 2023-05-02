@@ -8,6 +8,7 @@
 import SwiftUI
 import Introspect
 import RealmSwift
+import YuzSDK
 
 struct InvoicesView: View {
     @State private var searchText: String = ""

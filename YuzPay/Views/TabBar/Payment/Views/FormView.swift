@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import YuzSDK
 
 final class FieldItem: Identifiable, ObservableObject, Hashable {
     static func == (lhs: FieldItem, rhs: FieldItem) -> Bool {

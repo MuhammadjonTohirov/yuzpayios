@@ -7,49 +7,29 @@
 
 import SwiftUI
 import RealmSwift
+import YuzSDK
 
 struct MerchantPaymentView: View {
     
-    @StateObject var viewModel: MerchantsPaymentViewModel
+    @ObservedObject var viewModel: MerchantsPaymentViewModel
+    @EnvironmentObject var alertModel: MainAlertModel
     
     @State var amount: String = ""
     @State var phone: String = ""
     
-    
     @State private var fields: [MField] = []
     
     @State private var maxAmount: Double = 0
+
+    init(viewModel: MerchantsPaymentViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         ZStack {
-            NavigationLink("", isActive: $viewModel.showStatusView) {
-                PaymentStatusView(title: "Success", detail: "Payment is successfull") {
-                    Image("image_success_2")
-                        .renderingMode(.template)
-                        .resizable(true)
-                        .frame(width: 100, height: 100)
-                }
-                .environmentObject(PaymentStatusViewModel(onClickRetry: {
-                    
-                }, onClickFinish: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                        viewModel.showPaymentView = false
-                    }
-                }, onClickCancel: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                        viewModel.showPaymentView = false
-                    }
-                }))
-            }
-            
             NavigationLink("", isActive: $viewModel.showPaymentView) {
-                ReceiptAndPayView(rowItems: [
-                    .init(name: "Receiver card number", value: "•••• 1212"),
-                    .init(name: "Receiver name", value: "Master shifu"),
-                    .init(name: "Date", value: "12.12.2023"),
-                    .init(name: "Amount", value: "10 000 sum"),
-                ], submitButtonTitle: "pay".localize) {                    
-                    viewModel.doPayment()
+                ReceiptAndPayView(rowItems: viewModel.receiptItems, submitButtonTitle: "pay".localize) { cardId in
+                    viewModel.doPayment(cardId: cardId, formModel: viewModel.formModel)
                 }
                 .navigationTitle("transfer".localize)
             }
@@ -60,8 +40,22 @@ struct MerchantPaymentView: View {
                 formModel.formView
             }
         }
+        .fullScreenCover(isPresented: $viewModel.showStatusView, content: {
+            if let vm = viewModel.paymentStatusViewModel {
+                PaymentStatusView() {
+                    Image("image_success_2")
+                        .renderingMode(.template)
+                        .resizable(true)
+                        .frame(width: 100, height: 100)
+                }
+                .environmentObject(vm)
+            } else {
+                Text("")
+            }
+        })
         .onAppear {
             viewModel.onAppear()
+            loadDetails()
         }
         .loadable($viewModel.isLoading)
     }
@@ -91,14 +85,36 @@ struct MerchantPaymentView: View {
                         titleColor: .white,
                         isEnabled: true)
             {
-                viewModel.showPaymentView = true
+                viewModel.onClickNext(formModel: viewModel.formModel) { isSatisfy in
+                    if !isSatisfy {
+                        alertModel.show(title: "warning".localize, message: "You should fill all fields")
+                    }
+                }
             }
             .padding(.horizontal, Padding.default)
             .padding(.bottom, Padding.medium)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(merchant.title)
-    }    
+    }
+    
+    private func loadDetails() {
+        let categoryId = viewModel.merchant?.categoryId ?? 0
+        let id = Int(viewModel.merchantId) ?? 0
+        self.viewModel.showLoader()
+        DispatchQueue(label: "load", qos: .utility).asyncAfter(deadline: .now() + 0.2) {
+            Task {
+                if let details = await MainNetworkService.shared.getMerchantDetails(id: id, category: categoryId) {
+                    DispatchQueue.main.async {
+                        self.viewModel.formModel = .create(with: details)
+                    }
+                    self.viewModel.hideLoader()
+                } else {
+                    self.viewModel.hideLoader()
+                }
+            }
+        }
+    }
 }
 
 struct MerchantPaymentView_Previews: PreviewProvider {

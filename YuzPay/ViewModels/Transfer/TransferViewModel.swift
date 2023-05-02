@@ -8,6 +8,7 @@
 import Foundation
 import RealmSwift
 import SwiftUI
+import YuzSDK
 
 extension TransferType: ScreenRoute {
     var screen: some View {

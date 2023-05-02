@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import YuzSDK
 
 class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
     var mersNotification: NotificationToken?
@@ -26,7 +27,11 @@ class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
     }
     
     var title: String {
-        category?.title ?? ""
+        if category?.isInvalidated ?? false {
+            return ""
+        }
+        
+        return category?.title ?? ""
     }
     
     func setCategory(_ category: DMerchantCategory) {
@@ -48,7 +53,7 @@ class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
     }
     
     private func fetchAllMerchants() {
-        guard let category else {
+        guard let category, !category.isInvalidated else {
             return
         }
         
@@ -59,7 +64,7 @@ class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
     }
 
     private func setupSubscribers() {
-        guard let category else {
+        guard let category, !category.isInvalidated else {
             return
         }
         

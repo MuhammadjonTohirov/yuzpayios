@@ -8,6 +8,7 @@
 import Foundation
 import RealmSwift
 import SwiftUI
+import YuzSDK
 
 enum HomeViewRoute: ScreenRoute {
     var id: String {
@@ -52,7 +53,7 @@ protocol HomeViewDelegate: NSObject {
     func homeView(model: HomeViewModel, onClick route: HomeViewRoute)
 }
 
-final class HomeViewModel: NSObject, ObservableObject {
+final class HomeViewModel: NSObject, ObservableObject, NetworkDelegate {
     weak var delegate: HomeViewDelegate?
     @Published var searchText: String = ""
     @Published var router: HomeViewRoute?
@@ -62,7 +63,7 @@ final class HomeViewModel: NSObject, ObservableObject {
     }()
     
     func onAppear() {
-
+        setNetworkDelegate(self)
     }
     
     func onClickMenu() {
@@ -79,5 +80,11 @@ final class HomeViewModel: NSObject, ObservableObject {
     
     func onClickCard(withId id: String) {
         router = .showCardDetails(id: id)
+    }
+    
+    func onAuthRequired() {
+        DispatchQueue.main.async {
+            mainRouter?.navigate(to: .auth)
+        }
     }
 }

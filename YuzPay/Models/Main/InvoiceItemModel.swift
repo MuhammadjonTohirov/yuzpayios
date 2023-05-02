@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import YuzSDK
 
 protocol InvoiceItemProtocol: ModelProtocol {
     var invoiceID: Int {get set}

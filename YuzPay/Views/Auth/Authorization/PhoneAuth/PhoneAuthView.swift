@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct PhoneAuthView: View {
-    @ObservedObject var viewModel = PhoneAuthViewModel()
+    @StateObject var viewModel = PhoneAuthViewModel()
     
     var body: some View {
         NavigationView {

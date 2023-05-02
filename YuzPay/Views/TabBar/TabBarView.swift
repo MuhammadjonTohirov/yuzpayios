@@ -8,19 +8,26 @@
 import Foundation
 import SwiftUI
 import Kingfisher
+import YuzSDK
 
 struct TabBarView: View {
     @ObservedObject var viewModel = TabViewModel(dataService: TabDataService())
     @State var size: CGRect = .zero
     
     var body: some View {
-        NavigationView {
-            if size == .zero {
-                EmptyView()
-            } else {
-                innerBody
-                    .navigationBarTitleDisplayMode(.inline)
+        ZStack {
+            NavigationView {
+                if size == .zero {
+                    EmptyView()
+                } else {
+                    innerBody
+                        .navigationBarTitleDisplayMode(.inline)
+                }
+                
             }
+            .environmentObject(viewModel.alertModel)
+            MainAlertView.init(viewModel: viewModel.alertModel)
+                
         }
         .readSize($size)
         .onAppear {
@@ -73,6 +80,7 @@ struct TabBarView: View {
                 .tag(Tab.transfer)
                 
                 MerchantsView()
+                    .environmentObject(viewModel.merchantsViewModel)
                     .environmentObject(viewModel)
                     .tabItem {
                         Label("payment".localize, image: "icon_cart")

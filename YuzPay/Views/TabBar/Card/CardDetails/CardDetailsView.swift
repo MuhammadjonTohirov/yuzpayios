@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import YuzSDK
 
 struct CardDetailsView: View {
     var cardId: String

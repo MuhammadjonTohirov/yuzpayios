@@ -50,6 +50,17 @@
                ReferencedContainer = "container:YuzPay.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2E509BEB29FB95B500315C72"
+               BuildableName = "YuzSDKTests.xctest"
+               BlueprintName = "YuzSDKTests"
+               ReferencedContainer = "container:YuzPay.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

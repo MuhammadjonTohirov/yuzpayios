@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import YuzSDK
 
 enum AuthRoute: Hashable, ScreenRoute {
     static func == (lhs: AuthRoute, rhs: AuthRoute) -> Bool {
