@@ -94,9 +94,21 @@ public struct MainNetworkService: NetworkServiceProtocol {
         return (res?.success ?? false, res?.error)
     }
     
+    // - MARK: Payment for merhcnats
     public func doPayment(id: Int, category: Int, payment: NetReqDoPayment) async -> (success: Bool, error: String?) {
         Logging.l(payment.asString)
         let res: NetRes<String>? = await Network.send(request: S.doPayment(id: id, categoryId: category, payment))
         return (res?.success ?? false, res?.error)
+    }
+    
+    
+    // - MARK: Transactions
+    public func syncTransactions() {
+        Task(priority: .medium) {
+            let result: NetRes<[NetResTransactionItem]>? = await Network.send(request: MainNetworkServiceRoute.getTransactions)
+            result?.data?.forEach({ item in
+                ObjectManager(TransactionsManager()).add(TransactionItem.fromNetResTransactionItem(item))
+            })
+        }
     }
 }

@@ -12,14 +12,18 @@ import YuzSDK
 
 struct ReceiptAndPayView: View {
     typealias Action = ((_ cardId: String) -> Void)
-    var rowItems: [ReceiptRowItem] = []
-    var submitButtonTitle: String = "pay".localize
-    var onClickSubmit: Action
+    private var rowItems: [ReceiptRowItem] = []
+    private var submitButtonTitle: String = "pay".localize
+    private var onClickSubmit: Action = { _ in
+        
+    }
     
-    var requiredPrice: Float = 0
-    @State var text: String = ""
+    private var requiredPrice: Float = 0
+    @State private var text: String = ""
     @State private var selectedId = ""
     @State private var selectedIndex = 0
+    private var showCards = false
+    
     private var price: ReceiptRowItem? {
         rowItems.first(where: {$0.type == .price})
     }
@@ -32,15 +36,9 @@ struct ReceiptAndPayView: View {
     private var cardHeight: CGFloat = 120
     
     @State private var isCardsVisible = false
-    init(rowItems: [ReceiptRowItem],
-         submitButtonTitle: String,
-         
-         onClickSubmit: @escaping Action) {
-        self.rowItems = rowItems
-        self.submitButtonTitle = submitButtonTitle
-        self.onClickSubmit = onClickSubmit
+    
+    init() {
         
-        self.requiredPrice = Float(self.price?.value ?? "0") ?? 0
     }
     
     var body: some View {
@@ -49,13 +47,17 @@ struct ReceiptAndPayView: View {
             selectedId = cards.first?.id ?? ""
             selectedIndex = 0
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                withAnimation {
-                    isCardsVisible = true
-                }
-            }
+            showCardsView()
         }
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private func showCardsView() {
+        isCardsVisible = true
+    }
+    
+    private func hideCardsView() {
+        isCardsVisible = false
     }
     
     var innerBody: some View {
@@ -65,7 +67,7 @@ struct ReceiptAndPayView: View {
             }
             Spacer()
             
-            if isCardsVisible {
+            if isCardsVisible && showCards {
                 cardsView
                     .background(Color.secondarySystemBackground)
                     .transition(.opacity)
@@ -219,22 +221,48 @@ struct ReceiptAndPayView: View {
     }
 }
 
+extension ReceiptAndPayView {
+    func set(rows: [ReceiptRowItem]) -> Self {
+        var v = self
+        v.rowItems = rows
+        v.requiredPrice = Float(v.price?.value ?? "0") ?? 0
+        return v
+    }
+    
+    func set(showCards: Bool) -> Self {
+        var v = self
+        v.showCards = showCards
+        return v
+    }
+    
+    func set(submitButtonTitle title: String) -> Self {
+        var v = self
+        v.submitButtonTitle = title
+        return v
+    }
+    
+    func set(onClickSubmit action: @escaping Action) -> Self {
+        var v = self
+        v.onClickSubmit = action
+        return v
+    }
+}
+
 struct ReceiptAndPayView_Previews: PreviewProvider {
     
     static var previews: some View {
-        ReceiptAndPayView(rowItems: [
-            .init(name: "Карта:", value: "Uzcard от Anor Bank"),
-            .init(name: "Будет доставлена:", value: "через 14 дней"),
-            .init(name: "Адрес доставки:", value: "Мирабадский р-н, 17, 5"),
-            .init(name: "Стоимость выпуска:", value: "30 000 сум"),
-            .init(name: "Стоимость доставки:", value: "10 000 сум"),
-            .init(name: "Общая стоимость:", value: "40 000 сум", type: .price)
-        ], submitButtonTitle: "transfer".localize) { cardId in
-            
-        }
-        .navigationTitle("transfer_to_card".localize)
-        .onAppear {
-            MockData.shared.createMockCards()
-        }
+        ReceiptAndPayView()
+            .set(rows: [
+                .init(name: "Карта:", value: "Uzcard от Anor Bank"),
+                .init(name: "Будет доставлена:", value: "через 14 дней"),
+                .init(name: "Адрес доставки:", value: "Мирабадский р-н, 17, 5"),
+                .init(name: "Стоимость выпуска:", value: "30 000 сум"),
+                .init(name: "Стоимость доставки:", value: "10 000 сум"),
+                .init(name: "Общая стоимость:", value: "40 000 сум", type: .price)
+            ])
+            .navigationTitle("transfer_to_card".localize)
+            .onAppear {
+                MockData.shared.createMockCards()
+            }
     }
 }

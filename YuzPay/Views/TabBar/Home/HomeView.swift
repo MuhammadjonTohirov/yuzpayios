@@ -30,7 +30,7 @@ struct HomeView: View {
                     HCardListView(viewModel: viewModel.cardListViewModel)
                         .environmentObject(viewModel)
                     
-                    InvoiceListView()
+                    HomeInvoiceListView()
                         .padding(.horizontal, Padding.default)
                     
                     PayWithFaceView()

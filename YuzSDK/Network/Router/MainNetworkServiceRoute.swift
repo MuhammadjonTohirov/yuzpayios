@@ -40,6 +40,8 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
             return URL.base.appendingPath("api", "Client", "ConfirmCard", "\(cardId)")
         case let .doPayment(id, categoryId, _):
             return URL.base.appendingPath("api", "Client", "PaynetPerformService", "\(categoryId)", "\(id)")
+        case .getTransactions:
+            return URL.base.appendingPath("api", "Client", "CardTransactions")
         }
     }
     
@@ -90,4 +92,6 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     case getMerchantDetails(id: Int, categoryId: Int)
     case confirmCard(cardId: Int, _ request: NetReqConfirmAddCard)
     case doPayment(id: Int, categoryId: Int, _ request: NetReqDoPayment)
+    
+    case getTransactions
 }

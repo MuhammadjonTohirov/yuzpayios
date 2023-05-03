@@ -25,7 +25,48 @@ struct MerchantsView: View {
     
     @State private var cancellable: AnyCancellable?
     
+    @State private var isMerchantsVisible = false
+    
     var body: some View {
+        Group {
+            innerBody
+        }
+        .onAppear {
+            Logging.l("On appear merchants view")
+            
+            withAnimation {
+                isMerchantsVisible = true
+            }
+            
+            viewModel.onAppear()
+        }
+        .didAppear {
+            isViewLoaded = true
+        }
+        .onDisappear {
+            Logging.l("On disappear merchats view")
+            withAnimation {
+                isMerchantsVisible = false
+            }
+        }
+        .onChange(of: viewModel.merchants) { _ in
+            DispatchQueue.main.async {
+                self.viewModel.hideLoader()
+            }
+        }
+        .onChange(of: searchText.debouncedValue) { searchValue in
+            if searchValue.count >= 3 {
+                viewModel.searchMerchant(withName: searchValue)
+            }
+        }
+    }
+    
+    @State var itemsPadding: CGFloat = 0
+    
+    @State var showPaymentView: Bool = false
+    
+    @ViewBuilder
+    var innerBody: some View {
         ZStack {
             if viewModel.isLoading {
                 ProgressView()
@@ -48,40 +89,21 @@ struct MerchantsView: View {
             VStack {
                 navigationView
                     .frame(height: 44)
-                innerBody
-                    .opacity(isViewLoaded ? 1 : 0)
-            }
-        }.onAppear {
-            Logging.l("On appear merchants view")
-            viewModel.onAppear()
-        }
-        .didAppear {
-            withAnimation {
-                isViewLoaded = true
-            }
-        }
-        .onDisappear {
-            Logging.l("On disappear merchats view")
-        }
-        .onChange(of: viewModel.merchants) { _ in
-            DispatchQueue.main.async {
-                self.viewModel.hideLoader()
-            }
-        }
-        .onChange(of: searchText.debouncedValue) { searchValue in
-            if searchValue.count >= 3 {
-                viewModel.searchMerchant(withName: searchValue)
+                
+                if isMerchantsVisible {
+                    merchantsWithSearchResultsView
+                        .opacity(isViewLoaded ? 1 : 0)
+
+                } else {
+                    Spacer()
+                }
             }
         }
     }
     
-    @State var itemsPadding: CGFloat = 0
-    
-    @State var showPaymentView: Bool = false
-    
     @FocusState private var focusedSearchField: Bool
     @EnvironmentObject var alertModel: MainAlertModel
-    var innerBody: some View {
+    var merchantsWithSearchResultsView: some View {
         GeometryReader { proxy in
             Group {
                 if searchText.value.isEmpty {

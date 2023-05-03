@@ -65,12 +65,12 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
                 fields[f.field.name] = value
             })
             
-            #if DEBUG
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                self.showPaymentStatus(formModel: formModel, true, nil)
-                self.hideLoader()
-            }
-            #else
+//            #if DEBUG
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//                self.showPaymentStatus(formModel: formModel, true, nil)
+//                self.hideLoader()
+//            }
+//            #else
             let details = await MainNetworkService.shared.doPayment(
                 id: id,
                 category: categoryId,
@@ -80,10 +80,10 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 Logging.l("Payment result \(details.success)  \(details.error ?? "")")
                 
-                self.showPaymentStatus(details.success, details.error)
+                self.showPaymentStatus(formModel: formModel, details.success, details.error)//(details.success, details.error)
                 self.hideLoader()
             }
-            #endif
+//            #endif
             
         }
     }

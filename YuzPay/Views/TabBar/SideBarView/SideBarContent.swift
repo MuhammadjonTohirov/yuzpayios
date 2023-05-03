@@ -55,7 +55,11 @@ struct SideBarContent: View {
                 .background(
                     RoundedRectangle(cornerRadius: 8)
                         .foregroundColor(Color("gray").opacity(0.3))
-                        .border(Color("gray"), cornerRadius: 8, width: 1)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color("gray").opacity(0.3), lineWidth: 1)
+                        )
+                
                         
                 )
                 .padding(.horizontal, Padding.default)

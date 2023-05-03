@@ -44,13 +44,13 @@ public struct MockData {
     }
     
     public func createTransactions() {
-        let manager = TransactionsManager()
+//        let manager = TransactionsManager()
         
-        manager.add(
-            .init(id: "123123123", agentName: "Ucell", status: .success, amount: 3000, currency: "sum", dateTime: Date()),
-            .init(id: "123123124", agentName: "Ucell", status: .success, amount: 3200, currency: "sum", dateTime: Date()),
-            .init(id: "123123125", agentName: "Comnet", status: .success, amount: 100000, currency: "sum", dateTime: Date().after(days: 4))
-        )
+//        manager.add(
+//            .init(id: "123123123", agentName: "Ucell", status: .success, amount: 3000, currency: "sum", dateTime: Date()),
+//            .init(id: "123123124", agentName: "Ucell", status: .success, amount: 3200, currency: "sum", dateTime: Date()),
+//            .init(id: "123123125", agentName: "Comnet", status: .success, amount: 100000, currency: "sum", dateTime: Date().after(days: 4))
+//        )
     }
     
     public func removeMockCards() {

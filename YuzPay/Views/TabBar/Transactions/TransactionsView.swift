@@ -11,7 +11,7 @@ import YuzSDK
 
 struct TransactionsView: View {
     @ObservedResults(DTransactionSection.self, configuration: Realm.config) var sections;
-    
+    @State private var didAppear = false
     var body: some View {
         VStack(spacing: 0) {
             HStack(alignment: .center) {
@@ -55,6 +55,12 @@ struct TransactionsView: View {
         .background(Color.secondarySystemBackground)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("bills".localize)
+        .onAppear {
+            if !didAppear {
+                didAppear = true
+                MainNetworkService.shared.syncTransactions()
+            }
+        }
     }
     
     func sectionBar(_ section: DTransactionSection) -> some View {
@@ -80,7 +86,7 @@ struct TransactionsView: View {
     
     func rowItem(_ item: DTransactionItem) -> some View {
         HStack(spacing: 0) {
-            Text(item.dateTime.toExtendedString(format: "mm:HH"))
+            Text(item.dateTime.toExtendedString(format: "HH:mm"))
                 .font(.mont(.regular, size: 14))
                 .foregroundColor(Color.secondaryLabel)
             

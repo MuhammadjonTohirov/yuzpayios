@@ -18,6 +18,23 @@ final public class DMerchant: Object, DItemProtocol, Identifiable, PaymentServic
 
     @Persisted public var categoryId: Int
     
+    @Persisted var merchantDetailsValue: String?
+    
+    public var merchantDetails: [NetResMerchantDetails] {
+        do {
+            guard let merchantDetailsValue else {
+                return []
+            }
+            
+            let detailsDict = try JSONSerialization.jsonObject(with: merchantDetailsValue.data(using: .utf8, allowLossyConversion: true)!) as! [String: Any]
+            let data = try JSONSerialization.data(withJSONObject: detailsDict)
+            let details = try JSONDecoder().decode(NetRes<[NetResMerchantDetails]>.self, from: data)
+            return details.data ?? []
+        } catch {
+            return []
+        }
+    }
+    
     public var category: DMerchantCategory? {
         self.realm?.object(ofType: DMerchantCategory.self, forPrimaryKey: categoryId)
     }

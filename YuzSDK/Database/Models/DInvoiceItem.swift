@@ -23,7 +23,7 @@ final public class DInvoiceItem: Object, DItemProtocol, Identifiable, InvoiceIte
     
     @Persisted public var clientName: String?
     
-    @Persisted public var totalAmount: Int?
+    @Persisted public var totalAmount: Float?
     
     @Persisted public var invoiceNote: String?
     
@@ -33,7 +33,7 @@ final public class DInvoiceItem: Object, DItemProtocol, Identifiable, InvoiceIte
     
     @Persisted public var isExpired: Bool?
     
-    public init(invoiceID: Int, operatorName: String? = nil, branchName: String? = nil, organizationName: String? = nil, clientName: String? = nil, totalAmount: Int? = nil, invoiceNote: String? = nil, createdDate: String? = nil, isPaid: Bool? = nil, isExpired: Bool? = nil) {
+    public init(invoiceID: Int, operatorName: String? = nil, branchName: String? = nil, organizationName: String? = nil, clientName: String? = nil, totalAmount: Float? = nil, invoiceNote: String? = nil, createdDate: String? = nil, isPaid: Bool? = nil, isExpired: Bool? = nil) {
         self.operatorName = operatorName
         self.branchName = branchName
         self.organizationName = organizationName

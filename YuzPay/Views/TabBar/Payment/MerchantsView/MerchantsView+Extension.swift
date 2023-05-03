@@ -44,11 +44,15 @@ extension MerchantsView {
                                 viewModel.collapse()
                             }
                         }
+                        
                         merchantsContains(expanded: false) {
                             merchantsForEach(cat: category)
                         }
                         .padding(.horizontal, Padding.default)
                         .scrollable(axis: .horizontal)
+                    }
+                    .transaction { tr in
+                        tr.animation = nil
                     }
                     .padding(.bottom, Padding.small)
                 }

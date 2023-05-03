@@ -38,7 +38,7 @@
 		2E2CBA6A2952E33D00D7C352 /* ModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2CBA692952E33D00D7C352 /* ModelProtocol.swift */; };
 		2E2CBA752954359200D7C352 /* HCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2CBA742954359200D7C352 /* HCardListView.swift */; };
 		2E2CBA792954369500D7C352 /* HCardListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2CBA782954369500D7C352 /* HCardListViewModel.swift */; };
-		2E2CBA7C2954376C00D7C352 /* InvoiceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2CBA7B2954376C00D7C352 /* InvoiceListView.swift */; };
+		2E2CBA7C2954376C00D7C352 /* HomeInvoiceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2CBA7B2954376C00D7C352 /* HomeInvoiceListView.swift */; };
 		2E2CBA7E29543C1A00D7C352 /* ScrollableModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2CBA7D29543C1A00D7C352 /* ScrollableModifier.swift */; };
 		2E2CBA8129543C8A00D7C352 /* VIew+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2CBA8029543C8A00D7C352 /* VIew+Extension.swift */; };
 		2E2CBA8429543D7900D7C352 /* PayWithFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2CBA8329543D7900D7C352 /* PayWithFaceView.swift */; };
@@ -371,6 +371,7 @@
 		2EFC653729FBF296004F9D88 /* SignalRClient in Frameworks */ = {isa = PBXBuildFile; productRef = 2EFC653629FBF296004F9D88 /* SignalRClient */; settings = {ATTRIBUTES = (Required, ); }; };
 		2EFC653A29FC431C004F9D88 /* MainAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFC653929FC431C004F9D88 /* MainAlertView.swift */; };
 		2EFC653D29FD089C004F9D88 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFC653C29FD089C004F9D88 /* CarouselView.swift */; };
+		2EFE23282A019B4200271980 /* NetResTransactionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFE23272A019B4200271980 /* NetResTransactionItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -442,7 +443,7 @@
 		2E2CBA722952EF4C00D7C352 /* YuzPay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YuzPay.entitlements; sourceTree = "<group>"; };
 		2E2CBA742954359200D7C352 /* HCardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCardListView.swift; sourceTree = "<group>"; };
 		2E2CBA782954369500D7C352 /* HCardListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCardListViewModel.swift; sourceTree = "<group>"; };
-		2E2CBA7B2954376C00D7C352 /* InvoiceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceListView.swift; sourceTree = "<group>"; };
+		2E2CBA7B2954376C00D7C352 /* HomeInvoiceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInvoiceListView.swift; sourceTree = "<group>"; };
 		2E2CBA7D29543C1A00D7C352 /* ScrollableModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableModifier.swift; sourceTree = "<group>"; };
 		2E2CBA8029543C8A00D7C352 /* VIew+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VIew+Extension.swift"; sourceTree = "<group>"; };
 		2E2CBA8329543D7900D7C352 /* PayWithFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWithFaceView.swift; sourceTree = "<group>"; };
@@ -765,6 +766,7 @@
 		2EEED6D0293F13BF000B35E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2EFC653929FC431C004F9D88 /* MainAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAlertView.swift; sourceTree = "<group>"; };
 		2EFC653C29FD089C004F9D88 /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
+		2EFE23272A019B4200271980 /* NetResTransactionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResTransactionItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -969,7 +971,7 @@
 		2E2CBA7A2954375B00D7C352 /* Invoice */ = {
 			isa = PBXGroup;
 			children = (
-				2E2CBA7B2954376C00D7C352 /* InvoiceListView.swift */,
+				2E2CBA7B2954376C00D7C352 /* HomeInvoiceListView.swift */,
 			);
 			path = Invoice;
 			sourceTree = "<group>";
@@ -1439,6 +1441,7 @@
 				2E509C1129FB96E600315C72 /* NetResAddCard.swift */,
 				2E509C1229FB96E600315C72 /* NetResInvoiceItem.swift */,
 				2E509C1329FB96E600315C72 /* NetResBodyUserLog.swift */,
+				2EFE23272A019B4200271980 /* NetResTransactionItem.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -2511,7 +2514,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					2E509BE229FB95B400315C72 = {
 						CreatedOnToolsVersion = 14.3;
@@ -2696,6 +2699,7 @@
 				2E509C4829FB96E600315C72 /* MainNetworkService.swift in Sources */,
 				2E509C3729FB96E600315C72 /* NetResCardItem.swift in Sources */,
 				2E509C3E29FB96E600315C72 /* NetReqUpdateCard.swift in Sources */,
+				2EFE23282A019B4200271980 /* NetResTransactionItem.swift in Sources */,
 				2E509C3029FB96E600315C72 /* NetRes.swift in Sources */,
 				2E509C7229FB997D00315C72 /* DCard.swift in Sources */,
 				2E509C7329FB997D00315C72 /* DItemProtocol.swift in Sources */,
@@ -2895,7 +2899,7 @@
 				2ED87CEA2955FEE600E1D477 /* SizingConstraintHelpers.swift in Sources */,
 				2ECB93AC29D90BCD00941B87 /* CGSize+Extensions.swift in Sources */,
 				2E4EC1D129640DB700A7BE81 /* OrderCardPaymentStatusView.swift in Sources */,
-				2E2CBA7C2954376C00D7C352 /* InvoiceListView.swift in Sources */,
+				2E2CBA7C2954376C00D7C352 /* HomeInvoiceListView.swift in Sources */,
 				2E9943922941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift in Sources */,
 				2E99438C29419DD300D20795 /* TextFieldProtocol.swift in Sources */,
 				2ED87CE82955FEE600E1D477 /* PinningConstraintHelpers.swift in Sources */,
@@ -3003,8 +3007,7 @@
 		2E509BFB29FB95B500315C72 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3045,8 +3048,7 @@
 		2E509BFC29FB95B500315C72 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;

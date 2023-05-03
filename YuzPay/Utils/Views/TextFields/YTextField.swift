@@ -134,6 +134,7 @@ struct YTextField: View, TextFieldProtocol {
 
             rightView
         }
+        
         .onAppear {
             rearrangeHint()
         }

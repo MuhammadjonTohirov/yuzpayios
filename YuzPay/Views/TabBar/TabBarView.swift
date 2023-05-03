@@ -26,8 +26,8 @@ struct TabBarView: View {
                 
             }
             .environmentObject(viewModel.alertModel)
+            
             MainAlertView.init(viewModel: viewModel.alertModel)
-                
         }
         .readSize($size)
         .onAppear {
@@ -36,6 +36,9 @@ struct TabBarView: View {
             
             KingfisherManager.shared.cache.clearMemoryCache()
             KingfisherManager.shared.cache.cleanExpiredDiskCache()
+        }
+        .onDisappear {
+            Logging.l("On TabBar disappear")
         }
         .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1)
     }

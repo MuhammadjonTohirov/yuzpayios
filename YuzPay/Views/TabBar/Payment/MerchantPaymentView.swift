@@ -28,16 +28,23 @@ struct MerchantPaymentView: View {
     var body: some View {
         ZStack {
             NavigationLink("", isActive: $viewModel.showPaymentView) {
-                ReceiptAndPayView(rowItems: viewModel.receiptItems, submitButtonTitle: "pay".localize) { cardId in
-                    viewModel.doPayment(cardId: cardId, formModel: viewModel.formModel)
-                }
-                .navigationTitle("transfer".localize)
+                ReceiptAndPayView()
+                    .set(rows: viewModel.receiptItems)
+                    .set(submitButtonTitle: "pay".localize)
+                    .set { cardId in
+                        viewModel.doPayment(cardId: cardId, formModel: viewModel.formModel)
+                    }
+                    .navigationTitle("transfer".localize)
             }
             
             if let m = viewModel.merchant {
                 innerBody(m)
             } else if let formModel = viewModel.formModel {
-                formModel.formView
+                formModel
+                    .formView
+                    .transaction { transition in
+                        transition.animation = nil
+                    }
             }
         }
         .fullScreenCover(isPresented: $viewModel.showStatusView, content: {

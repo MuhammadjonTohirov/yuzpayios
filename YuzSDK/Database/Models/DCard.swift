@@ -144,7 +144,7 @@ public class DCard: Object, ObjectKeyIdentifiable, DItemProtocol, CardProtocol {
 }
 
 public extension DCard {
-    public static func build(withModel model: CardModel) -> any DItemProtocol {
+    static func build(withModel model: CardModel) -> any DItemProtocol {
         return DCard(id: model.id, cardNumber: model.cardNumber, expirationDate: model.expirationDate,
                      name: model.name, holderName: model.holderName, isMain: model.isMain, cardType: model.cardType, status: model.status,
                      moneyAmount: model.moneyAmount)

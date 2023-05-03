@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct InvoiceListView: View {
+struct HomeInvoiceListView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("issued_invoices".localize.uppercased())
@@ -58,7 +58,7 @@ struct InvoiceListView: View {
 
 struct InvoiceListView_Preview: PreviewProvider {
     static var previews: some View {
-        InvoiceListView()
+        HomeInvoiceListView()
     }
 }
 

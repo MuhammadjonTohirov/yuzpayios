@@ -54,13 +54,18 @@ public final class DTransactionItem: Object, TransactionItemProtocol {
     
     @Persisted public var dateTime: Date
     
-    public init(id: String, agentName: String, status: TransactionStatus, amount: Float, currency: String, dateTime: Date) {
+    @Persisted public var cardId: Int
+    
+    @Persisted public var type: TransactionType
+    
+    public init(id: String, agentName: String, status: TransactionStatus, amount: Float, currency: String, dateTime: Date, cardId: Int, type: TransactionType) {
         self.agentName = agentName
         self.status = status
         self.amount = amount
         self.currency = currency
         self.dateTime = dateTime
-        
+        self.cardId = cardId
+        self.type = type
         super.init()
 
         self.id = id
@@ -72,6 +77,8 @@ public final class DTransactionItem: Object, TransactionItemProtocol {
         self.agentName = model.agentName
         self.currency = model.currency
         self.dateTime = model.dateTime
+        self.cardId = model.cardId
+        self.type = model.type
         super.init()
         self.id = model.id
     }
@@ -87,6 +94,6 @@ public final class DTransactionItem: Object, TransactionItemProtocol {
 
 public extension TransactionItem {
     static func createWith(_ ditem: DTransactionItem) -> TransactionItem {
-        .init(id: ditem.id, agentName: ditem.agentName, status: ditem.status, amount: ditem.amount, currency: ditem.currency, dateTime: ditem.dateTime)
+        .init(id: ditem.id, agentName: ditem.agentName, status: ditem.status, amount: ditem.amount, currency: ditem.currency, dateTime: ditem.dateTime, cardId: ditem.cardId, type: ditem.type)
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 public struct NetResInvoiceItem: Codable {
     public let invoiceID: Int
     public let operatorName, branchName, organizationName, clientName: String?
-    public let totalAmount: Int?
+    public let totalAmount: Float?
     public let invoiceNote, createdDate: String?
     public let isPaid, isExpired: Bool?
 
