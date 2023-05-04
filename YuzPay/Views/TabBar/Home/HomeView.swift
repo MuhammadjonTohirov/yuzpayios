@@ -13,6 +13,7 @@ import YuzSDK
 struct HomeView: View {
     @EnvironmentObject var viewModel: HomeViewModel
     @State var isEditing: Bool = false
+    @ObservedResults(DCard.self, configuration: Realm.config) var cards;
 
     var body: some View {
         ZStack {
@@ -111,7 +112,7 @@ struct HomeView: View {
                     .font(.mont(.medium, size: 16.f.sh()))
                 
                 HStack {
-                    Text("500 000")
+                    Text("\(cards.filter({![CreditCardType.master, .visa, .unionpay].contains($0.cardType)}).reduce(into: 0, {$0 += $1.moneyAmount}).asCurrency)")
                         .font(.mont(.bold, size: 36.f.sh()))
                     Text("сум")
                         .font(.mont(.bold, size: 18.f.sh()))

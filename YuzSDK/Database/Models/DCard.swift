@@ -143,6 +143,24 @@ public class DCard: Object, ObjectKeyIdentifiable, DItemProtocol, CardProtocol {
     }
 }
 
+public extension CreditCardType {
+    static func detectCardType(cardNumber: String) -> CreditCardType? {
+        if cardNumber.range(of: "^(8600|9874)[0-9]{0,11}$", options: .regularExpression) != nil {
+            return .uzcard
+        } else if cardNumber.range(of: "^9860[0-9]{0,11}$", options: .regularExpression) != nil {
+            return .humo
+        } else if cardNumber.range(of: "^4[0-9]{0,15}$", options: .regularExpression) != nil {
+            return .visa
+        } else if cardNumber.range(of: "^(5[1-5]|2[2-7])[0-9]{0,14}$", options: .regularExpression) != nil {
+            return .master
+        } else if cardNumber.range(of: "^62[0-9]{0,17}$", options: .regularExpression) != nil {
+            return .unionpay
+        } else {
+            return nil
+        }
+    }
+}
+
 public extension DCard {
     static func build(withModel model: CardModel) -> any DItemProtocol {
         return DCard(id: model.id, cardNumber: model.cardNumber, expirationDate: model.expirationDate,

@@ -30,7 +30,7 @@ struct ActivityIndicator: UIViewRepresentable {
 
     func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
         
-        let progressView = UIActivityIndicatorView(style: .large)
+        let progressView = UIActivityIndicatorView(style: .medium)
         progressView.startAnimating()
         
         return progressView

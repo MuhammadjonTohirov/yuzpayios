@@ -42,8 +42,22 @@ public extension Encodable {
     }
 }
 
+public extension Substring {
+    var asString: String {
+        String(self)
+    }
+}
 
 public extension String {
+    
+    var asInt: Int {
+        Int(self) ?? 0
+    }
+    
+    var isInt: Bool {
+        Int(self) != nil
+    }
+    
     func localize(language: Language) -> String {
         let path = Bundle.main.path(forResource: language.code, ofType: "lproj")
         let bundle = Bundle(path: path!)

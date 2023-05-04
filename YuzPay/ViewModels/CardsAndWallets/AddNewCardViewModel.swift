@@ -20,6 +20,9 @@ final class AddNewCardViewModel: NSObject, ObservableObject, Loadable, Alertable
     @Published var cardName: String = ""
     @Published var scanCard = false
     @Published var isActive = false
+    @Published var dismissView = false
+    
+    var currentCardType: CreditCardType?
     
     private(set) var addCardResponse: NetResAddCard?
     
@@ -39,13 +42,17 @@ final class AddNewCardViewModel: NSObject, ObservableObject, Loadable, Alertable
         
         Logging.l("Init add new card view model")
     }
-    
+        
     func onClickScanCard() {
         scanCard = true
     }
     
     func reloadView() {
         isActive = !cardNumber.isEmpty && !expireDate.isEmpty && !cardName.isEmpty
+    }
+    
+    func detectCardType() {
+        currentCardType = .detectCardType(cardNumber: cardNumber.prefix(4).asString)
     }
     
     func addNewCard() {
@@ -55,10 +62,15 @@ final class AddNewCardViewModel: NSObject, ObservableObject, Loadable, Alertable
         let cardName = self.cardName
         let expireDate = self.expireDate
         
+        guard let cardType = self.currentCardType?.code else {
+            showAlert(message: "unknown_card".localize)
+            return
+        }
+        
         self.showLoader()
         
         Task {
-            let result = await MainNetworkService.shared.addCard(card: .init(cardNumber: cardNumber, cardName: cardName, expirationDate: expireDate))
+            let result = await MainNetworkService.shared.addCard(card: .init(cardNumber: cardNumber, cardName: cardName, expirationDate: expireDate, type: cardType))
                         
             await MainActor.run(body: {
                 self.hideLoader()
@@ -122,6 +134,9 @@ extension AddNewCardViewModel: OtpModelDelegate {
     func otp(model: OtpViewModel, isSuccess: Bool) {
         if isSuccess {
             confirmAddCard = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                self.dismissView = true
+            }
         }
     }
 }

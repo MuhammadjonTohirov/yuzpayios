@@ -27,6 +27,15 @@ public extension Date {
         return formatter.string(from: self)
     }
     
+    var month: Int {
+        
+        return Int(self.toExtendedString(format: "MM"))!
+    }
+    
+    var year: Int {
+        return Int(self.toExtendedString(format: "YY"))!
+    }
+    
     func after(days: Int) -> Date {
         let date = Calendar.current.date(byAdding: DateComponents(day: days), to: self)
         return date ?? self

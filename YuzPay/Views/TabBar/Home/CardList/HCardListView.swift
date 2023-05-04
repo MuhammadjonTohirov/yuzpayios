@@ -38,7 +38,7 @@ struct HCardListView: View {
                     if let cards = viewModel.cards {
                         ForEach(cards) { element in
                             if !element.isInvalidated {
-                                cardItem(name: element.cardNumber, icon: element.cardType.localIcon, amount: "\(element.moneyAmount.asCurrency)")
+                                cardItem(name: element.cardNumber, icon: element.cardType.localIcon, amount: "\(element.moneyAmount.asCurrency)", isMain: element.isMain)
                                     .onTapGesture {
                                         self.homeModel.onClickCard(withId: element.id)
                                     }
@@ -55,13 +55,20 @@ struct HCardListView: View {
         }
     }
     
-    func cardItem(name: String, icon: String, amount: String) -> some View {
+    func cardItem(name: String, icon: String, amount: String, isMain: Bool = false) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 0) {
-                Image(icon)
-                    .sizeToFit(height: 24)
-                    .padding(.bottom, 7)
-                
+                HStack {
+                    Image(icon)
+                        .sizeToFit(height: 24)
+                    Spacer()
+                    Image(systemName: "star.circle.fill")
+                        .sizeToFit(height: 16)
+                        .foregroundColor(.secondaryLabel)
+                        .opacity(isMain ? 0.8 : 0)
+                }
+                .padding(.bottom, 7)
+
                 Text(name)
                     .font(.mont(.regular, size: 12))
                     .padding(.bottom, 2)

@@ -17,7 +17,7 @@ extension MField {
 
 struct FieldView: View {
     @StateObject var field: FieldItem
-
+    
     private var placeholder: String {
         field.field.title?.nilIfEmpty ?? field.field.name.localize
     }
@@ -46,33 +46,29 @@ struct FieldView: View {
             })
             .modifier(YTextFieldBackgroundCleanStyle())
             .padding(.horizontal, Padding.default)
-
+            
         case .money:
-            YTextField(text: $field.text, placeholder: placeholder, filters: [
-                .init(filter: { text in
-                    return text.count <= field.field.fieldSize
-                })
-            ])
+            YTextField(text: $field.text, placeholder: placeholder, validator: .init(filter: { text in
+                return text.count <= field.field.fieldSize
+            }))
             .keyboardType(.numberPad)
             .set(format: "XXXXXXXXX")
-                .padding(.horizontal, Padding.default)
-                .modifier(YTextFieldBackgroundCleanStyle())
-                .padding(.horizontal, Padding.default)
-
+            .padding(.horizontal, Padding.default)
+            .modifier(YTextFieldBackgroundCleanStyle())
+            .padding(.horizontal, Padding.default)
+            
         default:
-            YTextField(text: $field.text, placeholder: placeholder, filters: [
-                .init(filter: { text in
-                    return text.count <= field.field.fieldSize
-                })
-            ])
-                .set(haveTitle: true)
-                .set(formatter: .moneyFormatter())
-                .keyboardDismissMode(.interactiveWithAccessory)
-                .keyboardShortcut(.pageDown)
-                .padding(.horizontal, Padding.default)
-                .modifier(YTextFieldBackgroundCleanStyle())
-                .padding(.horizontal, Padding.default)
-
+            YTextField(text: $field.text, placeholder: placeholder, validator: .init(filter: { text in
+                return text.count <= field.field.fieldSize
+            }))
+            .set(haveTitle: true)
+            .set(formatter: .moneyFormatter())
+            .keyboardDismissMode(.interactiveWithAccessory)
+            .keyboardShortcut(.pageDown)
+            .padding(.horizontal, Padding.default)
+            .modifier(YTextFieldBackgroundCleanStyle())
+            .padding(.horizontal, Padding.default)
+            
         }
     }
 }

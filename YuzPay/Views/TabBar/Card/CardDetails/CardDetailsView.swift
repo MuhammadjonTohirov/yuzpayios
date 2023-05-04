@@ -16,6 +16,9 @@ struct CardDetailsView: View {
     @State private var showDeleteAlert: Bool = false
     @State private var showToastAlert: Bool = false
     @State private var alertToast: AlertToast = .init(displayMode: .alert, type: .regular)
+    
+    @State private var isLoading = false
+    
     @Environment(\.dismiss) var dismiss
 
     var card: DCard? {
@@ -62,6 +65,18 @@ struct CardDetailsView: View {
                             Toggle(isOn: $isMain, label: {
                                 EmptyView()
                             })
+                            .overlay {
+                                Rectangle()
+                                    .foregroundColor(.systemBackground)
+                                    .frame(height: 28)
+                                    .opacity(0.05)
+                                    .onTapGesture {
+                                        if !isMain {
+                                            isMain.toggle()
+                                            updateCard()
+                                        }
+                                    }
+                            }
                         }
                     
                     Divider()
@@ -101,7 +116,7 @@ struct CardDetailsView: View {
         }
         .alert(isPresented: $showDeleteAlert) {
             Alert(
-                title: Text("Delete Card"),
+                title: Text("Deleste Card"),
                 message: Text("Are you sure you want to delete this card?"),
                 primaryButton: .destructive(Text("Delete")) {
                     deleteCard()
@@ -114,9 +129,10 @@ struct CardDetailsView: View {
                 Button {
                     updateCard()
                 } label: {
-                    Text("save".localize)
+                    Group {
+                        if isLoading { ActivityIndicator() } else { Text("save".localize) }
+                    }
                 }
-
             }
         }
     }
@@ -149,22 +165,30 @@ struct CardDetailsView: View {
     }
     
     private func updateCard() {
-        
         Task {
-            guard let card else {
-                return
-            }
-            let req = NetReqUpdateCard.init(cardName: cardName)
+            showLoading()
+            let req = NetReqUpdateCard.init(cardName: cardName, isDefault: isMain)
             let isOK = await MainNetworkService.shared.updateCard(cardId: Int(cardId) ?? 0, card: req)
+            
             var result = ""
             if isOK.success {
                 result = "Card updated successfully"
-                CreditCardManager.shared.updateTitle(forId: cardId, name: cardName)
+                CreditCardManager.shared.update(forId: cardId, name: cardName)
+                CreditCardManager.shared.update(forId: cardId, isMain: isMain)
             } else {
                 result = "Card updated filure"
             }
             
+            if let mainCard = CreditCardManager.shared.mainCard, mainCard.id != cardId, isOK.success {
+                let _ = await MainNetworkService.shared.updateCard(
+                    cardId: Int(mainCard.id) ?? 0,
+                    card: .init(cardName: mainCard.name, isDefault: false)
+                )
+            }
+            
             showAlert(.init(displayMode: .alert, type: isOK.success ? .complete(.secondaryLabel) : .error(.systemRed), title: result))
+            
+            endLoading()
         }
     }
     
@@ -208,10 +232,34 @@ struct CardDetailsView: View {
             EmptyView()
         }
     }
+    
+    private func showLoading() {
+        DispatchQueue.main.async {
+            isLoading = true
+        }
+    }
+    
+    private func endLoading() {
+        DispatchQueue.main.async {
+            isLoading = false
+        }
+    }
 }
 
 struct CardDetailsView_Previews: PreviewProvider {
+    @State static var isMain = false
     static var previews: some View {
-        CardDetailsView(cardId: "0")
+        //CardDetailsView(cardId: "0")
+        Toggle(isOn: $isMain, label: {
+            EmptyView()
+        })
+        .overlay {
+            Rectangle()
+                .frame(height: 28)
+                .opacity(0.01)
+                .onTapGesture {
+                    isMain.toggle()
+                }
+        }
     }
 }

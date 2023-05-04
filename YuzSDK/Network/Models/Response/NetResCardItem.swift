@@ -24,4 +24,20 @@ public struct NetResCardItem: Identifiable, Codable, NetResBody {
     public var createdTime: String? = ""
     public var modifiedTime: String? = ""
     public var isDefault: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case cardId = "cardId"
+        case cardNumber
+        case cardHolder
+        case cardName
+        case expirationDate
+        case type = "typeId"
+        case statusCode
+        case isVirtual
+        case balance
+        case createdTime
+        case modifiedTime
+        case isDefault
+    }
+    
 }

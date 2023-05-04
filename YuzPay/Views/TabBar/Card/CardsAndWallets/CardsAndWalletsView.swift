@@ -43,6 +43,7 @@ struct CardsAndWalletsView: View {
                         } else {
                             cardItem(
                                 bankName: card.bankName ?? "Bank name",
+                                cardName: card.name,
                                 cardNumber: card.cardNumber,
                                 amount: card.moneyAmount, isMain: card.isMain, iconName: card.cardType.localIcon
                             )

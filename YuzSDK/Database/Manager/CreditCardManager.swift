@@ -32,16 +32,27 @@ final public class CreditCardManager: DManager {
     }
     
     public var cards: Results<DCard>? {
-        Realm.new?.objects(DCard.self)
+        Realm.new?.objects(DCard.self).sorted(byKeyPath: "isMain")
+    }
+    
+    public var mainCard: DCard? {
+        cards?.first(where: {$0.isMain})
     }
     
     public var all: Results<DCard>? {
         cards
     }
     
-    public func updateTitle(forId id: String, name: String) {
+    public func update(forId id: String, name: String) {
         execute { realm in
             realm.object(ofType: DCard.self, byKey: "id", value: id)?.name = name
+        }
+    }
+    
+    public func update(forId id: String, isMain: Bool) {
+        execute { realm in
+            realm.objects(DCard.self).filter("isMain = %d", isMain).first?.isMain = !isMain
+            realm.object(ofType: DCard.self, byKey: "id", value: id)?.isMain = isMain
         }
     }
     

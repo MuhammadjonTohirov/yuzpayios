@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct YTextFilter {
+struct YTextValidator {
     var filter: (_ text: String) -> Bool
 }
 
@@ -44,7 +44,9 @@ struct YTextField: View, TextFieldProtocol {
     @State private var formatter: NumberFormatter?
     @State private var oldValue: String = ""
     
-    private var filters: [YTextFilter] = []
+    private var validator: YTextValidator = .init { _ in
+        return true
+    }
     
     private var placeholderAlignment: Alignment = .leading
     private var topupHintColor: Color = Color("dark_gray")
@@ -85,9 +87,9 @@ struct YTextField: View, TextFieldProtocol {
         self.oldValue = text.wrappedValue
     }
     
-    init(text: Binding<String>, placeholder: String, filters: [YTextFilter]) {
+    init(text: Binding<String>, placeholder: String, validator: YTextValidator) {
         self.init(text: text, placeholder: placeholder)
-        self.filters = filters
+        self.validator = validator
     }
     
     var body: some View {
@@ -110,22 +112,25 @@ struct YTextField: View, TextFieldProtocol {
                     .textInputAutocapitalization(autoCapitalization)
                     .font(font)
                     .onChange(of: text) { newValue in
-                        if let _format = format {
-                            _text.wrappedValue = newValue.onlyNumberFormat(with: _format)
+                        let isDeleting = newValue.count < oldValue.count
+                        
+                        func doFormat(_ str: String) {
+                            if let _format = format {
+                                _text.wrappedValue = str.onlyNumberFormat(with: _format)
+                            }
+                            
+                            self.rearrangeHint()
+                            self.onEditing(true)
                         }
-                        for filter in filters {
-                            if !filter.filter(newValue) {
-                                self.text = oldValue
-
-                                self.rearrangeHint()
-                                self.onEditing(true)
-
-                                break
+                        
+                        if !isDeleting {
+                            guard validator.filter(newValue), !isDeleting else {
+                                doFormat(oldValue)
+                                return
                             }
                         }
-
-                        self.rearrangeHint()
-                        self.onEditing(true)
+                        
+                        doFormat(newValue)
                         self.oldValue = newValue
                     }
                     .zIndex(1)
