@@ -16,7 +16,7 @@ struct TabBarView: View {
     
     var body: some View {
         ZStack {
-            NavigationView {
+            NavigationStack {
                 if size == .zero {
                     EmptyView()
                 } else {
@@ -26,9 +26,11 @@ struct TabBarView: View {
                 
             }
             .environmentObject(viewModel.alertModel)
+            .environmentObject(viewModel)
             
             MainAlertView.init(viewModel: viewModel.alertModel)
         }
+        
         .readSize($size)
         .onAppear {
             Logging.l("On Appear tabview nav")

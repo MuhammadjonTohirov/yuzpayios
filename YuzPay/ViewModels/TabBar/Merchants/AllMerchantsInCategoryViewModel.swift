@@ -9,13 +9,23 @@ import SwiftUI
 import RealmSwift
 import YuzSDK
 
+enum AllMerchantsRoute {
+    case showPayment
+}
+
 class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
     var mersNotification: NotificationToken?
     private var category: DMerchantCategory?
     
     @Published var isLoading: Bool = false
-    @Published var merchants: Results<DMerchant>?
-    @Published var selectedMerchant: DMerchant?
+    @Published var merchants: [DMerchant]?
+    @Published var route: AllMerchantsRoute?
+    
+    @Published private(set) var merchantPaymentModel: MerchantsPaymentViewModel? {
+        didSet {
+            Logging.l(tag: "AllMerchants", "set merchant payment model \(merchantPaymentModel?.merchantId ?? "")")
+        }
+    }
     
     private var didAppear: Bool = false
     private var id: String
@@ -41,6 +51,12 @@ class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
     }
     
     func onAppear() {
+        if didAppear {
+            return
+        }
+        
+        didAppear = true
+        
         if merchants == nil {
             self.setupSubscribers()
         }
@@ -48,7 +64,7 @@ class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
     
     func onDisappear() {
         self.merchants = nil
-        self.selectedMerchant = nil
+        self.merchantPaymentModel = nil
         Logging.l(tag: String(describing: AllMerchantsInCategoryViewModel.self), "On disappear \(id)")
     }
     
@@ -73,14 +89,18 @@ class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
         mersNotification = category.merchants?.observe(on: .main, { [weak self] changes in
             withAnimation {
                 if let mrts = category.merchants, !mrts.isEmpty {
-                    self?.merchants = mrts
+                    self?.merchants = mrts.compactMap({$0.isInvalidated ? nil : $0})
                 }
             }
         })
     }
     
     func setSelected(merchant: DMerchant?) {
-        self.selectedMerchant = merchant
+        guard let id = merchant?.id else {
+            return
+        }
+        
+        self.merchantPaymentModel = .init(merchantId: id)
     }
     
     func invalidate() {

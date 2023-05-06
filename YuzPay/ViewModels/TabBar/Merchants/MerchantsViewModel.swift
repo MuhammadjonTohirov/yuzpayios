@@ -9,6 +9,12 @@ import Foundation
 import RealmSwift
 import SwiftUI
 import YuzSDK
+
+enum MerchantsViewRoute {
+    case showAllMerchantsInCategory
+    case showMerchant
+}
+
 class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     @Published var isLoading: Bool = false
     
@@ -21,6 +27,8 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     @Published var selectedMerchant: String?
     @Published var expandedCategory: Int?
     @Published var allMerchantsViewModel: AllMerchantsInCategoryViewModel?
+    
+    @Published var route: MerchantsViewRoute?
     
     private(set) var merchantPaymentModel: MerchantsPaymentViewModel?
     
@@ -86,7 +94,14 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     
     func setSelected(merchant: DMerchant?) {
         self.selectedMerchant = merchant?.id
-        merchantPaymentModel = .init(merchantId: self.selectedMerchant!)
+        self.merchantPaymentModel = .init(merchantId: self.selectedMerchant!)
+    }
+    
+    func setSelected(merchantId id: String) {
+        if self.selectedMerchant != id {
+            self.selectedMerchant = id
+        }
+        self.merchantPaymentModel = .init(merchantId: id)
     }
     
     private func invalidate() {

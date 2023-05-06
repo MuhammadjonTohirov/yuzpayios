@@ -101,7 +101,6 @@ public struct MainNetworkService: NetworkServiceProtocol {
         return (res?.success ?? false, res?.error)
     }
     
-    
     // - MARK: Transactions
     public func syncTransactions() {
         Task(priority: .medium) {
@@ -110,5 +109,11 @@ public struct MainNetworkService: NetworkServiceProtocol {
                 ObjectManager(TransactionsManager()).add(TransactionItem.fromNetResTransactionItem(item))
             })
         }
+    }
+    
+    public func doInvoicePayment(invoiceId: Int, cardId: Int) async -> (success: Bool, error: String?) {
+        let result: NetRes<String>? = await Network.send(request: S.doInvoicePayment(invoiceId: invoiceId, cardId: cardId))
+        InvoiceManager().set(isPaid: result?.success ?? false, invoiceId: invoiceId)
+        return (result?.success ?? false, result?.error)
     }
 }

@@ -29,19 +29,20 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
             return URL.base.appendingPath("api", "Client", "CardList")
         case .addCard:
             return URL.base.appendingPath("api", "Client", "AddCard")
-        
         case let .updateCard(id, _):
             return URL.base.appendingPath("api", "Client", "UpdateCard", "\(id)")
         case .deleteCard(let cardId):
-            return URL.base.appendingPath("api", "Client", "DeleteCard", "\(cardId)")
+            return URL.base.appendingPath("api", "Client", "DeleteCard", cardId)
         case let .getMerchantDetails(id, categoryId):
-            return URL.base.appendingPath("api", "Client", "PaynetServiceList", "\(categoryId)", "\(id)")
+            return URL.base.appendingPath("api", "Client", "PaynetServiceList", categoryId, id)
         case let .confirmCard(cardId, _):
-            return URL.base.appendingPath("api", "Client", "ConfirmCard", "\(cardId)")
+            return URL.base.appendingPath("api", "Client", "ConfirmCard", cardId)
         case let .doPayment(id, categoryId, _):
-            return URL.base.appendingPath("api", "Client", "PaynetPerformService", "\(categoryId)", "\(id)")
+            return URL.base.appendingPath("api", "Client", "PaynetPerformService", categoryId, id)
         case .getTransactions:
             return URL.base.appendingPath("api", "Client", "CardTransactions")
+        case let .doInvoicePayment(invoiceId, cardId):
+            return URL.base.appendingPath("api", "Client", "ManuallyInvoice", invoiceId, cardId)
         }
     }
     
@@ -62,7 +63,7 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     
     var method: HTTPMethod {
         switch self {
-        case .searchMerchants, .addCard, .confirmCard, .doPayment:
+        case .searchMerchants, .addCard, .confirmCard, .doPayment, .doInvoicePayment:
             return .post
         case .updateCard:
             return .put
@@ -84,14 +85,19 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     case getCategories
     case getMerchants(byCategory: Int, limit: Int?)
     case searchMerchants(text: String, limit: Int?)
+    
+    // MARK: - Invoice
     case getInvoiceList
+    case doInvoicePayment(invoiceId: Int, cardId: Int)
+    
+    // MARK: - Card
     case getCardList
     case addCard(_ card: NetReqAddCard)
     case updateCard(_ id: Int, _ card: NetReqUpdateCard)
     case deleteCard(_ id: Int)
-    case getMerchantDetails(id: Int, categoryId: Int)
     case confirmCard(cardId: Int, _ request: NetReqConfirmAddCard)
+
+    case getMerchantDetails(id: Int, categoryId: Int)
     case doPayment(id: Int, categoryId: Int, _ request: NetReqDoPayment)
-    
     case getTransactions
 }

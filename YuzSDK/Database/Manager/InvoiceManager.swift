@@ -49,4 +49,18 @@ final class InvoiceManager: DManager {
             }
         }
     }
+    
+    func set(isPaid: Bool, invoiceId: Int) {
+        Realm.asyncNew { result in
+            switch result {
+            case .success(let realm):
+                realm.trySafeWrite {
+                    let invoice = realm.object(ofType: DInvoiceItem.self, forPrimaryKey: invoiceId)
+                    invoice?.isPaid = isPaid
+                }
+            case .failure:
+                break
+            }
+        }
+    }
 }

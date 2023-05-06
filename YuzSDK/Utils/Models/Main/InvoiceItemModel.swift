@@ -15,7 +15,7 @@ public protocol InvoiceItemProtocol: ModelProtocol {
     var clientName: String? {get set}
     var totalAmount: Float? {get set}
     var invoiceNote: String? {get set}
-    var createdDate: String? {get set}
+    var createdDate: Date? {get set}
     var isPaid: Bool? {get set}
     var isExpired: Bool? {get set}
 }
@@ -29,10 +29,11 @@ public struct InvoiceItemModel: ModelProtocol, InvoiceItemProtocol {
     public var invoiceID: Int
     public var operatorName, branchName, organizationName, clientName: String?
     public var totalAmount: Float?
-    public var invoiceNote, createdDate: String?
+    public var invoiceNote: String?
+    public var createdDate: Date?
     public var isPaid, isExpired: Bool?
     
-    public init(invoiceID: Int, operatorName: String? = nil, branchName: String? = nil, organizationName: String? = nil, clientName: String? = nil, totalAmount: Float? = nil, invoiceNote: String? = nil, createdDate: String? = nil, isPaid: Bool? = nil, isExpired: Bool? = nil) {
+    public init(invoiceID: Int, operatorName: String? = nil, branchName: String? = nil, organizationName: String? = nil, clientName: String? = nil, totalAmount: Float? = nil, invoiceNote: String? = nil, createdDate: Date? = nil, isPaid: Bool? = nil, isExpired: Bool? = nil) {
         self.invoiceID = invoiceID
         self.operatorName = operatorName
         self.branchName = branchName

@@ -9,11 +9,19 @@ import Foundation
 import RealmSwift
 import YuzSDK
 
+enum MerchantPaymentRoute: String, Hashable {
+    case payment
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(rawValue)
+    }
+}
+
 final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
     @Published var isLoading: Bool = false
     private(set) var paymentStatusViewModel: PaymentStatusViewModel?
     var merchantId: String
-    
+    @Published var route: MerchantPaymentRoute?
     @Published var showStatusView = false
     @Published var showPaymentView = false
     @Published var selectedCard: DCard?
@@ -33,6 +41,7 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
         
     init(merchantId: String) {
         self.merchantId = merchantId
+        Logging.l(tag: "MerchantPayment", "Create merchant payment vm")
     }
     
     func onAppear() {
@@ -101,7 +110,7 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
         
         generateReceipt(formModel: formModel, fields)
         completion(true)
-        showPaymentView = true
+        route = .payment
     }
     
     func showPaymentStatus(formModel: FormModel?, _ isSuccess: Bool, _ error: String?) {

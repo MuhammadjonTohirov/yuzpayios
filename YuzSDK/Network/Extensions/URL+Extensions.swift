@@ -15,20 +15,20 @@ public extension URL {
     }
     
     static var keyHeader: (key: String, value: String) {
-        ("X-APP-SERIAL", "f0d0b4a09aeaf5bdc826079f5b8b439a7cbad7318896b22f0c3811d3f3c7fb49")
+        ("X-APP-SERIAL", "134d357ac404acd403b1df6680445514e96a7cff3dd5d773220b3deeb111e9a3")
     }
     
     static var langHeader: (key: String, value: String) {
         ("X-LANG-CODE", (UserSettings.shared.language ?? .russian).smallCode)
     }
     
-    func appendingPath(_ pathList: String...) -> URL {
+    func appendingPath(_ pathList: Any...) -> URL {
         var url = self
         pathList.forEach { path in
             if #available(iOS 16.0, *) {
-                url = url.appending(component: path)
+                url = url.appending(component: "\(path)")
             } else {
-                url = url.appendingPathComponent(path)
+                url = url.appendingPathComponent("\(path)")
             }
         }
         

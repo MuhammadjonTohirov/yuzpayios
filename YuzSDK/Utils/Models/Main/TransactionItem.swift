@@ -11,10 +11,10 @@ import SwiftUI
 
 
 public enum TransactionType: Int, PersistableEnum {
-    case paynet
-    case store
-    case p2p
-    case exchange
+    case paynet = 0
+    case store = 1
+    case p2p = 2
+    case exchange = 3
 }
 
 public enum TransactionStatus: String, PersistableEnum {

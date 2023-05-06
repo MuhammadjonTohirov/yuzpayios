@@ -7,23 +7,33 @@
 
 import SwiftUI
 import RealmSwift
+import YuzSDK
 
 struct AllMerchantsInCategoryView: View {
+    typealias Action = (DMerchant) -> Void
     @State private var itemsPadding: CGFloat = 0
-    @StateObject var viewModel: AllMerchantsInCategoryViewModel
-    @State private var showPaymentView = false
-        
+    @ObservedObject var viewModel: AllMerchantsInCategoryViewModel
+    @Binding var selectedMerchantId: String?
+    var onClickMerchant: Action
+    
+    init(viewModel: AllMerchantsInCategoryViewModel, selectedMerchantId: Binding<String?>, onClickMerchant: @escaping Action) {
+        self.viewModel = viewModel
+        self._selectedMerchantId = selectedMerchantId
+        self.onClickMerchant = onClickMerchant
+        Logging.l("Show AllMerchantsInCategory View with viewModel")
+    }
+    
     var body: some View {
         ZStack {
-            if let m = viewModel.selectedMerchant, !m.isInvalidated {
-                NavigationLink("", isActive: $showPaymentView) {
-                    MerchantPaymentView(viewModel: .init(merchantId: m.id))
-                }
-            }
-
-            if viewModel.isLoading {
-                ProgressView()
-            }
+//            if let m = viewModel.merchantPaymentModel {
+//                NavigationLink(unwrapping: $viewModel.route, case: .init(.showPayment)) { _ in
+//                    MerchantPaymentView(viewModel: m)
+//                } onNavigate: { didShow in
+//                    Logging.l(tag: "Payment", "Did show merchant payment view")
+//                } label: {
+//                    Text("")
+//                }
+//            }
             
             LazyVStack {
                 merchantsContains(expanded: true) {
@@ -31,7 +41,12 @@ struct AllMerchantsInCategoryView: View {
                         merchantsForEach
                     }
                 }
-            }.scrollable()
+            }
+            .scrollable()
+            
+            if viewModel.isLoading {
+                ProgressView()
+            }
         }
         .navigationTitle(viewModel.title)
         .onAppear {
@@ -39,11 +54,7 @@ struct AllMerchantsInCategoryView: View {
             let itemWidth: CGFloat = 100.f.sw()
             let requiredWidth = itemsCount * itemWidth
             itemsPadding = (UIScreen.screen.width  - 2 * Padding.default - requiredWidth) / 2
-            
             viewModel.onAppear()
-        }
-        .onDisappear {
-            viewModel.onDisappear()
         }
     }
     
@@ -52,11 +63,12 @@ struct AllMerchantsInCategoryView: View {
         if let merchants = viewModel.merchants {
             ForEach(merchants) { merchant in
                 Button {
-                    viewModel.setSelected(merchant: merchant)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        showPaymentView = true
-                    }
+                    self.selectedMerchantId = merchant.id
+                    self.onClickMerchant(merchant)
+//                    viewModel.setSelected(merchant: merchant)
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//                        viewModel.route = .showPayment
+//                    }
                 } label: {
                     MerchantItemView(
                         icon: merchant.icon,

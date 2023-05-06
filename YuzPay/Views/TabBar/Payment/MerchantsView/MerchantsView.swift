@@ -18,9 +18,7 @@ struct MerchantsView: View {
     @StateObject var searchText: DebouncedString = .init(value: "")
     
     @State var isSearching: Bool = false
-    
-    @State var showAllMerchants = false
-    
+
     @State private var isViewLoaded = false
     
     @State private var cancellable: AnyCancellable?
@@ -62,9 +60,7 @@ struct MerchantsView: View {
     }
     
     @State var itemsPadding: CGFloat = 0
-    
-    @State var showPaymentView: Bool = false
-    
+        
     @ViewBuilder
     var innerBody: some View {
         ZStack {
@@ -72,17 +68,13 @@ struct MerchantsView: View {
                 ProgressView()
             }
             
-            if let catId = viewModel.expandedCategory,
-               let category = viewModel.categories?.first(where: {$0.id == catId}), !category.isInvalidated,
-                let vm = viewModel.allMerchantsViewModel {
-                NavigationLink("", isActive: $showAllMerchants) {
-                    AllMerchantsInCategoryView(viewModel: vm)
-                }
-            }
-            
             if let m = viewModel.merchantPaymentModel {
-                NavigationLink("", isActive: $showPaymentView) {
+                NavigationLink(unwrapping: $viewModel.route, case: .init(.showMerchant)) { _case in
                     MerchantPaymentView(viewModel: m)
+                } onNavigate: { isActive in
+                    Logging.l(tag: "Merchants", "Show merchant payment view \(isActive)")
+                } label: {
+                    Text("")
                 }
             }
             
@@ -98,6 +90,45 @@ struct MerchantsView: View {
                     Spacer()
                 }
             }
+            .sheet(unwrapping: $viewModel.route, case: .init(.showAllMerchantsInCategory)) { _case in
+                if let catId = viewModel.expandedCategory,
+                   let category = viewModel.categories?.first(where: {$0.id == catId}), !category.isInvalidated,
+                   let vm = viewModel.allMerchantsViewModel {
+                    NavigationView {
+                        AllMerchantsInCategoryView(viewModel: vm, selectedMerchantId: $viewModel.selectedMerchant) { merchant in
+//                            Logging.l(tag: "Merchant", "On select merchant \(merchant.id)")
+//                            self.viewModel.setSelected(merchant: merchant)
+//                            viewModel.route = .none
+//                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//                                viewModel.route = .showMerchant
+//                            }
+                        }
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button(action: {
+                                    viewModel.route = .none
+                                }, label: {
+                                    Image(systemName: "xmark")
+                                })
+                            }
+                        }
+                    }
+                }
+            }
+            .onChange(of: viewModel.selectedMerchant, perform: { newValue in
+                if let id = viewModel.selectedMerchant {
+                    self.viewModel.route = .none
+
+                    self.viewModel.setSelected(merchantId: id)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                        viewModel.route = .showMerchant
+                    }
+
+                }
+            })
+            .contentTransition(.opacity)
         }
     }
     
@@ -117,7 +148,7 @@ struct MerchantsView: View {
                                         viewModel.setSelected(merchant: merchant)
 
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                            showPaymentView = true
+                                            viewModel.route = .showMerchant
                                         }
                                     } label: {
                                         MerchantItemView(

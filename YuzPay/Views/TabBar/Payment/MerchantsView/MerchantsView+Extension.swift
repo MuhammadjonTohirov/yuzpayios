@@ -11,7 +11,7 @@ import YuzSDK
 
 extension MerchantsView {
     var merchatsView: some View {
-        VStack(alignment: .center) {
+        LazyVStack(alignment: .center) {
             if let categories = viewModel.categories {
                 ForEach(categories.sorted(byKeyPath: "order", ascending: true)) { category in
                     VStack {
@@ -28,7 +28,7 @@ extension MerchantsView {
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                     viewModel.allMerchantsViewModel?.setCategory(category)
-                                    showAllMerchants = true
+                                    viewModel.route = .showAllMerchantsInCategory
                                 }
 
                             } label: {
@@ -39,11 +39,6 @@ extension MerchantsView {
                         }
                         .padding(.horizontal, Padding.default.sw())
                         .padding(.bottom, Padding.small.sw())
-                        .onChange(of: showAllMerchants) { newValue in
-                            if !newValue {
-                                viewModel.collapse()
-                            }
-                        }
                         
                         merchantsContains(expanded: false) {
                             merchantsForEach(cat: category)
@@ -69,7 +64,7 @@ extension MerchantsView {
                     viewModel.setSelected(merchant: merchant)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        showPaymentView = true
+                        viewModel.route = .showMerchant
                     }
                 } label: {
                     MerchantItemView(

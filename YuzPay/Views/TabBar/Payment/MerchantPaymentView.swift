@@ -12,6 +12,7 @@ import YuzSDK
 struct MerchantPaymentView: View {
     
     @ObservedObject var viewModel: MerchantsPaymentViewModel
+    @EnvironmentObject var tabModel: TabViewModel
     @EnvironmentObject var alertModel: MainAlertModel
     
     @State var amount: String = ""
@@ -27,15 +28,6 @@ struct MerchantPaymentView: View {
     
     var body: some View {
         ZStack {
-            NavigationLink("", isActive: $viewModel.showPaymentView) {
-                ReceiptAndPayView()
-                    .set(rows: viewModel.receiptItems)
-                    .set(submitButtonTitle: "pay".localize)
-                    .set { cardId in
-                        viewModel.doPayment(cardId: cardId, formModel: viewModel.formModel)
-                    }
-                    .navigationTitle("transfer".localize)
-            }
             
             if let m = viewModel.merchant {
                 innerBody(m)
@@ -47,18 +39,32 @@ struct MerchantPaymentView: View {
                     }
             }
         }
-        .fullScreenCover(isPresented: $viewModel.showStatusView, content: {
-            if let vm = viewModel.paymentStatusViewModel {
-                PaymentStatusView() {
-                    Image("image_success_2")
-                        .renderingMode(.template)
-                        .resizable(true)
-                        .frame(width: 100, height: 100)
+        .sheet(isPresented: $viewModel.showStatusView, content: {
+            NavigationView {
+                if let vm = viewModel.paymentStatusViewModel {
+                    PaymentStatusView() {
+                        Image("image_success_2")
+                            .renderingMode(.template)
+                            .resizable(true)
+                            .frame(width: 100, height: 100)
+                    }
+                    .environmentObject(vm)
+                } else {
+                    Text("")
                 }
-                .environmentObject(vm)
-            } else {
-                Text("")
             }
+        })
+        .sheet(unwrapping: $viewModel.route, content: { _ in
+            NavigationView(content: {
+                ReceiptAndPayView()
+                    .set(rows: viewModel.receiptItems)
+                    .set(submitButtonTitle: "pay".localize)
+                    .set(showCards: true)
+                    .set { cardId in
+                        viewModel.doPayment(cardId: cardId, formModel: viewModel.formModel)
+                    }
+                    .navigationTitle("transfer".localize)
+            })
         })
         .onAppear {
             viewModel.onAppear()
@@ -69,6 +75,7 @@ struct MerchantPaymentView: View {
     
     func innerBody(_ merchant: DMerchant) -> some View {
         VStack {
+            
             RoundedRectangle(cornerRadius: 10)
                 .foregroundColor(.secondarySystemBackground.opacity(0.5))
                 .frame(width: 100, height: 100)
@@ -115,10 +122,9 @@ struct MerchantPaymentView: View {
                     DispatchQueue.main.async {
                         self.viewModel.formModel = .create(with: details)
                     }
-                    self.viewModel.hideLoader()
-                } else {
-                    self.viewModel.hideLoader()
                 }
+                
+                self.viewModel.hideLoader()
             }
         }
     }
