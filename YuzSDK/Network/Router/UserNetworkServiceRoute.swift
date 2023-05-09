@@ -23,6 +23,9 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
         case .getUserInfo:
             request = URLRequest.new(url: url)
             request?.setValue("image/png", forHTTPHeaderField: "accept")
+        case .refreshToken:
+            request = URLRequest.new(url: url)
+            request?.allHTTPHeaderFields?["Authorization"] = nil
         default:
             request = URLRequest.new(url: url)
             request?.httpBody = self.body

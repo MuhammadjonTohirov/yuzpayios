@@ -16,22 +16,28 @@ struct KF: View {
     var memoryExpiration: StorageExpiration? = nil
     
     var body: some View {
-        KFImage(imageUrl)
-//            .memoryCacheExpiration(memoryExpiration)
-//            .diskCacheExpiration(storageExpiration)
-            .setHTTPHeader(name: "Authorization", value: "Bearer \(UserSettings.shared.accessToken ?? "")")
-            .resizable()
-            .placeholder({
-                Image("image_placeholder")
-                    .resizable(true)
-                    .frame(width: 40, height: 40)
-            })
-            .aspectRatio(contentMode: .fill)
-            .mask({
-                Circle()
-            })
+        if let url = imageUrl {
+            KFImage(source: Source.network(ImageResource(downloadURL: url, cacheKey: "\(url.absoluteString)_\(UserSettings.shared.userPhone ?? "")")))
+                .setHTTPHeader(name: "Authorization", value: "Bearer \(UserSettings.shared.accessToken ?? "")")
+                .resizable()
+                .placeholder({
+                    Image("image_placeholder")
+                        .resizable(true)
+                        .frame(width: 40, height: 40)
+                })
+                .aspectRatio(contentMode: .fill)
+                .mask({
+                    Circle()
+                })
+                .onAppear {
+                    
+                }
+        } else {
+            Image("image_placeholder")
+                .resizable(true)
+                .frame(width: 40, height: 40)
+        }
     }
-    
 }
 
 extension KFImage {
