@@ -59,6 +59,25 @@ enum SideBarRoute: Hashable, ScreenRoute {
             UserProfileView()
         }
     }
+    
+    static func createBy(id: String) -> SideBarRoute? {
+        switch id {
+        case "cards":
+            return .cards
+        case "monitoring":
+            return .monitoring
+        case "order_card":
+            return .ordercard
+        case "identify":
+            return .identify
+        case "invoices":
+            return .invoices
+        case "profile":
+            return .profile
+        default:
+            return nil
+        }
+    }
 }
 
 enum Tab: String, CaseIterable, Tabbable {
@@ -114,6 +133,13 @@ enum Tab: String, CaseIterable, Tabbable {
     }
 }
 
+enum AppRouter {
+    case home(_ route: HomeViewRoute?)
+    case p2p
+    case pay
+    case help
+    case settings
+}
 
 final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loadable, Alertable {
     private(set) lazy var homeViewModel: HomeViewModel = { HomeViewModel() }()
@@ -121,7 +147,7 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
     private(set) lazy var merchantsViewModel: MerchantsViewModel = { MerchantsViewModel() }()
     private(set) var alertModel: MainAlertModel = MainAlertModel()
     var sideViewModel = SideBarViewModel()
-
+    
     var alert: AlertToast = .init(displayMode: .alert, type: .regular)
 
     @Published var sideMenuOffset: CGPoint = .zero
@@ -146,21 +172,16 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
         UIScreen.screen.width * 0.8
     }
     
-    var sideMenuRouter: SideBarRoute? {
-        didSet  {
-            pushSideMenuActions = sideMenuRouter != nil
-            if pushSideMenuActions {
-                hideSideBar()
-            }
-        }
-    }
+    var sideMenuRouter: SideBarRoute?
     
     var dataService: any TabDataServiceProtocol
     
     init(dataService: any TabDataServiceProtocol) {
         self.dataService = dataService
     }
+    
     private var isAppeared = false
+    
     func onAppear() {
         if isAppeared {
             return
@@ -247,10 +268,13 @@ extension TabViewModel: HomeViewDelegate, SideBarDelegate {
             hideSideBar()
         case .identify:
             sideMenuRouter = .identify
+            navigate(to: SideBarRoute.identify)
         case .cards:
             sideMenuRouter = .cards
+            navigate(to: SideBarRoute.cards)
         case .monitoring:
             sideMenuRouter = .monitoring
+            navigate(to: SideBarRoute.monitoring)
         case .payment:
             hideSideBar()
             selectedTab = .payment
@@ -258,11 +282,15 @@ extension TabViewModel: HomeViewDelegate, SideBarDelegate {
             hideSideBar()
             selectedTab = .transfer
         case .invoices:
-            hideSideBar()
             sideMenuRouter = .invoices
+            navigate(to: SideBarRoute.invoices)
         case .profile:
             sideMenuRouter = .profile
+            navigate(to: SideBarRoute.profile)
         }
     }
+    
+    func navigate(to path: any ScreenRoute) {
+        self.tabBarStackPath.append(path.id)
+    }
 }
- 

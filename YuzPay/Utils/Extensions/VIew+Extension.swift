@@ -79,4 +79,8 @@ extension View {
             }
         }
     }
+    
+    func dismissableKeyboard() -> some View {
+        self.modifier(CloseKeyboardModifier())
+    }
 }

@@ -173,3 +173,47 @@
 "service" = "Xizmat turi";
 
 "commission" = "Xizmat foizi";
+
+"bank" = "Bank";
+
+"card" = "Karta";
+
+"region" = "Mintaqa";
+
+"regions" = "Mintaqalar";
+
+"district" = "Tuman";
+
+"districts" = "Tumanlar";
+
+"select_address" = "Manzilni kiriting";
+
+"select_district" = "Mintaqani tanlang";
+
+"select_region" = "Tumanni tanlang";
+
+"card_order_success" = "Karta buyurtma qilindi";
+
+"card_order_failure" = "Karta buyurtmasida xatolik";
+
+"order" = "Buyrutma";
+
+"receipt" = "Chek";
+
+"kapital_bank" = "Kapital Bank";
+
+"organization" = "Tashkilot";
+
+"status" = "Holati";
+
+"price" = "Narxi";
+
+"back" = "Orqaga";
+
+"expired" = "Muddati o'tgan";
+
+"paid" = "To'langan";
+
+"branch" = "Bo'lim";
+
+"order_virtual_card" = "Virtual card";

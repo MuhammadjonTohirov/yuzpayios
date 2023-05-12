@@ -173,3 +173,51 @@
 "service" = "Сервис";
 
 "commission" = "Комиссия";
+
+"bank" = "Банк";
+
+"card" = "Карта";
+
+"region" = "Регион";
+
+"regions" = "Регионы";
+
+"district" = "Район";
+
+"district" = "Районы";
+
+"select_address" = "Выберите адрес";
+
+"select_district" = "Выберите район";
+
+"select_region" = "Выберите регион";
+
+"street" = "Улица";
+
+"home_address" = "Номер дома";
+
+"card_order_success" = "Заказана новая карта";
+
+"card_order_failure" = "Сбой при заказе карты";
+
+"order" = "Заказать";
+
+"receipt" = "Квитанция";
+
+"kapital_bank" = "Капитал банк";
+
+"organization" = "Организация";
+
+"status" = "Статус";
+
+"price" = "Цена";
+
+"back" = "Назад";
+
+"expired" = "Просрочено";
+
+"paid" = "Оплачено";
+
+"branch" = "Филиал";
+
+"order_virtual_card" = "Виртуальная карта";

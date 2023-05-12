@@ -13,13 +13,9 @@ struct CardsAndWalletsView: View {
     @State private var selectedId: String = "0"
     @StateObject var viewModel: CardsAndWalletsViewModel = CardsAndWalletsViewModel()
     @State var cardTypesMenu: Bool = false
-    
+    @EnvironmentObject var tabPath: TabViewModel
     var body: some View {
         ZStack {
-            NavigationLink("", isActive: $viewModel.pushNavigation) {
-                viewModel.route?.screen
-            }
-            
             VStack {
                 HStack {
                     cardTypeItem("0", title: "all".localize, count: viewModel.cardItems.count)
@@ -42,7 +38,7 @@ struct CardsAndWalletsView: View {
                             EmptyView()
                         } else {
                             cardItem(
-                                bankName: card.bankName ?? "Bank name",
+                                bankName: card.holderName,
                                 cardName: card.name,
                                 cardNumber: card.cardNumber,
                                 amount: card.moneyAmount, isMain: card.isMain, iconName: card.cardType.localIcon
@@ -85,7 +81,9 @@ struct CardsAndWalletsView: View {
                     }
                     
                     FlatButton(title: "virtual_card".localize, borderColor: .clear) {
+                        self.cardTypesMenu = false
                         
+                        self.viewModel.route = .orderVirtualCard
                     }
                 }
                 .padding(.horizontal, Padding.large)
@@ -93,6 +91,9 @@ struct CardsAndWalletsView: View {
             }
             .ignoresSafeArea(edges: .bottom)
         }
+        .navigationDestination(unwrapping: $viewModel.route, destination: { route in
+            viewModel.route?.screen
+        })
         .onDisappear {
             print("Disappear cards and wallets")
         }

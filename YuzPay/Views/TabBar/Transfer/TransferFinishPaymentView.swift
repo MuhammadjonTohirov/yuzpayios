@@ -11,15 +11,9 @@ import SwiftUI
 
 struct TransferFinishPaymentView: View {
     @ObservedObject var viewModel: TransferViewModel = TransferViewModel()
-    
+    @State var receiptRows: [ReceiptRowItem] = []
     var body: some View {
-        ReceiptAndPayView()
-            .set(rows: [
-                .init(name: "Receiver card number", value: "•••• 1212"),
-                .init(name: "Receiver name", value: "Master shifu"),
-                .init(name: "Date", value: "12.12.2023"),
-                .init(name: "Amount", value: "10 000 sum"),
-            ])
+        ReceiptAndPayView(rows: $receiptRows)
             .set(submitButtonTitle: "pay".localize)
             .set { cardId in
                 

@@ -11,6 +11,7 @@ import SwiftUI
 class OrderCardViewModel: ObservableObject {
     @Published var showCardTypeView: Bool = false
     @Published var dismissToCardList: Bool = false
+    @Published var receiptRows: [ReceiptRowItem] = []
     var onDismiss: (() -> Void)?
     
     func dismiss() {
@@ -36,11 +37,7 @@ struct OrderCardView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("order_card".localize)
         .onAppear {
-//            viewModel.onDismiss = {
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-//                    dismiss()
-//                }
-//            }
+            
         }
     }
     

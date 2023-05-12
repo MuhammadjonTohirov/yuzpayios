@@ -19,15 +19,8 @@ struct OrderCardReceiptView: View {
                     .environmentObject(viewModel)
 
             }
-            ReceiptAndPayView()
-                .set(rows: [
-                    .init(name: "Карта:", value: "Uzcard от Anor Bank"),
-                    .init(name: "Будет доставлена:", value: "через 14 дней"),
-                    .init(name: "Адрес доставки:", value: "Мирабадский р-н, 17, 5"),
-                    .init(name: "Стоимость выпуска:", value: "30 000 сум"),
-                    .init(name: "Стоимость доставки:", value: "10 000 сум"),
-                    .init(name: "Общая стоимость:", value: "40 000 сум")
-                ])
+            ReceiptAndPayView(rows: $viewModel.receiptRows)
+                
                 .set(submitButtonTitle: "transfer".localize)
                 .set { cardId in
                     showPaymentStatusView = true

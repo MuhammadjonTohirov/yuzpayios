@@ -13,7 +13,7 @@ struct AppConfig {
 
 public struct DatabaseConfig {
     
-    public static let version: UInt64 = 3
+    public static let version: UInt64 = 4
     
     public static var location: URL {
         FileManager

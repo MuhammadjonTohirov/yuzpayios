@@ -12,7 +12,7 @@ import YuzSDK
 
 struct ReceiptAndPayView: View {
     typealias Action = ((_ cardId: String) -> Void)
-    private var rowItems: [ReceiptRowItem] = []
+    @Binding var rowItems: [ReceiptRowItem]
     private var submitButtonTitle: String = "pay".localize
     private var onClickSubmit: Action = { _ in
         
@@ -37,8 +37,8 @@ struct ReceiptAndPayView: View {
     
     @State private var isCardsVisible = false
     
-    init() {
-        
+    init(rows: Binding<[ReceiptRowItem]>) {
+        self._rowItems = rows
     }
     
     var body: some View {
@@ -249,17 +249,10 @@ extension ReceiptAndPayView {
 }
 
 struct ReceiptAndPayView_Previews: PreviewProvider {
-    
+    @State static var rows: [ReceiptRowItem] = []
     static var previews: some View {
-        ReceiptAndPayView()
-            .set(rows: [
-                .init(name: "Карта:", value: "Uzcard от Anor Bank"),
-                .init(name: "Будет доставлена:", value: "через 14 дней"),
-                .init(name: "Адрес доставки:", value: "Мирабадский р-н, 17, 5"),
-                .init(name: "Стоимость выпуска:", value: "30 000 сум"),
-                .init(name: "Стоимость доставки:", value: "10 000 сум"),
-                .init(name: "Общая стоимость:", value: "40 000 сум", type: .price)
-            ])
+        ReceiptAndPayView(rows: $rows)
+            
             .navigationTitle("transfer_to_card".localize)
             .onAppear {
                 MockData.shared.createMockCards()

@@ -11,6 +11,8 @@ import SwiftUI
 protocol ScreenRoute: Hashable, Identifiable {
     associatedtype Content: View
     var screen: Content {get}
+    
+    var id: String {get}
 }
 
 enum AuthIntroRouter: Hashable, ScreenRoute {

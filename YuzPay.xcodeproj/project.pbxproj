@@ -234,9 +234,15 @@
 		2E9943902941A8AB00D20795 /* YTextFieldBackgroundGrayStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E99438F2941A8AB00D20795 /* YTextFieldBackgroundGrayStyle.swift */; };
 		2E9943922941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9943912941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift */; };
 		2E9943942941B18B00D20795 /* YTextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9943932941B18B00D20795 /* YTextField+Extension.swift */; };
+		2E9A1DFC2A0C543500AF8CAA /* SimpleOrderCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9A1DFB2A0C543500AF8CAA /* SimpleOrderCardView.swift */; };
 		2EB2CFC929CD9FA800439591 /* InvoiceItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2CFC829CD9FA800439591 /* InvoiceItemModel.swift */; };
 		2EB4E44B29436E9700F09751 /* SignInTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4E44A29436E9700F09751 /* SignInTypeView.swift */; };
 		2EB4E44E2943731800F09751 /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4E44D2943731800F09751 /* PinCodeView.swift */; };
+		2EB5A8AD2A0D234B00A58BAB /* SimpleRowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB5A8AC2A0D234B00A58BAB /* SimpleRowButton.swift */; };
+		2EB5A8AF2A0D2AEE00A58BAB /* NetResAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB5A8AE2A0D2AEE00A58BAB /* NetResAddress.swift */; };
+		2EB5A8B12A0D395400A58BAB /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB5A8B02A0D395400A58BAB /* TextView.swift */; };
+		2EB5A8B32A0D981100A58BAB /* CloseKeyboardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB5A8B22A0D981100A58BAB /* CloseKeyboardModifier.swift */; };
+		2EB5A8B52A0E4D9300A58BAB /* NetReqOrderCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB5A8B42A0E4D9300A58BAB /* NetReqOrderCard.swift */; };
 		2EB8E6AB2977079100BBAFE3 /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8E6AA2977079100BBAFE3 /* BottomSheetView.swift */; };
 		2EB8E6AD29770F4A00BBAFE3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8E6AC29770F4A00BBAFE3 /* SettingsView.swift */; };
 		2EB8E6AF297719D600BBAFE3 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8E6AE297719D600BBAFE3 /* Color+Extensions.swift */; };
@@ -632,9 +638,15 @@
 		2E99438F2941A8AB00D20795 /* YTextFieldBackgroundGrayStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTextFieldBackgroundGrayStyle.swift; sourceTree = "<group>"; };
 		2E9943912941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTextFieldBackgroundCleanStyle.swift; sourceTree = "<group>"; };
 		2E9943932941B18B00D20795 /* YTextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YTextField+Extension.swift"; sourceTree = "<group>"; };
+		2E9A1DFB2A0C543500AF8CAA /* SimpleOrderCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleOrderCardView.swift; sourceTree = "<group>"; };
 		2EB2CFC829CD9FA800439591 /* InvoiceItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceItemModel.swift; sourceTree = "<group>"; };
 		2EB4E44A29436E9700F09751 /* SignInTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTypeView.swift; sourceTree = "<group>"; };
 		2EB4E44D2943731800F09751 /* PinCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
+		2EB5A8AC2A0D234B00A58BAB /* SimpleRowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleRowButton.swift; sourceTree = "<group>"; };
+		2EB5A8AE2A0D2AEE00A58BAB /* NetResAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResAddress.swift; sourceTree = "<group>"; };
+		2EB5A8B02A0D395400A58BAB /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		2EB5A8B22A0D981100A58BAB /* CloseKeyboardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseKeyboardModifier.swift; sourceTree = "<group>"; };
+		2EB5A8B42A0E4D9300A58BAB /* NetReqOrderCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetReqOrderCard.swift; sourceTree = "<group>"; };
 		2EB8E6AA2977079100BBAFE3 /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
 		2EB8E6AC29770F4A00BBAFE3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		2EB8E6AE297719D600BBAFE3 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
@@ -1351,6 +1363,7 @@
 		2E4A80E029603BC40032B7FF /* Card */ = {
 			isa = PBXGroup;
 			children = (
+				2E9A1DFA2A0C542500AF8CAA /* SimpleOrderCard */,
 				2E4A80F62962BC840032B7FF /* OrderCard */,
 				2E4A80E129603BCA0032B7FF /* CardDetails */,
 				2E2CBA9E2954DF9100D7C352 /* AddCard */,
@@ -1442,6 +1455,7 @@
 				2E509C1229FB96E600315C72 /* NetResInvoiceItem.swift */,
 				2E509C1329FB96E600315C72 /* NetResBodyUserLog.swift */,
 				2EFE23272A019B4200271980 /* NetResTransactionItem.swift */,
+				2EB5A8AE2A0D2AEE00A58BAB /* NetResAddress.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1463,6 +1477,7 @@
 				2E509C1A29FB96E600315C72 /* NetReqPhoneLogin.swift */,
 				2E509C1B29FB96E600315C72 /* NetReqConfirmAddCard.swift */,
 				2E509C1C29FB96E600315C72 /* NetReqDoPayment.swift */,
+				2EB5A8B42A0E4D9300A58BAB /* NetReqOrderCard.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -1778,6 +1793,7 @@
 				2E965EEB29A72B9E0021E414 /* CoveredLoaderModifier.swift */,
 				2ECB93AD29D90C1600941B87 /* OptionalDimentions.swift */,
 				2ECB93B329D90FA300941B87 /* VisibilityModifier.swift */,
+				2EB5A8B22A0D981100A58BAB /* CloseKeyboardModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -1967,6 +1983,14 @@
 			path = Merchants;
 			sourceTree = "<group>";
 		};
+		2E9A1DFA2A0C542500AF8CAA /* SimpleOrderCard */ = {
+			isa = PBXGroup;
+			children = (
+				2E9A1DFB2A0C543500AF8CAA /* SimpleOrderCardView.swift */,
+			);
+			path = SimpleOrderCard;
+			sourceTree = "<group>";
+		};
 		2EB4E44929436E8900F09751 /* SignInType */ = {
 			isa = PBXGroup;
 			children = (
@@ -2127,6 +2151,7 @@
 				2E4374A5294F886600F78FEC /* ImagePicker */,
 				2EBCA81C29417A7500F89E6F /* TextFields */,
 				2EBCA8132941662400F89E6F /* Buttons */,
+				2EB5A8B02A0D395400A58BAB /* TextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2137,6 +2162,7 @@
 				2EBCA8142941663A00F89E6F /* HoverButton.swift */,
 				2EBCA8162941664200F89E6F /* FlatButton.swift */,
 				2EB8E6B329771B3D00BBAFE3 /* RowButton.swift */,
+				2EB5A8AC2A0D234B00A58BAB /* SimpleRowButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -2639,6 +2665,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EB5A8AF2A0D2AEE00A58BAB /* NetResAddress.swift in Sources */,
 				2E509C2D29FB96E600315C72 /* NetResMerchants.swift in Sources */,
 				2E509BE729FB95B400315C72 /* YuzSDK.docc in Sources */,
 				2E509C3229FB96E600315C72 /* NetResBodyUserInfo.swift in Sources */,
@@ -2651,6 +2678,7 @@
 				2E509CD129FB9DF400315C72 /* YKeychainWrapper.swift in Sources */,
 				2E509C4229FB96E600315C72 /* NSMutableData+Extensions.swift in Sources */,
 				2E509C7729FB997D00315C72 /* DUserSession.swift in Sources */,
+				2EB5A8B52A0E4D9300A58BAB /* NetReqOrderCard.swift in Sources */,
 				2E509C3B29FB96E600315C72 /* MultipartForm.swift in Sources */,
 				2E509C4A29FB96E600315C72 /* Network.swift in Sources */,
 				2E509C8D29FB9A0F00315C72 /* TransactionItem.swift in Sources */,
@@ -2826,6 +2854,7 @@
 				2E241F0D29E5D0BD00822321 /* TabItemStyle.swift in Sources */,
 				2E433AAB295AB0B900D6F1F6 /* CardReaderWrapper.swift in Sources */,
 				2EB4E44B29436E9700F09751 /* SignInTypeView.swift in Sources */,
+				2EB5A8B32A0D981100A58BAB /* CloseKeyboardModifier.swift in Sources */,
 				2E433AA9295AAF1400D6F1F6 /* CardReaderViewController.swift in Sources */,
 				2E4A80E529603BDF0032B7FF /* CardDetailsView.swift in Sources */,
 				2E2EBEC0297F716A00C218CF /* MerchantsView.swift in Sources */,
@@ -2843,6 +2872,7 @@
 				2E2EBECA297FF5AF00C218CF /* YGridView.swift in Sources */,
 				2E1DA6B42941C45A007A5F9F /* DeviceRotationViewModifier.swift in Sources */,
 				2E241F1029E5D0BD00822321 /* TabBar.swift in Sources */,
+				2E9A1DFC2A0C543500AF8CAA /* SimpleOrderCardView.swift in Sources */,
 				2EC5F0CC2944E4EA00BA54E3 /* SignUpForm.swift in Sources */,
 				2E241F0529E5D0BD00822321 /* TabBarPreferenceKey.swift in Sources */,
 				2E374FF7294DF15B0007D146 /* PhoneAuthFormViewModel.swift in Sources */,
@@ -2928,6 +2958,7 @@
 				2ECB93B229D90DF100941B87 /* Image+Extensions.swift in Sources */,
 				2E4374A4294F75EA00F78FEC /* UploadAvatarViewModel.swift in Sources */,
 				2ED87CEC2955FEE600E1D477 /* Chainable.swift in Sources */,
+				2EB5A8B12A0D395400A58BAB /* TextView.swift in Sources */,
 				2ED87D012955FEE600E1D477 /* ParallelResultRequests.swift in Sources */,
 				2EB4E44E2943731800F09751 /* PinCodeView.swift in Sources */,
 				2E7A33182988A190004EFABB /* SoundEffect.swift in Sources */,
@@ -2950,6 +2981,7 @@
 				2E2CBA97295480F400D7C352 /* UINavigationController+Extensions.swift in Sources */,
 				2ED87CB72955EC0100E1D477 /* LayoutContentView.swift in Sources */,
 				2E7FE8EF294FEBF800D15A4A /* LoadingViewModel.swift in Sources */,
+				2EB5A8AD2A0D234B00A58BAB /* SimpleRowButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3212,7 +3244,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;
@@ -3260,7 +3292,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;

@@ -71,7 +71,7 @@ struct TransactionsView: View {
             }
             .padding(.vertical, Padding.small)
 
-            ForEach(section.items) { item in
+            ForEach(section.items.sorted(byKeyPath: "dateTime", ascending: false)) { item in
                 rowItem(item)
                     .padding(.horizontal, Padding.default)
                     .frame(height: 59)

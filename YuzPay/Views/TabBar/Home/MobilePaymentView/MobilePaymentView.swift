@@ -49,21 +49,7 @@ struct MobilePaymentView: View {
             RoundedRectangle(cornerRadius: 16)
                 .foregroundColor(Color.secondarySystemBackground)
         )
-        .toolbar {
-            ToolbarItem(placement: .keyboard) {
-                Text("")
-            }
-            
-            ToolbarItem(placement: .keyboard) {
-                Button {
-                    UIApplication.shared.endEditing()
-                    
-                } label: {
-                    Image(systemName: "keyboard.chevron.compact.down")
-                    
-                }
-            }
-        }
+        .dismissableKeyboard()
     }
 }
 

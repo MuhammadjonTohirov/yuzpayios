@@ -30,6 +30,8 @@ struct TransferToCardView: View {
     
     @State private var showScanCard = false
     
+    @State private var receiptRows: [ReceiptRowItem] = []
+    
     private var title: String {
         transferType.title
     }
@@ -61,13 +63,7 @@ struct TransferToCardView: View {
             }
             
             NavigationLink("", isActive: $showPaymentView) {
-                ReceiptAndPayView()
-                    .set(rows: [
-                        .init(name: "Receiver card number", value: "•••• 1212"),
-                        .init(name: "Receiver name", value: "Master shifu"),
-                        .init(name: "Date", value: "12.12.2023"),
-                        .init(name: "Amount", value: "10 000 sum"),
-                    ])
+                ReceiptAndPayView(rows: $receiptRows)
                     .set(submitButtonTitle: "pay".localize)
                     .set { cardId in
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
@@ -78,7 +74,6 @@ struct TransferToCardView: View {
             }
             
             innerBody
-            
             
             BottomSheetView(isOpen: $cardSelectionView, maxHeight: UIScreen.screen.height / 2) {
                 SelectCardView(cards: viewModel.cards?.compactMap({$0}) ?? []) { newSelectedCard in
@@ -151,19 +146,7 @@ struct TransferToCardView: View {
         .keyboardDismissMode(.onDrag)
         .padding(.horizontal, Padding.default)
         .navigationTitle(title)
-        .toolbar {
-            ToolbarItem(placement: .keyboard) {
-                Text("")
-            }
-            
-            ToolbarItem(placement: .keyboard) {
-                Button {
-                    UIApplication.shared.endEditing()
-                } label: {
-                    Image(systemName: "keyboard.chevron.compact.down")
-                }
-            }
-        }
+        .dismissableKeyboard()
     }
     
     @ViewBuilder

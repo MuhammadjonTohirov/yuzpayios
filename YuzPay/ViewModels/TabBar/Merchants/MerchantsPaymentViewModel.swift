@@ -28,7 +28,7 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
     @Published var formModel: FormModel?
 
     private var didAppear = false
-    private(set) var receiptItems: [ReceiptRowItem] = []
+    @Published var receiptItems: [ReceiptRowItem] = []
     
     var merchant: DMerchant? {
         let m = Realm.new?.object(ofType: DMerchant.self, forPrimaryKey: merchantId)

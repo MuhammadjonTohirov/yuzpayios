@@ -11,18 +11,34 @@ import RealmSwift
 import YuzSDK
 
 struct InvoicesView: View {
-    @State private var searchText: String = ""
-    @State private var showPayment = false
     @ObservedResults(DInvoiceItem.self, configuration: Realm.config) var invoices;
+
+    @State private var searchText: String = ""
     @State private var receiptRowItems: [ReceiptRowItem] = []
     @State private var selectedInvoiceId: Int?
     @State private var showAlert: Bool = false
     @State private var alert: AlertToast = .init(displayMode: .alert, type: .regular)
-    
+    @State private var showReceipt = false
+    @State private var selectedItem: InvoiceItemModel?
+
     var body: some View {
         ZStack {
             innerBody
                 .toast($showAlert, alert, duration: 2.5)
+                .sheet(isPresented: $showReceipt) {
+                    NavigationView {
+                        ReceiptAndPayView(rows: $receiptRowItems)
+                            .set(submitButtonTitle: (selectedItem?.isPayable ?? false) ? "pay".localize : "back".localize)
+                            .set(showCards: selectedItem?.isPayable ?? false)
+                            .set(onClickSubmit: { cardId in
+                                if let id = selectedItem?.invoiceID,
+                                    selectedItem?.isPayable ?? false {
+                                    self.doPayment(id, cardId)
+                                }
+                            })
+                            .navigationTitle(selectedItem?.branchName ?? "")
+                    }
+                }
         }
         .onAppear {
             MainNetworkService.shared.syncInvoiceList()
@@ -32,37 +48,33 @@ struct InvoicesView: View {
     var innerBody: some View {
         List {
             ForEach(invoices.sorted(byKeyPath: "createdDate", ascending: false)) { item in
-                NavigationLink {
-                    ReceiptAndPayView()
-                        .set(rows: receiptRowItems)
-                        .set(submitButtonTitle: item.asModel.isPayable ? "pay".localize : "back".localize)
-                        .set(showCards: item.asModel.isPayable)
-                        .set(onClickSubmit: { cardId in
-                            self.doPayment(item.invoiceID, cardId)
-                        })
-                    .onAppear {
-                        self.selectedInvoiceId = item.invoiceID
-                        self.receiptRowItems = [
-                            ReceiptRowItem(name: "organization".localize, value: item.organizationName ?? ""),
-                            ReceiptRowItem(name: "date".localize, value: item.asModel.beautifiedDate),
-                            ReceiptRowItem(name: "price".localize, value: item.asModel.priceInfo, type: .price),
-                        ]
-                    }
+                Button {
+                    self.selectedItem = item.asModel
+                    self.receiptRowItems = [
+                        .init(name: "organization".localize, value: item.organizationName ?? ""),
+                        .init(name: "branch".localize, value: item.branchName ?? ""),
+                        .init(name: "date".localize, value: item.asModel.beautifiedDate),
+                        .init(name: "price".localize, value: item.asModel.priceInfo, type: .price),
+                        .init(name: "status".localize, value: item.asModel.statusValue)
+                    ]
+                    
+                    self.showReceipt = true
                 } label: {
                     invoiceItem(item)
                         .padding(.vertical, Padding.small)
                 }
+                    
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .searchable(text: $searchText)
+//        .searchable(text: $searchText)
         .navigationTitle("invoices".localize)
     }
     
     private func invoiceItem(_ invoice: DInvoiceItem) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 6) {
-                Text(invoice.organizationName ?? "")
+                Text("\(invoice.organizationName ?? "") \(invoice.branchName ?? "")")
                     .mont(.regular, size: 14)
                 Text(invoice.asModel.statusValue)
                     .mont(.semibold, size: 12)

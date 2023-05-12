@@ -116,4 +116,17 @@ public struct MainNetworkService: NetworkServiceProtocol {
         InvoiceManager().set(isPaid: result?.success ?? false, invoiceId: invoiceId)
         return (result?.success ?? false, result?.error)
     }
+    
+    public func getRegions() async -> NetRes<[NetResRegion]>? {
+        return await Network.send(request: S.getRegions)
+    }
+    
+    public func getDistricts(_ regionId: Int) async -> NetRes<[NetResDistrict]>? {
+        return await Network.send(request: S.getDistrict(regionId: regionId))
+    }
+    
+    public func orderCard(req: NetReqOrderCard) async -> Bool {
+        let result: NetRes<String>? = await Network.send(request: S.orderCard(req))
+        return result?.success ?? false
+    }
 }

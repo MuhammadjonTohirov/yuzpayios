@@ -48,7 +48,7 @@ final class AddNewCardViewModel: NSObject, ObservableObject, Loadable, Alertable
     }
     
     func reloadView() {
-        isActive = !cardNumber.isEmpty && !expireDate.isEmpty && !cardName.isEmpty
+        isActive = !cardNumber.isEmpty && !expireDate.isEmpty
     }
     
     func detectCardType() {

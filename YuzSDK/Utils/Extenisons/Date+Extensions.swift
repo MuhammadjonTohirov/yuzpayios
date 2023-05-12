@@ -18,12 +18,14 @@ public extension Date {
     static func from(string: String, format: String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS") -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = format
+        formatter.timeZone = .init(abbreviation: "GMT+5")
         return formatter.date(from: string)
     }
     
     func toExtendedString(format: String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS") -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format
+        formatter.timeZone = .init(abbreviation: "GMT+5")
         return formatter.string(from: self)
     }
     

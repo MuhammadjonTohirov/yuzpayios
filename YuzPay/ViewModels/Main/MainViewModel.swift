@@ -55,7 +55,9 @@ enum AppDestination: Hashable, ScreenRoute {
         case .main:
             TabBarView()
         case .test:
-            MerchantPaymentView(viewModel: .init(merchantId: "0"))
+            NavigationStack {
+                SimpleOrderCardView()
+            }
         }
     }
 }
@@ -78,6 +80,8 @@ final class MainViewModel: ObservableObject {
     init(route: AppDestination = .loading) {
         self.route = route
         mainRouter = self
+        UserSettings.shared.lastActiveDate = Date()
+        UserSettings.shared.numberOfOpens = (UserSettings.shared.numberOfOpens ?? 0) + 1
     }
 }
 

@@ -23,6 +23,17 @@ public extension Array {
     var nilOrEmpty: Bool {
         nilIfEmpty == nil
     }
+    
+    mutating func replace(item: Element, with newItem: Element) where Element: Hashable {
+        if let index = self.firstIndex(of: item) {
+            replace(itemAt: index, with: newItem)
+        }
+    }
+    
+    mutating func replace(itemAt index: Int, with newItem: Element) {
+        self.remove(at: index)
+        self.insert(newItem, at: index)
+    }
 }
 
 extension Array: NetResBody where Element: Codable {

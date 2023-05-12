@@ -36,6 +36,8 @@ enum CardsAndWalletsRoute: Hashable, ScreenRoute {
             return "cardDetails"
         case .orderCard:
             return "orderCard"
+        case .orderVirtualCard:
+            return "orderVirtualCard"
         }
     }
 
@@ -46,6 +48,7 @@ enum CardsAndWalletsRoute: Hashable, ScreenRoute {
     case addCard
     case cardDetails(id: String)
     case orderCard
+    case orderVirtualCard
     
     @ViewBuilder
     var screen: some View {
@@ -55,7 +58,11 @@ enum CardsAndWalletsRoute: Hashable, ScreenRoute {
         case .cardDetails(let id):
             CardDetailsView(cardId: id)
         case .orderCard:
-            OrderCardView()
+            SimpleOrderCardView()
+                .navigationTitle("order_card".localize)
+        case .orderVirtualCard:
+            SimpleOrderCardView(forVirtualCard: true)
+                .navigationTitle("order_virtual_card".localize)
         }
     }
 }

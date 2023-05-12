@@ -24,7 +24,7 @@ final class TransactionsManager: DManager {
                 if section == nil {
                     section = DTransactionSection(date: tr.dateTime)
                     realm.trySafeWrite {
-                        realm.add(section!, update: .modified)
+                        realm.add(section!, update: .all)
                     }
                 }
                 

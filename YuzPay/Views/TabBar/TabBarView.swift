@@ -12,18 +12,22 @@ import YuzSDK
 
 struct TabBarView: View {
     @ObservedObject var viewModel = TabViewModel(dataService: TabDataService())
+    
     @State var size: CGRect = .zero
     
     var body: some View {
         ZStack {
-            NavigationStack {
+            NavigationStack(path: $viewModel.tabBarStackPath) {
                 if size == .zero {
                     EmptyView()
                 } else {
                     innerBody
                         .navigationBarTitleDisplayMode(.inline)
+                        .navigationDestination(for: String.self, destination: { path in
+                            SideBarRoute.createBy(id: path)?.screen
+                        })
+
                 }
-                
             }
             .environmentObject(viewModel.alertModel)
             .environmentObject(viewModel)
@@ -107,26 +111,6 @@ struct TabBarView: View {
                         Label("settings".localize, image: "icon_gear")
                     }
                     .tag(Tab.settings)
-            }
-            
-            .fullScreenCover(isPresented: $viewModel.pushSideMenuActions) {
-                NavigationView {
-                    viewModel.sideMenuRouter?.screen
-                        .toolbar(content: {
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button {
-                                    viewModel.pushSideMenuActions = false
-                                } label: {
-                                    Image(systemName: "xmark")
-                                        .resizable(true)
-                                        .aspectRatio(contentMode: .fit)
-                                        .fixedSize()
-                                        .frame(.init(width: 18, height: 18))
-                                }
-
-                            }
-                        })
-                }
             }
             .environment(\.rootPresentationMode, $viewModel.pushSideMenuActions)
          

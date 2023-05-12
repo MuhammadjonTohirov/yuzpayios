@@ -129,18 +129,6 @@ struct FormView: View {
                 .padding(.horizontal, Padding.large)
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .keyboard) {
-                Text("")
-            }
-            
-            ToolbarItem(placement: .keyboard) {
-                Button {
-                    UIApplication.shared.endEditing()
-                } label: {
-                    Image(systemName: "keyboard.chevron.compact.down")
-                }
-            }
-        }
+        .dismissableKeyboard()
     }
 }

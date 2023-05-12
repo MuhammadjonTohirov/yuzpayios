@@ -43,6 +43,12 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
             return URL.base.appendingPath("api", "Client", "CardTransactions")
         case let .doInvoicePayment(invoiceId, cardId):
             return URL.base.appendingPath("api", "Client", "ManuallyInvoice", invoiceId, cardId)
+        case .getRegions:
+            return URL.base.appendingPath("Handbook", "Regions")
+        case let .getDistrict(regionId):
+            return URL.base.appendingPath("Handbook", "Districts", regionId)
+        case .orderCard:
+            return URL.base.appendingPath("api", "Client", "OrderCard")
         }
     }
     
@@ -56,6 +62,8 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
             return req.asData
         case let .doPayment(_, _, req):
             return req.asData
+        case let .orderCard(req):
+            return req.asData
         default:
             return nil
         }
@@ -63,7 +71,7 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     
     var method: HTTPMethod {
         switch self {
-        case .searchMerchants, .addCard, .confirmCard, .doPayment, .doInvoicePayment:
+        case .searchMerchants, .addCard, .confirmCard, .doPayment, .doInvoicePayment, .orderCard:
             return .post
         case .updateCard:
             return .put
@@ -82,6 +90,7 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
         return request
     }
     
+    // MARK: - Merchants
     case getCategories
     case getMerchants(byCategory: Int, limit: Int?)
     case searchMerchants(text: String, limit: Int?)
@@ -96,8 +105,13 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     case updateCard(_ id: Int, _ card: NetReqUpdateCard)
     case deleteCard(_ id: Int)
     case confirmCard(cardId: Int, _ request: NetReqConfirmAddCard)
-
+    case orderCard(_ request: NetReqOrderCard)
+    
     case getMerchantDetails(id: Int, categoryId: Int)
     case doPayment(id: Int, categoryId: Int, _ request: NetReqDoPayment)
     case getTransactions
+    
+    // MARK: - District and Regions
+    case getRegions
+    case getDistrict(regionId: Int)
 }

@@ -11,14 +11,15 @@ import SwiftUI
 import YuzSDK
 
 enum UploadAvatarRoute: ScreenRoute, Identifiable, Hashable {
+    
     static func == (lhs: UploadAvatarRoute, rhs: UploadAvatarRoute) -> Bool {
         lhs.id == rhs.id
     }
     
-    var id: Int {
+    var id: String {
         switch self {
         case .setupPin:
-            return 0
+            return "setupPin"
         }
     }
     

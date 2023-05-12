@@ -175,3 +175,47 @@
 "service" = "Service";
 
 "commission" = "Commission";
+
+"bank" = "Bank";
+
+"card" = "Card";
+
+"region" = "Region";
+
+"district" = "District";
+
+"select_address" = "Select address";
+
+"select_district" = "Select district";
+
+"select_region" = "Select region";
+
+"street" = "Street";
+
+"home_address" = "Home number";
+
+"card_order_success" = "New card ordered";
+
+"card_order_failure" = "Failure while ordering a card";
+
+"order" = "Order";
+
+"receipt" = "Receipt";
+
+"kapital_bank" = "Kapital Bank";
+
+"organization" = "Organization";
+
+"status" = "Status";
+
+"price" = "Price";
+
+"back" = "Back";
+
+"expired" = "Expired";
+
+"paid" = "Paid";
+
+"branch" = "Branch";
+
+"order_virtual_card" = "Virtual card";

@@ -56,8 +56,8 @@ struct MerchantPaymentView: View {
         })
         .sheet(unwrapping: $viewModel.route, content: { _ in
             NavigationView(content: {
-                ReceiptAndPayView()
-                    .set(rows: viewModel.receiptItems)
+                ReceiptAndPayView(rows: $viewModel.receiptItems)
+                    
                     .set(submitButtonTitle: "pay".localize)
                     .set(showCards: true)
                     .set { cardId in

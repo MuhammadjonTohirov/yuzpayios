@@ -34,6 +34,7 @@ public final class DTransactionSection: Object, TransactionSectionProtocol {
     public func add(item: DTransactionItem) {
         if let ditem = realm?.object(ofType: DTransactionItem.self, forPrimaryKey: item.id) {
             ditem.update(status: item.status)
+            ditem.update(date: item.dateTime)
         } else {
             items.append(item)
         }
@@ -89,6 +90,10 @@ public final class DTransactionItem: Object, TransactionItemProtocol {
     
     public func update(status: TransactionStatus) {
         self.status = status
+    }
+    
+    public func update(date: Date) {
+        self.dateTime = date
     }
 }
 
