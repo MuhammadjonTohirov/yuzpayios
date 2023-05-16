@@ -14,7 +14,7 @@ struct HomeView: View {
     @EnvironmentObject var viewModel: HomeViewModel
     @State var isEditing: Bool = false
     @ObservedResults(DCard.self, configuration: Realm.config) var cards;
-
+    
     var body: some View {
         ZStack {
             VStack(spacing: 4) {
@@ -31,8 +31,10 @@ struct HomeView: View {
                     HCardListView(viewModel: viewModel.cardListViewModel)
                         .environmentObject(viewModel)
                     
-                    HomeInvoiceListView()
-                        .padding(.horizontal, Padding.default)
+                    if viewModel.hasInvoices {
+                        HomeInvoiceListView()
+                            .padding(.horizontal, Padding.default)
+                    }
                     
                     PayWithFaceView()
                         .padding(.horizontal, Padding.default)
@@ -42,7 +44,7 @@ struct HomeView: View {
 
                     PaymentCategoriesView()
                     
-                    SavedPaymentsView()
+//                    SavedPaymentsView()
                     
                     CurrencyRateView()
                         .padding(.horizontal, Padding.default)
@@ -112,7 +114,7 @@ struct HomeView: View {
                     .font(.mont(.medium, size: 16.f.sh()))
                 
                 HStack {
-                    Text("\(cards.filter({![CreditCardType.master, .visa, .unionpay].contains($0.cardType)}).reduce(into: 0, {$0 += $1.moneyAmount}).asCurrency)")
+                    Text("\(cards.filter({![CreditCardType.master, .visa, .unionpay].contains($0.cardType)}).reduce(into: 0, {$0 += $1.moneyAmount}).asCurrency())")
                         .font(.mont(.bold, size: 36.f.sh()))
                     Text("сум")
                         .font(.mont(.bold, size: 18.f.sh()))
@@ -120,10 +122,6 @@ struct HomeView: View {
             }
             
             Spacer()
-            
-            Image("icon_star")
-                .resizable()
-                .frame(width: 20, height: 20)
         }
     }
 }

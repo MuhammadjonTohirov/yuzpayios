@@ -61,7 +61,7 @@ enum CardsAndWalletsRoute: Hashable, ScreenRoute {
             SimpleOrderCardView()
                 .navigationTitle("order_card".localize)
         case .orderVirtualCard:
-            SimpleOrderCardView(forVirtualCard: true)
+            SimpleVirtualCardOrderView()
                 .navigationTitle("order_virtual_card".localize)
         }
     }

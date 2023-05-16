@@ -17,8 +17,7 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
             request = URLRequest.fromDataRequest(url: url, boundary: "Boundary-\(otp)")
             request?.addValue("\(photoUrl.fileSize)", forHTTPHeaderField: "Content-Length")
         case .checkPhone:
-            request = URLRequest.new(url: url)
-            request?.allHTTPHeaderFields?["Authorization"] = nil
+            request = URLRequest(url: url)
             request?.httpBody = self.body
         case .getUserInfo:
             request = URLRequest.new(url: url)

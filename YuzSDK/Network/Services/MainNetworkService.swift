@@ -117,6 +117,20 @@ public struct MainNetworkService: NetworkServiceProtocol {
         return (result?.success ?? false, result?.error)
     }
     
+    public func orderCard(req: NetReqOrderCard) async -> Bool {
+        let result: NetRes<String>? = await Network.send(request: S.orderCard(req))
+        return result?.success ?? false
+    }
+    
+    public func orderVirtualCard(req: NetReqOrderVirtualCard) async -> Bool {
+        let result: NetRes<NetResCardItem>? = await Network.send(request: S.orderVirtualCard(req))
+        if let data = result?.data {
+            CreditCardManager.shared.add(CardModel.create(res: data))
+        }
+        return result?.success ?? false
+    }
+    
+    // MARK: - Handbook
     public func getRegions() async -> NetRes<[NetResRegion]>? {
         return await Network.send(request: S.getRegions)
     }
@@ -125,8 +139,10 @@ public struct MainNetworkService: NetworkServiceProtocol {
         return await Network.send(request: S.getDistrict(regionId: regionId))
     }
     
-    public func orderCard(req: NetReqOrderCard) async -> Bool {
-        let result: NetRes<String>? = await Network.send(request: S.orderCard(req))
-        return result?.success ?? false
+    /// loads exchange rates and stores to database
+    public func syncExchangeRate() async {
+        if let objects: NetRes<[NetResExchangeRate]> = await Network.send(request: S.getExchangeRate) {
+            CommonDbManager.shared.insertExchangeRates(objects.data ?? [])
+        }
     }
 }

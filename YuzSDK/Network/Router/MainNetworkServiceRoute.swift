@@ -47,8 +47,12 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
             return URL.base.appendingPath("Handbook", "Regions")
         case let .getDistrict(regionId):
             return URL.base.appendingPath("Handbook", "Districts", regionId)
+        case .getExchangeRate:
+            return URL.base.appendingPath("Handbook", "ExchangeRates")
         case .orderCard:
             return URL.base.appendingPath("api", "Client", "OrderCard")
+        case .orderVirtualCard:
+            return URL.base.appendingPath("api", "Client", "OpenVirtual")
         }
     }
     
@@ -64,6 +68,8 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
             return req.asData
         case let .orderCard(req):
             return req.asData
+        case let .orderVirtualCard(req):
+            return req.asData
         default:
             return nil
         }
@@ -71,7 +77,7 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     
     var method: HTTPMethod {
         switch self {
-        case .searchMerchants, .addCard, .confirmCard, .doPayment, .doInvoicePayment, .orderCard:
+        case .searchMerchants, .addCard, .confirmCard, .doPayment, .doInvoicePayment, .orderCard, .orderVirtualCard:
             return .post
         case .updateCard:
             return .put
@@ -106,12 +112,14 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     case deleteCard(_ id: Int)
     case confirmCard(cardId: Int, _ request: NetReqConfirmAddCard)
     case orderCard(_ request: NetReqOrderCard)
+    case orderVirtualCard(_ request: NetReqOrderVirtualCard)
     
     case getMerchantDetails(id: Int, categoryId: Int)
     case doPayment(id: Int, categoryId: Int, _ request: NetReqDoPayment)
     case getTransactions
     
-    // MARK: - District and Regions
+    // MARK: - Handbook
     case getRegions
     case getDistrict(regionId: Int)
+    case getExchangeRate
 }

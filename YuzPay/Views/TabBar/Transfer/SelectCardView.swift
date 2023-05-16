@@ -50,7 +50,7 @@ struct SelectCardView: View {
         VStack(alignment: .leading) {
             Text((card.bankName ?? card.name) + " " + card.cardNumber.maskAsMiniCardNumber)
                 .mont(.medium, size: 12)
-            Text(card.moneyAmount.asCurrency)
+            Text(card.moneyAmount.asCurrency())
                 .mont(.semibold, size: 14)
         }
     }

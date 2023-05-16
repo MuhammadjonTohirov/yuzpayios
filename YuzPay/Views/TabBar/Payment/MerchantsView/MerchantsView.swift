@@ -96,12 +96,7 @@ struct MerchantsView: View {
                    let vm = viewModel.allMerchantsViewModel {
                     NavigationView {
                         AllMerchantsInCategoryView(viewModel: vm, selectedMerchantId: $viewModel.selectedMerchant) { merchant in
-//                            Logging.l(tag: "Merchant", "On select merchant \(merchant.id)")
-//                            self.viewModel.setSelected(merchant: merchant)
-//                            viewModel.route = .none
-//                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//                                viewModel.route = .showMerchant
-//                            }
+
                         }
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbar {
@@ -125,7 +120,6 @@ struct MerchantsView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                         viewModel.route = .showMerchant
                     }
-
                 }
             })
             .contentTransition(.opacity)

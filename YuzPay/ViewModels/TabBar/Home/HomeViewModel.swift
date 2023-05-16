@@ -53,17 +53,26 @@ protocol HomeViewDelegate: NSObject {
     func homeView(model: HomeViewModel, onClick route: HomeViewRoute)
 }
 
-final class HomeViewModel: NSObject, ObservableObject, NetworkDelegate {
+final class HomeViewModel: NSObject, ObservableObject, BaseViewModelProtocol, NetworkDelegate {
     weak var delegate: HomeViewDelegate?
     @Published var searchText: String = ""
     @Published var router: HomeViewRoute?
     @Published var update: Date = Date()
+    @Published var isLoading: Bool = false
+    
+    private var invoiceNotificationToken: NotificationToken?
+    
+    @Published var hasInvoices: Bool = false
+    @Published var isIdentifiedUser: Bool = false
+    
     lazy var cardListViewModel: HCardListViewModel = {
         return HCardListViewModel()
     }()
     
     func onAppear() {
         setNetworkDelegate(self)
+        watchInvoices()
+        watchUserIdentifer()
     }
     
     func onClickMenu() {
@@ -86,5 +95,33 @@ final class HomeViewModel: NSObject, ObservableObject, NetworkDelegate {
         DispatchQueue.main.async {
             mainRouter?.navigate(to: .auth)
         }
+    }
+}
+
+extension HomeViewModel {
+    private func watchInvoices() {
+        self.invoiceNotificationToken?.invalidate()
+        
+        Realm.asyncNew { realmObject in
+            switch realmObject {
+            case .success(let realm):
+                self.invoiceNotificationToken = realm.objects(DInvoiceItem.self).observe(on: .main) { changes in
+                    switch changes {
+                    case .initial(let collectionType):
+                        self.hasInvoices = !collectionType.isEmpty
+                    case .update(let collectionType, _, _, _):
+                        self.hasInvoices = !collectionType.isEmpty
+                    case .error:
+                        self.hasInvoices = false
+                    }
+                }
+            case .failure:
+                break
+            }
+        }
+    }
+    
+    private func watchUserIdentifer() {
+        self.isIdentifiedUser = UserSettings.shared.isVerifiedUser ?? false
     }
 }

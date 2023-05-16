@@ -7,8 +7,12 @@
 
 import Foundation
 import SwiftUI
+import RealmSwift
+import YuzSDK
 
 struct PaymentCategoriesView: View {
+    @ObservedResults(DMerchantCategory.self, configuration: Realm.config) var categories;
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack(spacing: 8) {
@@ -22,13 +26,10 @@ struct PaymentCategoriesView: View {
             .padding(.leading, Padding.medium)
             .padding(.horizontal, Padding.default)
 
-            HStack(spacing: 10) {
-                listItem(icon: "icon_star", title: "popular".localize)
-                listItem(icon: "icon_smartphone", title: "mobile".localize)
-                listItem(icon: "icon_wifi", title: "internet".localize)
-                listItem(icon: "icon_tv", title: "television".localize)
-                listItem(icon: "icon_phone_2", title: "telephone".localize)
-                listItem(icon: "icon_server", title: "hosting".localize)
+            HStack(alignment: .center, spacing: 10) {
+                ForEach(categories) { cat in
+                    listItem(icon: "cat\(cat.id)", title: cat.title)
+                }
             }
             .padding(.horizontal, Padding.default)
             .scrollable(axis: .horizontal)
@@ -36,10 +37,19 @@ struct PaymentCategoriesView: View {
     }
     
     func listItem(icon: String, title: String) -> some View {
-        VStack {
+        VStack(alignment: .center) {
             Image(icon)
+                .renderingMode(.template)
+                .resizable(true)
+                .aspectRatio(contentMode: .fit)
+                .foregroundColor(.black.opacity(0.8))
+                .frame(.init(w: 32, h: 32))
+                .padding(.top, 16)
+            
             Text(title)
                 .font(.mont(.regular, size: 12))
+                .padding(.horizontal, Padding.small)
+            Spacer()
         }
         .frame(width: 100.f.sw(), height: 100.f.sw())
         .background(Color.secondarySystemBackground)

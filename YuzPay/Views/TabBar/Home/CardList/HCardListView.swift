@@ -38,7 +38,7 @@ struct HCardListView: View {
                     if let cards = viewModel.cards {
                         ForEach(cards) { element in
                             if !element.isInvalidated {
-                                cardItem(name: element.cardNumber, icon: element.cardType.localIcon, amount: "\(element.moneyAmount.asCurrency)", isMain: element.isMain)
+                                cardItem(name: element.cardNumber, icon: element.cardType.localIcon, amount: element.moneyAmount.asCurrency(), isMain: element.isMain)
                                     .onTapGesture {
                                         self.homeModel.onClickCard(withId: element.id)
                                     }
@@ -48,7 +48,9 @@ struct HCardListView: View {
                         }
                     }
 
-                    addNewCardItem
+                    if (viewModel.cards?.isEmpty ?? true) {
+                        addNewCardItem
+                    }
                 }
                 .padding(.horizontal, Padding.default)
             }

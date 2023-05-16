@@ -86,9 +86,15 @@ struct TransactionsView: View {
     
     func rowItem(_ item: DTransactionItem) -> some View {
         HStack(spacing: 0) {
-            Text(item.dateTime.toExtendedString(format: "HH:mm"))
-                .font(.mont(.regular, size: 14))
-                .foregroundColor(Color.secondaryLabel)
+            Rectangle()
+                .width(35)
+                .height(20)
+                .foregroundColor(.clear)
+                .overlay {
+                    Text(item.dateTime.toExtendedString(format: "HH:mm"))
+                        .font(.mont(.regular, size: 14))
+                        .foregroundColor(Color.secondaryLabel)
+                }
             
             VStack(alignment: .leading) {
                 Text(item.agentName)
@@ -101,7 +107,7 @@ struct TransactionsView: View {
             
             Spacer()
             
-            Text(item.amount.asCurrency)
+            Text(item.amount.asCurrency())
                 .font(.mont(.regular, size: 14))
             
             Text(item.currency)

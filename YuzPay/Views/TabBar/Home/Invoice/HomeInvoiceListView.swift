@@ -7,16 +7,24 @@
 
 import Foundation
 import SwiftUI
+import RealmSwift
+import YuzSDK
 
 struct HomeInvoiceListView: View {
+    @ObservedResults(DInvoiceItem.self, configuration: Realm.config) var invoices;
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("issued_invoices".localize.uppercased())
                 .font(.mont(.semibold, size: 16))
                 .padding(.bottom, Padding.medium)
-            invoiceItem(icon: "icon_evos", title: "Evos", date: "15:30", amount: "50 000")
-            invoiceItem(icon: "icon_evos", title: "Evos", date: "15:30", amount: "50 000")
-            invoiceItem(icon: "icon_evos", title: "Evos", date: "15:30", amount: "50 000")
+            ForEach(invoices[0..<invoices.count.limitTop(3)]) { invoice in
+                if let model = invoice.asSafeModel {
+                    invoiceItem(model)
+                } else {
+                    EmptyView()
+                }
+            }
         }
         .padding(Padding.medium)
         .background(
@@ -25,34 +33,29 @@ struct HomeInvoiceListView: View {
         )
     }
     
-    func invoiceItem(icon: String, title: String, date: String, amount: String) -> some View {
-        VStack {
-            HStack {
-                Image("icon_evos")
-                    .sizeToFit(height: 9.77)
-                    .padding()
-                    .background(
-                        Circle()
-                            .foregroundColor(Color.systemBackground)
-                    )
-                    .padding(.leading, -8)
-                
-                VStack(alignment: .leading) {
-                    Text("Evos")
-                        .font(.mont(.regular, size: 15))
-                    Text("15:30")
-                        .font(.mont(.regular, size: 12))
-                        .foregroundColor(Color("dark_gray"))
-                }
-                
-                Spacer()
-                
-                Text("50 000")
-                    .font(.mont(.medium, size: 15))
+    private func invoiceItem(_ invoice: InvoiceItemModel) -> some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 6) {
+                Text("\(invoice.organizationName ?? "") \(invoice.branchName ?? "")")
+                    .mont(.regular, size: 14)
+                    .lineLimit(1)
+
+                Text(invoice.statusValue)
+                    .mont(.semibold, size: 12)
+                    .foregroundColor(invoice.color)
             }
-            
-            Divider()
+            Spacer()
+            VStack(alignment: .trailing, spacing: 6) {
+                //add formatter to Text with totalAmount
+                Text(invoice.priceInfo)
+                    .mont(.semibold, size: 14)
+                    
+                Text(invoice.beautifiedDate)
+                    .mont(.regular, size: 12)
+                    .foregroundColor(.secondary)
+            }
         }
+        .padding(.bottom, Padding.small)
     }
 }
 

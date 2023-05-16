@@ -67,7 +67,6 @@ struct InvoicesView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-//        .searchable(text: $searchText)
         .navigationTitle("invoices".localize)
     }
     
@@ -133,6 +132,14 @@ extension DInvoiceItem {
               isPaid: isPaid,
               isExpired: isExpired)
     }
+    
+    var asSafeModel: InvoiceItemModel? {
+        if self.isInvalidated {
+            return nil
+        }
+        
+        return asModel
+    }
 }
 
 extension InvoiceItemModel {
@@ -150,14 +157,7 @@ extension InvoiceItemModel {
     
     var priceInfo: String {
         // format the amount as money
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "UZS"
-        formatter.currencySymbol = ""
-        formatter.maximumFractionDigits = 0
-        formatter.minimumFractionDigits = 0
-        formatter.locale = Locale(identifier: "uz_UZ")
-        return formatter.string(from: NSNumber(value: totalAmount ?? 0)) ?? ""
+        totalAmount?.asCurrency() ?? ""
     }
     
     var isPayable: Bool {

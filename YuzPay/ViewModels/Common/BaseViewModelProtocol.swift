@@ -8,5 +8,6 @@
 import SwiftUI
 
 protocol BaseViewModelProtocol {
-    
+    var isLoading: Bool {get set}
 }
+

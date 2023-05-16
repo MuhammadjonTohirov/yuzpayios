@@ -223,7 +223,7 @@ struct CardDetailsView: View {
             CardLargeView(
                 bankName: _card.bankName ?? "",
                 cardName: cardName,
-                deposit: _card.moneyAmount.asCurrency, currency: "sum", cardType: _card.cardType,
+                deposit: _card.moneyAmount.asCurrency(), currency: "sum", cardType: _card.cardType,
                 ownerName: _card.holderName,
                 cardNumber: _card.cardNumber, expireDate: _card.expirationDate.toExtendedString(format: "MM/YY"),
                 isMain: isMain)

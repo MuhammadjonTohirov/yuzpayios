@@ -114,7 +114,7 @@ private extension CardsAndWalletsView {
                         Spacer()
                         Text(cardName)
                             .font(.mont(.medium, size: 14))
-                        Text("\(amount.asCurrency) сум")
+                        Text("\(amount.asCurrency()) сум")
                             .font(.mont(.semibold, size: 20))
                         
                         Spacer()

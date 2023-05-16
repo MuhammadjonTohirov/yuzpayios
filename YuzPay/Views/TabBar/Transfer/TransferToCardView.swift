@@ -183,7 +183,7 @@ struct TransferToCardView: View {
                 VStack(alignment: .leading) {
                     Text(selectedCard?.cardNumber.maskAsMiniCardNumber ?? "****")
                         .mont(.medium, size: 12)
-                    Text("\(selectedCard?.moneyAmount.asCurrency ?? "0") sum")
+                    Text("\(selectedCard?.moneyAmount.asCurrency() ?? "0") sum")
                         .mont(.semibold, size: 14)
                 }
                 Spacer()

@@ -30,3 +30,11 @@ public struct NetReqOrderCard: Codable {
     }
 }
 
+
+public struct NetReqOrderVirtualCard: Codable {
+    let type: Int
+    
+    public init(_ type: Int) {
+        self.type = type
+    }
+}

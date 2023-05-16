@@ -12,6 +12,10 @@ public extension Double {
         let value = Int(self * 100)
         return Double(value) / 100
     }
+    
+    func asCurrency(_ locale: Locale = .current) -> String {
+        Float(self).asCurrency(locale)
+    }
 }
 
 public extension Double {
@@ -67,18 +71,15 @@ public extension CGFloat {
 }
 
 extension Float {
-    var asCurrency: String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        return formatter.string(from: NSNumber(floatLiteral: Double(self))) ?? ""
-    }
-}
-
-extension NSNumber {
-    func asCurrency(locale: Locale) -> String {
+    func asCurrency(_ locale: Locale = .current) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
+        formatter.currencyCode = "UZS"
+        formatter.currencySymbol = ""
         formatter.locale = locale
-        return formatter.string(from: self) ?? ""
+        formatter.maximumFractionDigits = 0
+        formatter.minimumFractionDigits = 0
+        formatter.locale = Locale(identifier: "uz_UZ")
+        return formatter.string(from: NSNumber(value: self)) ?? ""
     }
 }

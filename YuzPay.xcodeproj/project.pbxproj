@@ -148,7 +148,6 @@
 		2E509C4D29FB96E600315C72 /* MainNetworkServiceRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E509C2C29FB96E600315C72 /* MainNetworkServiceRoute.swift */; };
 		2E509C5129FB98C100315C72 /* NetResMerchantCategoryItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E509C5029FB98C100315C72 /* NetResMerchantCategoryItem+Extension.swift */; };
 		2E509C6D29FB997D00315C72 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E509C5529FB997D00315C72 /* MockData.swift */; };
-		2E509C6E29FB997D00315C72 /* default_avatar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2E509C5729FB997D00315C72 /* default_avatar.jpg */; };
 		2E509C6F29FB997D00315C72 /* DNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E509C5929FB997D00315C72 /* DNotification.swift */; };
 		2E509C7029FB997D00315C72 /* DTransactionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E509C5A29FB997D00315C72 /* DTransactionItem.swift */; };
 		2E509C7129FB997D00315C72 /* DMerchant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E509C5B29FB997D00315C72 /* DMerchant.swift */; };
@@ -235,6 +234,9 @@
 		2E9943922941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9943912941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift */; };
 		2E9943942941B18B00D20795 /* YTextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9943932941B18B00D20795 /* YTextField+Extension.swift */; };
 		2E9A1DFC2A0C543500AF8CAA /* SimpleOrderCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9A1DFB2A0C543500AF8CAA /* SimpleOrderCardView.swift */; };
+		2EA66A322A135A6E0068F985 /* NetResExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA66A312A135A6E0068F985 /* NetResExchangeRate.swift */; };
+		2EA66A342A135BF10068F985 /* CommonDbManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA66A332A135BF10068F985 /* CommonDbManager.swift */; };
+		2EA66A362A135C3B0068F985 /* DExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA66A352A135C3B0068F985 /* DExchangeRate.swift */; };
 		2EB2CFC929CD9FA800439591 /* InvoiceItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2CFC829CD9FA800439591 /* InvoiceItemModel.swift */; };
 		2EB4E44B29436E9700F09751 /* SignInTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4E44A29436E9700F09751 /* SignInTypeView.swift */; };
 		2EB4E44E2943731800F09751 /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4E44D2943731800F09751 /* PinCodeView.swift */; };
@@ -553,7 +555,6 @@
 		2E509C2C29FB96E600315C72 /* MainNetworkServiceRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNetworkServiceRoute.swift; sourceTree = "<group>"; };
 		2E509C5029FB98C100315C72 /* NetResMerchantCategoryItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetResMerchantCategoryItem+Extension.swift"; sourceTree = "<group>"; };
 		2E509C5529FB997D00315C72 /* MockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
-		2E509C5729FB997D00315C72 /* default_avatar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default_avatar.jpg; sourceTree = "<group>"; };
 		2E509C5929FB997D00315C72 /* DNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNotification.swift; sourceTree = "<group>"; };
 		2E509C5A29FB997D00315C72 /* DTransactionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTransactionItem.swift; sourceTree = "<group>"; };
 		2E509C5B29FB997D00315C72 /* DMerchant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMerchant.swift; sourceTree = "<group>"; };
@@ -639,6 +640,9 @@
 		2E9943912941A99B00D20795 /* YTextFieldBackgroundCleanStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTextFieldBackgroundCleanStyle.swift; sourceTree = "<group>"; };
 		2E9943932941B18B00D20795 /* YTextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YTextField+Extension.swift"; sourceTree = "<group>"; };
 		2E9A1DFB2A0C543500AF8CAA /* SimpleOrderCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleOrderCardView.swift; sourceTree = "<group>"; };
+		2EA66A312A135A6E0068F985 /* NetResExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResExchangeRate.swift; sourceTree = "<group>"; };
+		2EA66A332A135BF10068F985 /* CommonDbManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDbManager.swift; sourceTree = "<group>"; };
+		2EA66A352A135C3B0068F985 /* DExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DExchangeRate.swift; sourceTree = "<group>"; };
 		2EB2CFC829CD9FA800439591 /* InvoiceItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceItemModel.swift; sourceTree = "<group>"; };
 		2EB4E44A29436E9700F09751 /* SignInTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTypeView.swift; sourceTree = "<group>"; };
 		2EB4E44D2943731800F09751 /* PinCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
@@ -1456,6 +1460,7 @@
 				2E509C1329FB96E600315C72 /* NetResBodyUserLog.swift */,
 				2EFE23272A019B4200271980 /* NetResTransactionItem.swift */,
 				2EB5A8AE2A0D2AEE00A58BAB /* NetResAddress.swift */,
+				2EA66A312A135A6E0068F985 /* NetResExchangeRate.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1540,7 +1545,6 @@
 			isa = PBXGroup;
 			children = (
 				2E509C5429FB997D00315C72 /* Mocks */,
-				2E509C5629FB997D00315C72 /* Resources */,
 				2E509C5829FB997D00315C72 /* Models */,
 				2E509C6229FB997D00315C72 /* Manager */,
 				2E509C6B29FB997D00315C72 /* UserSettings.swift */,
@@ -1557,14 +1561,6 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
-		2E509C5629FB997D00315C72 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				2E509C5729FB997D00315C72 /* default_avatar.jpg */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		2E509C5829FB997D00315C72 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1577,6 +1573,7 @@
 				2E509C5F29FB997D00315C72 /* DInvoiceItem.swift */,
 				2E509C6029FB997D00315C72 /* DMerchantCategory.swift */,
 				2E509C6129FB997D00315C72 /* DUserSession.swift */,
+				2EA66A352A135C3B0068F985 /* DExchangeRate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1592,6 +1589,7 @@
 				2E509C6829FB997D00315C72 /* TransactionManager.swift */,
 				2E509C6929FB997D00315C72 /* InvoiceManager.swift */,
 				2E509C6A29FB997D00315C72 /* UserSessionsManager.swift */,
+				2EA66A332A135BF10068F985 /* CommonDbManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -2596,7 +2594,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E509C6E29FB997D00315C72 /* default_avatar.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2667,6 +2664,7 @@
 			files = (
 				2EB5A8AF2A0D2AEE00A58BAB /* NetResAddress.swift in Sources */,
 				2E509C2D29FB96E600315C72 /* NetResMerchants.swift in Sources */,
+				2EA66A362A135C3B0068F985 /* DExchangeRate.swift in Sources */,
 				2E509BE729FB95B400315C72 /* YuzSDK.docc in Sources */,
 				2E509C3229FB96E600315C72 /* NetResBodyUserInfo.swift in Sources */,
 				2E509C7B29FB997D00315C72 /* MerchantCategoryManager.swift in Sources */,
@@ -2686,6 +2684,7 @@
 				2E509C4429FB96E600315C72 /* URLRequest+Extensions.swift in Sources */,
 				2E509CC829FB9CD500315C72 /* DatabaseConfig.swift in Sources */,
 				2E509C7D29FB997D00315C72 /* TransactionManager.swift in Sources */,
+				2EA66A322A135A6E0068F985 /* NetResExchangeRate.swift in Sources */,
 				2E509C4329FB96E600315C72 /* URLSession+Extensions.swift in Sources */,
 				2E509C8F29FB9A0F00315C72 /* MerchantItemModel.swift in Sources */,
 				2E509CD429FB9E0E00315C72 /* Language.swift in Sources */,
@@ -2728,6 +2727,7 @@
 				2E509C3729FB96E600315C72 /* NetResCardItem.swift in Sources */,
 				2E509C3E29FB96E600315C72 /* NetReqUpdateCard.swift in Sources */,
 				2EFE23282A019B4200271980 /* NetResTransactionItem.swift in Sources */,
+				2EA66A342A135BF10068F985 /* CommonDbManager.swift in Sources */,
 				2E509C3029FB96E600315C72 /* NetRes.swift in Sources */,
 				2E509C7229FB997D00315C72 /* DCard.swift in Sources */,
 				2E509C7329FB997D00315C72 /* DItemProtocol.swift in Sources */,
@@ -3244,7 +3244,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;
@@ -3292,7 +3292,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;

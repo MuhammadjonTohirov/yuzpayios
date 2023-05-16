@@ -10,8 +10,6 @@ import YuzSDK
 
 // MARK: - Simple Order Card View
 struct SimpleOrderCardView: View {
-    var forVirtualCard = false
-    
     @State fileprivate var buttons: [RowButtonItem] = []
     @State fileprivate var selectedBank: BankType?
     @State fileprivate var cardType: CreditCardType = .uzcard
@@ -176,6 +174,97 @@ struct SimpleOrderCardView: View {
         
         DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.3) {
             self.showReceipt = true
+        }
+    }
+    
+    private func showAlert(_ alert: AlertToast) {
+        self.toast = alert
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.showToast = true
+        }
+    }
+}
+
+
+// MARK: - Order Virtual Card
+struct SimpleVirtualCardOrderView: View {
+    @State fileprivate var button: RowButtonItem = .init(type: .card)
+    @State fileprivate var cardType: CreditCardType = .uzcard
+    @State private var showCards = false
+    
+    @State private var showToast: Bool = false
+    @State private var toast: AlertToast = .init(displayMode: .alert, type: .loading)
+    
+    @State private var showReceipt: Bool = false
+    @State private var receiptRows: [ReceiptRowItem] = []
+
+    @Environment(\.dismiss) var dismiss
+    var body: some View {
+        ZStack {
+            NavigationLink("", isActive: $showCards) {
+                CardTypeListView(selectedCardType: $cardType)
+                    .navigationTitle(button.placeholder)
+            }
+            
+            VStack {
+                SimpleRowButton(
+                    title: button.type.title, subtitle: cardType.name, isPlaceholder: false)
+                .onTapGesture {
+                    showCards = true
+                }
+                
+                Spacer()
+                
+                FlatButton(title: "next".localize) {
+                    self.showOrderReceipt()
+                }
+            }
+        }
+        .onChange(of: cardType, perform: { newValue in
+            button.subtitle = newValue.name
+        })
+        .sheet(isPresented: $showReceipt, content: {
+            NavigationView {
+                ReceiptAndPayView(rows: $receiptRows)
+                    .set(showCards: false)
+                    .set(onClickSubmit: {cardId in
+                        self.orderVirtualCard()
+                    })
+                    .set(submitButtonTitle: "order".localize)
+                    
+                    .navigationTitle("order_card".localize)
+            }
+        })
+        .padding(.horizontal, Padding.default)
+        .toast($showToast, toast, duration: 0.8)
+    }
+    
+    private func showOrderReceipt() {
+        self.receiptRows = [
+            .init(name: "card".localize, value: cardType.name),
+            .init(name: "date".localize, value: Date().toExtendedString(format: "HH:mm, dd/MM/YYYY"))
+        ]
+        
+        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.3) {
+            self.showReceipt = true
+        }
+    }
+    
+    private func orderVirtualCard() {
+        Task {
+            let isOK = await MainNetworkService.shared.orderVirtualCard(req: .init(cardType.code))
+            
+            if isOK {
+                await MainActor.run(body: {
+                    self.showAlert(.init(displayMode: .alert, type: .regular, title: "card_order_success".localize))
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                        self.dismiss()
+                    }
+                })
+            } else {
+                self.showAlert(.init(displayMode: .alert, type: .error(.systemRed), title: "card_order_failure".localize))
+            }
         }
     }
     

@@ -212,6 +212,8 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
             }
             let _ = await dataService.loadMerchants()
             let _ = await dataService.loadSessions()
+            await dataService.loadExchangeRates()
+            
             MainNetworkService.shared.syncCardList()
             hideLoader()
         }

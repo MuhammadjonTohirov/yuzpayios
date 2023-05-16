@@ -24,15 +24,17 @@ struct UserProfileView: View {
     
     var body: some View {
         ZStack {
-            NavigationLink("", isActive: $showDevices) {
-                List(sections) { dev in
-                    deviceItemView(title: dev.userAgent,
-                                   detail: dev.userID,
-                                   date: Date.from(string: dev.loginTime)?.toExtendedString(format: "HH:mm, dd/MM/YYYY") ?? "")
-                }
-                .navigationTitle("devices".localize)
-            }
             innerBody
+                .sheet(isPresented: $showDevices) {
+                    NavigationView {
+                        List(sections) { dev in
+                            deviceItemView(title: dev.userAgent,
+                                           detail: dev.clientIP,
+                                           date: Date.from(string: dev.loginTime)?.toExtendedString(format: "HH:mm, dd/MM/YYYY") ?? "")
+                        }
+                        .navigationTitle("devices".localize)
+                    }
+                }
         }
         .onAppear {
             
@@ -90,12 +92,8 @@ struct UserProfileView: View {
         }
         .toolbar(content: {
             ToolbarItem(placement: .navigationBarLeading) {
-                VStack(alignment: .leading) {
-                    Text("profile".localize)
-                        .mont(.bold, size: 20)
-                    Text("ID: \(userInfo?.sub ?? "")")
-                        .mont(.medium, size: 12)
-                }
+                Text("profile".localize)
+                    .mont(.bold, size: 20)
             }
         })
     }

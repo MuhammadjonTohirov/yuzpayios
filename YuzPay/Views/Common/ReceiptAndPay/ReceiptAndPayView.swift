@@ -164,7 +164,7 @@ struct ReceiptAndPayView: View {
                     .frame(maxWidth: .infinity)
                 
                 HStack(alignment: .bottom) {
-                    Text(card.moneyAmount.asCurrency)
+                    Text(card.moneyAmount.asCurrency())
                         .mont(.semibold, size: 18.f.sw())
                     Text("sum")
                         .mont(.semibold, size: 14.f.sw())

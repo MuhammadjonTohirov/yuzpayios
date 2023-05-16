@@ -27,6 +27,19 @@ extension Realm {
             }
         }
     }
+    
+    public static func asyncNewSafe(_ block: @escaping (Realm) -> Void) {
+        DataBase.writeThread.async {
+            Realm.asyncNew { realmObject in
+                switch realmObject {
+                case .success(let realm):
+                    block(realm)
+                case .failure:
+                    break
+                }
+            }
+        }
+    }
 }
 
 extension Realm {
@@ -65,15 +78,12 @@ extension Realm {
     }
     
     public func asyncSafeWrite(_ block: @escaping () -> Void, onComplete: @escaping () -> Void) {
-        if isInWriteTransaction {
-            block()
-        } else {
-            writeAsync(block) { _error in
-                if let error = _error {
-                    Logging.l(tag: "Realm", "Cannot write \(error.localizedDescription)")
-                } else {
-                    onComplete()
-                }
+        Realm.asyncNew { realmObject in
+            switch realmObject {
+            case .success(let realm):
+                realm.trySafeWrite(block)
+            case .failure:
+                break
             }
         }
     }
