@@ -192,3 +192,7 @@ public extension DCard {
         }
     }
 }
+
+public class DSavedCard: DCard {
+    
+}

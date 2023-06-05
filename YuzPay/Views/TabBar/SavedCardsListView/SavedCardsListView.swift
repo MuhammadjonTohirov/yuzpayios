@@ -6,17 +6,20 @@
 //
 
 import SwiftUI
+import RealmSwift
+import YuzSDK
 
 struct SavedCardsListView: View {
     @State var searchText: String = ""
-    @State var cards: [String] = ["", "", ""]
+    @ObservedResults(DSavedCard.self, configuration: Realm.config) var cards;
+    
     var body: some View {
         VStack {
             ScrollView {
                 VStack(spacing: 16) {
-                    ForEach(cards, id: \.self) { _ in
+                    ForEach(cards, id: \.self) { card in
                         Button {} label: {
-                            cardItem()
+                            cardItem(type: card.cardType, name: card.holderName.nilIfEmpty ?? card.name, card: card.cardNumber)
                         }
                         Divider()
                     }
@@ -26,12 +29,15 @@ struct SavedCardsListView: View {
             .searchable(text: $searchText)
             .navigationTitle("cards".localize)
         }
+        .onAppear {
+            MainNetworkService.shared.syncSavedCards()
+        }
     }
     
-    func cardItem() -> some View {
+    func cardItem(type: CreditCardType, name: String, card: String) -> some View {
         HStack(spacing: Padding.default) {
-            BorderedCardIcon(name: "icon_uzcard")
-            cardInfo()
+            BorderedCardIcon(name: type.localIcon)
+            cardInfo(name: name, card: card)
             
             Spacer()
             
@@ -47,11 +53,11 @@ struct SavedCardsListView: View {
 
     }
     
-    func cardInfo() -> some View {
+    func cardInfo(name: String, card: String) -> some View {
         VStack(alignment: .leading) {
-            Text("Abbos Hakimov".uppercased())
+            Text(name.uppercased())
                 .mont(.semibold, size: 14)
-            Text("8600 **** **** 1232")
+            Text(card)
                 .mont(.medium, size: 14)
         }
     }

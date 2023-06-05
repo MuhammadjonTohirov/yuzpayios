@@ -31,6 +31,18 @@ final public class CreditCardManager: DManager {
         }
     }
     
+    public func addSavedCards<T>(_ items: [T]) where T : ModelProtocol {
+        execute { realm in
+            let models = items.map({$0 as! CardModel})
+            let deletingCards = realm.objects(DSavedCard.self).filter("NOT (id IN %@)", models.map({"\($0.id)"}))
+            realm.delete(deletingCards)
+            
+            models.forEach { item in
+                realm.add(DSavedCard.build(withModel: item), update: .modified)
+            }
+        }
+    }
+    
     public var cards: Results<DCard>? {
         Realm.new?.objects(DCard.self).sorted(byKeyPath: "isMain")
     }

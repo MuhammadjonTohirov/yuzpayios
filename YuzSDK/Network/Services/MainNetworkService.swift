@@ -167,5 +167,14 @@ public struct MainNetworkService: NetworkServiceProtocol {
         let result: NetRes<String>? = await Network.send(request: S.echange(cardId: cardId, req: req))
         return (result?.error == nil, result?.error)
     }
+    
+    public func syncSavedCards() {
+        Task {
+            let cardList: NetRes<[NetResCardItem]>? = await Network.send(request: S.savedCards)
+            CreditCardManager().addSavedCards(cardList?.data?.compactMap({
+                CardModel.create(res:$0)
+            }) ?? [])
+        }
+    }
 }
 

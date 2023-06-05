@@ -83,7 +83,7 @@ final class CardsAndWalletsViewModel: ObservableObject {
     private var cardsToken: NotificationToken?
 
     init() {
-        self.cardItems = Realm.new!.objects(DCard.self)
+        self.cardItems = CreditCardManager.shared.all!
         Logging.l("Init cards and wallets viewmodel")
     }
     
