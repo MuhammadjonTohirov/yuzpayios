@@ -7,14 +7,29 @@
 
 import Foundation
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct LoadingView: View {
     var viewModel: LoadingViewModelProtocol
     
     var body: some View {
-        Text("loading".localize)
+        
+        VStack {
+            AnimatedImage(name: "app_loader.gif")
+                .resizable()
+                .frame(.init(w: 80, h: 80))
+                
+            Text("loading")
+        }
+            .aspectRatio(contentMode: .fit)
             .onAppear {
                 viewModel.initialize()
             }
+    }
+}
+
+struct LoadingView_Preview: PreviewProvider {
+    static var previews: some View {
+        LoadingView(viewModel: LoadingViewModel())
     }
 }

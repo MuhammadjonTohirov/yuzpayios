@@ -116,10 +116,12 @@ public class DCard: Object, ObjectKeyIdentifiable, DItemProtocol, CardProtocol {
     @Persisted public var colorCode: String?
     @Persisted public var moneyAmount: Float
     
+    @Persisted public var currencyType: CurrencyType
+    
     public init(id: String, cardNumber: String, expirationDate: Date,
          name: String, holderName: String, isMain: Bool, bankName: String? = nil,
          icon: String? = nil, cardType: CreditCardType, status: CreditCardStatus,
-         backgroundImage: String? = nil, colorCode: String? = nil, moneyAmount: Float) {
+                backgroundImage: String? = nil, colorCode: String? = nil, moneyAmount: Float, currency: CurrencyType = .uzs) {
         self.cardNumber = cardNumber
         self.expirationDate = expirationDate
         self.name = name
@@ -132,7 +134,7 @@ public class DCard: Object, ObjectKeyIdentifiable, DItemProtocol, CardProtocol {
         self.backgroundImage = backgroundImage
         self.colorCode = colorCode
         self.moneyAmount = moneyAmount
-        
+        self.currencyType = currency
         super.init()
         
         self.id = id
@@ -165,7 +167,7 @@ public extension DCard {
     static func build(withModel model: CardModel) -> any DItemProtocol {
         return DCard(id: model.id, cardNumber: model.cardNumber, expirationDate: model.expirationDate,
                      name: model.name, holderName: model.holderName, isMain: model.isMain, cardType: model.cardType, status: model.status,
-                     moneyAmount: model.moneyAmount)
+                     moneyAmount: model.moneyAmount, currency: model.currencyType)
     }
     
     func update(by model: CardModel) {
@@ -181,6 +183,7 @@ public extension DCard {
         self.backgroundImage = model.backgroundImage
         self.colorCode = model.colorCode
         self.moneyAmount = model.moneyAmount
+        self.currencyType = model.currencyType
     }
     
     func set(isMain value: Bool) {

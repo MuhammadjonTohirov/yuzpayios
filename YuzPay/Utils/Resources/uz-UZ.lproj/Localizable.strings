@@ -217,3 +217,12 @@
 "branch" = "Bo'lim";
 
 "order_virtual_card" = "Virtual card";
+
+"receiver_card_number" = "Qabul qiluvchi";
+"total_to_withdraw" = "Umumiy summa";
+"usd_amount" = "Dollar Miqdori";
+"uzs_amount" = "SO'M Miqdori";
+"transfer_completed" = "O'tkazish tugallandi";
+"transfer_failed" = "O'tkazish amalga oshmadi";
+"insufficient_transfer_amount" = "Miqdor yetarli emas";
+"please_select_card" = "Kartani tanlang";

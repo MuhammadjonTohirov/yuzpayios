@@ -96,13 +96,13 @@ struct TabBarView: View {
                     }
                     .tag(Tab.payment)
 
-                HelpView()
-                    .environmentObject(viewModel)
-                    .navigationTitle("help".localize)
-                    .tabItem {
-                        Label("help".localize, image: "icon_message")
-                    }
-                    .tag(Tab.help)
+//                HelpView()
+//                    .environmentObject(viewModel)
+//                    .navigationTitle("help".localize)
+//                    .tabItem {
+//                        Label("help".localize, image: "icon_message")
+//                    }
+//                    .tag(Tab.help)
 
                 SettingsView(viewModel: viewModel.settingsViewModel)
                     .environmentObject(viewModel)
@@ -128,7 +128,6 @@ struct TabBarView: View {
                 .onTapGesture {
                     viewModel.hideSideBar()
                 }
-                
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged({ value in

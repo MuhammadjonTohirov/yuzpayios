@@ -20,6 +20,8 @@ struct UserIdentificationView: View {
     
     @State var isSuccess: Bool = false
     
+    var withDismiss = true
+    
     @ViewBuilder
     var body: some View {
         if isSuccess {
@@ -83,14 +85,16 @@ struct UserIdentificationView: View {
                 }
             }
             
-            Button(action: {
-                dismiss()
-            }, label: {
-                Image("icon_x")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-            })
-            .position(x: 12, y: Padding.medium)
+            if withDismiss {
+                Button(action: {
+                    dismiss()
+                }, label: {
+                    Image("icon_x")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                })
+                .position(x: 12, y: Padding.medium)
+            }
         }
         .padding(Padding.default)
     }

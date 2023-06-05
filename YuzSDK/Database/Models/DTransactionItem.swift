@@ -59,6 +59,15 @@ public final class DTransactionItem: Object, TransactionItemProtocol {
     
     @Persisted public var type: TransactionType
     
+    @Persisted public var exchangeCardId: Int?
+    @Persisted public var exchangeType: Int?
+    @Persisted public var exchangeAmount: Double?
+    @Persisted public var p2PCardNumber: String?
+    @Persisted public var p2PCardHolder: String?
+    @Persisted public var p2PCardId: Int?
+    @Persisted public var commissionAmount: Double?
+
+    
     public init(id: String, agentName: String, status: TransactionStatus, amount: Float, currency: String, dateTime: Date, cardId: Int, type: TransactionType) {
         self.agentName = agentName
         self.status = status
@@ -73,15 +82,24 @@ public final class DTransactionItem: Object, TransactionItemProtocol {
     }
     
     public init(_ model: TransactionItem) {
+        self.agentName = model.agentName
         self.status = model.status
         self.amount = model.amount
-        self.agentName = model.agentName
         self.currency = model.currency
         self.dateTime = model.dateTime
         self.cardId = model.cardId
         self.type = model.type
+        self.exchangeCardId = model.exchangeCardId
+        self.exchangeType = model.exchangeType
+        self.exchangeAmount = model.exchangeAmount
+        self.p2PCardNumber = model.p2PCardNumber
+        self.p2PCardHolder = model.p2PCardHolder
+        self.p2PCardId = model.p2PCardId
+        self.commissionAmount = model.commissionAmount
         super.init()
+
         self.id = model.id
+    
     }
     
     public override init() {

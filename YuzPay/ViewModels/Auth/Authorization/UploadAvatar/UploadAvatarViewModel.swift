@@ -128,6 +128,7 @@ final class UploadAvatarViewModel: NSObject, ObservableObject, Alertable {
     
     private func goToAuthScreen() {
         mainRouter?.navigate(to: .auth)
+        dismiss = true
     }
     
     private func startUploading() {

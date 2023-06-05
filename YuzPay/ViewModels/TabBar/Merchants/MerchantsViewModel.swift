@@ -11,7 +11,7 @@ import SwiftUI
 import YuzSDK
 
 enum MerchantsViewRoute {
-    case showAllMerchantsInCategory
+    case showAllMerchantsInCategory(category: DMerchantCategory)
     case showMerchant
 }
 
@@ -24,13 +24,10 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     
     @Published var categories: Results<DMerchantCategory>?
     @Published var merchants: Results<DMerchant>?
-    @Published var selectedMerchant: String?
-    @Published var expandedCategory: Int?
-    @Published var allMerchantsViewModel: AllMerchantsInCategoryViewModel?
+    var selectedMerchant: String?
+    var expandedCategory: Int?
     
     @Published var route: MerchantsViewRoute?
-    
-    private(set) var merchantPaymentModel: MerchantsPaymentViewModel?
     
     private var isViewAppeared = false
     private var catsNotification: NotificationToken?
@@ -42,8 +39,6 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     }
     
     func onAppear() {
-        allMerchantsViewModel = nil
-        merchantPaymentModel = nil
 
         if isViewAppeared {
             return
@@ -94,14 +89,12 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     
     func setSelected(merchant: DMerchant?) {
         self.selectedMerchant = merchant?.id
-        self.merchantPaymentModel = .init(merchantId: self.selectedMerchant!)
     }
     
     func setSelected(merchantId id: String) {
         if self.selectedMerchant != id {
             self.selectedMerchant = id
         }
-        self.merchantPaymentModel = .init(merchantId: id)
     }
     
     private func invalidate() {
@@ -110,7 +103,6 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     }
     
     func expand(category: Int) {
-        self.allMerchantsViewModel = .init()
         self.expandedCategory = category
     }
     
@@ -121,7 +113,6 @@ class MerchantsViewModel: NSObject, ObservableObject, Loadable, Alertable {
     }
     
     func collapse() {
-        self.allMerchantsViewModel = nil
         self.expandedCategory = nil
     }
     

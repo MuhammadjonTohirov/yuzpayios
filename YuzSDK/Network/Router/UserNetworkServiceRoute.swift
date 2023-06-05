@@ -17,13 +17,13 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
             request = URLRequest.fromDataRequest(url: url, boundary: "Boundary-\(otp)")
             request?.addValue("\(photoUrl.fileSize)", forHTTPHeaderField: "Content-Length")
         case .checkPhone:
-            request = URLRequest(url: url)
+            request = URLRequest.new(url: url, withAuth: false)
             request?.httpBody = self.body
         case .getUserInfo:
             request = URLRequest.new(url: url)
             request?.setValue("image/png", forHTTPHeaderField: "accept")
         case .refreshToken:
-            request = URLRequest(url: url)
+            request = URLRequest.new(url: url, withAuth: false)
         default:
             request = URLRequest.new(url: url)
             request?.httpBody = self.body
@@ -56,6 +56,8 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
             return URL.base.appendingPath("Account", "RefreshToken").queries(
                 .init(name: "token", value: token)
             )
+        case .confirmDeleteAccount:
+            return URL.base.appendingPath("api", "Client", "ConfirmDelete")
         }
     }
     
@@ -80,6 +82,8 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
             }
         case let .phoneLogin(number, token, code):
             return NetReqPhoneLogin(phone: number, confirm: .init(token: token, code: code)).asData
+        case let .confirmDeleteAccount(token, code):
+            return NetReqConfirmDeleteAccount.init(code: code, token: token).asData
         default:
             return nil
         }
@@ -87,7 +91,7 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
     
     var method: HTTPMethod {
         switch self {
-        case .checkPhone, .phoneRegister, .phoneLogin, .logout, .refreshToken:
+        case .checkPhone, .phoneRegister, .phoneLogin, .logout, .refreshToken, .confirmDeleteAccount:
             return .post
         case .deleteAccount:
             return .delete
@@ -101,6 +105,7 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
     case phoneRegister(phone: String, photo: URL, token: String, otp: String)
     case refreshToken(token: String)
     case deleteAccount
+    case confirmDeleteAccount(token: String, code: String)
     case logout
     case getSessions
     case getUserLogs

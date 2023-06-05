@@ -11,20 +11,18 @@ import YuzSDK
 
 struct MerchantPaymentView: View {
     
-    @ObservedObject var viewModel: MerchantsPaymentViewModel
+    @StateObject var viewModel: MerchantsPaymentViewModel = .init(merchantId: "1")
     @EnvironmentObject var tabModel: TabViewModel
     @EnvironmentObject var alertModel: MainAlertModel
-    
-    @State var amount: String = ""
-    @State var phone: String = ""
     
     @State private var fields: [MField] = []
     
     @State private var maxAmount: Double = 0
-
-    init(viewModel: MerchantsPaymentViewModel) {
-        self.viewModel = viewModel
-    }
+    
+    @State var merchantId: String
+    @State var args: [String: String]
+    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ZStack {
@@ -39,27 +37,14 @@ struct MerchantPaymentView: View {
                     }
             }
         }
-        .sheet(isPresented: $viewModel.showStatusView, content: {
-            NavigationView {
-                if let vm = viewModel.paymentStatusViewModel {
-                    PaymentStatusView() {
-                        Image("image_success_2")
-                            .renderingMode(.template)
-                            .resizable(true)
-                            .frame(width: 100, height: 100)
-                    }
-                    .environmentObject(vm)
-                } else {
-                    Text("")
-                }
-            }
-        })
         .sheet(unwrapping: $viewModel.route, content: { _ in
             NavigationView(content: {
                 ReceiptAndPayView(rows: $viewModel.receiptItems)
-                    
                     .set(submitButtonTitle: "pay".localize)
                     .set(showCards: true)
+                    .set(filter: { card in
+                        card.isLocalCard
+                    })
                     .set { cardId in
                         viewModel.doPayment(cardId: cardId, formModel: viewModel.formModel)
                     }
@@ -67,10 +52,24 @@ struct MerchantPaymentView: View {
             })
         })
         .onAppear {
+            self.viewModel.merchantId = merchantId
+            self.viewModel.args = args
+            
             viewModel.onAppear()
             loadDetails()
         }
         .loadable($viewModel.isLoading)
+        .onChange(of: viewModel.dismiss) { newValue in
+            if newValue {
+                dismiss()
+            }
+        }
+        .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1)
+        .onChange(of: viewModel.shouldShowAlert) { newValue in
+            if newValue {
+                UIApplication.shared.endEditing()
+            }
+        }
     }
     
     func innerBody(_ merchant: DMerchant) -> some View {
@@ -101,7 +100,7 @@ struct MerchantPaymentView: View {
             {
                 viewModel.onClickNext(formModel: viewModel.formModel) { isSatisfy in
                     if !isSatisfy {
-                        alertModel.show(title: "warning".localize, message: "You should fill all fields")
+                        alertModel.show(title: "warning".localize, message: "fill_all_fileds".localize)
                     }
                 }
             }
@@ -113,27 +112,15 @@ struct MerchantPaymentView: View {
     }
     
     private func loadDetails() {
-        let categoryId = viewModel.merchant?.categoryId ?? 0
-        let id = Int(viewModel.merchantId) ?? 0
-        self.viewModel.showLoader()
-        DispatchQueue(label: "load", qos: .utility).asyncAfter(deadline: .now() + 0.2) {
-            Task {
-                if let details = await MainNetworkService.shared.getMerchantDetails(id: id, category: categoryId) {
-                    DispatchQueue.main.async {
-                        self.viewModel.formModel = .create(with: details)
-                    }
-                }
-                
-                self.viewModel.hideLoader()
-            }
-        }
+        Logging.l("Load details for \(merchantId) with \(args)")
+        viewModel.loadMerchantDetails()
     }
 }
 
 struct MerchantPaymentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MerchantPaymentView(viewModel: .init(merchantId: "44"))
+            MerchantPaymentView(merchantId: "44", args: [:])
         }
     }
 }

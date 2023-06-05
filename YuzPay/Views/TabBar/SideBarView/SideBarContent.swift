@@ -85,7 +85,7 @@ struct SideBarContent: View {
                 }
                 
                 VStack(alignment: .leading) {
-                    Text(UserSettings.shared.userPhone ?? "")
+                    Text((UserSettings.shared.userPhone ?? "").format(with: "+998 XX XXX-XX-XX"))
                         .font(.mont(.semibold, size: 16))
 
                     Button {

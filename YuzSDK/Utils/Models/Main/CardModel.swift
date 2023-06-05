@@ -6,6 +6,15 @@
 //
 
 import Foundation
+import RealmSwift
+
+public enum CurrencyType: Int, PersistableEnum {
+    case uzs = 1
+    case usd
+    case eur
+    case rub
+    case gbp
+}
 
 protocol CardProtocol: ModelProtocol {
     var id: String {get set}
@@ -20,6 +29,7 @@ protocol CardProtocol: ModelProtocol {
     var backgroundImage: String? {get set}
     var colorCode: String? {get set}
     var moneyAmount: Float {get set}
+    var currencyType: CurrencyType {get set}
 }
 
 public struct CardModel: ModelProtocol, CardProtocol {
@@ -43,6 +53,8 @@ public struct CardModel: ModelProtocol, CardProtocol {
     
     public var status: CreditCardStatus
     
+    public var currencyType: CurrencyType
+    
     public var backgroundImage: String?
     
     public var colorCode: String?
@@ -58,8 +70,8 @@ public struct CardModel: ModelProtocol, CardProtocol {
                                   name: card.cardName ?? "",
                                   holderName: card.cardHolder ?? "", isMain: card.isDefault,
                                   bankName: nil,
-                                  icon: nil, cardType: .create(cardTypeId: card.type ?? 0),
-                                  status: .init(rawValue: card.statusCode ?? 0) ?? .active,
+                                  icon: nil, cardType: .create(cardTypeId: card.typeID ?? 0),
+                                  status: .init(rawValue: card.statusCode ?? 0) ?? .active, currencyType: .init(rawValue: card.currencyId ?? 0) ?? .uzs,
                                   backgroundImage: nil, colorCode: nil, moneyAmount: Float(card.balance ?? 0))
         return cardModel
     }

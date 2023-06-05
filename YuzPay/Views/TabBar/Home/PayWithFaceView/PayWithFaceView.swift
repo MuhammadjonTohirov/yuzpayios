@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct PayWithFaceView: View {
+    var onClickNext: () -> Void
+    
     var body: some View {
         HStack(spacing: 0) {
             HStack(spacing: 0) {
@@ -29,7 +31,7 @@ struct PayWithFaceView: View {
                     Spacer()
                     
                     FlatButton(title: "continue".localize, borderColor: .clear, titleColor: Color.white) {
-                        
+                        onClickNext()
                     }
                     .height(40)
                     .font(.mont(.regular, size: 15))
@@ -52,7 +54,9 @@ struct PayWithFaceView: View {
 
 struct PayWithFaceView_Preview: PreviewProvider {
     static var previews: some View {
-        PayWithFaceView()
+        PayWithFaceView {
+            
+        }
     }
 }
 

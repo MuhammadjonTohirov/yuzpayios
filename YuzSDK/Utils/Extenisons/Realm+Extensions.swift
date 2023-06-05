@@ -141,3 +141,18 @@ public extension Results {
         return self[at]
     }
 }
+
+public extension Results where Element == DCard {
+    var firstLocal: Element? {
+        let locals = self.filter({$0.cardType == .humo || $0.cardType == .uzcard})
+        return locals.first(where: {$0.isMain}) ?? locals.first
+    }
+}
+
+
+public extension Results where Element == DCard {
+    var firstInternationalCard: Element? {
+        let internationals = self.filter({$0.cardType == .master || $0.cardType == .visa || $0.cardType == .unionpay})
+        return internationals.first(where: {$0.isMain}) ?? internationals.first
+    }
+}

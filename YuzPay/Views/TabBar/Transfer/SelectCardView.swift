@@ -23,6 +23,15 @@ struct SelectCardView: View {
             ForEach(cards) { card in
                 HStack(spacing: Padding.default) {
                     BorderedCardIcon(name: card.cardType.localIcon)
+                        .overlay {
+                            GeometryReader { geo in
+                                Image(systemName: "star.circle.fill")
+                                    .frame(width: 16, height: 16)
+                                    .position(x: geo.size.width - 4, y: 4)
+                                    .foregroundColor(Color.systemOrange)
+                            }
+                            .opacity(card.isMain ? 1 : 0)
+                        }
                     cardInfo(card)
                     
                     Spacer()

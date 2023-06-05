@@ -10,15 +10,18 @@ import SwiftUI
 
 struct UploadAvatarView: View {
     @ObservedObject var viewModel: UploadAvatarViewModel = UploadAvatarViewModel()
+    @Environment(\.dismiss) var dismiss
     
     @ViewBuilder var body: some View {
-        ZStack {
-            NavigationLink("", isActive: $viewModel.push, destination: {
-                viewModel.route?.screen
-            })
-            .zIndex(2)
-            innerBody
-        }
+        innerBody
+        .navigationDestination(isPresented: $viewModel.push, destination: {
+            viewModel.route?.screen
+        })
+        .onChange(of: viewModel.dismiss, perform: { newValue in
+            if newValue {
+                dismiss()
+            }
+        })
         .onAppear {
             viewModel.onAppear()
         }

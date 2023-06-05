@@ -77,7 +77,7 @@ extension Float {
         formatter.currencyCode = "UZS"
         formatter.currencySymbol = ""
         formatter.locale = locale
-        formatter.maximumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = 0
         formatter.locale = Locale(identifier: "uz_UZ")
         return formatter.string(from: NSNumber(value: self)) ?? ""

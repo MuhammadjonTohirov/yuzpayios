@@ -14,34 +14,6 @@ struct TransactionsView: View {
     @State private var didAppear = false
     var body: some View {
         VStack(spacing: 0) {
-            HStack(alignment: .center) {
-                Button {
-                    
-                } label: {
-                    Image(systemName: "chevron.left")
-                }
-
-                Button {
-                    
-                } label: {
-                    Text("Май 2022")
-                        .font(.mont(.semibold, size: 16))
-                }
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "chevron.right")
-                }
-            }
-            .foregroundColor(Color.label)
-            .padding(.bottom, Padding.medium)
-            .frame(maxWidth: .infinity)
-            .background(
-                Rectangle()
-                    .foregroundColor(Color.systemBackground)
-                    .ignoresSafeArea()
-            )
                 
             ForEach(sections.filter("items.@count > %d", 0)) { section in
                 sectionBar(section)
@@ -61,6 +33,39 @@ struct TransactionsView: View {
                 MainNetworkService.shared.syncTransactions()
             }
         }
+    }
+    
+    
+    // Not in use yet
+    private var dateHeaderView: some View {
+        HStack(alignment: .center) {
+            Button {
+                
+            } label: {
+                Image(systemName: "chevron.left")
+            }
+
+            Button {
+                
+            } label: {
+                Text("Май 2022")
+                    .font(.mont(.semibold, size: 16))
+            }
+            
+            Button {
+                
+            } label: {
+                Image(systemName: "chevron.right")
+            }
+        }
+        .foregroundColor(Color.label)
+        .padding(.bottom, Padding.medium)
+        .frame(maxWidth: .infinity)
+        .background(
+            Rectangle()
+                .foregroundColor(Color.systemBackground)
+                .ignoresSafeArea()
+        )
     }
     
     func sectionBar(_ section: DTransactionSection) -> some View {
@@ -97,7 +102,7 @@ struct TransactionsView: View {
                 }
             
             VStack(alignment: .leading) {
-                Text(item.agentName)
+                Text(item.title)
                     .font(.mont(.regular, size: 14))
                 Text(item.status.text)
                     .font(.mont(.regular, size: 12))
@@ -120,6 +125,20 @@ struct TransactionsView: View {
         Text(title)
             .font(.mont(.semibold, size: 16))
             .padding(.horizontal, Padding.default)
+    }
+}
+
+extension DTransactionItem {
+    var title: String {
+        switch type {
+        case .p2p:
+            let cardNumber = (self.p2PCardNumber ?? "").maskAsMiniCardNumber
+            return "\(cardNumber) / \(self.p2PCardHolder ?? "")"
+        case .exchange:
+            return "exchange".localize
+        default:
+            return self.agentName
+        }
     }
 }
 

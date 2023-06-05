@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct CoveredLoaderModifier: ViewModifier {
     @Binding var isLoading: Bool
@@ -19,10 +20,34 @@ struct CoveredLoaderModifier: ViewModifier {
                     .foregroundColor(.systemBackground.opacity(0.9))
                     .ignoresSafeArea()
                     .overlay {
-                        VStack(spacing: 16) {
-                            ProgressView()
+                        VStack(spacing: 0) {
+                            AnimatedImage(name: "app_loader.gif")
+                                .resizable()
+                                .frame(.init(w: 80, h: 80))
                             Text(message.capitalized)
                                 .mont(.regular, size: 13)
+                                .padding(.top, -12)
+                        }
+                    }
+                    .transition(.opacity.animation(.easeIn(duration: 0.3)))
+            }
+        }
+    }
+}
+
+struct ProgressLoaderModifier: ViewModifier {
+    @Binding var isLoading: Bool
+    
+    func body(content: Content) -> some View {
+        ZStack {
+            content
+            if isLoading {
+                Rectangle()
+                    .foregroundColor(.systemBackground.opacity(0.9))
+                    .ignoresSafeArea()
+                    .overlay {
+                        VStack(spacing: 0) {
+                            ProgressView()
                         }
                     }
                     .transition(.opacity.animation(.easeIn(duration: 0.3)))
@@ -34,5 +59,9 @@ struct CoveredLoaderModifier: ViewModifier {
 extension View {
     func loadable(_ loading: Binding<Bool>, message: String = "loading".localize) -> some View {
         self.modifier(CoveredLoaderModifier(isLoading: loading, message: message))
+    }
+    
+    func progress(_ loading: Binding<Bool>) -> some View {
+        self.modifier(ProgressLoaderModifier(isLoading: loading))
     }
 }

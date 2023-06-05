@@ -17,18 +17,21 @@ enum MerchantPaymentRoute: String, Hashable {
     }
 }
 
-final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
+final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable, Alertable {
+    var alert: AlertToast = .init(displayMode: .alert, type: .regular)
+    @Published var shouldShowAlert: Bool = false
     @Published var isLoading: Bool = false
-    private(set) var paymentStatusViewModel: PaymentStatusViewModel?
+    @Published var dismiss: Bool = false
     var merchantId: String
     @Published var route: MerchantPaymentRoute?
-    @Published var showStatusView = false
+
     @Published var showPaymentView = false
     @Published var selectedCard: DCard?
     @Published var formModel: FormModel?
-
     private var didAppear = false
     @Published var receiptItems: [ReceiptRowItem] = []
+    
+    var args: [String: String] = [:]
     
     var merchant: DMerchant? {
         let m = Realm.new?.object(ofType: DMerchant.self, forPrimaryKey: merchantId)
@@ -39,9 +42,10 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
         }
     }
         
-    init(merchantId: String) {
+    init(merchantId: String, args: [String: String] = [:]) {
         self.merchantId = merchantId
-        Logging.l(tag: "MerchantPayment", "Create merchant payment vm")
+        self.args = args
+        Logging.l(tag: "MerchantPayment", "Create merchant payment vm with \(args)")
     }
     
     func onAppear() {
@@ -55,6 +59,7 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
         guard let serviceId = formModel.id else {
             return
         }
+        
         
         let id = Int(merchantId) ?? 0
         let categoryId = merchant?.categoryId ?? 0
@@ -74,12 +79,6 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
                 fields[f.field.name] = value
             })
             
-//            #if DEBUG
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-//                self.showPaymentStatus(formModel: formModel, true, nil)
-//                self.hideLoader()
-//            }
-//            #else
             let details = await MainNetworkService.shared.doPayment(
                 id: id,
                 category: categoryId,
@@ -89,11 +88,9 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 Logging.l("Payment result \(details.success)  \(details.error ?? "")")
                 
-                self.showPaymentStatus(formModel: formModel, details.success, details.error)//(details.success, details.error)
+                self.showPaymentStatus(formModel: formModel, details.success, details.error)
                 self.hideLoader()
             }
-//            #endif
-            
         }
     }
     
@@ -113,26 +110,32 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable {
         route = .payment
     }
     
-    func showPaymentStatus(formModel: FormModel?, _ isSuccess: Bool, _ error: String?) {
-        let title = formModel?.title ?? "payment".localize
-        let details = isSuccess ? "Successful payment" : error ?? "Payment failed"
-        paymentStatusViewModel = .init(
-            isSuccess: isSuccess, title: title,
-            details: details,
-            onClickRetry: {
+    func loadMerchantDetails() {
+        guard let categoryId = merchant?.categoryId, let id = Int(merchantId) else {
+            return
+        }
+        
+        self.showLoader()
+        
+        DispatchQueue(label: "load", qos: .utility).asyncAfter(deadline: .now() + 0.5) {
+            Task {
+                if let details = await MainNetworkService.shared.getMerchantDetails(id: id, category: categoryId) {
+                    DispatchQueue.main.async {
+                        self.formModel = .create(with: details, args: self.args)
+                    }
+                }
                 
-            }, onClickFinish: { [weak self] in
-                self?.hidePaymentStatus()
-            }, onClickCancel: { [weak self] in
-                self?.hidePaymentStatus()
+                self.hideLoader()
             }
-        )
-        showStatusView = true
+        }
     }
     
-    private func hidePaymentStatus() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            self.showStatusView = false
+    func showPaymentStatus(formModel: FormModel?, _ isSuccess: Bool, _ error: String?) {
+        showCustomAlert(alert: .init(displayMode: .alert, type: isSuccess ? .regular : .error(.systemRed), title: isSuccess ? "successfully_paid".localize : error ?? "error_in_payment".localize))
+        if isSuccess {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
+                self.dismiss = true
+            }
         }
     }
     

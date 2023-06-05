@@ -41,7 +41,6 @@ final class PhoneAuthViewModel: NSObject, ObservableObject, Loadable, Alertable 
         showLoader()
         
         Task {
-            
             defer {
                 hideLoader()
             }

@@ -145,4 +145,27 @@ public struct MainNetworkService: NetworkServiceProtocol {
             CommonDbManager.shared.insertExchangeRates(objects.data ?? [])
         }
     }
+    
+    // MARK: - P2P
+    public func findCard(with cardNumber: String) async -> NetResCardItem? {
+        return await Network.send(request: S.findCard(cardNumber: cardNumber))?.data
+    }
+    
+    /// gets card details
+    public func getCard(id cardId: String) async -> NetResCardItem? {
+        return await Network.send(request: S.getCard(id: cardId))?.data
+    }
+    
+    /// p2p
+    public func p2pTransfer(cardId: String, req: NetReqP2P) async -> (Bool, String?) {
+        let result: NetRes<String>? = await Network.send(request: S.p2p(cardId: cardId, req: req))
+        return (result?.error == nil, result?.error)
+    }
+    
+    /// uzs to usd or vice versa
+    public func exchange(cardId: String, req: NetReqExchange) async -> (Bool, String?) {
+        let result: NetRes<String>? = await Network.send(request: S.echange(cardId: cardId, req: req))
+        return (result?.error == nil, result?.error)
+    }
 }
+

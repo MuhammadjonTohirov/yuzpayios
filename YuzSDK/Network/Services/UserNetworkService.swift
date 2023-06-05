@@ -59,8 +59,13 @@ public struct UserNetworkService: NetworkServiceProtocol {
         }
     }
     
-    public func deleteAccount() async -> Bool {
-        let result: NetRes<String> = await Network.send(request: S.deleteAccount) ?? .init(success: false, data: nil, error: nil, code: -1)
+    public func deleteAccount() async -> NetResBody? {
+        let result: NetRes<NetResDeleteAccount> = await Network.send(request: S.deleteAccount) ?? .init(success: false, data: nil, error: nil, code: -1)
+        return result.data
+    }
+    
+    public func confimDeleteAccount(code: String, token: String) async -> Bool {
+        let result: NetRes<String> = await Network.send(request: S.confirmDeleteAccount(token: token, code: code)) ?? .init(success: false, data: nil, error: nil, code: -1)
         return result.success
     }
     
@@ -98,9 +103,15 @@ public struct UserNetworkService: NetworkServiceProtocol {
         return await Network.send(request: S.getUserLogs)
     }
     
+    public func syncNotifications() async {
+        let notifications = await getNotifications()
+        DataBase.writeNotifications(notifications?.data ?? [])
+    }
+    
     public func getUserInfo() async -> NetResBodyUserInfo? {
         let res: NetRes<NetResBodyUserInfo>? = await Network.send(request: S.getUserInfo)
         
         return res?.data
     }
 }
+

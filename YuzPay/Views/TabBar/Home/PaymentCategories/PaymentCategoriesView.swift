@@ -12,7 +12,7 @@ import YuzSDK
 
 struct PaymentCategoriesView: View {
     @ObservedResults(DMerchantCategory.self, configuration: Realm.config) var categories;
-    
+    var onSelectCategory: ((DMerchantCategory) -> Void)
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack(spacing: 8) {
@@ -27,8 +27,13 @@ struct PaymentCategoriesView: View {
             .padding(.horizontal, Padding.default)
 
             HStack(alignment: .center, spacing: 10) {
-                ForEach(categories) { cat in
-                    listItem(icon: "cat\(cat.id)", title: cat.title)
+                ForEach(categories[0..<categories.count.limitTop(5)]) { cat in
+                    Button {
+                        onSelectCategory(cat)
+                    } label: {
+                        listItem(icon: "cat\(cat.id)", title: cat.title)
+                    }
+
                 }
             }
             .padding(.horizontal, Padding.default)
@@ -59,6 +64,8 @@ struct PaymentCategoriesView: View {
 
 struct PaymentCategoriesView_Preview: PreviewProvider {
     static var previews: some View {
-        PaymentCategoriesView()
+        PaymentCategoriesView { _ in
+            
+        }
     }
 }

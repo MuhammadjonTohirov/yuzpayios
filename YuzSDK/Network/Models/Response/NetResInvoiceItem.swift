@@ -32,10 +32,7 @@ public struct NetResInvoiceItem: Codable {
         let createdDateString = try? container.decodeIfPresent(String.self, forKey: .createdDate)
         
         if let _createdDateString = createdDateString {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
-            formatter.timeZone = .init(abbreviation: "GMT")
-            self.createdDate = formatter.date(from: _createdDateString)
+            self.createdDate = Date.from(string: _createdDateString, timezone: .init(abbreviation: "GMT"))
         } else {
             self.createdDate = nil
         }

@@ -11,6 +11,10 @@ import SwiftUI
 import YuzSDK
 
 enum HomeViewRoute: ScreenRoute {
+    static func == (lhs: HomeViewRoute, rhs: HomeViewRoute) -> Bool {
+        lhs.id == rhs.id
+    }
+    
     var id: String {
         switch self {
         case .notification:
@@ -23,6 +27,14 @@ enum HomeViewRoute: ScreenRoute {
             return "addNewCard"
         case .showCardDetails:
             return "cardDetails"
+        case .mobilePayment:
+            return "mobilePayment"
+        case .merchants:
+            return "merchants"
+        case .invoices:
+            return "invoices"
+        case .identification:
+            return "identification"
         }
     }
     
@@ -31,6 +43,10 @@ enum HomeViewRoute: ScreenRoute {
     case cards
     case addNewCard
     case showCardDetails(id: String)
+    case mobilePayment(args: [String: String], merchantId: String)
+    case merchants(category: DMerchantCategory, selectedMerchant: Binding<String?>, action: AllMerchantsInCategoryView.Action)
+    case invoices
+    case identification
     
     @ViewBuilder
     var screen: some View {
@@ -45,7 +61,19 @@ enum HomeViewRoute: ScreenRoute {
             AddNewCardView()
         case .showCardDetails(let id):
             CardDetailsView(cardId: id)
+        case let .mobilePayment(args, merchantId):
+            MerchantPaymentView(merchantId: merchantId, args: args)
+        case let .merchants(cat, id, action):
+            AllMerchantsInCategoryView(category: cat, selectedMerchantId: id, onClickMerchant: action)
+        case .invoices:
+            InvoicesView()
+        case .identification:
+            UserIdentificationView()
         }
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
     }
 }
 
@@ -64,6 +92,9 @@ final class HomeViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Ne
     
     @Published var hasInvoices: Bool = false
     @Published var isIdentifiedUser: Bool = false
+    
+    private(set) var selectedMerchant: String?
+    private(set) var selectedCategory: Int?
     
     lazy var cardListViewModel: HCardListViewModel = {
         return HCardListViewModel()

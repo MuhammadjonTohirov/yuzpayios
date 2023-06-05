@@ -219,3 +219,12 @@
 "branch" = "Branch";
 
 "order_virtual_card" = "Virtual card";
+
+"receiver_card_number" = "Receiver";
+"total_to_withdraw" = "Total to withdraw";
+"usd_amount" = "USD Amount";
+"uzs_amount" = "UZS Amount";
+"transfer_completed" = "Transfer completed";
+"transfer_failed" = "Transfer failed";
+"insufficient_transfer_amount" = "Insufficient amount";
+"please_select_card" = "Select a card";

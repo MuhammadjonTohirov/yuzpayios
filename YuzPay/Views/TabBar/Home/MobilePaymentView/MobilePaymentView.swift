@@ -7,10 +7,12 @@
 
 import Foundation
 import SwiftUI
+import YuzSDK
 
 struct MobilePaymentView: View {
     @FocusState private var isFocused: Bool
     @State var number: String = ""
+    var doPaymentWith: ((_ number: String, _ merchant: DMerchant) -> Void)
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack(spacing: 8.f.sw()) {
@@ -35,14 +37,17 @@ struct MobilePaymentView: View {
             })
             .focused($isFocused)
             .modifier(YTextFieldBackgroundGrayStyle())
-            
-            FlatButton(title: "do_payment".localize, borderColor: .clear, titleColor: Color.white) {
-                
+            .onChange(of: number) { newValue in
+                let code = newValue.prefix(2)
+                if code.count == 2, let merchant = MerchantManager().operatorWith(code: String(code)) {
+                    if newValue.onlyNumberFormat(with: "XXXXXXXXX").count == "XXXXXXXXX".count {
+                        self.number.removeAll()
+                        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.2) {
+                            self.doPaymentWith(newValue.onlyNumberFormat(with: "XXXXXXXXX"), merchant)
+                        }
+                    }
+                }
             }
-            .height(50)
-            .font(.mont(.regular, size: 15))
-            .background(RoundedRectangle(cornerRadius: 8)
-                .foregroundColor(Color("accent")))
         }
         .padding(Padding.medium)
         .background(
@@ -50,12 +55,17 @@ struct MobilePaymentView: View {
                 .foregroundColor(Color.secondarySystemBackground)
         )
         .dismissableKeyboard()
+        .onAppear {
+            number = ""
+        }
     }
 }
 
 struct MobilePaymentView_Preview: PreviewProvider {
     static var previews: some View {
-        MobilePaymentView()
+        MobilePaymentView { number, merchant in
+            
+        }
     }
 }
 

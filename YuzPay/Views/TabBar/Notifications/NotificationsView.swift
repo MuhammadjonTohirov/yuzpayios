@@ -17,6 +17,10 @@ final class NotificationsViewModel: ObservableObject {
         if !didAppear {
             didAppear = true
         }
+        
+        Task {
+            await UserNetworkService.shared.syncNotifications()
+        }
     }
 }
 

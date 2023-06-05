@@ -11,10 +11,12 @@ import RealmSwift
 import YuzSDK
 
 struct HomeView: View {
-    @EnvironmentObject var viewModel: HomeViewModel
+    @EnvironmentObject var homeViewModel: HomeViewModel
+    @EnvironmentObject var viewModel: TabViewModel
     @State var isEditing: Bool = false
     @ObservedResults(DCard.self, configuration: Realm.config) var cards;
-    
+    @State private var selectedMerchant: String?
+    @State private var showIdentifier: Bool = false
     var body: some View {
         ZStack {
             VStack(spacing: 4) {
@@ -28,23 +30,35 @@ struct HomeView: View {
                         .padding(.top, Padding.default.sh())
                         .padding(.horizontal, Padding.default)
 
-                    HCardListView(viewModel: viewModel.cardListViewModel)
-                        .environmentObject(viewModel)
+                    HCardListView(viewModel: homeViewModel.cardListViewModel)
+                        .environmentObject(homeViewModel)
                     
-                    if viewModel.hasInvoices {
+                    if homeViewModel.hasInvoices {
                         HomeInvoiceListView()
                             .padding(.horizontal, Padding.default)
+                            .onTapGesture {
+                                homeViewModel.router = .invoices
+                            }
                     }
                     
-                    PayWithFaceView()
-                        .padding(.horizontal, Padding.default)
+                    PayWithFaceView {
+                        showIdentifier = true
+                    }
+                    .fullScreenCover(isPresented: $showIdentifier) {
+                        UserIdentificationView()
+                    }
+                    .padding(.horizontal, Padding.default)
                     
-                    MobilePaymentView()
-                        .padding(.horizontal, Padding.default)
-
-                    PaymentCategoriesView()
+                    MobilePaymentView { phone, merchant in
+                        homeViewModel.router = .mobilePayment(args: ["phone": phone], merchantId: merchant.id)
+                    }
+                    .padding(.horizontal, Padding.default)
                     
-//                    SavedPaymentsView()
+                    PaymentCategoriesView { category in
+                        homeViewModel.router = .merchants(category: category, selectedMerchant: $selectedMerchant, action: { selectedMerchant in
+                            homeViewModel.router = .mobilePayment(args: [:], merchantId: selectedMerchant.id)
+                        })
+                    }
                     
                     CurrencyRateView()
                         .padding(.horizontal, Padding.default)
@@ -57,16 +71,11 @@ struct HomeView: View {
                 Spacer()
             }
             .onAppear {
-                viewModel.onAppear()
+                homeViewModel.onAppear()
             }
-            
-            NavigationLink(unwrapping: $viewModel.router) { isActive in
-                Logging.l("Is active \(isActive)")
-            } destination: { route in
-                route.wrappedValue.screen
-            } label: {
-                Text("")
-            }
+        }
+        .navigationDestination(unwrapping: $homeViewModel.router) { route in
+            route.wrappedValue.screen
         }
     }
     
@@ -74,7 +83,7 @@ struct HomeView: View {
         ZStack {
             HStack(spacing: 0) {
                 Button(action: {
-                    self.viewModel.onClickMenu()
+                    self.homeViewModel.onClickMenu()
                 }, label: {
                     Image("icon_menu_hamburg")
                         .resizable()
@@ -84,7 +93,7 @@ struct HomeView: View {
                 Spacer()
                 
                 Button(action: {
-                    viewModel.onClickNotification()
+                    homeViewModel.onClickNotification()
                 }, label: {
                     Image("icon_bell")
                         .resizable()

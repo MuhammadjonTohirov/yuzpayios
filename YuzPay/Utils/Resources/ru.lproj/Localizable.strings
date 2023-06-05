@@ -221,3 +221,21 @@
 "branch" = "Филиал";
 
 "order_virtual_card" = "Виртуальная карта";
+
+"receiver_card_number" = "Получатель";
+"total_to_withdraw" = "Всего вывести";
+"usd_amount" = "Сумма в долларах США";
+"uzs_amount" = "Сумма в сумах";
+"transfer_completed" = "Перевод завершен";
+"transfer_failed" = "Передача не удалась";
+"insufficient_transfer_amount" = "Недостаточно суммы";
+"please_select_card" = "Выберите карту";
+
+// from this line I did not translate for other languages.
+"first_select_photo" = "Сначала выберите фотографию";
+"not_paid" = "Не выплачивается";
+"fill_all_fields" = "Вы должны заполнить все поля";
+
+"successfully_paid" = "Успешно оплачено";
+"error_in_payment" = "Ошибка в оплате";
+"delete_account" = "Удалить аккаунт?";

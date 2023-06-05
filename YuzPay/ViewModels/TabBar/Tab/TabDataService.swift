@@ -15,6 +15,8 @@ protocol TabDataServiceProtocol {
     func loadUserEntity() async -> Bool
     func loadSessions() async -> Bool
     func loadExchangeRates() async
+    
+    func loadInvoices()
 }
 
 struct TabDataService: TabDataServiceProtocol {
@@ -57,5 +59,9 @@ struct TabDataService: TabDataServiceProtocol {
     
     func loadExchangeRates() async {
         await MainNetworkService.shared.syncExchangeRate()
+    }
+    
+    func loadInvoices() {
+        MainNetworkService.shared.syncInvoiceList()
     }
 }

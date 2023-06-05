@@ -25,10 +25,8 @@ extension MerchantsView {
                             Spacer()
                             Button {
                                 viewModel.expand(category: category.id)
-                                
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                    viewModel.allMerchantsViewModel?.setCategory(category)
-                                    viewModel.route = .showAllMerchantsInCategory
+                                    viewModel.route = .showAllMerchantsInCategory(category: category)
                                 }
 
                             } label: {

@@ -134,6 +134,11 @@ struct SettingsView: View {
         .padding(.horizontal, Padding.default)
         .navigationBarTitleDisplayMode(.inline)
         .toast($viewModel.showAlert, alertBody, duration: 1)
+        .sheet(isPresented: $viewModel.showOTPConfirm) {
+            if let model = self.viewModel.otpModel {
+                OTPView(viewModel: model)
+            }
+        }
     }
     
     private func alert(_ message: String) {

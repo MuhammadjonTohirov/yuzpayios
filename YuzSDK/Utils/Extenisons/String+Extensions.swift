@@ -107,7 +107,7 @@ public extension String {
         }
 
         let replace = "••••••••"
-        let range: Range<Index> = self.index(self.startIndex, offsetBy: 6)..<self.index(self.startIndex, offsetBy: 6 + replace.count)
+        let range: Range<Index> = self.index(self.startIndex, offsetBy: 4)..<self.index(self.startIndex, offsetBy: 4 + replace.count)
 
         text = text.replacingCharacters(in: range, with: replace)
         
@@ -119,7 +119,7 @@ public extension String {
         if text.count < 9 {
             return ""
         }
-        text.removeFirst(text.count - 9)
+        text.removeFirst(text.count - 8)
         let replace = "••••"
         let range: Range<Index> = self.index(self.startIndex, offsetBy: 0)..<self.index(self.startIndex, offsetBy: replace.count)
 
@@ -135,4 +135,8 @@ public extension String {
     var isNilOrEmpty: Bool {
         return self.nilIfEmpty == nil
     }
+}
+
+extension Bool: NetResBody {
+    
 }

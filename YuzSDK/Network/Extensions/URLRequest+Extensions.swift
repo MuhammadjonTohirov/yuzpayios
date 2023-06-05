@@ -10,7 +10,7 @@ import Foundation
 extension URLRequest {
     
     /// This method helps to create a urlrequest object with headers related to this application
-    static func new(url: URL, policy: CachePolicy = .useProtocolCachePolicy, interval: TimeInterval = 60.0) -> URLRequest {
+    static func new(url: URL, policy: CachePolicy = .useProtocolCachePolicy, withAuth: Bool = true, interval: TimeInterval = 60.0) -> URLRequest {
         var req = URLRequest(url: url, cachePolicy: policy, timeoutInterval: interval)
         req.addValue(URL.keyHeader.value, forHTTPHeaderField: URL.keyHeader.key)
         req.addValue(URL.langHeader.value, forHTTPHeaderField: URL.langHeader.key)
@@ -18,7 +18,7 @@ extension URLRequest {
         req.addValue("application/json", forHTTPHeaderField: "Content-Type")
         req.addValue("application/json", forHTTPHeaderField: "accept")
         
-        if let accessToken = UserSettings.shared.accessToken {
+        if let accessToken = UserSettings.shared.accessToken, withAuth {
             req.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }
         

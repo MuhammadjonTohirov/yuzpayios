@@ -13,6 +13,11 @@ import YuzSDK
 struct ReceiptAndPayView: View {
     typealias Action = ((_ cardId: String) -> Void)
     @Binding var rowItems: [ReceiptRowItem]
+
+    private var cardsFilter: ((DCard) -> Bool) = { _ in
+        return true
+    }
+
     private var submitButtonTitle: String = "pay".localize
     private var onClickSubmit: Action = { _ in
         
@@ -44,7 +49,7 @@ struct ReceiptAndPayView: View {
     var body: some View {
         innerBody
         .onAppear {
-            selectedId = cards.first?.id ?? ""
+            selectedId = cards.filter(cardsFilter).first?.id ?? ""
             selectedIndex = 0
             
             showCardsView()
@@ -85,7 +90,15 @@ struct ReceiptAndPayView: View {
     }
     
     private func onClickPay() {
-        guard let selectedCard = self.cards.item(at: selectedIndex) else {
+        guard self.showCards else {
+            dismiss()
+            self.onClickSubmit("-1")
+            return
+        }
+        
+        guard let selectedCard = self.cards.filter(cardsFilter).item(at: selectedIndex) else {
+            dismiss()
+            self.onClickSubmit("-1")
             return
         }
         
@@ -95,9 +108,10 @@ struct ReceiptAndPayView: View {
         }
         
         dismiss()
-        self.onClickSubmit(self.cards[selectedIndex].id)
+        self.onClickSubmit(selectedCard.id)
     }
     
+    // MARK: - Cards View
     var cardsView: some View {
         VStack {
             HStack {
@@ -113,9 +127,10 @@ struct ReceiptAndPayView: View {
         }
     }
     
+    // MARK: - Cards Page View
     var cardsPageView: some View {
         VStack {
-            SnapCarousel(spacing: 0, trailingSpace: 0, index: $selectedIndex, items: self.cards.map({$0})) { item in
+            SnapCarousel(spacing: 0, trailingSpace: 0, index: $selectedIndex, items: self.cards.filter(cardsFilter).map({$0})) { item in
                 card(card: item)
             }
             .mask {
@@ -130,6 +145,7 @@ struct ReceiptAndPayView: View {
         }
     }
 
+    // MARK: - Card Item
     func card(card: DCard) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 0) {
@@ -204,6 +220,7 @@ struct ReceiptAndPayView: View {
         }
     }
     
+    // MARK: - Row Item
     func row(title: String, detais: String) -> some View {
         VStack {
             HStack {
@@ -221,6 +238,7 @@ struct ReceiptAndPayView: View {
     }
 }
 
+// MARK: - Receipt And Pay View Extensions
 extension ReceiptAndPayView {
     func set(rows: [ReceiptRowItem]) -> Self {
         var v = self
@@ -244,6 +262,12 @@ extension ReceiptAndPayView {
     func set(onClickSubmit action: @escaping Action) -> Self {
         var v = self
         v.onClickSubmit = action
+        return v
+    }
+    
+    func set(filter action: @escaping (DCard) -> Bool) -> Self {
+        var v = self
+        v.cardsFilter = action
         return v
     }
 }

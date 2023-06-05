@@ -68,16 +68,6 @@ struct MerchantsView: View {
                 ProgressView()
             }
             
-            if let m = viewModel.merchantPaymentModel {
-                NavigationLink(unwrapping: $viewModel.route, case: .init(.showMerchant)) { _case in
-                    MerchantPaymentView(viewModel: m)
-                } onNavigate: { isActive in
-                    Logging.l(tag: "Merchants", "Show merchant payment view \(isActive)")
-                } label: {
-                    Text("")
-                }
-            }
-            
             VStack {
                 navigationView
                     .frame(height: 44)
@@ -90,31 +80,23 @@ struct MerchantsView: View {
                     Spacer()
                 }
             }
-            .sheet(unwrapping: $viewModel.route, case: .init(.showAllMerchantsInCategory)) { _case in
-                if let catId = viewModel.expandedCategory,
-                   let category = viewModel.categories?.first(where: {$0.id == catId}), !category.isInvalidated,
-                   let vm = viewModel.allMerchantsViewModel {
-                    NavigationView {
-                        AllMerchantsInCategoryView(viewModel: vm, selectedMerchantId: $viewModel.selectedMerchant) { merchant in
-
-                        }
-                        .navigationBarTitleDisplayMode(.inline)
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button(action: {
-                                    viewModel.route = .none
-                                }, label: {
-                                    Image(systemName: "xmark")
-                                })
-                            }
+            .navigationDestination(unwrapping: $viewModel.route, destination: { _case in
+                if case .showAllMerchantsInCategory(let category) = _case.wrappedValue  {
+                    AllMerchantsInCategoryView(category: category, selectedMerchantId: $viewModel.selectedMerchant) { merchant in
+                        viewModel.route = nil
+                        viewModel.selectedMerchant = merchant.id
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                            viewModel.route = .showMerchant
                         }
                     }
+                } else if let m = viewModel.selectedMerchant {
+                    MerchantPaymentView(merchantId: m, args: [:])
                 }
-            }
+            })
             .onChange(of: viewModel.selectedMerchant, perform: { newValue in
+                self.viewModel.route = .none
+                
                 if let id = viewModel.selectedMerchant {
-                    self.viewModel.route = .none
-
                     self.viewModel.setSelected(merchantId: id)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {

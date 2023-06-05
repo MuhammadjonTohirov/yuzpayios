@@ -31,7 +31,7 @@ final class FieldItem: Identifiable, ObservableObject, Hashable {
     }
 }
 
-struct FormModel {
+class FormModel {
     let id: Int?
     var minAmount, maxAmount: Double?
     let childID: Int?
@@ -60,9 +60,11 @@ struct FormModel {
         self.services = services
     }
     
-    static func create(with res: NetResMerchantDetails) -> FormModel {
-        let requiredFields: [FieldItem] = (res.fields?.compactMap({.init(field: $0, text: "")}) ?? [])
-        var form: FormModel = .init(id: res.id,
+    static func create(with res: NetResMerchantDetails, args: [String: String] = [:]) -> FormModel {
+        let requiredFields: [FieldItem] = (res.fields?.compactMap({
+            .init(field: $0, text: args[$0.fieldType?.rawValue.lowercased() ?? "0"] ?? "")
+        }) ?? [])
+        let form: FormModel = .init(id: res.id,
                                     minAmount: res.minAmount, maxAmount: res.maxAmount, childID: res.childID,
                                     servicePrice: res.servicePrice, agentCommission: res.agentCommission, serviceCommission: res.serviceCommission,
                                     order: res.order, serviceCommissionSum: res.serviceCommissionSum, paynetCommissionSum: res.paynetCommissionSum,

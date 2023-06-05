@@ -15,7 +15,7 @@ public extension URL {
     }
     
     static var keyHeader: (key: String, value: String) {
-        ("X-APP-SERIAL", "134d357ac404acd403b1df6680445514e96a7cff3dd5d773220b3deeb111e9a3")
+        ("X-APP-SERIAL", "b3ddcc07be6f5b4bebdbd0354bf3534f0e7fd93578fd6093df580b1c642bfafd")
     }
     
     static var langHeader: (key: String, value: String) {

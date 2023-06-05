@@ -13,7 +13,7 @@ struct TransferTypesView: View {
     
     var body: some View {
         innerBody.onAppear {
-            viewModel.onAppear()
+
         }
     }
     
@@ -21,18 +21,13 @@ struct TransferTypesView: View {
         ZStack {
             Text("\(homeViewModel.update.toExtendedString())")
                 .opacity(0)
-
-            NavigationLink("", isActive: $viewModel.showPage) {
-                self.viewModel.route?.screen
-                    .environmentObject(self.viewModel)
-            }
             
             VStack {
                 Text("transfer".localize)
                     .mont(.semibold, size: 16)
                     .padding()
                 
-                TransferType.transferToOther.rowButton {
+                TransferType.transferToOther.rowButton {                    
                     viewModel.route = .transferToOther
                 }
                 
@@ -52,25 +47,10 @@ struct TransferTypesView: View {
             }
             .padding(.horizontal, Padding.default)
         }
-//        .fullScreenCover(isPresented: $viewModel.showPage) {
-//
-//        } content: {
-//            NavigationView {
-//                self.viewModel.route?.screen
-//                    .environmentObject(self.viewModel)
-//                    .navigationBarTitleDisplayMode(.inline)
-//                    .toolbar(content: {
-//                        ToolbarItem(placement: .navigationBarLeading) {
-//                            Button {
-//                                self.viewModel.route = nil
-//                            } label: {
-//                                Image(systemName: "xmark")
-//                            }
-//
-//                        }
-//                    })
-//            }
-//        }
+        .navigationDestination(isPresented: $viewModel.showPage) {
+            self.viewModel.route?.screen
+                .environmentObject(self.viewModel)
+        }
     }
 }
 

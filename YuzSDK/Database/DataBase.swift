@@ -26,4 +26,24 @@ public class DataBase {
         
         return Realm.new?.object(ofType: DUserInfo.self, forPrimaryKey: number) != nil
     }
+    
+    public static var usdRate: DExchangeRate? {
+        return Realm.new?.objects(DExchangeRate.self).first(where: {$0.currencyID == .usd})
+    }
+    
+    public static func writeNotifications(_ notifications: [NetResBodyUserLog]) {
+        writeThread.async {
+            Realm.asyncNewSafe { realm in
+                realm.trySafeWrite {
+                    realm.add(notifications.map({DNotification(res: $0)}), update: .modified)
+                }
+            }
+        }
+    }
+}
+
+extension DNotification {
+    convenience init(res: NetResBodyUserLog) {
+        self.init(logID: res.logID, logTitle: res.logTitle, createdDate: res.createdDate, logStatus: res.logStatus, logDetails: res.logDetails, userID: res.userID)
+    }
 }

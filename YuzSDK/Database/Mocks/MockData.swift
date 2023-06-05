@@ -24,17 +24,17 @@ public struct MockData {
                 id: "0",
                 cardNumber: "8600 24•• •••• ••43",
                 expirationDate: Date().after(years: 3).after(monthes: 5), name: "My card", holderName: "MUHAMMADJON TOHIROV", isMain: true,
-                icon: "icon_uzcard", cardType: .uzcard, status: .active, moneyAmount: 1300000),
+                icon: "icon_uzcard", cardType: .uzcard, status: .active, currencyType: .uzs, moneyAmount: 1300000),
             .init(
                 id: "1",
                 cardNumber: "7213 44•• •••• ••12",
                 expirationDate: Date().after(years: 2).after(monthes: 1), name: "My visa card", holderName: "MUHAMMADJON TOHIROV", isMain: false,
-                icon: "icon_visa", cardType: .visa, status: .active, moneyAmount: 1300),
+                icon: "icon_visa", cardType: .visa, status: .active, currencyType: .usd, moneyAmount: 1300),
             .init(
                 id: "2",
                 cardNumber: "9984 71•• •••• ••74",
                 expirationDate: Date().after(years: 5).after(monthes: 3), name: "Master card", holderName: "MUHAMMADJON TOHIROV", isMain: false,
-                icon: "icon_master", cardType: .master, status: .active, moneyAmount: 40)
+                icon: "icon_master", cardType: .master, status: .active, currencyType: .usd, moneyAmount: 40)
         )
         
     }

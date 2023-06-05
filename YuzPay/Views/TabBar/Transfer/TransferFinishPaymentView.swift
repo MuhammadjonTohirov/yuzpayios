@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct TransferFinishPaymentView: View {
-    @ObservedObject var viewModel: TransferViewModel = TransferViewModel()
+    @ObservedObject var viewModel: TransferToCardViewModel = TransferToCardViewModel()
     @State var receiptRows: [ReceiptRowItem] = []
     var body: some View {
         ReceiptAndPayView(rows: $receiptRows)
@@ -25,7 +25,7 @@ struct TransferFinishPaymentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             TransferFinishPaymentView()
-                .environmentObject(TransferViewModel())
+                .environmentObject(TransferToCardViewModel())
         }
     }
 }

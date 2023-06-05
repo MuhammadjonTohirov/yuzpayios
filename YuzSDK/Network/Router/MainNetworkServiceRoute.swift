@@ -53,6 +53,15 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
             return URL.base.appendingPath("api", "Client", "OrderCard")
         case .orderVirtualCard:
             return URL.base.appendingPath("api", "Client", "OpenVirtual")
+        case .findCard(let cardNumber):
+            return URL.base.appendingPath("api", "Client", "FindCard")
+                .queries(.init(name: "cardNumber", value: cardNumber))
+        case .getCard(let id):
+            return URL.base.appendingPath("api", "Client", "CardDetails", id)
+        case let .p2p(cardId, _):
+            return URL.base.appendingPath("api", "Client", "P2PCard", cardId)
+        case let .echange(cardId, _):
+            return URL.base.appendingPath("api", "Client", "ExchangeCard", cardId)
         }
     }
     
@@ -70,6 +79,10 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
             return req.asData
         case let .orderVirtualCard(req):
             return req.asData
+        case let .p2p(_, req):
+            return req.asData
+        case let .echange(_, req):
+            return req.asData
         default:
             return nil
         }
@@ -77,7 +90,7 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     
     var method: HTTPMethod {
         switch self {
-        case .searchMerchants, .addCard, .confirmCard, .doPayment, .doInvoicePayment, .orderCard, .orderVirtualCard:
+        case .searchMerchants, .addCard, .confirmCard, .doPayment, .doInvoicePayment, .orderCard, .orderVirtualCard, .p2p, .echange:
             return .post
         case .updateCard:
             return .put
@@ -122,4 +135,10 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     case getRegions
     case getDistrict(regionId: Int)
     case getExchangeRate
+    
+    // MARK: - P2P
+    case findCard(cardNumber: String)
+    case getCard(id: String)
+    case p2p(cardId: String, req: NetReqP2P)
+    case echange(cardId: String, req: NetReqExchange)
 }

@@ -15,17 +15,17 @@ public extension Date {
     
     static let transactionSectionFormat = "d MMM yyyy, E"
     
-    static func from(string: String, format: String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS") -> Date? {
+    static func from(string: String, format: String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS", timezone: TimeZone? = .init(abbreviation: "GMT+5")) -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = format
-        formatter.timeZone = .init(abbreviation: "GMT+5")
+        formatter.timeZone = timezone
         return formatter.date(from: string)
     }
     
-    func toExtendedString(format: String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS") -> String {
+    func toExtendedString(format: String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS", timezone: TimeZone? = .init(abbreviation: "GMT+5")) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format
-        formatter.timeZone = .init(abbreviation: "GMT+5")
+        formatter.timeZone = timezone
         return formatter.string(from: self)
     }
     

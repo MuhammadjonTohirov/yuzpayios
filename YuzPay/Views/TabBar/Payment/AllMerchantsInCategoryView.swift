@@ -12,12 +12,13 @@ import YuzSDK
 struct AllMerchantsInCategoryView: View {
     typealias Action = (DMerchant) -> Void
     @State private var itemsPadding: CGFloat = 0
-    @ObservedObject var viewModel: AllMerchantsInCategoryViewModel
+    @StateObject var viewModel: AllMerchantsInCategoryViewModel = .init()
     @Binding var selectedMerchantId: String?
+    @State var category: DMerchantCategory
     var onClickMerchant: Action
     
-    init(viewModel: AllMerchantsInCategoryViewModel, selectedMerchantId: Binding<String?>, onClickMerchant: @escaping Action) {
-        self.viewModel = viewModel
+    init(category: DMerchantCategory, selectedMerchantId: Binding<String?>, onClickMerchant: @escaping Action) {
+        self.category = category
         self._selectedMerchantId = selectedMerchantId
         self.onClickMerchant = onClickMerchant
         Logging.l("Show AllMerchantsInCategory View with viewModel")
@@ -25,16 +26,6 @@ struct AllMerchantsInCategoryView: View {
     
     var body: some View {
         ZStack {
-//            if let m = viewModel.merchantPaymentModel {
-//                NavigationLink(unwrapping: $viewModel.route, case: .init(.showPayment)) { _ in
-//                    MerchantPaymentView(viewModel: m)
-//                } onNavigate: { didShow in
-//                    Logging.l(tag: "Payment", "Did show merchant payment view")
-//                } label: {
-//                    Text("")
-//                }
-//            }
-            
             LazyVStack {
                 merchantsContains(expanded: true) {
                     autoreleasepool {
@@ -53,6 +44,7 @@ struct AllMerchantsInCategoryView: View {
             let itemsCount: CGFloat = 3
             let itemWidth: CGFloat = 100.f.sw()
             let requiredWidth = itemsCount * itemWidth
+            viewModel.setCategory(self.category)
             itemsPadding = (UIScreen.screen.width  - 2 * Padding.default - requiredWidth) / 2
             viewModel.onAppear()
         }
@@ -65,10 +57,6 @@ struct AllMerchantsInCategoryView: View {
                 Button {
                     self.selectedMerchantId = merchant.id
                     self.onClickMerchant(merchant)
-//                    viewModel.setSelected(merchant: merchant)
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-//                        viewModel.route = .showPayment
-//                    }
                 } label: {
                     MerchantItemView(
                         icon: merchant.icon,
