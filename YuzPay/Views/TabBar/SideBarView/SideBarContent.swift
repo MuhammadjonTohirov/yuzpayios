@@ -20,7 +20,11 @@ struct SideBarContent: View {
     @State var showLogoutAlert = false
     @State var showIdentifier = false
     var fullName: String {
-        DataBase.userInfo?.familyName?.nilIfEmpty ?? (UserSettings.shared.userPhone ?? "").format(with: "+998 XX XXX-XX-XX")
+        guard let info = DataBase.userInfo else {
+            return UserSettings.shared.userPhone ?? ""
+        }
+        
+        return info.isVerified ? info.familyName?.nilIfEmpty ?? "" : (info.phoneNumber ?? "").format(with: "+998 XX XXX XX XX")
     }
     
     var body: some View {
@@ -80,11 +84,11 @@ struct SideBarContent: View {
                 Button {
                     viewModel.onClickProfile()
                 } label: {
-                    KF(imageUrl: UserSettings.shared.userAvatarURL, storageExpiration: .expired, memoryExpiration: .expired)
+                    KF(imageUrl: UserSettings.shared.userAvatarURL, cacheKey: (UserSettings.shared.loginDate ?? Date()).toExtendedString(), storageExpiration: .expired, memoryExpiration: .expired)
                         .frame(width: 88.f.sw(), height: 88.f.sw())
                         .background {
                             Circle()
-                                .foregroundColor(.systemGray)
+                                .foregroundColor(.secondarySystemBackground)
                         }
                 }
                 

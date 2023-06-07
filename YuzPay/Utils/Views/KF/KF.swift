@@ -11,13 +11,14 @@ import YuzSDK
 
 struct KF: View {
     var imageUrl: URL?
+    var cacheKey: String?
     @State private var didAppear = false
     var storageExpiration: StorageExpiration? = nil
     var memoryExpiration: StorageExpiration? = nil
     
     var body: some View {
         if let url = imageUrl {
-            KFImage(source: Source.network(ImageResource(downloadURL: url, cacheKey: "\(url.absoluteString)_\(UserSettings.shared.userPhone ?? "")")))
+            KFImage(source: Source.network(ImageResource(downloadURL: url, cacheKey: cacheKey ?? "\(url.absoluteString)_\(UserSettings.shared.userPhone ?? "")")))
                 .setHTTPHeader(name: "Authorization", value: "Bearer \(UserSettings.shared.accessToken ?? "")")
                 .resizable()
                 .placeholder({

@@ -58,11 +58,10 @@ final class SideBarViewModel: ObservableObject {
             return
         }
         
-        let userModel = realm.object(ofType: DUserInfo.self, forPrimaryKey: UserSettings.shared.currentUserLocalId)
         
-        reloadUserInfo(userModel)
+        reloadUserInfo(DataBase.userInfo)
         
-        userInfoToken = userModel?.observe({[weak self] changeObject in
+        userInfoToken = DataBase.userInfo?.observe({[weak self] changeObject in
             switch changeObject {
             case let .change(base, _):
                 guard let model = base as? DUserInfo, !(model.isInvalidated) else {

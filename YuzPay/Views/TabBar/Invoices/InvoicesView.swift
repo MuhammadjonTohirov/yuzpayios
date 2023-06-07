@@ -25,7 +25,9 @@ struct InvoicesView: View {
         ZStack {
             innerBody
                 .toast($showAlert, alert, duration: 2.5)
-                .sheet(isPresented: $showReceipt) {
+                .sheet(isPresented: $showReceipt, onDismiss: {
+                    Logging.l("Dismiss receipt view")
+                }) {
                     NavigationView {
                         ReceiptAndPayView(rows: $receiptRowItems)
                             .set(submitButtonTitle: (selectedItem?.isPayable ?? false) ? "pay".localize : "back".localize)
@@ -41,10 +43,12 @@ struct InvoicesView: View {
                             })
                             .navigationTitle(selectedItem?.branchName ?? "")
                     }
+                    .presentationDetents([.fraction(0.99)])
                 }
         }
         .onAppear {
             MainNetworkService.shared.syncInvoiceList()
+            selectedItem = invoices.first?.asModel
         }
     }
     
@@ -53,15 +57,17 @@ struct InvoicesView: View {
             ForEach(invoices.sorted(byKeyPath: "createdDate", ascending: false)) { item in
                 Button {
                     self.selectedItem = item.asModel
-                    self.receiptRowItems = [
-                        .init(name: "organization".localize, value: item.organizationName ?? ""),
-                        .init(name: "branch".localize, value: item.branchName ?? ""),
-                        .init(name: "date".localize, value: item.asModel.beautifiedDate),
-                        .init(name: "price".localize, value: item.asModel.priceInfo, type: .price),
-                        .init(name: "status".localize, value: item.asModel.statusValue)
-                    ]
                     
-                    self.showReceipt = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        self.receiptRowItems = [
+                            .init(name: "organization".localize, value: item.organizationName ?? ""),
+                            .init(name: "branch".localize, value: item.branchName ?? ""),
+                            .init(name: "date".localize, value: item.asModel.beautifiedDate),
+                            .init(name: "price".localize, value: item.asModel.priceInfo, type: .price),
+                            .init(name: "status".localize, value: item.asModel.statusValue)
+                        ]
+                        self.showReceipt = true
+                    }
                 } label: {
                     invoiceItem(item)
                         .padding(.vertical, Padding.small)

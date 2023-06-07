@@ -48,11 +48,16 @@ struct UserProfileView: View {
                     .frame(width: 120, height: 120)
                     .padding(.vertical, Padding.small)
                 
-                Text("+998 \((userInfo?.phoneNumber ?? "").format(with: "XX XXX XX XX"))")
-                    .mont(.semibold, size: 21)
-                
-//                Text("+998 \((userInfo?.phoneNumber ?? "").format(with: "XX XXX XX XX"))")
-//                    .mont(.regular, size: 14)
+                if userInfo?.isVerified ?? false {
+                    Text(userInfo?.familyName ?? "")
+                        .mont(.semibold, size: 21)
+                    
+                    Text("+998 \((userInfo?.phoneNumber ?? "").format(with: "XX XXX XX XX"))")
+                        .mont(.regular, size: 14)
+                } else {
+                    Text("+998 \((userInfo?.phoneNumber ?? "").format(with: "XX XXX XX XX"))")
+                        .mont(.semibold, size: 21)
+                }
             }
             .frame(maxWidth: .infinity)
             .padding(.bottom, (Padding.large * 2).sh())

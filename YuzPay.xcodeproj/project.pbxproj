@@ -3277,6 +3277,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YuzPay/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "$(PRODUCT_NAME)";
 				INFOPLIST_KEY_NSCameraUsageDescription = "YuzApp wants to access camera to scan or take a pickture";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Login with FaceId";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "YuzApp wants to get current location for get nearby bank branches";
@@ -3325,6 +3326,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YuzPay/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "$(PRODUCT_NAME)";
 				INFOPLIST_KEY_NSCameraUsageDescription = "YuzApp wants to access camera to scan or take a pickture";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Login with FaceId";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "YuzApp wants to get current location for get nearby bank branches";

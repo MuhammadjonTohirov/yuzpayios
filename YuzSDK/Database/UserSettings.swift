@@ -12,7 +12,7 @@ import RealmSwift
 final public class UserSettings {
     public static let shared = UserSettings()
     
-    public private(set) var userAvatarURL: URL = URL.base.appendingPath("img", "Client", "ProfileAvatar.png")
+    public private(set) var userAvatarURL: URL = URL.base.appendingPath("api", "Client", "ProfileAvatar")
     
     @codableWrapper(key: "language")
     public var language: Language?
@@ -24,6 +24,9 @@ final public class UserSettings {
     
     @anyWrapper(key: "pincode", defaultValue: nil)
     public var appPin: String?
+    
+    @anyWrapper(key: "loginDate", defaultValue: nil)
+    public var loginDate: Date?
     
     @anyWrapper(key: "isIdentified", defaultValue: false)
     public var isVerifiedUser: Bool?

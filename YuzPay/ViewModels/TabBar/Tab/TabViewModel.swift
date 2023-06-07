@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import YuzSDK
+import RealmSwift
 
 enum SideBarRoute: Hashable, ScreenRoute {
     static func == (lhs: SideBarRoute, rhs: SideBarRoute) -> Bool {
@@ -153,8 +154,8 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
     private(set) lazy var settingsViewModel: SettingsViewModel = { SettingsViewModel() }()
     private(set) lazy var merchantsViewModel: MerchantsViewModel = { MerchantsViewModel() }()
     private(set) var alertModel: MainAlertModel = MainAlertModel()
-    var sideViewModel = SideBarViewModel()
-    
+    private(set) lazy var sideViewModel = { SideBarViewModel() }()
+    private(set) var profileNotificationToken: NotificationToken?
     var alert: AlertToast = .init(displayMode: .alert, type: .regular)
 
     @Published var sideMenuOffset: CGPoint = .zero
@@ -193,13 +194,14 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
         if isAppeared {
             return
         }
-        
+        UserSettings.shared.loginDate = Date()
         isAppeared = true
         homeViewModel.delegate = self
         sideViewModel.delegate = self
         sideMenuOffset = CGPoint(x: -sideMenuWidth, y: 0)
         
         getPrerequisites()
+        watchProfileChange()
         DispatchQueue(label: "mock", qos: .utility).async {
             MockData.shared.createTransactions()
         }
@@ -258,6 +260,20 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
             showSideBar()
         } else {
             hideSideBar()
+        }
+    }
+    
+    private func watchProfileChange() {
+        Realm.asyncNew { realmObject in
+            switch realmObject {
+            case .success(let realm):
+                self.profileNotificationToken = realm.objects(DUserInfo.self).observe(on: .main) { _ in
+                    self.homeViewModel.reloadIsUserIdentified()
+                    
+                }
+            case .failure:
+                break
+            }
         }
     }
 }

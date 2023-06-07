@@ -103,7 +103,7 @@ final class HomeViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Ne
     func onAppear() {
         setNetworkDelegate(self)
         watchInvoices()
-        watchUserIdentifer()
+        reloadIsUserIdentified()
     }
     
     func onClickMenu() {
@@ -138,10 +138,10 @@ extension HomeViewModel {
             case .success(let realm):
                 self.invoiceNotificationToken = realm.objects(DInvoiceItem.self).observe(on: .main) { changes in
                     switch changes {
-                    case .initial(let collectionType):
-                        self.hasInvoices = !collectionType.isEmpty
-                    case .update(let collectionType, _, _, _):
-                        self.hasInvoices = !collectionType.isEmpty
+                    case .initial(let invoices):
+                        self.hasInvoices = !invoices.isEmpty
+                    case .update(let invoices, _, _, _):
+                        self.hasInvoices = !invoices.isEmpty
                     case .error:
                         self.hasInvoices = false
                     }
@@ -152,7 +152,7 @@ extension HomeViewModel {
         }
     }
     
-    private func watchUserIdentifer() {
+    func reloadIsUserIdentified() {
         self.isIdentifiedUser = DataBase.userInfo?.isVerified ?? false
     }
 }

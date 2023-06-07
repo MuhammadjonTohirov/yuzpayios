@@ -720,17 +720,23 @@ public class CameraService: NSObject, Identifiable {
     }
     
     public func savePhotoToGallery(_ image: UIImage) -> URL? {
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let fileName = "image_\(Int(Date().timeIntervalSince1970)).png"
-        let fileURL = documentsDirectory.appendingPathComponent(fileName)
-        if let data = image.pngData() {
-            do {
-                try data.write(to: fileURL)
-                return fileURL
-            } catch {
-                print("error saving file:", error)
+        autoreleasepool {
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let fileName = "image_\(Int(Date().timeIntervalSince1970)).jpeg"
+            let fileURL = documentsDirectory.appendingPathComponent(fileName)
+            if let data = image.jpegData(compressionQuality: 1) {
+                do {
+//                    save image to photos
+//                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+
+                    try data.write(to: fileURL)
+                    return fileURL
+                } catch {
+                    print("error saving file:", error)
+                }
             }
+                    
+            return nil
         }
-        return nil
     }
 }
