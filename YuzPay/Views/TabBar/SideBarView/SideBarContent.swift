@@ -14,11 +14,15 @@ struct SideBarContent: View {
     @StateObject var viewModel: SideBarViewModel
     
     var isVerifiedUser: Bool {
-        UserSettings.shared.isVerifiedUser ?? false
+        DataBase.userInfo?.isVerified ?? false
     }
     
     @State var showLogoutAlert = false
     @State var showIdentifier = false
+    var fullName: String {
+        DataBase.userInfo?.familyName?.nilIfEmpty ?? (UserSettings.shared.userPhone ?? "").format(with: "+998 XX XXX-XX-XX")
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Button {
@@ -85,13 +89,16 @@ struct SideBarContent: View {
                 }
                 
                 VStack(alignment: .leading) {
-                    Text((UserSettings.shared.userPhone ?? "").format(with: "+998 XX XXX-XX-XX"))
+                    Text(fullName)
                         .font(.mont(.semibold, size: 16))
 
                     Button {
-                        showIdentifier = true
+                        if !isVerifiedUser {
+                            showIdentifier = true
+                        } else {
+                            viewModel.onClickProfile()
+                        }
                     } label: {
-                        
                         Text(isVerifiedUser ? "verified".localize : "not_verified".localize)
                             .font(.mont(.medium, size: 12))
                             .foregroundColor(.white)

@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 import AVKit
+import YuzSDK
+import RealmSwift
 
 struct UserIdentificationView: View {
     @Environment(\.dismiss) var dismiss
@@ -15,6 +17,9 @@ struct UserIdentificationView: View {
     @State var image: UIImage = UIImage(named: "icon_camera")!
     @State var flashMode: AVCaptureDevice.FlashMode = .on
     @State var cameraPosition: AVCaptureDevice.Position = .back
+    @State private var toast = AlertToast(displayMode: .alert, type: .regular)
+    @State private var showToast = false
+    @State private var isUploading = false
     
     let cameraModel = CameraModel()
     
@@ -24,11 +29,15 @@ struct UserIdentificationView: View {
     
     @ViewBuilder
     var body: some View {
-        if isSuccess {
-            successView
-        } else {
-            defaultView
+        Group {
+            if isSuccess {
+                successView
+            } else {
+                defaultView
+            }
         }
+        .loadable($isUploading, message: "verifying".localize)
+        .toast($showToast, toast, duration: 1)
     }
     
     var successView: some View {
@@ -52,9 +61,8 @@ struct UserIdentificationView: View {
     
     var defaultView: some View {
         ZStack {
-            
             VStack(alignment: .leading, spacing: 14) {
-                Text("паспортные данные")
+                Text("Паспортные данные")
                     .mont(.semibold, size: 24)
                     .padding(.top, Padding.large * 2)
                 Text("Паспортные данные необходимы, чтобы подтвердить Вашу личность и открыть полный доступ ко всем услугам.")
@@ -63,7 +71,7 @@ struct UserIdentificationView: View {
                 Spacer()
                 
                 FlatButton(title: "Сканировать", borderColor: .clear, titleColor: .white) {
-                    scanPassport = true
+                    startScanning()
                 }
                 .background(
                     RoundedRectangle(cornerRadius: 12)
@@ -73,13 +81,20 @@ struct UserIdentificationView: View {
             .fullScreenCover(isPresented: $scanPassport) {
                 CameraView(model: cameraModel) {
                     cameraOverlay
+                        .loadable($isUploading, message: "verifying".localize)
                 }
                 .onAppear {
                     if !cameraModel.service.isSessionRunning {
                         cameraModel.service.start()
-                        cameraModel.onCapture = {
-                            scanPassport = false
-                            isSuccess = true
+                        cameraModel.onStartCapture = {
+                            isUploading = true
+                        }
+                        cameraModel.onCapture = { url in
+                            if let url {
+                                uploadPhoto(url: url)
+                            }
+                            
+                            stopScanning()
                         }
                     }
                 }
@@ -99,6 +114,46 @@ struct UserIdentificationView: View {
         .padding(Padding.default)
     }
     
+    private func showAlert(_ toast: AlertToast) {
+        self.toast = toast
+        self.showToast = true
+    }
+    
+    private func uploadPhoto(url: URL) {
+        isUploading = true
+        UserNetworkService.shared.verifyProfile(photoUrl: url) { success, error in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                success ? onSuccess() : onFail(error: error)
+                isUploading = false
+            }
+        }
+    }
+    
+    private func onFail(error: String?) {
+        isSuccess = false
+        showAlert(.init(displayMode: .alert, type: .error(.systemRed), title: error ?? "cannot_verify_try_again".localize))
+    }
+    
+    private func onSuccess() {
+        isSuccess = true
+        Task {
+            let _ = await loadUserInfo()
+        }
+    }
+    
+    private func loadUserInfo() async -> Bool {
+        
+        guard let userInfo = await UserNetworkService.shared.getUserInfo() else {
+            return false
+        }
+        
+        Realm.new?.trySafeWrite({
+            Realm.new?.add(DUserInfo.init(id: UserSettings.shared.currentUserLocalId, res: userInfo), update: .modified)
+        })
+        
+        return true
+    }
+    
     @ViewBuilder
     private var cameraOverlay: some View {
         VStack(alignment: .center, spacing: 14) {
@@ -113,8 +168,12 @@ struct UserIdentificationView: View {
             
             Spacer()
             
-            if let photo = cameraModel.photo, let image = photo.thumbnailImage?.cgImage {
+            if let photo = cameraModel.photo, let image = photo.image?.cgImage {
                 Image(uiImage: .init(cgImage: image))
+                    .resizable(true)
+                    .aspectRatio(contentMode: .fit)
+                    .maxWidth(200)
+                    .maxHeight(300)   
             }
             
             button
@@ -141,17 +200,25 @@ struct UserIdentificationView: View {
         .padding(.horizontal, Padding.large)
     }
     
+    private func stopScanning() {
+        self.cameraModel.photo = nil
+        if self.cameraModel.service.isSessionRunning {
+            self.cameraModel.service.stop {
+                self.scanPassport = false
+            }
+        } else {
+            self.scanPassport = false
+        }
+    }
+    
+    private func startScanning() {
+        self.scanPassport = true
+    }
+    
     var cameraOverlayHeader: some View {
         HStack {
             Button {
-                self.cameraModel.photo = nil
-                if self.cameraModel.service.isSessionRunning {
-                    self.cameraModel.service.stop {
-                        self.scanPassport = false
-                    }
-                } else {
-                    self.scanPassport = false
-                }
+                stopScanning()
             } label: {
                 Image("icon_x")
                     .resizable()
@@ -184,6 +251,7 @@ struct UserIdentificationView: View {
             
         }
     }
+    
 }
 
 struct UserIdentificationView_Preview: PreviewProvider {

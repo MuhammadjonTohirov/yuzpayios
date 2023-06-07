@@ -26,7 +26,9 @@ final class CameraModel: ObservableObject {
     
     private var subscriptions = Set<AnyCancellable>()
     
-    var onCapture: (() -> Void)?
+    var onCapture: ((URL?) -> Void)?
+    
+    var onStartCapture: (() -> Void)?
     
     init() {
         self.session = service.session
@@ -34,7 +36,10 @@ final class CameraModel: ObservableObject {
         service.$photo.sink { [weak self] (photo) in
             guard let pic = photo else { return }
             self?.photo = pic
-            self?.onCapture?()
+            // save photo to gallery
+            if let image = pic.image, let url = self?.service.savePhotoToGallery(image) {
+                self?.onCapture?(url)
+            }
         }
         .store(in: &self.subscriptions)
         
@@ -61,6 +66,7 @@ final class CameraModel: ObservableObject {
     }
     
     func capturePhoto() {
+        self.onStartCapture?()
         service.capturePhoto()
     }
     

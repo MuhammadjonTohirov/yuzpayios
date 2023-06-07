@@ -35,6 +35,7 @@
 		2E241F1229E5D3D300822321 /* TTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E241F1129E5D3D300822321 /* TTabBar.swift */; };
 		2E241F1529E5DF6700822321 /* PageView in Frameworks */ = {isa = PBXBuildFile; productRef = 2E241F1429E5DF6700822321 /* PageView */; };
 		2E25521E2A2E4F7B00A92F85 /* NetResDeleteAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E25521D2A2E4F7B00A92F85 /* NetResDeleteAccount.swift */; };
+		2E2552202A2E716800A92F85 /* AboutUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E25521F2A2E716800A92F85 /* AboutUsView.swift */; };
 		2E2CBA642952E0D000D7C352 /* MerchantItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2CBA632952E0D000D7C352 /* MerchantItemModel.swift */; };
 		2E2CBA6A2952E33D00D7C352 /* ModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2CBA692952E33D00D7C352 /* ModelProtocol.swift */; };
 		2E2CBA752954359200D7C352 /* HCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2CBA742954359200D7C352 /* HCardListView.swift */; };
@@ -452,6 +453,7 @@
 		2E241F0329E5D0BD00822321 /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		2E241F1129E5D3D300822321 /* TTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTabBar.swift; sourceTree = "<group>"; };
 		2E25521D2A2E4F7B00A92F85 /* NetResDeleteAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetResDeleteAccount.swift; sourceTree = "<group>"; };
+		2E25521F2A2E716800A92F85 /* AboutUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsView.swift; sourceTree = "<group>"; };
 		2E2CBA632952E0D000D7C352 /* MerchantItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MerchantItemModel.swift; sourceTree = "<group>"; };
 		2E2CBA692952E33D00D7C352 /* ModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelProtocol.swift; sourceTree = "<group>"; };
 		2E2CBA722952EF4C00D7C352 /* YuzPay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YuzPay.entitlements; sourceTree = "<group>"; };
@@ -1299,6 +1301,7 @@
 			children = (
 				2EB8E6BA2977211A00BBAFE3 /* HelpView.swift */,
 				2EB8E6BC29772A4E00BBAFE3 /* FAQDetailsView.swift */,
+				2E25521F2A2E716800A92F85 /* AboutUsView.swift */,
 			);
 			path = Help;
 			sourceTree = "<group>";
@@ -2843,6 +2846,7 @@
 				2E2CBA792954369500D7C352 /* HCardListViewModel.swift in Sources */,
 				2E4EC1CB29631B8400A7BE81 /* SelectCardDeliveryTypeView.swift in Sources */,
 				2E241F0729E5D0BD00822321 /* TabBarVisibility.swift in Sources */,
+				2E2552202A2E716800A92F85 /* AboutUsView.swift in Sources */,
 				2E7A332E298D960F004EFABB /* UserProfileView.swift in Sources */,
 				2EC5F0F829465DF700BA54E3 /* OtpViewModel.swift in Sources */,
 				2ED87CE72955FEE600E1D477 /* UIStackViewConstructor.swift in Sources */,
@@ -3265,7 +3269,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;
@@ -3313,7 +3317,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;

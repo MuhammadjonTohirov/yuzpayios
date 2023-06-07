@@ -8,6 +8,7 @@
 import Foundation
 
 public struct NetResCardItem: Identifiable, Encodable, NetResBody {
+    /// id -> cardId 
     public var id: Int {
         cardId
     }

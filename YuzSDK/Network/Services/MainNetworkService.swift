@@ -98,6 +98,9 @@ public struct MainNetworkService: NetworkServiceProtocol {
     public func doPayment(id: Int, category: Int, payment: NetReqDoPayment) async -> (success: Bool, error: String?) {
         Logging.l(payment.asString)
         let res: NetRes<String>? = await Network.send(request: S.doPayment(id: id, categoryId: category, payment))
+        if res?.success ?? false {
+            syncCardList()
+        }
         return (res?.success ?? false, res?.error)
     }
     
@@ -114,6 +117,9 @@ public struct MainNetworkService: NetworkServiceProtocol {
     public func doInvoicePayment(invoiceId: Int, cardId: Int) async -> (success: Bool, error: String?) {
         let result: NetRes<String>? = await Network.send(request: S.doInvoicePayment(invoiceId: invoiceId, cardId: cardId))
         InvoiceManager().set(isPaid: result?.success ?? false, invoiceId: invoiceId)
+        if result?.success ?? false {
+            syncCardList()
+        }
         return (result?.success ?? false, result?.error)
     }
     
@@ -159,12 +165,18 @@ public struct MainNetworkService: NetworkServiceProtocol {
     /// p2p
     public func p2pTransfer(cardId: String, req: NetReqP2P) async -> (Bool, String?) {
         let result: NetRes<String>? = await Network.send(request: S.p2p(cardId: cardId, req: req))
+        if result?.success ?? false {
+            syncCardList()
+        }
         return (result?.error == nil, result?.error)
     }
     
     /// uzs to usd or vice versa
     public func exchange(cardId: String, req: NetReqExchange) async -> (Bool, String?) {
         let result: NetRes<String>? = await Network.send(request: S.echange(cardId: cardId, req: req))
+        if result?.success ?? false {
+            syncCardList()
+        }
         return (result?.error == nil, result?.error)
     }
     

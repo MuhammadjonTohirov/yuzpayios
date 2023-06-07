@@ -45,12 +45,12 @@ final class PhoneAuthViewModel: NSObject, ObservableObject, Loadable, Alertable 
                 hideLoader()
             }
             guard let result = await UserNetworkService.shared.getOTP(forNumber: number) else {
-                showError(message: "unknown_error")
+                showError(message: "unknown_error".localize)
                 return
             }
             
             guard let body = result.data, result.success else {
-                showError(message: result.error ?? "unknown_error")
+                showError(message: result.error ?? "unknown_error".localize)
                 return
             }
             

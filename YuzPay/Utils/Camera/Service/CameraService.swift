@@ -508,7 +508,14 @@ public class CameraService: NSObject, Identifiable {
                     photoSettings.flashMode = self.flashMode
                 }
                 
+                // check for iOS version
+//                if #available(iOS 16.0, *) {
+////                    photoSettings.maxPhotoDimensions = .init(width: 812, height: 1024)
+//                } else {
+//                    photoSettings.isHighResolutionPhotoEnabled = true
+//                }
                 photoSettings.isHighResolutionPhotoEnabled = true
+                
                 if !photoSettings.__availablePreviewPhotoPixelFormatTypes.isEmpty {
                     photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: photoSettings.__availablePreviewPhotoPixelFormatTypes.first!]
                 }
@@ -710,5 +717,20 @@ public class CameraService: NSObject, Identifiable {
         DispatchQueue.main.async {
             self.isCameraUnavailable = false
         }
+    }
+    
+    public func savePhotoToGallery(_ image: UIImage) -> URL? {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileName = "image_\(Int(Date().timeIntervalSince1970)).png"
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+        if let data = image.pngData() {
+            do {
+                try data.write(to: fileURL)
+                return fileURL
+            } catch {
+                print("error saving file:", error)
+            }
+        }
+        return nil
     }
 }

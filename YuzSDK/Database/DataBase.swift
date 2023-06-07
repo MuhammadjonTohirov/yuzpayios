@@ -19,12 +19,28 @@ public class DataBase {
         !(Realm.new?.objects(DMerchantCategory.self).isEmpty ?? true)
     }
     
+    public static func clear() {
+        Realm.asyncNewSafe { realm in
+            realm.trySafeWrite {
+                realm.deleteAll()
+            }
+        }
+    }
+    
     public static var hasUserInfo: Bool {
         guard let number = UserSettings.shared.userPhone else {
             return false
         }
+
+        return Realm.new?.objects(DUserInfo.self).filter("phoneNumber = %@", number).first != nil
+    }
+    
+    public static var userInfo: DUserInfo? {
+        guard let number = UserSettings.shared.userPhone else {
+            return nil
+        }
         
-        return Realm.new?.object(ofType: DUserInfo.self, forPrimaryKey: number) != nil
+        return Realm.new?.objects(DUserInfo.self).filter("phoneNumber = %@", number).first
     }
     
     public static var usdRate: DExchangeRate? {

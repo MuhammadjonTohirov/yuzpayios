@@ -82,7 +82,7 @@ struct MerchantsView: View {
             }
             .navigationDestination(unwrapping: $viewModel.route, destination: { _case in
                 if case .showAllMerchantsInCategory(let category) = _case.wrappedValue  {
-                    AllMerchantsInCategoryView(category: category, selectedMerchantId: $viewModel.selectedMerchant) { merchant in
+                    AllMerchantsInCategoryView(category: (category.title, category.id), selectedMerchantId: $viewModel.selectedMerchant) { merchant in
                         viewModel.route = nil
                         viewModel.selectedMerchant = merchant.id
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {

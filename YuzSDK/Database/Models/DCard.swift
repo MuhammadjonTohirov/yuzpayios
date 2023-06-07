@@ -38,6 +38,17 @@ public enum CreditCardType: String, PersistableEnum, Identifiable {
         }
     }
     
+    public var currencyUnit: String {
+        switch self {
+        case .uzcard, .humo:
+            return "UZS"
+        case .visa, .master, .unionpay:
+            return "USD"
+        case .wallet:
+            return ""
+        }
+    }
+    
     @ViewBuilder
     public var whiteIcon: some View {
         switch self {
@@ -103,6 +114,7 @@ public enum CreditCardStatus: Int, PersistableEnum {
 
 public class DCard: Object, ObjectKeyIdentifiable, DItemProtocol, CardProtocol {
     @Persisted(primaryKey: true) public var id: String
+    @Persisted public var ownerId: String
     @Persisted public var cardNumber: String
     @Persisted public var expirationDate: Date
     @Persisted public var name: String
@@ -118,7 +130,7 @@ public class DCard: Object, ObjectKeyIdentifiable, DItemProtocol, CardProtocol {
     
     @Persisted public var currencyType: CurrencyType
     
-    public init(id: String, cardNumber: String, expirationDate: Date,
+    public init(id: String, ownerId: String, cardNumber: String, expirationDate: Date,
          name: String, holderName: String, isMain: Bool, bankName: String? = nil,
          icon: String? = nil, cardType: CreditCardType, status: CreditCardStatus,
                 backgroundImage: String? = nil, colorCode: String? = nil, moneyAmount: Float, currency: CurrencyType = .uzs) {
@@ -165,7 +177,7 @@ public extension CreditCardType {
 
 public extension DCard {
     static func build(withModel model: CardModel) -> any DItemProtocol {
-        return DCard(id: model.id, cardNumber: model.cardNumber, expirationDate: model.expirationDate,
+        return DCard(id: model.id, ownerId: model.ownerId, cardNumber: model.cardNumber, expirationDate: model.expirationDate,
                      name: model.name, holderName: model.holderName, isMain: model.isMain, cardType: model.cardType, status: model.status,
                      moneyAmount: model.moneyAmount, currency: model.currencyType)
     }
@@ -194,5 +206,5 @@ public extension DCard {
 }
 
 public class DSavedCard: DCard {
-    
+
 }

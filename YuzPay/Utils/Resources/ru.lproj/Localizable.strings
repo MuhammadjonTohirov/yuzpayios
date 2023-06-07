@@ -239,3 +239,20 @@
 "successfully_paid" = "Успешно оплачено";
 "error_in_payment" = "Ошибка в оплате";
 "delete_account" = "Удалить аккаунт?";
+
+"loading" = "Загрузка";
+"aboutUs" = "О нас";
+"support" = "Поддержка";
+"mobile_version" = "Мобильная версия приложения %@";
+"developer" = "Разработчик";
+"with_support" = "При поддержке";
+"verify" = "Проверять";
+
+"unknown_error" = "Неизвестная ошибка";
+"is_user_verified" = "Статус верификации";
+"cannot_verify_try_again" = "Не удается проверить, попробуйте еще раз";
+"verifying" = "Проверка";
+"date_of_birth" = "Дата рождения";
+"select_card" = "Выберите карту";
+"no_card" = "Нет карты";
+"insufficient_funds" = "Недостаточно средств";

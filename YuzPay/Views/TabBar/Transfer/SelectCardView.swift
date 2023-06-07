@@ -15,7 +15,7 @@ struct SelectCardView: View {
     
     var body: some View {
         VStack {
-            Text("My cards")
+            Text("my_cards".localize)
                 .mont(.semibold, size: 16)
                 .padding()
                 .horizontal(alignment: .leading)

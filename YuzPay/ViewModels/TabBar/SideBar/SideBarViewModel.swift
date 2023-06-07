@@ -19,6 +19,7 @@ enum SideMenuItem {
     case transfer
     case invoices
     case profile
+    case aboutUs
 }
 
 protocol SideBarDelegate: NSObject {
@@ -32,7 +33,9 @@ final class SideBarViewModel: ObservableObject {
         .transfer,
         .cardsAndWallets,
         .issuedInvoices,
-        .monitoring
+        .monitoring,
+        .support,
+        .aboutUs
     ]
     
     var isVerified = false
@@ -102,7 +105,15 @@ final class SideBarViewModel: ObservableObject {
             delegate?.sideBar(sideBar: self, onClick: .invoices)
         case .monitoring:
             delegate?.sideBar(sideBar: self, onClick: .monitoring)
+        case .support:
+            openTelegramBot()
+        case .aboutUs:
+            delegate?.sideBar(sideBar: self, onClick: .aboutUs)
         }
+    }
+    
+    private func openTelegramBot() {
+        UIApplication.shared.open(URL.telegramBotURL, options: [:], completionHandler: nil)
     }
     
     func onClickIdentify() {

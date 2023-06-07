@@ -113,5 +113,18 @@ public struct UserNetworkService: NetworkServiceProtocol {
         
         return res?.data
     }
+    
+    public func verifyProfile(photoUrl: URL, completion: @escaping ((Bool, String?) -> Void)) {
+        let defaultError = "Unknown failure"
+        Logging.l("Verify profile with \(photoUrl.absoluteString)")
+        Network.upload(body: String.self, request: S.verifyProfile(photo: photoUrl)) { res in
+            guard let isSuccess = res?.success else {
+                completion(false, res?.error ?? defaultError)
+                return
+            }
+            
+            isSuccess ? completion(true, nil) : completion(false, res?.error ?? defaultError)
+        }
+    }
 }
 

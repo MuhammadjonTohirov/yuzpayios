@@ -64,7 +64,7 @@ enum HomeViewRoute: ScreenRoute {
         case let .mobilePayment(args, merchantId):
             MerchantPaymentView(merchantId: merchantId, args: args)
         case let .merchants(cat, id, action):
-            AllMerchantsInCategoryView(category: cat, selectedMerchantId: id, onClickMerchant: action)
+            AllMerchantsInCategoryView(category: (cat.title, cat.id), selectedMerchantId: id, onClickMerchant: action)
         case .invoices:
             InvoicesView()
         case .identification:
@@ -153,6 +153,6 @@ extension HomeViewModel {
     }
     
     private func watchUserIdentifer() {
-        self.isIdentifiedUser = UserSettings.shared.isVerifiedUser ?? false
+        self.isIdentifiedUser = DataBase.userInfo?.isVerified ?? false
     }
 }

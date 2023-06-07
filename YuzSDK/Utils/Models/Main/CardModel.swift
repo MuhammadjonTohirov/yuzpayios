@@ -18,6 +18,7 @@ public enum CurrencyType: Int, PersistableEnum {
 
 protocol CardProtocol: ModelProtocol {
     var id: String {get set}
+    var ownerId: String {get set}
     var cardNumber: String {get set}
     var expirationDate: Date {get set}
     var name: String {get set}
@@ -33,8 +34,11 @@ protocol CardProtocol: ModelProtocol {
 }
 
 public struct CardModel: ModelProtocol, CardProtocol {
-    public var id: String
     
+    public var id: String
+
+    public var ownerId: String
+
     public var cardNumber: String
     
     public var expirationDate: Date
@@ -65,6 +69,7 @@ public struct CardModel: ModelProtocol, CardProtocol {
         let exDate = Date.from(string: card.expirationDate ?? "", format: "MM/yy") ?? Date()
         
         let cardModel = CardModel(id: "\(card.id)",
+                                  ownerId: card.clientId ?? "",
                                   cardNumber: card.cardNumber ?? "",
                                   expirationDate: exDate,
                                   name: card.cardName ?? "",

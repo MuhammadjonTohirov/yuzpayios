@@ -28,6 +28,8 @@ enum SideBarRoute: Hashable, ScreenRoute {
             return "invoices"
         case .profile:
             return "profile"
+        case .aboutUs:
+            return "aboutUs"
         }
     }
 
@@ -41,6 +43,7 @@ enum SideBarRoute: Hashable, ScreenRoute {
     case identify
     case invoices
     case profile
+    case aboutUs
     
     @ViewBuilder
     var screen: some View {
@@ -57,6 +60,8 @@ enum SideBarRoute: Hashable, ScreenRoute {
             InvoicesView()
         case .profile:
             UserProfileView()
+        case .aboutUs:
+            AboutUsView()
         }
     }
     
@@ -74,6 +79,8 @@ enum SideBarRoute: Hashable, ScreenRoute {
             return .invoices
         case "profile":
             return .profile
+        case "aboutUs":
+            return .aboutUs
         default:
             return nil
         }
@@ -292,6 +299,9 @@ extension TabViewModel: HomeViewDelegate, SideBarDelegate {
         case .profile:
             sideMenuRouter = .profile
             navigate(to: SideBarRoute.profile)
+        case .aboutUs:
+            sideMenuRouter = .aboutUs
+            navigate(to: SideBarRoute.aboutUs)
         }
     }
     

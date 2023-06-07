@@ -19,7 +19,7 @@ struct LoadingView: View {
                 .resizable()
                 .frame(.init(w: 80, h: 80))
                 
-            Text("loading")
+            Text("loading".localize)
         }
             .aspectRatio(contentMode: .fit)
             .onAppear {

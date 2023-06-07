@@ -44,7 +44,8 @@ final public class CreditCardManager: DManager {
     }
     
     public var cards: Results<DCard>? {
-        Realm.new?.objects(DCard.self).sorted(byKeyPath: "isMain")
+        Realm.new?.objects(DCard.self)
+            .sorted(byKeyPath: "isMain")
     }
     
     public var mainCard: DCard? {
@@ -94,7 +95,7 @@ final public class CreditCardManager: DManager {
     
     public func makeMain(forId id: String) {
         execute { realm in
-            realm.objects(DCard.self).forEach { card in
+            CreditCardManager.shared.cards?.forEach { card in
                 card.set(isMain: false)
             }
             

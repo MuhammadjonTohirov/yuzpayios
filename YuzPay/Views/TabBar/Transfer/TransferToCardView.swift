@@ -133,13 +133,7 @@ struct TransferToCardView: View {
         }
         .fullScreenCover(isPresented: $showScanCard) {scanCardView}
         .onAppear {
-            if transferType == .transferToMe {
-                viewModel.fromCard = viewModel.cards?.firstLocal?.asModel
-            }
-            
-            if transferType == .exchange {
-                viewModel.fromCard = viewModel.cards?.firstInternationalCard?.asModel
-            }
+            viewModel.onAppear()
         }
         .onDisappear {
             print("On transfer page disappear")
@@ -248,7 +242,7 @@ struct TransferToCardView: View {
                 BorderedCardIcon(name: viewModel.fromCard?.cardType.localIcon ?? "icon_card")
                 
                 VStack(alignment: .leading) {
-                    Text(viewModel.fromCard?.cardNumber ?? "select_card".localize)
+                    Text(viewModel.fromCard?.cardNumber.maskAsCardNumber ?? "select_card".localize)
                         .mont(.medium, size: 12)
                     Text(viewModel.fromCard == nil ? "no_card".localize : "\(viewModel.fromCard?.moneyAmount.asCurrency() ?? "0")")
                         .mont(.semibold, size: 14)
@@ -286,18 +280,20 @@ struct TransferToCardView: View {
             }
             else {
                 cardInfoField(title: "card_number".localize, detail: "XXXX XXXX XXXX XXXX")
-                RoundedRectangle(cornerRadius: 8)
-                    .frame(width: 40, height: 40)
-                    .foregroundColor(.secondarySystemBackground)
-                    .overlay {
-                        Button {
-                            showSavedCards = true
-                        } label: {
-                            Image("icon_card")
-                                .renderingMode(.template)
-                                .foregroundColor(Color(uiColor: .appDarkGray))
-                        }
-                    }
+                
+                // saved cards button
+//                RoundedRectangle(cornerRadius: 8)
+//                    .frame(width: 40, height: 40)
+//                    .foregroundColor(.secondarySystemBackground)
+//                    .overlay {
+//                        Button {
+//                            showSavedCards = true
+//                        } label: {
+//                            Image("icon_card")
+//                                .renderingMode(.template)
+//                                .foregroundColor(Color(uiColor: .appDarkGray))
+//                        }
+//                    }
                 
                 RoundedRectangle(cornerRadius: 8)
                     .frame(width: 40, height: 40)

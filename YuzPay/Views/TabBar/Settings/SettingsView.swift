@@ -112,6 +112,14 @@ struct SettingsView: View {
                     showDeleteAccountAlert = true
                 })
             
+            #if DEBUG
+            RowButton(
+                icon: Image(systemName: "eraser"),
+                text: "Clear cache".localize,
+                onClick: {
+                    DataBase.clear()
+                })
+            #endif
             Spacer()
         }
         .alert("warning".localize, isPresented: $showDeleteAccountAlert, actions: {

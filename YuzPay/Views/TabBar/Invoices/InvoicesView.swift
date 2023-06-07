@@ -36,6 +36,9 @@ struct InvoicesView: View {
                                     self.doPayment(id, cardId)
                                 }
                             })
+                            .set(filter: { card in
+                                card.isLocalCard
+                            })
                             .navigationTitle(selectedItem?.branchName ?? "")
                     }
                 }
@@ -99,7 +102,7 @@ struct InvoicesView: View {
             showAlert(.init(
                 displayMode: .alert,
                 type: result.success ? .regular : .error(.systemOrange),
-                title: result.success ? "Payment success" : (result.error ?? "unknown_error".localize)))
+                title: result.success ? "successfully_paid".localize : (result.error ?? "error_in_payment".localize)))
         }
     }
     

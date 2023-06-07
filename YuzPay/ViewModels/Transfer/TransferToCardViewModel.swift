@@ -58,6 +58,9 @@ final class TransferToCardViewModel: NSObject, ObservableObject, Alertable, Load
     
     @Published var fromCard: CardModel? {
         didSet {
+            if transferType == .transferToMe && (fromCard?.cardNumber.contains("*") ?? false) {
+                getFromCardDetails()
+            }
             Logging.l("From card \(fromCard?.id ?? "-2")")
         }
     }
@@ -133,6 +136,14 @@ final class TransferToCardViewModel: NSObject, ObservableObject, Alertable, Load
                 break
             }
         })
+        
+        if transferType == .transferToMe {
+            fromCard = cards?.firstLocal?.asModel
+        }
+        
+        if transferType == .exchange {
+            fromCard = cards?.firstInternationalCard?.asModel
+        }
     }
     
     func findCard(cardNumber: String) {
@@ -226,7 +237,7 @@ final class TransferToCardViewModel: NSObject, ObservableObject, Alertable, Load
         Task {
             let cn = fromCard.cardNumber.replacingOccurrences(of: " ", with: "")
             
-            let result = (transferType == .transferToMe || transferType == .transferToOther) ? await MainNetworkService.shared.p2pTransfer(cardId: id, req: .init(cardNumber: cn, cardId: Int(fromCard.id), amount: amount, note: note)) : await MainNetworkService.shared.exchange(cardId: id, req: .init(targetId: Int(fromCard.id) ?? -2, amount: amount))
+            let result = (transferType != .exchange) ? await MainNetworkService.shared.p2pTransfer(cardId: id, req: .init(cardNumber: cn, cardId: Int(fromCard.id), amount: amount, note: note)) : await MainNetworkService.shared.exchange(cardId: id, req: .init(targetId: Int(fromCard.id) ?? -2, amount: amount))
             
             DispatchQueue.main.async {
                 self.isLoading = false
@@ -265,6 +276,24 @@ final class TransferToCardViewModel: NSObject, ObservableObject, Alertable, Load
     
     func set(exchangeType: ExchangeType) {
         self.exchangeType = exchangeType
+    }
+    
+    
+    fileprivate func getFromCardDetails() {
+        guard let fromCard else {
+            return
+        }
+        
+        Task {
+            self.showLoader()
+            if let card = await MainNetworkService.shared.getCard(id: fromCard.id) {
+                DispatchQueue.main.async {
+                    self.fromCard?.cardNumber = card.cardNumber ?? "*"
+                }
+            }
+            
+            self.hideLoader()
+        }
     }
 }
 

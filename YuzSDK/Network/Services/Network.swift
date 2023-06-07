@@ -78,8 +78,9 @@ struct Network {
             Logging.l(json)
         }
         
-        URLSession.shared.uploadTask(with: request.request(), from: request.body) { data, _, _ in
+        URLSession.shared.uploadTask(with: request.request(), from: request.body) { data, a, error in
             guard let data = data, let res = try? JSONDecoder().decode(NetRes<T>.self, from: data) else {
+                Logging.l(error?.localizedDescription ?? "Unable to parse data")
                 completion(nil)
                 return
             }

@@ -25,6 +25,10 @@ enum SideBarMenuItem: Identifiable {
             return "monitoring"
         case .autopayment:
             return "autopayment"
+        case .aboutUs:
+            return "aboutUs"
+        case .support:
+            return "support"
         }
     }
     
@@ -35,6 +39,8 @@ enum SideBarMenuItem: Identifiable {
     case issuedInvoices
     case monitoring
     case autopayment
+    case aboutUs
+    case support
     
     var text: String {
         return id.localize
@@ -56,6 +62,10 @@ enum SideBarMenuItem: Identifiable {
             return "icon_monitoring"
         case .autopayment:
             return "icon_clock"
+        case .support:
+            return "icon_support"
+        case .aboutUs:
+            return "icon_info"
         }
     }
     

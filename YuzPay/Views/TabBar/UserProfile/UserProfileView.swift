@@ -66,8 +66,8 @@ struct UserProfileView: View {
             
             VStack(alignment: .leading) {
                 rowItem(
-                    title: "address".localize + ":",
-                    description: userInfo?.address?.nilIfEmpty ?? "-"
+                    title: "date_of_birth".localize + ":",
+                    description: userInfo?.birthDate?.toExtendedString(format: "YYYY-MM-dd") ?? "-"
                 )
                 rowItem(title: "passport_id".localize + ":", description: userInfo?.passportNumber?.nilIfEmpty ?? "-")
                 rowItem(title: "is_user_verified".localize + ":", description: "\(userInfo?.verificationStatus ?? "-")")

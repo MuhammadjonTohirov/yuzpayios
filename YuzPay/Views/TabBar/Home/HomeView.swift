@@ -41,13 +41,15 @@ struct HomeView: View {
                             }
                     }
                     
-                    PayWithFaceView {
-                        showIdentifier = true
+                    if !homeViewModel.isIdentifiedUser {
+                        PayWithFaceView {
+                            showIdentifier = true
+                        }
+                        .fullScreenCover(isPresented: $showIdentifier) {
+                            UserIdentificationView()
+                        }
+                        .padding(.horizontal, Padding.default)
                     }
-                    .fullScreenCover(isPresented: $showIdentifier) {
-                        UserIdentificationView()
-                    }
-                    .padding(.horizontal, Padding.default)
                     
                     MobilePaymentView { phone, merchant in
                         homeViewModel.router = .mobilePayment(args: ["phone": phone], merchantId: merchant.id)

@@ -19,7 +19,7 @@ class HCardListViewModel: ObservableObject {
             return
         }
         
-        cards = realm.objects(DCard.self)
+        cards = CreditCardManager.shared.cards
      
         cardsToken = cards?.observe(on: .main, { [weak self] change in
             guard let self else {

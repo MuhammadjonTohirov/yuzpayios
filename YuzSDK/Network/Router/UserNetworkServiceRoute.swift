@@ -16,6 +16,10 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
         case let .phoneRegister(_, photoUrl, _, otp):
             request = URLRequest.fromDataRequest(url: url, boundary: "Boundary-\(otp)")
             request?.addValue("\(photoUrl.fileSize)", forHTTPHeaderField: "Content-Length")
+        case let .verifyProfile(photoURL):
+            request = URLRequest.fromDataRequest(url: url, boundary: "Boundary-123")
+            request?.addValue("\(photoURL.fileSize)", forHTTPHeaderField: "Content-Length")
+
         case .checkPhone:
             request = URLRequest.new(url: url, withAuth: false)
             request?.httpBody = self.body
@@ -58,6 +62,8 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
             )
         case .confirmDeleteAccount:
             return URL.base.appendingPath("api", "Client", "ConfirmDelete")
+        case .verifyProfile:
+            return URL.base.appendingPath("api", "Client", "VerifyProfile")
         }
     }
     
@@ -80,6 +86,18 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
                     boundary: "Boundary-\(otp)")
                 return form.bodyData
             }
+        case let .verifyProfile(photoUrl):
+            return autoreleasepool {
+                guard let data = try? Data.init(contentsOf: photoUrl) else {
+                    return nil
+                }
+                let form = MultipartForm(
+                    parts: [
+                        .init(name: "File", data: data, filename: photoUrl.lastPathComponent, contentType: photoUrl.mimeType),
+                    ],
+                    boundary: "Boundary-123")
+                return form.bodyData
+            }
         case let .phoneLogin(number, token, code):
             return NetReqPhoneLogin(phone: number, confirm: .init(token: token, code: code)).asData
         case let .confirmDeleteAccount(token, code):
@@ -91,7 +109,7 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
     
     var method: HTTPMethod {
         switch self {
-        case .checkPhone, .phoneRegister, .phoneLogin, .logout, .refreshToken, .confirmDeleteAccount:
+        case .checkPhone, .phoneRegister, .phoneLogin, .logout, .refreshToken, .confirmDeleteAccount, .verifyProfile:
             return .post
         case .deleteAccount:
             return .delete
@@ -103,6 +121,7 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
     case checkPhone(withNumber: String)
     case phoneLogin(number: String, token: String, code: String)
     case phoneRegister(phone: String, photo: URL, token: String, otp: String)
+    case verifyProfile(photo: URL)
     case refreshToken(token: String)
     case deleteAccount
     case confirmDeleteAccount(token: String, code: String)

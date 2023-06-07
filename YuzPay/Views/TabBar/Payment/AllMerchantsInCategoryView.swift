@@ -14,13 +14,15 @@ struct AllMerchantsInCategoryView: View {
     @State private var itemsPadding: CGFloat = 0
     @StateObject var viewModel: AllMerchantsInCategoryViewModel = .init()
     @Binding var selectedMerchantId: String?
-    @State var category: DMerchantCategory
+    var category: (title: String, id: Int)
     var onClickMerchant: Action
-    
-    init(category: DMerchantCategory, selectedMerchantId: Binding<String?>, onClickMerchant: @escaping Action) {
-        self.category = category
+
+    @ObservedResults(DMerchant.self, configuration: Realm.config) var merchants;
+
+    init(category: (title: String, id: Int), selectedMerchantId: Binding<String?>, onClickMerchant: @escaping Action) {
         self._selectedMerchantId = selectedMerchantId
         self.onClickMerchant = onClickMerchant
+        self.category = category
         Logging.l("Show AllMerchantsInCategory View with viewModel")
     }
     
@@ -52,17 +54,15 @@ struct AllMerchantsInCategoryView: View {
     
     @ViewBuilder
     private var merchantsForEach: some View {
-        if let merchants = viewModel.merchants {
-            ForEach(merchants) { merchant in
-                Button {
-                    self.selectedMerchantId = merchant.id
-                    self.onClickMerchant(merchant)
-                } label: {
-                    MerchantItemView(
-                        icon: merchant.icon,
-                        title: merchant.title
-                    )
-                }
+        ForEach(merchants.filter("categoryId = %d", category.id)) { merchant in
+            Button {
+                self.selectedMerchantId = merchant.id
+                self.onClickMerchant(merchant)
+            } label: {
+                MerchantItemView(
+                    icon: merchant.icon,
+                    title: merchant.title
+                )
             }
         }
     }

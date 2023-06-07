@@ -22,6 +22,8 @@ public extension URL {
         ("X-LANG-CODE", (UserSettings.shared.language ?? .russian).smallCode)
     }
     
+    static var telegramBotURL: URL = URL.init(string: "https://t.me/yuzpaybot")!
+    
     func appendingPath(_ pathList: Any...) -> URL {
         var url = self
         pathList.forEach { path in

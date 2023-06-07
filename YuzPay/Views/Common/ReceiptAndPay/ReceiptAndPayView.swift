@@ -103,7 +103,7 @@ struct ReceiptAndPayView: View {
         }
         
         if (selectedCard.moneyAmount < requiredPrice) {
-            alertModel.show(title: "warning".localize, message: "insufficent_funds".localize)
+            alertModel.show(title: "warning".localize, message: "insufficient_funds".localize)
             return
         }
         
@@ -115,7 +115,7 @@ struct ReceiptAndPayView: View {
     var cardsView: some View {
         VStack {
             HStack {
-                Text("Оплата")
+                Text("cards".localize)
                     .mont(.semibold, size: 21.f.sh())
                 Spacer()
             }
@@ -141,7 +141,8 @@ struct ReceiptAndPayView: View {
             }
             .frame(height: cardHeight)
             .padding(.bottom, Padding.medium)
-
+            
+            PageControl.DefaultHorizontal(pageCount: self.cards.filter(cardsFilter).map({$0}).count, selectedPage: $selectedIndex, theme: .init(backgroundColor: .secondarySystemBackground, dotActiveColor: .primary, dotInactiveColor: .systemBackground, dotSize: 6, spacing: 4, padding: 0, xOffset: 0, yOffset: -8))
         }
     }
 
@@ -182,7 +183,7 @@ struct ReceiptAndPayView: View {
                 HStack(alignment: .bottom) {
                     Text(card.moneyAmount.asCurrency())
                         .mont(.semibold, size: 18.f.sw())
-                    Text("sum")
+                    Text(card.cardType.currencyUnit)
                         .mont(.semibold, size: 14.f.sw())
                 }
                 

@@ -14,11 +14,9 @@ enum AllMerchantsRoute {
 }
 
 class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
-    var mersNotification: NotificationToken?
-    private var category: DMerchantCategory?
+    private var category: (title: String, id: Int)?
     
     @Published var isLoading: Bool = false
-    @Published var merchants: [DMerchant]?
     @Published var route: AllMerchantsRoute?
     
     @Published private(set) var merchantPaymentModel: MerchantsPaymentViewModel? {
@@ -37,16 +35,11 @@ class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
     }
     
     var title: String {
-        if category?.isInvalidated ?? false {
-            return ""
-        }
-        
         return category?.title ?? ""
     }
     
-    func setCategory(_ category: DMerchantCategory) {
+    func setCategory(_ category: (title: String, id: Int)) {
         self.category = category
-        self.setupSubscribers()
         self.fetchAllMerchants()
     }
     
@@ -56,20 +49,15 @@ class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
         }
         
         didAppear = true
-        
-        if merchants == nil {
-            self.setupSubscribers()
-        }
     }
     
     func onDisappear() {
-        self.merchants = nil
         self.merchantPaymentModel = nil
         Logging.l(tag: String(describing: AllMerchantsInCategoryViewModel.self), "On disappear \(id)")
     }
     
     private func fetchAllMerchants() {
-        guard let category, !category.isInvalidated else {
+        guard let category else {
             return
         }
         
@@ -79,22 +67,6 @@ class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
         }
     }
 
-    private func setupSubscribers() {
-        guard let category, !category.isInvalidated else {
-            return
-        }
-        
-        invalidate()
-        
-        mersNotification = category.merchants?.observe(on: .main, { [weak self] changes in
-            withAnimation {
-                if let mrts = category.merchants, !mrts.isEmpty {
-                    self?.merchants = mrts.compactMap({$0.isInvalidated ? nil : $0})
-                }
-            }
-        })
-    }
-    
     func setSelected(merchant: DMerchant?) {
         guard let id = merchant?.id else {
             return
@@ -104,7 +76,7 @@ class AllMerchantsInCategoryViewModel: NSObject, ObservableObject, Loadable {
     }
     
     func invalidate() {
-        mersNotification?.invalidate()
+//        mersNotification?.invalidate()
     }
     
     deinit {
