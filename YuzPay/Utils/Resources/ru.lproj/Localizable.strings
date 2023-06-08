@@ -1,0 +1,258 @@
+/* 
+  Localizable.strings
+  YuzPay
+
+  Created by applebro on 11/12/22.
+  
+*/
+
+"the_offer" = "оферты";
+"public_offer" = "Я согласен(-на) с условиями оферты.";
+"otp_sent_to_number" = "На номер %@ было отправлено SMS с кодом подтверждения. Введите его в поле ниже.";
+"send_again" = "Отправить заново";
+"start" = "Начинать";
+"welcome_text" = "Добро пожаловать в YuzPay";
+"authorization" = "Авторизация";
+"next" = "Далее";
+"to_select_photo" = "Сделать фото";
+"capture_avatar_from_camera" = "щелкните значок камеры и получите изображение с камеры или из галереи";
+"save" = "Сохранить";
+"exit" = "Выход";
+"payment" = "Оплата";
+"transactions" = "Транзакции";
+"cardsAndWallets" = "Карты и кошельки";
+"orderCard" = "Карточка заказа";
+"issuedInvoices" = "Выставленные счета";
+"monitoring" = "Мониторинг";
+"autopayment" = "Автоплатеж";
+
+"home" = "Главная";
+"transfer" = "Перевод";
+"payment" = "Оплата";
+"help" = "Помощь";
+"settings" = "Настройки";
+"issued_invoices" = "Выставленные счета";
+"continue" = "Продолжить";
+"do_payment" = "Оплатить";
+"cards" = "Карты";
+
+"popular" = "Популярный";
+"mobile" = "Мобильный";
+"internet" = "Интернет";
+"television" = "Телевидение";
+"telephone" = "Телефон";
+"hosting" = "Хостинг";
+"saved_payment" = "Сохраненные платежи";
+"done" = "Выполнено";
+"insert_pin" = "Вставьте PIN-код";
+"uzcard" = "Uzcard";
+"humo" = "Humo";
+"visa" = "VISA";
+"master" = "Master";
+"paypal" = "PayPal";
+"wallet" = "Wallet";
+"all" = "Все";
+
+"my_cards" = "Мои карты";
+"focus_camera_to_card" = "Наведите камеру на карту";
+"add_new_card" = "Добавить карту";
+"main_card" = "Главная";
+"delete" = "Удалить";
+"block" = "блокировать";
+"actions" = "Действия";
+"card_name" = "Название карты";
+
+"bills" = "Счета";
+
+"select_bank" = "Выберите банк";
+"order_card" = "Карточка заказа";
+"address" = "Адрес";
+"phone_number" = "Телефон";
+"fax" = "Факс";
+"select_card_type" = "Выберите тип карты";
+
+"card_order_success" = "Карта заказана!";
+"card_order_success_detail" = "Когда карта будет готова к доставке, с вами свяжется курьер.";
+"card_order_failure" = "Произошла ошибка";
+"card_order_failure_detail" = "Текст с описанием ошибки и инструкциями для пользователя.";
+"retry" = "Повторить";
+"finish" = "Готово";
+"cancel" = "Отмена";
+
+"select_branch" = "Выберите ветку";
+"from_list" = "Из списка";
+
+"from_map" = "С карты";
+"in_map" = "На карте";
+
+"login" = "Логин";
+"confirm_otp" = "Подтвердить одноразовый пароль";
+"setup_pin" = "Установить PIN-код";
+"confirm_pin" = "Подтвердите PIN-код";
+"bank_name" = "Название банка";
+
+"not_verified" = "Не подтверждено";
+"verified" = "Подтверждено";
+
+"notifications" = "Уведомления";
+
+"transfer_to_card" = "Перевод на карту";
+"transfer_to_me" = "Перевести на себя";
+"exchange" = "Обмен";
+"transfer_international" = "Международная транзакция";
+"select_receiver_card" = "Выберите карту получателя";
+
+"language" = "Язык";
+
+"change_pin" = "Изменить PIN-код";
+
+"delete_account" = "Удалить аккаунт";
+
+"mobile" = "Мобильный";
+
+"internet" = "Интернет";
+
+"see_all" = "Все";
+
+"collapse" = "Cвернуть";
+
+"amount" = "Cумма";
+
+"note" = "Примечание";
+
+"send" = "Отправить";
+
+"payments" = "Платежи";
+
+"card_number" = "Номер карты";
+
+"pay" = "Платить";
+
+"logout" = "Выйти";
+
+"add" = "Добавить";
+
+"order_card" = "Заказать карту";
+
+"virtual_card" = "Виртуальная карта";
+
+"want_to_delete_account" = "Вы хотите удалить аккаунт?";
+
+"warning" = "Предупреждение";
+
+"want_to_logout" = "Выйти из системы?";
+
+"buy" = "Купить";
+
+"sell" = "Продать";
+
+"invoices" = "Cчета";
+
+"success_pin_change" = "Пин-код изменен";
+
+"devices" = "Устройства";
+
+"passport_id" = "Идентификатор паспорта";
+
+"expiration_date" = "Срок действия";
+
+"profile" = "Профиль";
+
+"confirm" = "Подтвердить";
+
+"not_valid_otp" = "Недействительный OTP";
+
+"add_card_success" = "Успешно вставлена новая карта";
+
+"confirm_card" = "Подтвердить одноразовый пароль";
+
+"date" = "Дата";
+
+"category" = "Категория";
+
+"service" = "Сервис";
+
+"commission" = "Комиссия";
+
+"bank" = "Банк";
+
+"card" = "Карта";
+
+"region" = "Регион";
+
+"regions" = "Регионы";
+
+"district" = "Район";
+
+"district" = "Районы";
+
+"select_address" = "Выберите адрес";
+
+"select_district" = "Выберите район";
+
+"select_region" = "Выберите регион";
+
+"street" = "Улица";
+
+"home_address" = "Номер дома";
+
+"card_order_success" = "Заказана новая карта";
+
+"card_order_failure" = "Сбой при заказе карты";
+
+"order" = "Заказать";
+
+"receipt" = "Квитанция";
+
+"kapital_bank" = "Капитал банк";
+
+"organization" = "Организация";
+
+"status" = "Статус";
+
+"price" = "Цена";
+
+"back" = "Назад";
+
+"expired" = "Просрочено";
+
+"paid" = "Оплачено";
+
+"branch" = "Филиал";
+
+"order_virtual_card" = "Виртуальная карта";
+
+"receiver_card_number" = "Получатель";
+"total_to_withdraw" = "Всего вывести";
+"usd_amount" = "Сумма в долларах США";
+"uzs_amount" = "Сумма в сумах";
+"transfer_completed" = "Перевод завершен";
+"transfer_failed" = "Передача не удалась";
+"insufficient_transfer_amount" = "Недостаточно суммы";
+"please_select_card" = "Выберите карту";
+
+// from this line I did not translate for other languages.
+"first_select_photo" = "Сначала выберите фотографию";
+"not_paid" = "Не выплачивается";
+"fill_all_fields" = "Вы должны заполнить все поля";
+
+"successfully_paid" = "Успешно оплачено";
+"error_in_payment" = "Ошибка в оплате";
+"delete_account" = "Удалить аккаунт?";
+
+"loading" = "Загрузка";
+"aboutUs" = "О нас";
+"support" = "Поддержка";
+"mobile_version" = "Мобильная версия приложения %@";
+"developer" = "Разработчик";
+"with_support" = "При поддержке";
+"verify" = "Проверять";
+
+"unknown_error" = "Неизвестная ошибка";
+"is_user_verified" = "Статус верификации";
+"cannot_verify_try_again" = "Не удается проверить, попробуйте еще раз";
+"verifying" = "Проверка";
+"date_of_birth" = "Дата рождения";
+"select_card" = "Выберите карту";
+"no_card" = "Нет карты";
+"insufficient_funds" = "Недостаточно средств";

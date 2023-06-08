@@ -1,0 +1,228 @@
+/* 
+  Localizable.strings
+  YuzPay
+
+  Created by applebro on 11/12/22.
+  
+*/
+
+"the_offer" = "the offer";
+"public_offer" = "I agree with the terms of the offer.";
+"otp_sent_to_number" = "An SMS with a confirmation code was sent to %@. Please enter it in the field below.";
+"send_again" = "Send again";
+"start" = "Boshlash";
+"welcome_text" = "YuzPay xush kelibsiz";
+"authorization" = "Tizimga kirish";
+"next" = "Keyingisi";
+"to_select_photo" = "Fotosurat uchun";
+"capture_avatar_from_camera" = "kamera belgisiga bosing va kamera yoki galereyadan rasm oling";
+"save" = "Saqlash";
+"exit" = "Chiqish";
+"payment" = "To'lov";
+"transactions" = "Bitimlar";
+"cardsAndWallets" = "Karta va hamyonlar";
+"orderCard" = "Karta buyurtmasi";
+"issuedInvoices" = "Invoislar";
+"monitoring" = "Tarix";
+"autopayment" = "Avto to'lov";
+
+"home" = "Asosiy";
+"transfer" = "O'tkazma";
+"transfer_international" = "Xalqaro o'tkazma";
+"payment" = "To'lov";
+"help" = "Yordam";
+"settings" = "Sozlamalar";
+"issued_invoices" = "Berilgan invoislar";
+"continue" = "Boshlash";
+"do_payment" = "To'lov";
+"cards" = "Kartalar";
+
+"popular" = "Doimiy";
+"mobile" = "Mobil aloq";
+"internet" = "Internet";
+"television" = "Telvidinya";
+"telephone" = "Telefon";
+"hosting" = "Xosting";
+"saved_payment" = "Saqlangan to'lovlar";
+"done" = "Bajarish";
+"insert_pin" = "PIN kodni kiriting";
+"uzcard" = "Uzcard";
+"humo" = "Humo";
+"visa" = "VISA";
+"master" = "Master";
+"paypal" = "PayPal";
+"wallet" = "Wallet";
+"all" = "Barcha";
+
+"my_cards" = "Kartalarim";
+"focus_camera_to_card" = "Kamerangizni kartaga qarating";
+"add_new_card" = "Karta qo'shish";
+"main_card" = "Asosiy";
+"delete" = "O'chirish";
+"block" = "Bloklash";
+"actions" = "Sozlamalar";
+"card_name" = "Karta nomi";
+
+"bills" = "Hisoblar";
+
+"select_bank" = "Bankni tanlang";
+"order_card" = "Karta buyurtiring";
+"address" = "Manzil";
+"phone_number" = "Telefon";
+"fax" = "Faks";
+"select_card_type" = "Karta turini tanlang";
+
+"card_order_success" = "Buyurtma qilindi!";
+"card_order_success_detail" = "Karta yetkazib berishga tayyor bo‘lganda kurer siz bilan bog‘lanadi.";
+"card_order_failure" = "Xatolik";
+"card_order_failure_detail" = "Xatoni tavsiflovchi matn va foydalanuvchi uchun ko'rsatmalar.";
+"retry" = "Qayta urunish";
+"finish" = "Tamomlash";
+"cancel" = "Qaytish";
+
+"select_branch" = "Filialni tanlang";
+"from_list" = "Ro'yxatdan";
+
+"from_map" = "Xaritadan";
+"in_map" = "Xaritada";
+
+"login" = "Login";
+"confirm_otp" = "OTPni tasdiqlang";
+"setup_pin" = "PIN-kod o'rnatish";
+"confirm_pin" = "PIN-kodni tasdiqlang";
+"bank_name" = "Bank nomi";
+
+"not_verified" = "Tasdiqlanmagan";
+"verified" = "Tasdiqlangan";
+
+"notifications" = "Habarlar";
+
+"transfer_to_card" = "Kartaga o'tkazma";
+"transfer_to_me" = "O'zimga o'tkazma";
+"exchange" = "Ayriboshlash";
+"select_receiver_card" = "Qabul qiluvchi kartani tanlang";
+
+"language" = "Til";
+
+"change_pin" = "PIN-kodni o'zgartirish";
+
+"delete_account" = "Hisobni o'chirish";
+
+"mobile" = "Mobil";
+
+"internet" = "Internet";
+
+"see_all" = "Barchasi";
+
+"collapse" = "Yig'ish";
+
+"amount" = "Summa";
+
+"note" = "Izoh";
+
+"send" = "Yuborish";
+
+"payments" = "To'lovlar";
+
+"card_number" = "Karta raqami";
+
+"pay" = "To'lash";
+
+"logout" = "Tizimdan chiqish";
+
+"add" = "Qo'shish";
+
+"order_card" = "Buyurtma berish";
+
+"virtual_card" = "Virtual karta";
+
+"want_to_delete_account" = "Hisobni o'chirmoqchimisiz?";
+
+"warning" = "Ogohlantirish";
+
+"want_to_logout" = "Chiqishni xohlaysizmi?";
+
+"buy" = "Olish";
+
+"sell" = "Sotish";
+
+"invoices" = "Invoislar";
+
+"success_pin_change" = "Pin-kod o'zgardi";
+
+"devices" = "Qurilmalar";
+
+"passport_id" = "Pasport ID";
+
+"expiration_date" = "Yaroqlilik muddati";
+
+"profile" = "Profil";
+
+"confirm" = "Tasdiqlash";
+
+"not_valid_otp" = "Yaroqsiz OTP";
+
+"is_user_verified" = "Tasdiq holati";
+
+"add_card_success" = "Yangi karta muvaffaqiyatli kiritildi";
+
+"date" = "Sana";
+
+"category" = "Turkum";
+
+"service" = "Xizmat turi";
+
+"commission" = "Xizmat foizi";
+
+"bank" = "Bank";
+
+"card" = "Karta";
+
+"region" = "Mintaqa";
+
+"regions" = "Mintaqalar";
+
+"district" = "Tuman";
+
+"districts" = "Tumanlar";
+
+"select_address" = "Manzilni kiriting";
+
+"select_district" = "Mintaqani tanlang";
+
+"select_region" = "Tumanni tanlang";
+
+"card_order_success" = "Karta buyurtma qilindi";
+
+"card_order_failure" = "Karta buyurtmasida xatolik";
+
+"order" = "Buyrutma";
+
+"receipt" = "Chek";
+
+"kapital_bank" = "Kapital Bank";
+
+"organization" = "Tashkilot";
+
+"status" = "Holati";
+
+"price" = "Narxi";
+
+"back" = "Orqaga";
+
+"expired" = "Muddati o'tgan";
+
+"paid" = "To'langan";
+
+"branch" = "Bo'lim";
+
+"order_virtual_card" = "Virtual card";
+
+"receiver_card_number" = "Qabul qiluvchi";
+"total_to_withdraw" = "Umumiy summa";
+"usd_amount" = "Dollar Miqdori";
+"uzs_amount" = "SO'M Miqdori";
+"transfer_completed" = "O'tkazish tugallandi";
+"transfer_failed" = "O'tkazish amalga oshmadi";
+"insufficient_transfer_amount" = "Miqdor yetarli emas";
+"please_select_card" = "Kartani tanlang";
