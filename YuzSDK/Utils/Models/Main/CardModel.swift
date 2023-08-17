@@ -14,6 +14,21 @@ public enum CurrencyType: Int, PersistableEnum {
     case eur
     case rub
     case gbp
+    
+    public var text: String {
+        switch self {
+        case .uzs:
+            return "UZS"
+        case .usd:
+            return "USD"
+        case .eur:
+            return "EURO"
+        case .rub:
+            return "Ruble"
+        case .gbp:
+            return "GBP"
+        }
+    }
 }
 
 protocol CardProtocol: ModelProtocol {

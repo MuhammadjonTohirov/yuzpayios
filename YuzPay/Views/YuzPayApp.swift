@@ -13,7 +13,6 @@ struct YuzPayApp: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
             MainView()
-                .environmentObject(ItemsViewModel())
                 .environment(\.realmConfiguration, Realm.config)
                 .onAppear {
                     print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])

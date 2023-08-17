@@ -127,6 +127,14 @@ final class HomeViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Ne
             mainRouter?.navigate(to: .auth)
         }
     }
+    
+    func onRefresh() {
+        MainNetworkService.shared.syncCardList()
+        MainNetworkService.shared.syncInvoiceList()
+        Task {
+            await MainNetworkService.shared.syncExchangeRate()
+        }
+    }
 }
 
 extension HomeViewModel {

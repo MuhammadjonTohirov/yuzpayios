@@ -30,7 +30,7 @@ struct UserProfileView: View {
                         List(sections) { dev in
                             deviceItemView(title: dev.userAgent,
                                            detail: dev.clientIP,
-                                           date: Date.from(string: dev.loginTime)?.toExtendedString(format: "HH:mm, dd/MM/YYYY") ?? "")
+                                           date: Date.from(string: dev.loginTime)?.toExtendedString(format: "dd.mm.yyyy hh:mm") ?? "")
                         }
                         .navigationTitle("devices".localize)
                     }

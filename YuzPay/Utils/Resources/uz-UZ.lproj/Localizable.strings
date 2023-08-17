@@ -221,8 +221,14 @@
 "receiver_card_number" = "Qabul qiluvchi";
 "total_to_withdraw" = "Umumiy summa";
 "usd_amount" = "Dollar Miqdori";
-"uzs_amount" = "SO'M Miqdori";
+"uzs_amount" = "UZS Miqdori";
 "transfer_completed" = "O'tkazish tugallandi";
 "transfer_failed" = "O'tkazish amalga oshmadi";
 "insufficient_transfer_amount" = "Miqdor yetarli emas";
 "please_select_card" = "Kartani tanlang";
+
+"show_all_rates" = "Barchasini ko'rish";
+
+"currency_rates" = "Valyuta narxlari";
+
+"total_amount" = "Umumiy balans";

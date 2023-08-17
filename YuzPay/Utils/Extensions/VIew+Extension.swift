@@ -34,6 +34,12 @@ extension View {
         self.modifier(ScrollableModifier(axis: axis, indicators: showIndicators))
     }
     
+    func uscrollable(_ refreshing: Binding<Bool>) -> some View {
+        UScrollView(startRefresh: refreshing) {
+            self.asUIView
+        }
+    }
+    
     func navigation<Item, Destination: View>(item: Binding<Item?>, @ViewBuilder destination: (Item) -> Destination) -> some View {
         let isActive = Binding(
             get: { item.wrappedValue != nil },

@@ -114,9 +114,14 @@ public struct TransactionItem: TransactionItemProtocol {
     }
     
     static func fromNetResTransactionItem(_ item: NetResTransactionItem) -> TransactionItem {
-        // date form at for "2023-04-23T17:12:05.728508"
-//        let dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
-        var trItem = TransactionItem(id: "\(item.transactionId)", agentName: item.note ?? "", status: TransactionStatus(rawValue: "") ?? .success, amount: Float(item.amount), currency: "sum", dateTime: item.transactionTime, cardId: item.cardId, type: .init(rawValue: item.transactionType) ?? .paynet)
+        var trItem = TransactionItem(
+            id: "\(item.transactionId)",
+            agentName: item.note ?? "",
+            status: TransactionStatus(rawValue: "") ?? .success,
+            amount: Float(item.amount), currency: "sum",
+            dateTime: item.transactionTime,
+            cardId: item.cardId,
+            type: .init(rawValue: item.transactionType) ?? .paynet)
         
         trItem.exchangeCardId = item.exchangeCardId
         trItem.exchangeType = item.exchangeType

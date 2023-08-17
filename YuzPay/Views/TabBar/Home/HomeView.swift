@@ -17,6 +17,9 @@ struct HomeView: View {
     @ObservedResults(DCard.self, configuration: Realm.config) var cards;
     @State private var selectedMerchant: String?
     @State private var showIdentifier: Bool = false
+    @State private var showAllRates: Bool = false
+    @State private var refreshing: Bool = false
+    
     var body: some View {
         ZStack {
             VStack(spacing: 4) {
@@ -26,7 +29,7 @@ struct HomeView: View {
                 .padding(.horizontal, Padding.default)
                 
                 VStack(spacing: Padding.large) {
-                    totalAmountView
+                    TotalAmountView(cards: cards)
                         .padding(.top, Padding.default.sh())
                         .padding(.horizontal, Padding.default)
 
@@ -62,20 +65,51 @@ struct HomeView: View {
                         })
                     }
                     
-                    CurrencyRateView()
+                    CurrencyRateView(showMore: {
+                        showAllRates = true
+                    })
                         .padding(.horizontal, Padding.default)
 
                     Rectangle()
                         .foregroundColor(.clear)
                         .frame(height: 50)
                 }
+                .frame(width: UIScreen.main.bounds.width)
                 .scrollable()
+                .refreshable {
+                    homeViewModel.onRefresh()
+                }
+                .onChange(of: refreshing) { newValue in
+                    Logging.l(tag: "HomeView", "Refresh value \(newValue)")
+                    if newValue {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            refreshing = false
+                        }
+                    }
+                }
+                
                 Spacer()
             }
+            
             .onAppear {
                 homeViewModel.onAppear()
             }
         }
+        
+        .sheet(isPresented: $showAllRates, content: {
+            NavigationView {
+                ScrollView {
+                    CurrencyRateView(showMore: {
+                        Logging.l("Show more")
+                    }, showAll: true)
+                        .padding(Padding.default)
+                    Spacer()
+                }
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("currency_rates".localize)
+            }
+            .presentationDetents([.medium, .large])
+        })
         .navigationDestination(unwrapping: $homeViewModel.router) { route in
             route.wrappedValue.screen
         }
@@ -115,24 +149,6 @@ struct HomeView: View {
                 .mont(.semibold, size: 16)
                 .padding()
 
-        }
-    }
-    
-    var totalAmountView: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text("Общий баланс")
-                    .font(.mont(.medium, size: 16.f.sh()))
-                
-                HStack {
-                    Text("\(cards.filter({![CreditCardType.master, .visa, .unionpay].contains($0.cardType)}).reduce(into: 0, {$0 += $1.moneyAmount}).asCurrency())")
-                        .font(.mont(.bold, size: 36.f.sh()))
-                    Text("сум")
-                        .font(.mont(.bold, size: 18.f.sh()))
-                }
-            }
-            
-            Spacer()
         }
     }
 }

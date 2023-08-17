@@ -32,8 +32,7 @@ struct NotificationItemView: View {
                         .mont(.regular, size: 12)
 
                     Text(
-                        dateTime.toExtendedString(format: "d MMM yyyy, E") + " in " +
-                        dateTime.toExtendedString(format: "mm:HH")
+                        dateTime.toExtendedString(format: "dd.MM.yyyy HH:mm")
                     )
                     .mont(.regular, size: 12)
                     .foregroundColor(.secondaryLabel)

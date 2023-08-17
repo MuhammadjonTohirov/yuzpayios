@@ -11,7 +11,7 @@ import Kingfisher
 import YuzSDK
 
 struct TabBarView: View {
-    @ObservedObject var viewModel = TabViewModel(dataService: TabDataService())
+    @StateObject var viewModel = TabViewModel(dataService: TabDataService())
     
     @State var size: CGRect = .zero
     
@@ -51,7 +51,7 @@ struct TabBarView: View {
     
     var innerBody: some View {
         ZStack(alignment: .leading) {
-            sideView
+            SideBarView(sideViewModel: viewModel.sideViewModel, showSideMenu: $viewModel.showSideMenu)
                 .zIndex(1)
             
             TabView(selection: $viewModel.selectedTab) {
@@ -68,11 +68,11 @@ struct TabBarView: View {
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onChanged({ value in
-                                    let distance = value.startLocation.x - value.location.x
-                                    viewModel.onDragSideMenu((abs(distance) + -viewModel.sideMenuWidth).limitTop(0))
+//                                    let distance = value.startLocation.x - value.location.x
+//                                    viewModel.onDragSideMenu((abs(distance) + -viewModel.sideMenuWidth).limitTop(0))
                                 })
                                 .onEnded({ value in
-                                    viewModel.onEndOpeningSideMenu(value.predictedEndTranslation)
+//                                    viewModel.onEndOpeningSideMenu(value.predictedEndTranslation)
                                 })
                         )
                 }
@@ -116,41 +116,6 @@ struct TabBarView: View {
          
         }
         .modifier(CoveredLoaderModifier(isLoading: $viewModel.isLoading))
-    }
-    
-    var sideView: some View {
-        ZStack(alignment: .leading) {
-            Rectangle()
-                .foregroundColor(Color("black").opacity(0.5))
-                .ignoresSafeArea()
-                .opacity(Double(1 - abs(viewModel.sideMenuOffset.x) / viewModel.sideMenuWidth))
-                .zIndex(1)
-                .onTapGesture {
-                    viewModel.hideSideBar()
-                }
-                .gesture(
-                    DragGesture(minimumDistance: 0)
-                        .onChanged({ value in
-                            let distance = value.startLocation.x - value.location.x
-                            viewModel.onDragSideMenu(distance.limitBottom(0))
-                        })
-                        .onEnded({ value in
-                            viewModel.onEndDragSideMenu(value.predictedEndTranslation)
-                        })
-                )
-                
-            Rectangle()
-                .foregroundColor(Color("background"))
-                .ignoresSafeArea()
-                .frame(width: viewModel.sideMenuWidth)
-                .zIndex(2)
-                .overlay {
-                    // -MARK: Tab bar view
-                    SideBarContent(viewModel: viewModel.sideViewModel)
-                }
-                .offset(x: viewModel.sideMenuOffset.x)
-
-        }
     }
 }
 

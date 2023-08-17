@@ -14,7 +14,7 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
 
         switch self {
         case let .phoneRegister(_, photoUrl, _, otp):
-            request = URLRequest.fromDataRequest(url: url, boundary: "Boundary-\(otp)")
+            request = URLRequest.fromDataRequest(url: url, boundary: "Boundary-\(otp)", withAuth: false)
             request?.addValue("\(photoUrl.fileSize)", forHTTPHeaderField: "Content-Length")
         case let .verifyProfile(photoURL):
             request = URLRequest.fromDataRequest(url: url, boundary: "Boundary-123")
@@ -28,6 +28,9 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
             request?.setValue("image/png", forHTTPHeaderField: "accept")
         case .refreshToken:
             request = URLRequest.new(url: url, withAuth: false)
+        case .phoneLogin:
+            request = URLRequest.new(url: url, withAuth: false)
+            request?.httpBody = self.body
         default:
             request = URLRequest.new(url: url)
             request?.httpBody = self.body

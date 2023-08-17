@@ -44,7 +44,7 @@ public class DataBase {
     }
     
     public static var usdRate: DExchangeRate? {
-        return Realm.new?.objects(DExchangeRate.self).first(where: {$0.currencyID == .usd})
+        return Realm.new?.objects(DExchangeRate.self).first(where: {$0.code == "USD"})
     }
     
     public static func writeNotifications(_ notifications: [NetResBodyUserLog]) {

@@ -227,7 +227,7 @@ struct TransferToCardView: View {
     @ViewBuilder
     var currencyRateView: some View {
         if transferType == .transferInternational || transferType == .exchange {
-            ForEach(exchangeRates.filter({$0.currencyID == .usd})) { rate in
+            ForEach(exchangeRates.filter({$0.code == "USD"})) { rate in
                 ReceiptRowItem(name: rate.name, value: "\((self.exchangeType == .sell ? rate.buyingRate : rate.sellingRate).asCurrency()) uzs").row
             }
         }

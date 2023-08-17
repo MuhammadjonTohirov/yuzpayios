@@ -157,10 +157,10 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
     private(set) lazy var sideViewModel = { SideBarViewModel() }()
     private(set) var profileNotificationToken: NotificationToken?
     var alert: AlertToast = .init(displayMode: .alert, type: .regular)
-
-    @Published var sideMenuOffset: CGPoint = .zero
     
     @Published var pushSideMenuActions: Bool = false
+    
+    @Published var showSideMenu = false
     
     @Published var selectedTab: Tab = .home
     
@@ -176,10 +176,6 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
     
     @Published var tabBarStackPath: [String] = []
         
-    var sideMenuWidth: CGFloat {
-        UIScreen.screen.width * 0.8
-    }
-    
     var sideMenuRouter: SideBarRoute?
     
     var dataService: any TabDataServiceProtocol
@@ -198,8 +194,7 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
         isAppeared = true
         homeViewModel.delegate = self
         sideViewModel.delegate = self
-        sideMenuOffset = CGPoint(x: -sideMenuWidth, y: 0)
-        
+
         getPrerequisites()
         watchProfileChange()
         DispatchQueue(label: "mock", qos: .utility).async {
@@ -231,38 +226,6 @@ final class TabViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Loa
         }
     }
     
-    func showSideBar() {
-        withAnimation(.easeIn(duration: 0.2)) {
-            self.sideMenuOffset.x = 0
-        }
-    }
-    
-    func hideSideBar() {
-        withAnimation(.easeOut(duration: 0.2)) {
-            self.sideMenuOffset.x = -UIScreen.screen.width * 0.8
-        }
-    }
-    
-    func onDragSideMenu(_ value: CGFloat) {
-        self.sideMenuOffset.x = -abs(value)
-    }
-    
-    func onEndDragSideMenu(_ predictedEndTransition: CGSize) {        
-        if abs(predictedEndTransition.width) > 150 {
-            hideSideBar()
-        } else {
-            showSideBar()
-        }
-    }
-    
-    func onEndOpeningSideMenu(_ predictedEndTransition: CGSize) {
-        if abs(predictedEndTransition.width) >= 150 {
-            showSideBar()
-        } else {
-            hideSideBar()
-        }
-    }
-    
     private func watchProfileChange() {
         Realm.asyncNew { realmObject in
             switch realmObject {
@@ -282,7 +245,7 @@ extension TabViewModel: HomeViewDelegate, SideBarDelegate {
     func homeView(model: HomeViewModel, onClick route: HomeViewRoute) {
         switch route {
         case .menu:
-            showSideBar()
+            showSideMenu = true
         case .cards:
             sideMenuRouter = .cards
         default:
@@ -291,9 +254,10 @@ extension TabViewModel: HomeViewDelegate, SideBarDelegate {
     }
     
     func sideBar(sideBar: SideBarViewModel, onClick route: SideMenuItem) {
+        showSideMenu = false
         switch route {
         case .close:
-            hideSideBar()
+            showSideMenu = false
         case .identify:
             sideMenuRouter = .identify
             navigate(to: SideBarRoute.identify)
@@ -304,10 +268,10 @@ extension TabViewModel: HomeViewDelegate, SideBarDelegate {
             sideMenuRouter = .monitoring
             navigate(to: SideBarRoute.monitoring)
         case .payment:
-            hideSideBar()
+            showSideMenu = false
             selectedTab = .payment
         case .transfer:
-            hideSideBar()
+            showSideMenu = false
             selectedTab = .transfer
         case .invoices:
             sideMenuRouter = .invoices

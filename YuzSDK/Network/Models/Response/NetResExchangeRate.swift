@@ -9,7 +9,8 @@ import Foundation
 
 struct NetResExchangeRate: Decodable, NetResBody {
     let currencyID: Int
-    let name, code: String
+    let name: String
+    let code: String?
     let number: String?
     let buyingRate, sellingRate: Float
     let lastRefreshed: Date?
@@ -23,7 +24,7 @@ struct NetResExchangeRate: Decodable, NetResBody {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.currencyID = try container.decode(Int.self, forKey: .currencyID)
         self.name = try container.decode(String.self, forKey: .name)
-        self.code = try container.decode(String.self, forKey: .code)
+        self.code = try container.decodeIfPresent(String.self, forKey: .code)
         self.number = try container.decode(String.self, forKey: .number)
         self.buyingRate = try container.decode(Float.self, forKey: .buyingRate)
         self.sellingRate = try container.decode(Float.self, forKey: .sellingRate)

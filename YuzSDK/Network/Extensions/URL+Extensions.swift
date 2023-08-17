@@ -15,14 +15,18 @@ public extension URL {
     }
     
     static var keyHeader: (key: String, value: String) {
-        ("X-APP-SERIAL", "b3ddcc07be6f5b4bebdbd0354bf3534f0e7fd93578fd6093df580b1c642bfafd")
+        ("X-APP-SERIAL", "d0673c9b400460f7a2950eb71bd3bab5b0729351d5e93a5aa2c4aa3f269f6ee0")
     }
     
     static var langHeader: (key: String, value: String) {
         ("X-LANG-CODE", (UserSettings.shared.language ?? .russian).smallCode)
     }
     
-    static var telegramBotURL: URL = URL.init(string: "https://t.me/yuzpaybot")!
+    static let yuzpayURL: URL = URL.init(string: "https://yuzpay.uz/")!
+    
+    static let tadiURL: URL = URL.init(string: "https://tadi.uz/")!
+    
+    static let telegramBotURL: URL = URL.init(string: "https://t.me/yuzpaybot")!
     
     func appendingPath(_ pathList: Any...) -> URL {
         var url = self

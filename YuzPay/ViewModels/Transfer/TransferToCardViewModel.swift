@@ -200,7 +200,7 @@ final class TransferToCardViewModel: NSObject, ObservableObject, Alertable, Load
             self.receiptRows += [
                 .init(name: "amount".localize, value: amount.asCurrency()),
                 .init(name: "commission".localize, value: String(format: "%.1f%%", paymentIntereset)),
-                .init(name: "total_to_withdraw".localize, value: String(format: "%.2f so`m", calculatedPayment), type: .price)
+                .init(name: "total_to_withdraw".localize, value: String(format: "%.2f UZS", calculatedPayment), type: .price)
 
             ]
         case .exchange:

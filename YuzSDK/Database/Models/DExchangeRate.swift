@@ -10,10 +10,10 @@ import RealmSwift
 
 public class DExchangeRate: Object, Identifiable {
     public var id: Int {
-        currencyID.rawValue
+        currencyID
     }
     
-    @Persisted(primaryKey: true) public var currencyID: CurrencyType
+    @Persisted(primaryKey: true) public var currencyID: Int
     @Persisted public var name: String
     @Persisted public var code: String
     @Persisted public var number: String?
@@ -21,7 +21,7 @@ public class DExchangeRate: Object, Identifiable {
     @Persisted public var sellingRate: Float
     @Persisted public var lastRefreshed: Date?
     
-    public init(currencyType: CurrencyType, name: String, code: String, number: String? = nil, buyingRate: Float, sellingRate: Float, lastRefreshed: Date? = nil) {
+    public init(currencyType: Int, name: String, code: String, number: String? = nil, buyingRate: Float, sellingRate: Float, lastRefreshed: Date? = nil) {
         self.name = name
         self.code = code
         self.number = number
@@ -37,7 +37,7 @@ public class DExchangeRate: Object, Identifiable {
     }
     
     static func create(with res: NetResExchangeRate) -> DExchangeRate {
-        .init(currencyType: .init(rawValue: res.currencyID) ?? .usd, name: res.name, code: res.code, buyingRate: res.buyingRate, sellingRate: res.sellingRate, lastRefreshed: res.lastRefreshed)
+        .init(currencyType: res.currencyID, name: res.name, code: res.code ?? "", buyingRate: res.buyingRate, sellingRate: res.sellingRate, lastRefreshed: res.lastRefreshed)
     }
     
     var asModel: ExchangeRate {
@@ -51,10 +51,10 @@ public protocol ExchangeRateProtocol: ModelProtocol {
 
 public class ExchangeRate: ExchangeRateProtocol, Identifiable {
     public var id: Int {
-        currencyID.rawValue
+        currencyID
     }
     
-    public var currencyID: CurrencyType
+    public var currencyID: Int
     public var name: String
     public var code: String
     public var number: String?
@@ -62,7 +62,7 @@ public class ExchangeRate: ExchangeRateProtocol, Identifiable {
     public var sellingRate: Float
     public var lastRefreshed: Date?
     
-    public init(currencyID: CurrencyType, name: String, code: String, number: String? = nil, buyingRate: Float, sellingRate: Float, lastRefreshed: Date? = nil) {
+    public init(currencyID: Int, name: String, code: String, number: String? = nil, buyingRate: Float, sellingRate: Float, lastRefreshed: Date? = nil) {
         self.name = name
         self.code = code
         self.number = number
@@ -73,7 +73,7 @@ public class ExchangeRate: ExchangeRateProtocol, Identifiable {
     }
     
     static func create(with res: NetResExchangeRate) -> ExchangeRate {
-        .init(currencyID: .init(rawValue: res.currencyID) ?? .usd,
-              name: res.name, code: res.code, buyingRate: res.buyingRate, sellingRate: res.sellingRate, lastRefreshed: res.lastRefreshed)
+        .init(currencyID: res.currencyID,
+              name: res.name, code: res.code ?? "", buyingRate: res.buyingRate, sellingRate: res.sellingRate, lastRefreshed: res.lastRefreshed)
     }
 }

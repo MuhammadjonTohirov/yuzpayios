@@ -12,7 +12,7 @@ import YuzSDK
 struct SimpleOrderCardView: View {
     @State fileprivate var buttons: [RowButtonItem] = []
     @State fileprivate var selectedBank: BankType?
-    @State fileprivate var cardType: CreditCardType = .uzcard
+    @State fileprivate var cardType: CreditCardType = .humo
     @State fileprivate var address: AddressValue?
     @State fileprivate var isFormOkay = false
     @State private var selectedButton: RowButtonItem?
@@ -441,7 +441,7 @@ fileprivate struct BankListView: View {
 
 // MARK: - Card Type List
 fileprivate struct CardTypeListView: View {
-    @State private var cardTypes: [CreditCardType] = [.uzcard, .humo, .visa]
+    @State private var cardTypes: [CreditCardType] = [.humo, .visa, .master]
     @Binding var selectedCardType: CreditCardType
     @Environment(\.dismiss) fileprivate var dismiss
     var body: some View {

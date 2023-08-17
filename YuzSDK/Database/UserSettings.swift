@@ -25,6 +25,9 @@ final public class UserSettings {
     @anyWrapper(key: "pincode", defaultValue: nil)
     public var appPin: String?
     
+    @anyWrapper(key: "totalBalanceVisible", defaultValue: true)
+    public var isTotalBalanceVisible: Bool?
+    
     @anyWrapper(key: "loginDate", defaultValue: nil)
     public var loginDate: Date?
     
@@ -81,8 +84,6 @@ final public class UserSettings {
                 realm.trySafeWrite {
                     realm.deleteAll()
                 }
-                
-                
                 
                 self.accessToken = nil
                 self.accessTokenExpireDate = nil

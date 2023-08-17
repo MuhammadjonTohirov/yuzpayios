@@ -92,6 +92,7 @@ final class PhoneAuthViewModel: NSObject, ObservableObject, Loadable, Alertable 
     
     private func getAccessToken() {
         showLoader()
+        UserSettings.shared.appPin = nil
         Task {
             let success = await UserNetworkService.shared.getAccessToken()
             await MainActor.run {

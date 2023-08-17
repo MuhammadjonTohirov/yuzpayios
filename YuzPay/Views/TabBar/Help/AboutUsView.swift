@@ -21,10 +21,16 @@ struct AboutUsView: View {
             companyInfo(icon: "logo_yuz2", title: "developer".localize, name: "YuzPay Team", iconColor: Color.accentColor)
                 .padding(.horizontal, 60)
                 .padding(.bottom, 8)
+                .onTapGesture {
+                    UIApplication.shared.open(URL.yuzpayURL, options: [:], completionHandler: nil)
+                }
             
             companyInfo(icon: "logo_yuz", title: "with_support".localize, name: "Tadi Industries", iconColor: Color.accentColor)
                 .padding(.horizontal, 60)
                 .padding(.bottom, 60)
+                .onTapGesture {
+                    UIApplication.shared.open(URL.tadiURL, options: [:], completionHandler: nil)
+                }
             
             Text("mobile_version".localize(arguments: appVersion))
                 .mont(.regular, size: 12)

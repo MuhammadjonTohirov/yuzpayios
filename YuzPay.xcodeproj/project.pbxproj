@@ -80,6 +80,7 @@
 		2E374FF7294DF15B0007D146 /* PhoneAuthFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FF6294DF15B0007D146 /* PhoneAuthFormViewModel.swift */; };
 		2E374FF9294DF19F0007D146 /* PhoneAuthForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FF8294DF19F0007D146 /* PhoneAuthForm.swift */; };
 		2E374FFD294DF5C30007D146 /* UploadAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E374FFC294DF5C30007D146 /* UploadAvatarView.swift */; };
+		2E3C5FAD2A7D6D59006C1F9B /* TotalAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3C5FAC2A7D6D59006C1F9B /* TotalAmountView.swift */; };
 		2E40E5EE29F4620000CD1EAB /* MainAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E40E5ED29F4620000CD1EAB /* MainAlertModel.swift */; };
 		2E433A9A2959F5A400D6F1F6 /* AddNewCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E433A992959F5A400D6F1F6 /* AddNewCardViewModel.swift */; };
 		2E433AA5295A875700D6F1F6 /* Destination1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E433AA4295A875700D6F1F6 /* Destination1.swift */; };
@@ -378,6 +379,8 @@
 		2EDE333C29A437D4005E151C /* BaseViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE333B29A437D4005E151C /* BaseViewModelProtocol.swift */; };
 		2EDE333E29A43D80005E151C /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE333D29A43D80005E151C /* Alertable.swift */; };
 		2EDE334429A450DC005E151C /* TabDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE334329A450DC005E151C /* TabDataService.swift */; };
+		2EE6F4012A8E065F008F8EBA /* UScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6F4002A8E065F008F8EBA /* UScrollView.swift */; };
+		2EE6F4032A8E2228008F8EBA /* SideBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6F4022A8E2228008F8EBA /* SideBarView.swift */; };
 		2EEB2B1E2A228B8F00026B48 /* NetReqP2P.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB2B1D2A228B8F00026B48 /* NetReqP2P.swift */; };
 		2EFC653129FBF240004F9D88 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 2EFC653029FBF240004F9D88 /* Realm */; settings = {ATTRIBUTES = (Required, ); }; };
 		2EFC653329FBF26E004F9D88 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2EFC653229FBF26E004F9D88 /* RealmSwift */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -496,6 +499,7 @@
 		2E374FF6294DF15B0007D146 /* PhoneAuthFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthFormViewModel.swift; sourceTree = "<group>"; };
 		2E374FF8294DF19F0007D146 /* PhoneAuthForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthForm.swift; sourceTree = "<group>"; };
 		2E374FFC294DF5C30007D146 /* UploadAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadAvatarView.swift; sourceTree = "<group>"; };
+		2E3C5FAC2A7D6D59006C1F9B /* TotalAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalAmountView.swift; sourceTree = "<group>"; };
 		2E40E5ED29F4620000CD1EAB /* MainAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAlertModel.swift; sourceTree = "<group>"; };
 		2E433A992959F5A400D6F1F6 /* AddNewCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCardViewModel.swift; sourceTree = "<group>"; };
 		2E433AA4295A875700D6F1F6 /* Destination1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination1.swift; sourceTree = "<group>"; };
@@ -789,6 +793,8 @@
 		2EDE333B29A437D4005E151C /* BaseViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModelProtocol.swift; sourceTree = "<group>"; };
 		2EDE333D29A43D80005E151C /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
 		2EDE334329A450DC005E151C /* TabDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDataService.swift; sourceTree = "<group>"; };
+		2EE6F4002A8E065F008F8EBA /* UScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UScrollView.swift; sourceTree = "<group>"; };
+		2EE6F4022A8E2228008F8EBA /* SideBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarView.swift; sourceTree = "<group>"; };
 		2EEB2B1D2A228B8F00026B48 /* NetReqP2P.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetReqP2P.swift; sourceTree = "<group>"; };
 		2EEED6D0293F13BF000B35E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2EFC653929FC431C004F9D88 /* MainAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAlertView.swift; sourceTree = "<group>"; };
@@ -1233,6 +1239,14 @@
 			path = UploadAvatar;
 			sourceTree = "<group>";
 		};
+		2E3C5FAB2A7D6D48006C1F9B /* TotalAmountView */ = {
+			isa = PBXGroup;
+			children = (
+				2E3C5FAC2A7D6D59006C1F9B /* TotalAmountView.swift */,
+			);
+			path = TotalAmountView;
+			sourceTree = "<group>";
+		};
 		2E433AAE295ACCDF00D6F1F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1264,6 +1278,7 @@
 		2E43748A294EFAB800F78FEC /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				2E3C5FAB2A7D6D48006C1F9B /* TotalAmountView */,
 				2E2CBA8A2954634000D7C352 /* CurrencyRate */,
 				2E2CBA892954633000D7C352 /* PaymentCategories */,
 				2E2CBA882954632500D7C352 /* SavedPaymentSystems */,
@@ -1319,6 +1334,7 @@
 			children = (
 				2E437492294F03B900F78FEC /* SideBarContent.swift */,
 				2E437494294F191400F78FEC /* SideBarMenuItem.swift */,
+				2EE6F4022A8E2228008F8EBA /* SideBarView.swift */,
 			);
 			path = SideBarView;
 			sourceTree = "<group>";
@@ -2132,6 +2148,7 @@
 		2EBCA8122941662000F89E6F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2EE6F3FF2A8E064E008F8EBA /* ScrollView */,
 				2EFC653B29FD0893004F9D88 /* CarouselView */,
 				2E241EEE29E5D0BD00822321 /* TabBar */,
 				2E8C474029A13B8F004D9817 /* KF */,
@@ -2387,6 +2404,14 @@
 				2EDE333D29A43D80005E151C /* Alertable.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		2EE6F3FF2A8E064E008F8EBA /* ScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				2EE6F4002A8E065F008F8EBA /* UScrollView.swift */,
+			);
+			path = ScrollView;
 			sourceTree = "<group>";
 		};
 		2EEED6AD293EFFBB000B35E0 /* Resources */ = {
@@ -2793,6 +2818,7 @@
 				2E437499294F2B9600F78FEC /* SideBarViewModel.swift in Sources */,
 				2ED87CFA2955FEE600E1D477 /* ResultExtensions.swift in Sources */,
 				2E241F0929E5D0BD00822321 /* View.swift in Sources */,
+				2EE6F4012A8E065F008F8EBA /* UScrollView.swift in Sources */,
 				2E1DA6C429436649007A5F9F /* SignInFormModel.swift in Sources */,
 				2EB8E6AD29770F4A00BBAFE3 /* SettingsView.swift in Sources */,
 				2E4A80F82962BC8A0032B7FF /* OrderCardView.swift in Sources */,
@@ -2915,6 +2941,7 @@
 				2E2CBA752954359200D7C352 /* HCardListView.swift in Sources */,
 				2E4374AB294FE54F00F78FEC /* TopLeftDismissModifier.swift in Sources */,
 				2ECB93AA29D90B9B00941B87 /* View+Extensions+2.swift in Sources */,
+				2E3C5FAD2A7D6D59006C1F9B /* TotalAmountView.swift in Sources */,
 				2E7FE8F2294FED6A00D15A4A /* LoadingView.swift in Sources */,
 				2E9287F7299FF7E600A7CDC0 /* SpringLoaderView.swift in Sources */,
 				2EC5F0D32945B48C00BA54E3 /* YTextFieldBottomInfo.swift in Sources */,
@@ -2971,6 +2998,7 @@
 				2E2CBA8C2954635100D7C352 /* PaymentCategoriesView.swift in Sources */,
 				2E43749F294F411B00F78FEC /* TabViewModel.swift in Sources */,
 				2EBCA8112941645800F89E6F /* Number+Extension.swift in Sources */,
+				2EE6F4032A8E2228008F8EBA /* SideBarView.swift in Sources */,
 				2E7AF50729A9199400693013 /* AllMerchantsInCategoryView.swift in Sources */,
 				2EB8E6AB2977079100BBAFE3 /* BottomSheetView.swift in Sources */,
 				2ED87D022955FEE600E1D477 /* RepeatingRequest.swift in Sources */,
@@ -3267,9 +3295,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = YuzPay/YuzPay.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;
@@ -3277,7 +3305,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YuzPay/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "$(PRODUCT_NAME)";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = YuzPay;
 				INFOPLIST_KEY_NSCameraUsageDescription = "YuzApp wants to access camera to scan or take a pickture";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Login with FaceId";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "YuzApp wants to get current location for get nearby bank branches";
@@ -3298,7 +3326,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = uz.xcoder.YuzPay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = 100PayDev2;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = 100PayDistPP2;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -3318,7 +3346,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;
@@ -3326,7 +3354,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YuzPay/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "$(PRODUCT_NAME)";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = YuzPay;
 				INFOPLIST_KEY_NSCameraUsageDescription = "YuzApp wants to access camera to scan or take a pickture";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Login with FaceId";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "YuzApp wants to get current location for get nearby bank branches";
@@ -3347,7 +3375,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = uz.xcoder.YuzPay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = 100PayDistPP;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = 100PayDistPP2;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

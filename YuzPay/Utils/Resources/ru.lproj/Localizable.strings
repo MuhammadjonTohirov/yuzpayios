@@ -256,3 +256,9 @@
 "select_card" = "Выберите карту";
 "no_card" = "Нет карты";
 "insufficient_funds" = "Недостаточно средств";
+
+"show_all_rates" = "Показать все валюты";
+
+"currency_rates" = "Курсы валют";
+
+"total_amount" = "Общий баланс";

@@ -23,6 +23,10 @@ final class LoadingViewModel: LoadingViewModelProtocol {
             let hasLanguage = UserSettings.shared.language != nil
             
             DispatchQueue.main.async {
+                if !hasLanguage {
+                    mainRouter?.navigate(to: .intro)
+                    return
+                }
                 
                 if !isOK {
                     mainRouter?.navigate(to: .auth)
@@ -32,11 +36,7 @@ final class LoadingViewModel: LoadingViewModelProtocol {
                 if hasPin {
                     mainRouter?.navigate(to: .pin)
                 } else {
-                    if hasLanguage {
-                        mainRouter?.navigate(to: .auth)
-                    } else {
-                        mainRouter?.navigate(to: .intro)
-                    }
+                    mainRouter?.navigate(to: .auth)
                 }
             }
         }

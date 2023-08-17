@@ -11,20 +11,41 @@ import RealmSwift
 import YuzSDK
 
 struct CurrencyRateView: View {
+    typealias ShowMoreAction = () -> Void
+
+    var showMore: ShowMoreAction
+    
+    var showAll: Bool = false
+
     @State var currencyValue: String = ""
     @ObservedResults(DExchangeRate.self, configuration: Realm.config) var rates;
     
+    var visibleRates: Slice<Results<DExchangeRate>> {
+        rates[0..<rates.count.limitTop(showAll ? rates.count : 5)]
+    }
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            ForEach(rates) { rate in
+        VStack(alignment: .center) {
+            ForEach(visibleRates) { rate in
                 VStack {
                     listItem(title: rate.name, value: rate.sellingRate.asCurrency(), date: rate.lastRefreshed?.formatted(date: .numeric, time: .shortened) ?? "")
                     
-                    if rates.last?.id != rate.id {
+                    if visibleRates.last?.id != rate.id {
                         Divider()
                     }
                 }
             }
+            
+            if visibleRates.count < rates.count {
+                Button {
+                    showMore()
+                } label: {
+                    Text("show_all_rates".localize)
+                        .mont(.medium, size: 14)
+                }
+                .padding(Padding.small)
+            }
+
         }
         .padding(.vertical, Padding.default)
         .background(
@@ -53,7 +74,9 @@ struct CurrencyRateView: View {
 
 struct CurrencyRateView_Preview: PreviewProvider {
     static var previews: some View {
-        CurrencyRateView()
+        CurrencyRateView {
+            
+        }
     }
 }
 

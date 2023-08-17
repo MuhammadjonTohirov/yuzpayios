@@ -25,7 +25,7 @@ extension URLRequest {
         return req
     }
     
-    static func fromDataRequest(url: URL, boundary: String, policy: CachePolicy = .useProtocolCachePolicy, interval: TimeInterval = 60.0) -> URLRequest {
+    static func fromDataRequest(url: URL, boundary: String, policy: CachePolicy = .useProtocolCachePolicy, interval: TimeInterval = 60.0, withAuth: Bool = true) -> URLRequest {
         var req = URLRequest(url: url, cachePolicy: policy, timeoutInterval: interval)
         req.addValue(URL.keyHeader.value, forHTTPHeaderField: URL.keyHeader.key)
         req.addValue(URL.langHeader.value, forHTTPHeaderField: URL.langHeader.key)
@@ -33,7 +33,7 @@ extension URLRequest {
         req.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         req.addValue("application/json", forHTTPHeaderField: "accept")
         
-        if let accessToken = UserSettings.shared.accessToken {
+        if let accessToken = UserSettings.shared.accessToken, withAuth {
             req.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }
         

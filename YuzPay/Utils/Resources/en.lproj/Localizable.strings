@@ -229,3 +229,8 @@
 "insufficient_transfer_amount" = "Insufficient amount";
 "please_select_card" = "Select a card";
 
+"show_all_rates" = "Show all currencies";
+
+"currency_rates" = "Currency rates";
+
+"total_amount" = "Total amount";
