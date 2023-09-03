@@ -19,7 +19,7 @@ struct MobilePaymentView: View {
                 Image("icon_phone_2")
                     .resizable()
                     .frame(width: 20, height: 20)
-                Text("Оплата телефона")
+                Text("mobile_payment".localize)
                     .font(.mont(.semibold, size: 16))
             }
 

@@ -48,9 +48,9 @@ struct UserIdentificationView: View {
                 .frame(width: 100, height: 100)
                 .padding(.bottom, Padding.medium)
             
-            Text("Готово!")
+            Text("ready".localize)
                 .mont(.semibold, size: 28)
-            Text("Теперь вы можете использовать оплату лицом.")
+            Text("ready_face_pay_info".localize)
                 .mont(.regular, size: 16)
             
             Spacer()
@@ -62,15 +62,15 @@ struct UserIdentificationView: View {
     var defaultView: some View {
         ZStack {
             VStack(alignment: .leading, spacing: 14) {
-                Text("Паспортные данные")
+                Text("passport_details".localize)
                     .mont(.semibold, size: 24)
                     .padding(.top, Padding.large * 2)
-                Text("Паспортные данные необходимы, чтобы подтвердить Вашу личность и открыть полный доступ ко всем услугам.")
+                Text("passport_details_info".localize)
                     .mont(.regular, size: 14)
                 
                 Spacer()
                 
-                FlatButton(title: "Сканировать", borderColor: .clear, titleColor: .white) {
+                FlatButton(title: "scan".localize, borderColor: .clear, titleColor: .white) {
                     startScanning()
                 }
                 .background(
@@ -160,10 +160,10 @@ struct UserIdentificationView: View {
             cameraOverlayHeader
             .padding(.horizontal, Padding.default)
 
-            Text("Отсканируйте паспорт")
+            Text("scan_card".localize)
                 .mont(.semibold, size: 28)
                 .padding(.top, Padding.medium)
-            Text("Направьте камеру на главную страницу паспорта так, чтобы она совпала с рамкой.")
+            Text("scan_card_info".localize)
                 .mont(.regular, size: 16)
             
             Spacer()

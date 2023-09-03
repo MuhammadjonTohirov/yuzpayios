@@ -13,7 +13,7 @@ struct SignUpForm: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            YPhoneField(text: $viewModel.login, placeholder: "login", left: {
+            YPhoneField(text: $viewModel.login, placeholder: "login".localize, left: {
                 HStack {
                     Text("+998")
                         .font(.mont(.medium, size: 16))
@@ -30,7 +30,7 @@ struct SignUpForm: View {
             .modifier(YTextFieldBackgroundCleanStyle())
             .padding(.bottom, 24)
             
-            YTextField(text: $viewModel.password, placeholder: "password", isSecure: true, left: {
+            YTextField(text: $viewModel.password, placeholder: "password".localize, isSecure: true, left: {
                 Image("icon_password_2")
                     .resizable()
                     .frame(width: 20, height: 20)
@@ -40,9 +40,9 @@ struct SignUpForm: View {
             })
             .set(haveTitle: true)
             .modifier(YTextFieldBackgroundCleanStyle())
-            .modifier(YTextFieldBottomInfo(text: "Надёжный пароль"))
+            .modifier(YTextFieldBottomInfo(text: "reliable_password".localize))
 
-            YTextField(text: $viewModel.passwordRepeate, placeholder: "repeat password", isSecure: true, left: {
+            YTextField(text: $viewModel.passwordRepeate, placeholder: "repeat_password".localize, isSecure: true, left: {
                 Image("icon_password_2")
                     .resizable()
                     .frame(width: 20, height: 20)
@@ -52,7 +52,7 @@ struct SignUpForm: View {
             })
             .set(haveTitle: true)
             .modifier(YTextFieldBackgroundCleanStyle())
-            .modifier(YTextFieldBottomInfo(text: "Пароли совпадают"))
+            .modifier(YTextFieldBottomInfo(text: "password_match".localize))
         }
 //        .onAppear
     }

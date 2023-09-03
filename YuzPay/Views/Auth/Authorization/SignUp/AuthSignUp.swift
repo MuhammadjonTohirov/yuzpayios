@@ -54,7 +54,7 @@ struct AuthSignUp: View {
             ScrollView {
                 VStack {
                     Spacer()
-                    Text("Регистрация")
+                    Text("register".localize)
                         .font(.mont(.extraBold, size: 32))
                         .foregroundColor(Color("accent_light"))
                         .padding(.bottom, 40.f.sh())

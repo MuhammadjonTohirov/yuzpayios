@@ -6,11 +6,12 @@
 //
 
 import RealmSwift
+import Foundation
 
 public protocol NotificationProtocol: ModelProtocol {
     var logID: Int {get set}
     var logTitle: String? {get set}
-    var createdDate: String? {get set}
+    var createdDate: Date? {get set}
     var logStatus: Int? {get set}
     var logDetails: String? {get set}
     var userID: String? {get set}
@@ -25,7 +26,7 @@ public class DNotification: Object, DObjectProtocol, NotificationProtocol {
     
     @Persisted public var logTitle: String?
     
-    @Persisted public var createdDate: String?
+    @Persisted public var createdDate: Date?
     
     @Persisted public var logStatus: Int?
     
@@ -33,7 +34,7 @@ public class DNotification: Object, DObjectProtocol, NotificationProtocol {
     
     @Persisted public var userID: String?
     
-    public init(logID: Int, logTitle: String? = nil, createdDate: String? = nil, logStatus: Int? = nil, logDetails: String? = nil, userID: String? = nil) {
+    public init(logID: Int, logTitle: String? = nil, createdDate: Date? = nil, logStatus: Int? = nil, logDetails: String? = nil, userID: String? = nil) {
         self.logTitle = logTitle
         self.createdDate = createdDate
         self.logStatus = logStatus

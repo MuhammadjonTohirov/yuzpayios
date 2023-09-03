@@ -14,7 +14,7 @@ struct ResetPasswordView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            YTextField(text: $password, placeholder: "password", isSecure: true, left: {
+            YTextField(text: $password, placeholder: "password".localize, isSecure: true, left: {
                 Image("icon_password_2")
                     .resizable()
                     .frame(width: 20, height: 20)
@@ -24,9 +24,9 @@ struct ResetPasswordView: View {
             })
             .set(haveTitle: true)
             .modifier(YTextFieldBackgroundCleanStyle())
-            .modifier(YTextFieldBottomInfo(text: "Надёжный пароль"))
+            .modifier(YTextFieldBottomInfo(text: "reliable_password".localize))
             
-            YTextField(text: $repeatPassword, placeholder: "repeat password", isSecure: true, left: {
+            YTextField(text: $repeatPassword, placeholder: "repeat_password".localize, isSecure: true, left: {
                 Image("icon_password_2")
                     .resizable()
                     .frame(width: 20, height: 20)
@@ -36,7 +36,7 @@ struct ResetPasswordView: View {
             })
             .set(haveTitle: true)
             .modifier(YTextFieldBackgroundCleanStyle())
-            .modifier(YTextFieldBottomInfo(text: "Пароли совпадают"))
+            .modifier(YTextFieldBottomInfo(text: /*Пароли совпадают*/ "password_match".localize))
         }
         .padding(.horizontal, Padding.default)
     }

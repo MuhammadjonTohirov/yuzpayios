@@ -14,7 +14,7 @@ struct SignInForm: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 8) {
-            YTextField(text: $viewModel.login, placeholder: "Login", isSecure: false, autoCapitalization: .never, left: {
+            YTextField(text: $viewModel.login, placeholder: "login".localize, isSecure: false, autoCapitalization: .never, left: {
                 Image("icon_login")
                     .resizable()
                     .frame(width: 20, height: 19)
@@ -28,7 +28,7 @@ struct SignInForm: View {
             .modifier(YTextFieldBackgroundCleanStyle())
             .padding(.horizontal, Padding.medium)
             
-            YTextField(text: $viewModel.password, placeholder: "Password", isSecure: true, left: {
+            YTextField(text: $viewModel.password, placeholder: "password".localize, isSecure: true, left: {
                 Image("icon_password")
                     .resizable()
                     .frame(width: 20, height: 19)

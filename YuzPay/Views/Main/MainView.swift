@@ -9,7 +9,8 @@ import SwiftUI
 
 
 struct MainView: View {
-    @ObservedObject var viewModel = MainViewModel()
+//    MARK: - start of application should be changed from here
+    @ObservedObject var viewModel = MainViewModel(route: .loading)
     @State private var isPresented = true
     
     var body: some View {

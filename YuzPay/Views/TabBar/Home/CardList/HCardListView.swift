@@ -36,7 +36,7 @@ struct HCardListView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
                     if let cards = viewModel.cards {
-                        ForEach(cards) { element in
+                        ForEach(cards.sorted(byKeyPath: "isMain", ascending: false)) { element in
                             if !element.isInvalidated {
                                 cardItem(name: "\(element.cardNumber.maskAsMiniCardNumber)", icon: element.cardType.localIcon, amount: element.moneyAmount.asCurrency(), isMain: element.isMain)
                                     .onTapGesture {

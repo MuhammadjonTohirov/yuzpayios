@@ -32,28 +32,28 @@ struct InsertDeliveryDetailsView: View {
     
     var innerBody: some View {
         VStack(alignment: .leading) {
-            title("Insert address")
+            title("insert_address".localize)
             VStack(spacing: Padding.default) {
-                YTextField(text: $address, placeholder: "Address")
+                YTextField(text: $address, placeholder: "address".localize)
                     .set(haveTitle: true)
                     .padding(.horizontal, Padding.default)
                     .modifier(YTextFieldBackgroundGrayStyle())
                     .padding(.horizontal, Padding.default)
                     .padding(.top, Padding.medium)
                 
-                YTextField(text: $street, placeholder: "Street")
+                YTextField(text: $street, placeholder: "street".localize)
                     .set(haveTitle: true)
                     .padding(.horizontal, Padding.default)
                     .modifier(YTextFieldBackgroundGrayStyle())
                     .padding(.horizontal, Padding.default)
                 
-                YTextField(text: $home, placeholder: "Home")
+                YTextField(text: $home, placeholder: "home".localize)
                     .set(haveTitle: true)
                     .padding(.horizontal, Padding.default)
                     .modifier(YTextFieldBackgroundGrayStyle())
                     .padding(.horizontal, Padding.default)
                 
-                YTextField(text: $phone, placeholder: "Phone")
+                YTextField(text: $phone, placeholder: "phone_number".localize)
                     .set(format: "XX XXX-XX-XX")
                     .set(haveTitle: true)
                     .padding(.horizontal, Padding.default)

@@ -12,7 +12,7 @@ struct PassportRegisterStepOne: View {
     @State var passwordId: String = ""
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("паспортные\nданные")
+            Text("passport_data".localize)
                 .font(.mont(.extraBold, size: 32))
                 .foregroundColor(Color("accent_light"))
                 .multilineTextAlignment(.leading)
@@ -28,7 +28,7 @@ struct PassportRegisterStepOne: View {
     }
     
     @ViewBuilder var personalInfoView: some View {
-        YTextField(text: $passwordId, placeholder: "Серия и номер паспорта", right: {
+        YTextField(text: $passwordId, placeholder: "passport_number".localize, right: {
             Image("icon_camera")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -56,7 +56,7 @@ struct PassportRegisterStepOne: View {
     }
     
     @ViewBuilder var topView: some View {
-        Text("Паспортные данные необходимы, чтобы подтвердить Вашу личность и открыть полный доступ ко всем услугам.")
+        Text("passport_required_info".localize)
             .font(.mont(.regular, size: 15))
             .padding(.bottom, Padding.default)
         

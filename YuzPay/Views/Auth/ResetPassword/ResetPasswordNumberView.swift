@@ -13,7 +13,7 @@ struct ResetPasswordNumberView: View {
     var body: some View {
         VStack(spacing: 40) {
             Spacer()
-            Text("Восстановление пароля")
+            Text("reset_password".localize)
                 .font(.mont(.extraBold, size: 32))
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color("accent_light"))
@@ -37,7 +37,7 @@ struct ResetPasswordNumberView: View {
             Spacer()
             Spacer()
             HoverButton(
-                title: "Далее",
+                title: "next".localize,
                 backgroundColor: Color("accent_light_2"),
                 titleColor: .white)
             {

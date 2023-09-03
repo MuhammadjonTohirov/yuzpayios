@@ -187,7 +187,7 @@ struct ReceiptAndPayView: View {
                         .mont(.semibold, size: 14.f.sw())
                 }
                 
-                Text("Баланс")
+                Text("balance".localize)
                     .mont(.medium, size: 12.f.sw())
                     .foregroundColor(.secondaryLabel)
             }

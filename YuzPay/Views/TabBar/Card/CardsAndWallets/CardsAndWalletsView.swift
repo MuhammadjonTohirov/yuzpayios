@@ -102,7 +102,7 @@ struct CardsAndWalletsView: View {
 
 private extension CardsAndWalletsView {
     func cardItem(bankName: String,
-                  cardName: String = "Название карты",
+                  cardName: String = "card_name".localize,
                   cardNumber: String,
                   amount: Float, isMain: Bool, iconName: String) -> some View {
         GeometryReader { proxy in
@@ -114,7 +114,7 @@ private extension CardsAndWalletsView {
                         Spacer()
                         Text(cardName)
                             .font(.mont(.medium, size: 14))
-                        Text("\(amount.asCurrency()) сум")
+                        Text("\(amount.asCurrency()) uzs")
                             .font(.mont(.semibold, size: 20))
                         
                         Spacer()

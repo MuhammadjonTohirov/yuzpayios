@@ -116,9 +116,9 @@ struct CardDetailsView: View {
         }
         .alert(isPresented: $showDeleteAlert) {
             Alert(
-                title: Text("Deleste Card"),
-                message: Text("Are you sure you want to delete this card?"),
-                primaryButton: .destructive(Text("Delete")) {
+                title: Text("warning".localize),
+                message: Text("sure_delete_card".localize),
+                primaryButton: .destructive(Text("delete".localize)) {
                     deleteCard()
                 },
                 secondaryButton: .cancel()
@@ -150,7 +150,7 @@ struct CardDetailsView: View {
                 showAlert(.init(
                     displayMode: .alert,
                     type: .complete(.secondaryLabel),
-                    title: "Card has been delete"))
+                    title: "card_delete_success".localize))
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     dismiss()
@@ -159,7 +159,7 @@ struct CardDetailsView: View {
                 showAlert(.init(
                     displayMode: .alert,
                     type: .error(.systemRed),
-                    title: "Cannot delete the card"))
+                    title: "card_delete_fail".localize))
             }
         }
     }
@@ -177,13 +177,6 @@ struct CardDetailsView: View {
                 CreditCardManager.shared.update(forId: cardId, isMain: isMain)
             } else {
                 result = "Card updated filure"
-            }
-            
-            if let mainCard = CreditCardManager.shared.mainCard, mainCard.id != cardId, isOK.success {
-                let _ = await MainNetworkService.shared.updateCard(
-                    cardId: Int(mainCard.id) ?? 0,
-                    card: .init(cardName: mainCard.name, isDefault: false)
-                )
             }
             
             showAlert(.init(displayMode: .alert, type: isOK.success ? .complete(.secondaryLabel) : .error(.systemRed), title: result))

@@ -11,6 +11,11 @@ import SwiftUI
 struct UploadAvatarView: View {
     @ObservedObject var viewModel: UploadAvatarViewModel = UploadAvatarViewModel()
     @Environment(\.dismiss) var dismiss
+    @State private var cameraModel: CameraModel!
+    
+    @State private var scanerTimer: Timer?
+    @State private var isScanning: Bool = false
+    @State private var startCamera: Bool = false
     
     @ViewBuilder var body: some View {
         innerBody
@@ -29,31 +34,23 @@ struct UploadAvatarView: View {
     
     var innerBody: some View {
         VStack {
-            Text("to_select_photo".localize)
+            Text("scan_face_title".localize)
                 .font(.mont(.extraBold, size: 32))
                 .foregroundColor(Color("accent_light"))
                 .padding(.top, 64)
             
-            Image(uiImage: viewModel.avatar)
-                .resizable(true)
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 140.f.sw(), height: 140.f.sw())
-                .cornerRadius(70)
-                .foregroundLinearGradient(
-                    Gradient(colors: [.black.opacity(0.2), .clear]),
-                    startPoint: .bottom,
-                    endPoint: .top
-                )
-                .overlay {
-                    if viewModel.uploading {
-                        SpringLoaderView()
-                    }
+            Circle()
+                .overlay(content: {
+                    cameraView
+                })
+            .frame(width: 200, height: 200)
+            .background(Color.red)
+            .clipShape(Circle())
+            .overlay {
+                if viewModel.uploading {
+                    SpringLoaderView()
                 }
-                .padding(.bottom, 48)
-                .onTapGesture {
-                    viewModel.onSelect(pickerOption: .camera)
-                }
-            
+            }
             Text("capture_avatar_from_camera".localize)
                 .font(.mont(.regular, size: 16))
                 .foregroundColor(Color("label_color"))
@@ -79,6 +76,87 @@ struct UploadAvatarView: View {
         })
         .zIndex(2)
         .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1)
+        .onAppear {
+            self.cameraModel = .init()
+            self.startCamera = true
+            self.viewModel.onAppear()
+            if !cameraModel.service.isSessionRunning {
+                cameraModel.service.start()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.cameraModel.flipCamera(.front)
+                self.cameraModel.onStartRecording = {
+                    debugPrint("Recording started")
+                }
+                
+                self.cameraModel.onEndRecording = { video in
+                    viewModel.imageUrl = video?.videoUrl
+                    debugPrint("Recording ended \(video!.videoUrl), \(video!.videoUrl.fileSize)")
+                    
+                }
+            }
+        }
+    }
+    
+    private func setupScanningTimer() {
+        invalidateScanningTimer()
+        
+        scanerTimer = .scheduledTimer(withTimeInterval: 5, repeats: false, block: { _ in
+            self.stopScanning()
+        })
+    }
+    
+    private func invalidateScanningTimer() {
+        scanerTimer?.invalidate()
+        scanerTimer = nil
+    }
+    
+    private func startScanning() {
+        if !cameraModel.session.isRunning {
+            cameraModel.session.startRunning()
+        }
+        isScanning = true
+        cameraModel.startRecording()
+        setupScanningTimer()
+    }
+    
+    private func stopScanning() {
+        isScanning = false
+        cameraModel.stopRecording()
+        if cameraModel.session.isRunning {
+            cameraModel.session.stopRunning()
+        }
+        invalidateScanningTimer()
+    }
+    
+    @ViewBuilder
+    private var cameraView: some View {
+        if startCamera {
+            CameraView(model: cameraModel, aspectRatio: .resizeAspectFill) {
+                Circle()
+                    .frame(width: 200, height: 200)
+                    .foregroundColor(.white.opacity(0.5))
+                    .overlay {
+                        Circle()
+                            .frame(width: 60, height: 60)
+                            .foregroundColor(.white)
+                            .overlay {
+                                Image("icon_camera_full")
+                                    .resizable(true)
+                                    .frame(width: 32, height: 32)
+                            }
+                            .onTapGesture {
+                                if viewModel.uploading {
+                                    return
+                                }
+                                
+                                startScanning()
+                            }
+                            
+                    }
+                    .visible(!isScanning, animation: .easeIn)
+            }
+        }
     }
 }
 

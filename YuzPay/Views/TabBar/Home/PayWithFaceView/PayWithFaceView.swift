@@ -22,10 +22,10 @@ struct PayWithFaceView: View {
             HStack {
                 Spacer()
                 VStack(alignment: .leading) {
-                    Text("Оплачивайте покупки лицом!")
+                    Text("pay_with_face".localize)
                         .font(.mont(.medium, size: 20).smallCaps())
                         .padding(.bottom, 12.f.sh())
-                    Text("без банковской карты")
+                    Text("without_bank".localize)
                         .font(.mont(.regular, size: 14).smallCaps())
                     
                     Spacer()

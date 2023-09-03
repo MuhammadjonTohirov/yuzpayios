@@ -10,7 +10,6 @@ import RealmSwift
 import YuzSDK
 
 protocol TabDataServiceProtocol {
-    func loadUserInfo() async -> Bool
     func loadMerchants() async -> Bool
     func loadUserEntity() async -> Bool
     func loadSessions() async -> Bool
@@ -20,20 +19,6 @@ protocol TabDataServiceProtocol {
 }
 
 struct TabDataService: TabDataServiceProtocol {
-    
-    func loadUserInfo() async -> Bool {
-        
-        guard let userInfo = await UserNetworkService.shared.getUserInfo() else {
-            return false
-        }
-        
-        Realm.new?.trySafeWrite({
-            Realm.new?.add(DUserInfo.init(id: UserSettings.shared.currentUserLocalId, res: userInfo), update: .modified)
-        })
-        
-        return true
-    }
-    
     func loadUserEntity() async -> Bool {
         guard let entity = await UserNetworkService.shared.getUserInfo() else {
             return false

@@ -11,12 +11,12 @@ import SwiftUI
 struct ResetPasswordStartView: View {
     var body: some View {
         VStack(spacing: 40.f.sh(limit: 0.8)) {
-            Text("Восстановление пароля")
+            Text("reset_password".localize)
                 .font(.mont(.extraBold, size: 32))
             
             HStack(spacing: 16) {
-                button(title:"Телефон", iconName:  "icon_phone")
-                button(title: "Лицо", iconName: "icon_user")
+                button(title:"telephone".localize, iconName:  "icon_phone")
+                button(title: "face".localize, iconName: "icon_user")
             }
         }
         .multilineTextAlignment(.center)

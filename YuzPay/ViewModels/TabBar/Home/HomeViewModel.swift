@@ -132,6 +132,7 @@ final class HomeViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Ne
         MainNetworkService.shared.syncCardList()
         MainNetworkService.shared.syncInvoiceList()
         Task {
+            await UserNetworkService.shared.syncUserInfo()
             await MainNetworkService.shared.syncExchangeRate()
         }
     }

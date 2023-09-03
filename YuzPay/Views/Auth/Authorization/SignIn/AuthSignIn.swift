@@ -34,7 +34,7 @@ struct AuthSignIn: View {
                 VStack {
                     bodyScrollView(proxy)
                                         
-                    HoverButton(title: "Войти", backgroundColor: Color("accent_light_2"), titleColor: Color.white, isEnabled: viewModel.isFormValid) {
+                    HoverButton(title: "enter".localize, backgroundColor: Color("accent_light_2"), titleColor: Color.white, isEnabled: viewModel.isFormValid) {
                         
                     }
                     .padding(.horizontal, Padding.default)
@@ -42,7 +42,7 @@ struct AuthSignIn: View {
                     Button {
                         
                     } label: {
-                        Text("Забыли пароль?")
+                        Text("forgot_password".localize)
                             .font(.mont(.medium, size: 16))
                             .padding()
                     }
@@ -62,7 +62,7 @@ struct AuthSignIn: View {
             Spacer(minLength: proxy.frame(in: .global).height * 0.3)
             VStack(spacing: 8) {
                 VStack {
-                    Text("Вход")
+                    Text("entrance".localize)
                         .font(.mont(.extraBold, size: 32))
                         .padding(.bottom, 32)
                     

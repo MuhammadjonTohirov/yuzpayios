@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 public struct UserNetworkService: NetworkServiceProtocol {
     typealias S = UserNetworkServiceRoute
@@ -34,8 +35,8 @@ public struct UserNetworkService: NetworkServiceProtocol {
         
         UserSettings.shared.accessToken = accessToken
         UserSettings.shared.refreshToken = result.refreshToken
-        UserSettings.shared.accessTokenExpireDate = result.expiresIn
-        UserSettings.shared.refresTokenExpireDate = result.refreshExpiresIn
+        UserSettings.shared.accessTokenExpireDate = (result.expiresIn ?? 0) + Date.now.timeIntervalSince1970
+        UserSettings.shared.refresTokenExpireDate = (result.refreshExpiresIn ?? 0) + Date.now.timeIntervalSince1970
         
         return true
     }
@@ -112,6 +113,16 @@ public struct UserNetworkService: NetworkServiceProtocol {
         let res: NetRes<NetResBodyUserInfo>? = await Network.send(request: S.getUserInfo)
         
         return res?.data
+    }
+    
+    public func syncUserInfo() async {
+        guard let entity = await getUserInfo(), let realm = Realm.new else {
+            return
+        }
+        
+        realm.trySafeWrite({
+            realm.add(DUserInfo.init(id: UserSettings.shared.currentUserLocalId, res: entity), update: .modified)
+        })
     }
     
     public func verifyProfile(photoUrl: URL, completion: @escaping ((Bool, String?) -> Void)) {

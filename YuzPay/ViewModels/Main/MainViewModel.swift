@@ -56,7 +56,7 @@ enum AppDestination: Hashable, ScreenRoute {
             TabBarView()
         case .test:
             NavigationStack {
-                SimpleOrderCardView()
+                UploadAvatarView()
             }
         }
     }

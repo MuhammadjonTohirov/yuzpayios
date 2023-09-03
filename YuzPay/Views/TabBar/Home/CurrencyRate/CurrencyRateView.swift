@@ -25,33 +25,46 @@ struct CurrencyRateView: View {
     }
     
     var body: some View {
-        VStack(alignment: .center) {
-            ForEach(visibleRates) { rate in
-                VStack {
-                    listItem(title: rate.name, value: rate.sellingRate.asCurrency(), date: rate.lastRefreshed?.formatted(date: .numeric, time: .shortened) ?? "")
-                    
-                    if visibleRates.last?.id != rate.id {
-                        Divider()
+        VStack(alignment: .leading) {
+            HStack(spacing: 8.f.sw()) {
+                Image(systemName: "arrow.left.arrow.right")
+                    .resizable()
+                    .fontWeight(.light)
+                    .frame(width: 16, height: 16)
+                Text("exchange_rates".localize)
+                    .font(.mont(.semibold, size: 16))
+            }
+            .padding(.horizontal, Padding.default)
+            .padding(.bottom, Padding.medium)
+            
+            VStack(alignment: .center) {
+                ForEach(visibleRates) { rate in
+                    VStack {
+                        listItem(title: rate.name, value: rate.detail, date: rate.lastRefreshed?.formatted(date: .numeric, time: .shortened) ?? "")
+                        
+                        if visibleRates.last?.id != rate.id {
+                            Divider()
+                        }
                     }
                 }
-            }
-            
-            if visibleRates.count < rates.count {
-                Button {
-                    showMore()
-                } label: {
-                    Text("show_all_rates".localize)
-                        .mont(.medium, size: 14)
+                
+                if visibleRates.count < rates.count {
+                    Button {
+                        showMore()
+                    } label: {
+                        Text("show_all_rates".localize)
+                            .mont(.medium, size: 14)
+                    }
+                    .padding(Padding.small)
                 }
-                .padding(Padding.small)
-            }
 
+            }
+            .padding(.vertical, Padding.default)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .foregroundColor(Color.secondarySystemBackground)
+            )
         }
-        .padding(.vertical, Padding.default)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .foregroundColor(Color.secondarySystemBackground)
-        )
     }
     
     func listItem(title: String, value: String, date: String) -> some View {
@@ -79,4 +92,3 @@ struct CurrencyRateView_Preview: PreviewProvider {
         }
     }
 }
-

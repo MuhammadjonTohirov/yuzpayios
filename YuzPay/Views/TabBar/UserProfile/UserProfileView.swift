@@ -44,8 +44,12 @@ struct UserProfileView: View {
     var innerBody: some View {
         VStack(alignment: .leading) {
             VStack {
-                KF(imageUrl: UserSettings.shared.userAvatarURL)
-                    .frame(width: 120, height: 120)
+                KF(imageUrl: UserSettings.shared.userAvatarURL, cacheKey: (UserSettings.shared.loginDate ?? Date()).toExtendedString(), storageExpiration: .expired, memoryExpiration: .expired)
+                    .frame(width: 88.f.sw(), height: 88.f.sw())
+                    .background {
+                        Circle()
+                            .foregroundColor(.secondarySystemBackground)
+                    }
                     .padding(.vertical, Padding.small)
                 
                 if userInfo?.isVerified ?? false {

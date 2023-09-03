@@ -51,12 +51,12 @@ struct AuthIntroView: View {
                             .frame(width: 128, height: 128, alignment: .center)
                             .fixedSize()
                         
-                        Text("Добро\nпожаловать!")
+                        Text("welcome".localize)
                             .font(.mont(.extraBold, size: 32))
                             .foregroundColor(.white)
                             .padding(Padding.default * 2)
                         
-                        Text("Не следует, однако забывать, что консультация с широким активом представляет собой интересный эксперимент проверки системы обучения кадров, соответствует насущным потребностям.")
+                        Text("auth_welcome_info".localize)
                             .padding(.leading, Padding.default)
                             .padding(.trailing, Padding.default)
                             .font(.mont(.regular, size: 14))
@@ -71,7 +71,7 @@ struct AuthIntroView: View {
                     
                     Spacer()
                     
-                    HoverButton(title: "Регистрация", height: 56.f.sh(limit: 0.2), titleColor: Color("accent")) {
+                    HoverButton(title: "register".localize, height: 56.f.sh(limit: 0.2), titleColor: Color("accent")) {
                         viewModel.showRegister()
                     }
                     .padding(
@@ -83,7 +83,7 @@ struct AuthIntroView: View {
                         )
                     )
                     
-                    HoverButton(title: "Вход", height: 56.f.sh(limit: 0.2), titleColor: Color("accent")) {
+                    HoverButton(title: "entrance".localize, height: 56.f.sh(limit: 0.2), titleColor: Color("accent")) {
                         viewModel.showLogin()
                     }
                     .padding(.leading, Padding.default)

@@ -15,31 +15,31 @@ struct PassportRegisterUserDetails: View {
     @Binding var birthDate: String
     
     @ViewBuilder var body: some View {
-        Text("Пожалуйста, проверьте Ваши личные данные. Если что-то не так, то Вы можете их поправить.")
+        Text("check_personality".localize)
             .font(.mont(.regular, size: 14))
             .foregroundColor(Color("label_color"))
             .multilineTextAlignment(.leading)
             .padding(.bottom, Padding.medium)
 
-        YTextField(text: $lastName, placeholder: "Фамилия")
+        YTextField(text: $lastName, placeholder: "surname".localize)
         .set(haveTitle: true)
         .set(hintColor: Color("dark_gray"))
         .modifier(YTextFieldBackgroundCleanStyle(padding: Padding.medium))
         .padding(.vertical, Padding.medium)
         
-        YTextField(text: $firstName, placeholder: "Имя")
+        YTextField(text: $firstName, placeholder: "name".localize)
         .set(haveTitle: true)
         .set(hintColor: Color("dark_gray"))
         .modifier(YTextFieldBackgroundCleanStyle(padding: Padding.medium))
         .padding(.bottom, Padding.medium)
         
-        YTextField(text: $middleName, placeholder: "Отчество")
+        YTextField(text: $middleName, placeholder: "family_name".localize)
         .set(haveTitle: true)
         .set(hintColor: Color("dark_gray"))
         .modifier(YTextFieldBackgroundCleanStyle(padding: Padding.medium))
         .padding(.bottom, Padding.medium)
         
-        YTextField(text: $birthDate, placeholder: "Дата рождения")
+        YTextField(text: $birthDate, placeholder: "birth_date".localize)
         .set(haveTitle: true)
         .set(hintColor: Color("dark_gray"))
         .modifier(YTextFieldBackgroundCleanStyle(padding: Padding.medium))

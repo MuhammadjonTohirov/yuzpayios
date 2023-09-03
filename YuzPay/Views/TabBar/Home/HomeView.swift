@@ -106,7 +106,7 @@ struct HomeView: View {
                     Spacer()
                 }
                 .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle("currency_rates".localize)
+//                .navigationTitle("currency_rates".localize)
             }
             .presentationDetents([.medium, .large])
         })

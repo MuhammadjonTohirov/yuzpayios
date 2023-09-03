@@ -41,7 +41,7 @@ struct SelectBankBranchView: View {
                 )
             }, annotationSelect: { annotation in
                 if let ann = annotation as? BankAnnotation {
-                    print(ann.title ?? "")
+                    debugPrint(ann.title ?? "")
                     showReceipt = true
                 }
             })

@@ -26,13 +26,13 @@ struct SelectDeliveryTypeView: View {
             }
             
             
-            Text("Как Вы желаете получить карту?")
+            Text("how_to_get_card".localize)
                 .mont(.semibold, size: 28)
  
             VStack {
                 Spacer()
                 
-                FlatButton(title: "Доставка", borderColor: .clear, titleColor: .white) {
+                FlatButton(title: "delivery".localize, borderColor: .clear, titleColor: .white) {
                     showAddressView = true
                 }
                 .background(
@@ -40,7 +40,7 @@ struct SelectDeliveryTypeView: View {
                         .foregroundColor(Color("accent"))
                 )
                 
-                FlatButton(title: "Заберу в банке") {
+                FlatButton(title: "pickup_from_bank".localize) {
                     showBankBranchesView = true
                 }
             }

@@ -15,7 +15,7 @@
 "authorization" = "Authorization";
 "next" = "Next";
 "to_select_photo" = "To make a photo";
-"capture_avatar_from_camera" = "click to camera icon, and get an image from camera or gallery";
+"capture_avatar_from_camera" = "Click to camera icon, and scan your face for 5 seconds\nNote: You should look at to the left to right and front";
 "save" = "Save";
 "exit" = "Exit";
 "payment" = "Payment";
@@ -229,8 +229,90 @@
 "insufficient_transfer_amount" = "Insufficient amount";
 "please_select_card" = "Select a card";
 
+"first_select_photo" = "First select a photo";
+"not_paid" = "Not paid";
+"fill_all_fields" = "You must fill in all fields";
+
+"successfully_paid" = "Successfully paid";
+"error_in_payment" = "Payment error";
+"delete_account" = "Delete account?";
+
+"loading" = "Loading";
+"aboutUs" = "About us";
+"support" = "Support";
+"mobile_version" = "Mobile app version %@";
+"developer" = "Developer";
+"with_support" = "With support";
+"verify" = "Verify";
+
+"unknown_error" = "Unknown error";
+"is_user_verified" = "Verification status";
+"cannot_verify_try_again" = "Unable to verify, please try again";
+"verifying" = "Verifying";
+"date_of_birth" = "Date of birth";
+"select_card" = "Select a card";
+"no_card" = "No card";
+"insufficient_funds" = "Insufficient funds";
+
 "show_all_rates" = "Show all currencies";
 
 "currency_rates" = "Currency rates";
 
 "total_amount" = "Total amount";
+
+"scan_face_title" = "Scan your face";
+
+"mobile_payment" = "Mobile payment";
+
+"exchange_rates" = "Exchange rates";
+
+"skip" = "Skip";
+"list_item" = "List Item";
+"login_settings" = "Login Settings";
+"face" = "Face";
+"telephone" = "Telephone";
+"reset_password" = "Reset Password";
+"next" = "Next";
+"password_match" = "Match Passport";
+"reliable_password" = "Reliable Password";
+"repeat_password" = "Repeat Password";
+"password" = "Password";
+"entrance" = "Entrance";
+"register" = "Register";
+"welcome" = "Welcome!";
+"auth_welcome_info" = "However, it should not be forgotten that consultation with a broad asset represents an interesting experiment in checking the personnel training system and meets urgent needs.";
+"forgot_password" = "Forgot Password?";
+"enter" = "Enter";
+"connect_to_service" = "Connect to Service";
+"pay_with_face" = "Pay with Face!";
+"pay_with_info_face" = "You will no longer need a bank card or a phone. Just go to the cashier and pay for your purchase!";
+"fill_profile" = "To access this feature, you only need to fill in your profile information.";
+"birth_date" = "Date of Birth";
+"family_name" = "Middle Name";
+"name" = "Name";
+"surname" = "Surname";
+"check_personality" = "Please check your personal information. If something is wrong, you can correct it.";
+"passport_data" = "Passport Data";
+"passport_required_info" = "Passport data is required to confirm your identity and open full access to all services.";
+"passport_number" = "Passport Series and Number";
+"step1" = "Step 1 / 3:";
+"without_bank" = "Without a Bank Card";
+"card_name" = "Card Name";
+"card_delete_fail" = "Unable to Delete Card";
+"card_delete_success" = "Card Deleted";
+"sure_delete_card" = "Are you sure you want to delete this card?";
+"insert_address" = "Enter Address";
+"delivery" = "Delivery";
+"pickup_from_bank" = "Pick up from Bank";
+"how_to_get_card" = "How do you want to receive the card?";
+"scan_card" = "Scan Passport";
+"scan_card_info" = "Point your camera at the main page of the passport so that it matches the frame.";
+"passport_details" = "Passport Details";
+"passport_details_info" = "Passport details are required to confirm your identity and open full access to all services.";
+"ready" = "Ready!";
+"ready_face_pay_info" = "Now you can use face payment.";
+"balance" = "Balance";
+
+"verify" = "Verify";
+
+"scan" = "Scan";

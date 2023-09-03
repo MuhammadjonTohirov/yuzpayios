@@ -24,6 +24,16 @@ public struct Photo: Identifiable, Equatable {
     }
 }
 
+public struct Video: Identifiable, Equatable {
+    public var id: String
+    public var videoUrl: URL
+    
+    init(id: String = UUID().uuidString, videoUrl: URL) {
+        self.id = id
+        self.videoUrl = videoUrl
+    }
+}
+
 public struct AlertError {
     public var title: String = ""
     public var message: String = ""
@@ -58,8 +68,12 @@ extension Photo {
     }
 }
 
-public class CameraService: NSObject, Identifiable {
+public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecordingDelegate {
+    
     typealias PhotoCaptureSessionID = String
+    static var videOutputURL: URL {
+        return FileManager.default.temporaryDirectory.appendingPathComponent("yuz_\(Int(Date().timeIntervalSince1970)).mp4")
+    }
     
     //    MARK: Observed Properties UI must react to
     
@@ -71,6 +85,9 @@ public class CameraService: NSObject, Identifiable {
     @Published public var isCameraButtonDisabled = false
     @Published public var isCameraUnavailable = false
     @Published public var photo: Photo?
+    @Published public var video: Video?
+    
+    @Published public var isRecording = false
     
     //    MARK: Alert properties
     public var alertError: AlertError = AlertError()
@@ -96,6 +113,7 @@ public class CameraService: NSObject, Identifiable {
     // MARK: Capturing Photos
     
     let photoOutput = AVCapturePhotoOutput()
+    let videoOutput = AVCaptureMovieFileOutput()
     
     var inProgressPhotoCaptureDelegates = [Int64: PhotoCaptureProcessor]()
     
@@ -206,6 +224,7 @@ public class CameraService: NSObject, Identifiable {
             
             guard let videoDevice = defaultVideoDevice else {
                 print("Default video device is unavailable.")
+                
                 setupResult = .configurationFailed
                 session.commitConfiguration()
                 return
@@ -234,7 +253,14 @@ public class CameraService: NSObject, Identifiable {
         if session.canAddOutput(photoOutput) {
             session.addOutput(photoOutput)
             
-            photoOutput.isHighResolutionCaptureEnabled = true
+            if #available(iOS 16.0, *) {
+                if let maxDimention = videoDeviceInput.device.activeFormat.supportedMaxPhotoDimensions.max(by: {$0.width < $1.width}) {
+                    photoOutput.maxPhotoDimensions = maxDimention
+                }
+            } else {
+                photoOutput.isHighResolutionCaptureEnabled = true
+            }
+            
             photoOutput.maxPhotoQualityPrioritization = .quality
             
         } else {
@@ -242,6 +268,10 @@ public class CameraService: NSObject, Identifiable {
             setupResult = .configurationFailed
             session.commitConfiguration()
             return
+        }
+        
+        if session.canAddOutput(videoOutput) {
+            session.addOutput(videoOutput)
         }
         
         session.commitConfiguration()
@@ -465,7 +495,7 @@ public class CameraService: NSObject, Identifiable {
         }
     }
     
-    public func set(zoom: CGFloat){
+    public func set(zoom: CGFloat) {
         let factor = zoom < 1 ? 1 : zoom
         let device = self.videoDeviceInput.device
         
@@ -509,12 +539,13 @@ public class CameraService: NSObject, Identifiable {
                 }
                 
                 // check for iOS version
-//                if #available(iOS 16.0, *) {
-////                    photoSettings.maxPhotoDimensions = .init(width: 812, height: 1024)
-//                } else {
-//                    photoSettings.isHighResolutionPhotoEnabled = true
-//                }
-                photoSettings.isHighResolutionPhotoEnabled = true
+                if #available(iOS 16.0, *) {
+                    if let maxDimention = self.videoDeviceInput.device.activeFormat.supportedMaxPhotoDimensions.max(by: {$0.width < $1.width}) {
+                        photoSettings.maxPhotoDimensions = maxDimention
+                    }
+                } else {
+                    photoSettings.isHighResolutionPhotoEnabled = true
+                }
                 
                 if !photoSettings.__availablePreviewPhotoPixelFormatTypes.isEmpty {
                     photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: photoSettings.__availablePreviewPhotoPixelFormatTypes.first!]
@@ -558,6 +589,41 @@ public class CameraService: NSObject, Identifiable {
         }
     }
     
+    public func startRecording() {
+        if self.setupResult != .configurationFailed && videoDeviceInput != nil {
+            sessionQueue.async {
+                if !self.isRecording {
+                    self.isRecording = true
+                    self.isCameraButtonDisabled = true
+                    self.isCameraUnavailable = true
+                    
+                    if #available(iOS 14.0, *) {
+                        self.videoOutput.startRecording(to: CameraService.videOutputURL, recordingDelegate: self)
+                    } else {
+                        self.videoOutput.startRecording(to: CameraService.videOutputURL, recordingDelegate: self)
+                    }
+                }
+            }
+        }
+    }
+    
+    public func stopRecording() {
+        if self.setupResult != .configurationFailed && videoDeviceInput != nil {
+            sessionQueue.async {
+                if self.isRecording {
+                    self.videoOutput.stopRecording()
+                    self.isCameraButtonDisabled = false
+                    self.isCameraUnavailable = false
+                }
+            }
+        }
+    }
+    
+    public func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        self.video = .init(videoUrl: outputFileURL)
+        self.isRecording = false
+    }
+    
     func reloadFlashMode() {
         guard let dev = videoDeviceInput else {
             return
@@ -572,7 +638,6 @@ public class CameraService: NSObject, Identifiable {
             Logging.l("Cannot toggle flash")
         }
     }
-    
     
     //  MARK: KVO & Observers
     
@@ -719,23 +784,44 @@ public class CameraService: NSObject, Identifiable {
         }
     }
     
+    @discardableResult
     public func savePhotoToGallery(_ image: UIImage) -> URL? {
+        
         autoreleasepool {
+            #if DEBUG
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetChangeRequest.creationRequestForAsset(from: image)
+            }) { saved, error in
+                Logging.l(tag: "CameraService", "Saved image \(saved) \(error)")
+            }
+            #endif
             let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             let fileName = "image_\(Int(Date().timeIntervalSince1970)).jpeg"
             let fileURL = documentsDirectory.appendingPathComponent(fileName)
             if let data = image.jpegData(compressionQuality: 1) {
                 do {
-//                    save image to photos
-//                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-
                     try data.write(to: fileURL)
+                    
                     return fileURL
                 } catch {
                     print("error saving file:", error)
                 }
             }
+        
                     
+            return nil
+        }
+    }
+    
+    @discardableResult
+    public func saveVideoToGallery(_ videoUrl: URL) -> URL? {
+        autoreleasepool {
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: videoUrl)
+            }) { saved, error in
+                Logging.l(tag: "CameraService", "Saved \(saved) \(error)")
+            }
+            
             return nil
         }
     }

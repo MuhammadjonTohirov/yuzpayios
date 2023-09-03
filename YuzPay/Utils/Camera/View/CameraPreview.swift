@@ -72,8 +72,11 @@ public struct CameraPreview: UIViewRepresentable {
     
     public let session: AVCaptureSession
     
-    public init(session: AVCaptureSession) {
+    public var aspectRatio: AVLayerVideoGravity = .resizeAspect
+    
+    public init(session: AVCaptureSession, aspectRatio: AVLayerVideoGravity = .resizeAspect) {
         self.session = session
+        self.aspectRatio = aspectRatio
     }
     
     public func makeUIView(context: Context) -> VideoPreviewView {
@@ -81,7 +84,7 @@ public struct CameraPreview: UIViewRepresentable {
         viewFinder.videoPreviewLayer.cornerRadius = 0
         viewFinder.videoPreviewLayer.session = session
         viewFinder.videoPreviewLayer.connection?.videoOrientation = .portrait
-        viewFinder.videoPreviewLayer.videoGravity = .resizeAspect
+        viewFinder.videoPreviewLayer.videoGravity = aspectRatio
         viewFinder.videoPreviewLayer.contentsGravity = .resizeAspect
         return viewFinder
     }

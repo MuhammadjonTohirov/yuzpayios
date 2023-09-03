@@ -13,7 +13,7 @@ struct PassportRegisterView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
                 VStack(alignment: .leading) {
-                    Text("Шаг 1 / 3:")
+                    Text("step1".localize)
                         .font(.mont(.regular, size: 14))
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)

@@ -41,8 +41,9 @@ struct NotificationsView: View {
     @ViewBuilder
     private var notificationsView: some View {
         ForEach(notifications) { notif in
-            NotificationItemView(title: notif.logTitle ?? "", details: notif.logDetails ?? "",
-                                 dateTime: Date.from(string: notif.createdDate ?? "") ?? Date(),
+            NotificationItemView(title: notif.logTitle ?? "",
+                                 details: notif.logDetails ?? "",
+                                 dateTime: notif.createdDate ?? Date(),
                                  type: .information)
         }
     }

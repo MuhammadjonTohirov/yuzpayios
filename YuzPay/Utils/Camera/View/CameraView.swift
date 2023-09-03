@@ -13,12 +13,20 @@ struct CameraView: View {
     @StateObject var model: CameraModel
     
     @State var currentZoomFactor: CGFloat = 1.0
+    
+    var aspectRatio: AVLayerVideoGravity = .resizeAspect
+    
+    var gradientColors: [Color] = [
+        Color.black.opacity(0.7),
+        Color.black.opacity(0),
+        Color.black.opacity(0.7)
+    ]
 
     var overlayBody: () -> any View
         
     var body: some View {
         ZStack {
-            CameraPreview(session: model.session)
+            CameraPreview(session: model.session, aspectRatio: aspectRatio)
                 .ignoresSafeArea()
                 .onAppear {
                     model.configure()
@@ -30,7 +38,7 @@ struct CameraView: View {
                 })
                 
             LinearGradient(
-                colors: [.black.opacity(0.7), .black.opacity(0), .black.opacity(0.7)],
+                colors: gradientColors,
                 startPoint: .bottom, endPoint: .top)
                 .ignoresSafeArea()
             AnyView(overlayBody())

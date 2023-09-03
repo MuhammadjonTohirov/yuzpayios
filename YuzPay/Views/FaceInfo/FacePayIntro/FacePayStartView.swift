@@ -40,20 +40,20 @@ struct FacePayStartView: View {
                         Image("image_biometrics_identification")
                             .padding(.bottom, 54.f.height(0.1))
                             .padding(.top, 113.f.height(0.1))
-                        Text("Оплачивайте покупки лицом!")
+                        Text("pay_with_face".localize)
                             .font(.mont(.extraBold, size: 24))
                             .padding(.bottom, 36.f.height(0.1))
-                        Text("Вам больше не понадобятся ни банковская карта, ни телефон. Просто подойдите к кассе и оплатите покупку!")
+                        Text("pay_with_face_info".localize)
                             .font(.mont(.regular, size: 16))
                             .padding(.bottom, 20.f.height(0.1))
-                        Text("Для доступа к данной функции потребуется лишь заполнить данные профиля.")
+                        Text("fill_profile".localize)
                             .font(.mont(.regular, size: 14))
                     }
                     .padding(Padding.default)
                     
                     Spacer()
                     
-                    HoverButton(title: "Подключить услугу", backgroundColor: Color("accent_light_2"), titleColor: .white) {
+                    HoverButton(title: "connect_to_service".localize, backgroundColor: Color("accent_light_2"), titleColor: .white) {
                         
                     }
                     .padding(.horizontal, Padding.default)
@@ -63,7 +63,7 @@ struct FacePayStartView: View {
                     Button {
                         
                     } label: {
-                        Text("Пропустить")
+                        Text("skip".localize)
                             .font(.mont(.medium, size: 16))
                             .foregroundColor(Color("accent_light"))
                     }

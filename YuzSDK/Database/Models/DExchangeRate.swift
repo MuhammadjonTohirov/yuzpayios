@@ -21,6 +21,11 @@ public class DExchangeRate: Object, Identifiable {
     @Persisted public var sellingRate: Float
     @Persisted public var lastRefreshed: Date?
     
+    public var detail: String {
+        sellingRate.asCurrency()
+//        sellingRate == 0 ? "no_data".localize : sellingRate.asCurrency()
+    }
+    
     public init(currencyType: Int, name: String, code: String, number: String? = nil, buyingRate: Float, sellingRate: Float, lastRefreshed: Date? = nil) {
         self.name = name
         self.code = code
@@ -75,5 +80,19 @@ public class ExchangeRate: ExchangeRateProtocol, Identifiable {
     static func create(with res: NetResExchangeRate) -> ExchangeRate {
         .init(currencyID: res.currencyID,
               name: res.name, code: res.code ?? "", buyingRate: res.buyingRate, sellingRate: res.sellingRate, lastRefreshed: res.lastRefreshed)
+    }
+}
+
+fileprivate extension Float {
+    func asCurrency(_ locale: Locale = .current) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencyCode = "UZS"
+        formatter.currencySymbol = ""
+        formatter.locale = locale
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 0
+        formatter.locale = Locale(identifier: "uz_UZ")
+        return formatter.string(from: NSNumber(value: self)) ?? ""
     }
 }

@@ -20,27 +20,27 @@ struct SignInType: View {
             
             Spacer()
             
-            Text("Настройки\nвхода")
+            Text("login_settings".localize)
                 .font(.mont(.extraBold, size: 32))
             
             VStack(spacing: 20) {
                 Button {
                     
                 } label: {
-                    Text("Пунтк списка")
+                    Text("list_item".localize) // Пункт списка
                 }
                 
                 Divider()
                 Button {
                     
                 } label: {
-                    Text("Пунтк списка")
+                    Text("list_item".localize) // Пункт списка
                 }
                 Divider()
                 Button {
                     
                 } label: {
-                    Text("Пунтк списка")
+                    Text("list_item".localize) // Пункт списка
                 }
             }
             .font(.mont(.regular, size: 14))
@@ -58,7 +58,7 @@ struct SignInType: View {
             Button {
                 
             } label: {
-                Text("Пропустить")
+                Text("skip".localize)
             }
             .padding()
         }

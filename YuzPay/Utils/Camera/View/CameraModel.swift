@@ -30,6 +30,10 @@ final class CameraModel: ObservableObject {
     
     var onStartCapture: (() -> Void)?
     
+    var onStartRecording: (() -> Void)?
+    
+    var onEndRecording: ((Video?) -> Void)?
+    
     init() {
         self.session = service.session
         
@@ -58,6 +62,21 @@ final class CameraModel: ObservableObject {
             self?.willCapturePhoto = val
         }
         .store(in: &self.subscriptions)
+        
+        service.$isRecording.sink { [weak self] isRecording in
+            guard let self else {
+                return
+            }
+            
+            isRecording ? self.onStartRecording?() : self.onEndRecording?(self.service.video)
+            
+            #if DEBUG
+            if let url = self.service.video {
+                service.saveVideoToGallery(url.videoUrl)
+            }
+            #endif
+        }
+        .store(in: &self.subscriptions)
     }
     
     func configure() {
@@ -68,6 +87,14 @@ final class CameraModel: ObservableObject {
     func capturePhoto() {
         self.onStartCapture?()
         service.capturePhoto()
+    }
+    
+    func startRecording() {
+        service.startRecording()
+    }
+    
+    func stopRecording() {
+        service.stopRecording()
     }
     
     func flipCamera(_ position: AVCaptureDevice.Position? = nil) {

@@ -15,7 +15,7 @@
 "authorization" = "Tizimga kirish";
 "next" = "Keyingisi";
 "to_select_photo" = "Fotosurat uchun";
-"capture_avatar_from_camera" = "kamera belgisiga bosing va kamera yoki galereyadan rasm oling";
+"capture_avatar_from_camera" = "Kamera belgisini bosing va yuzingizni 5 soniya davomida skanerlang \nEslatma: chapdan o'ngga va oldga qarash kerak";
 "save" = "Saqlash";
 "exit" = "Chiqish";
 "payment" = "To'lov";
@@ -107,6 +107,45 @@
 "change_pin" = "PIN-kodni o'zgartirish";
 
 "delete_account" = "Hisobni o'chirish";
+
+"first_select_photo" = "Birinchi rasmni tanlang";
+"not_paid" = "To'lov amalga oshmadi";
+"fill_all_fields" = "Barcha maydonlarni to'ldiring";
+
+"successfully_paid" = "Muvaffaqiyatli to'landi";
+"error_in_payment" = "To'lovda xatolik";
+"delete_account" = "Hisobni o'chirish?";
+
+"loading" = "Yuklanmoqda";
+"aboutUs" = "Biz haqimizda";
+"support" = "Qo'llab-quvvatlash";
+"mobile_version" = "Mobil ilova versiyasi %@";
+"developer" = "Dasturchi";
+"with_support" = "Qo'llab-quvvatlash bilan";
+"verify" = "Tasdiqlash";
+
+"unknown_error" = "Noma'lum xatolik";
+"is_user_verified" = "Foydalanuvchi tasdiqlanishi";
+"cannot_verify_try_again" = "Tasdiqlash mumkin emas, qaytadan urinib ko'ring";
+"verifying" = "Tasdiqlanmoqda";
+"date_of_birth" = "Tug'ilgan sana";
+"select_card" = "Kartani tanlang";
+"no_card" = "Karta yo'q";
+"insufficient_funds" = "Yetarli mablag' yo'q";
+
+"show_all_rates" = "Barcha valyutalarni ko'rsatish";
+
+"currency_rates" = "Valyuta kurslari";
+
+"total_amount" = "Umumiy balans";
+
+"no_data" = "Ma'lumot yo'q";
+
+"scan_face_title" = "Yuzni skanlash";
+
+"mobile_payment" = "Mobil to'lov";
+
+"exchange_rates" = "Valyuta kurslari";
 
 "mobile" = "Mobil";
 
@@ -227,8 +266,52 @@
 "insufficient_transfer_amount" = "Miqdor yetarli emas";
 "please_select_card" = "Kartani tanlang";
 
-"show_all_rates" = "Barchasini ko'rish";
+"skip" = "O'tkazib yuborish";
+"list_item" = "Ro'yxat elementi";
+"login_settings" = "Kirish sozlamalari";
+"face" = "Yuz";
+"telephone" = "Telefon";
+"reset_password" = "Parolni tiklash";
+"next" = "Keyingi";
+"password_match" = "Parollar mos keladi";
+"reliable_password" = "Ishonchli parol";
+"repeat_password" = "Parolni takrorlang";
+"password" = "Parol";
+"entrance" = "Kirish";
+"register" = "Ro'yxatdan o'ting";
+"welcome" = "Xush kelibsiz!";
+"auth_welcome_info" = "Lekin, unutmangki, umumiy bilim olish tizimini tekshirishda keng asosiy aktiv bilan mashvarat qilish qiziqarli eksperimentni anglatadi va urg'urgent talablarni qondiradi.";
+"forgot_password" = "Parolingizni unutdingizmi?";
+"enter" = "Kirish";
+"connect_to_service" = "Xizmatga ulanish";
+"pay_with_face" = "Yuz bilan to'lash!";
+"pay_with_info_face" = "Endi sizga bank kartasi yoki telefon kerak emas. Faqat kassaga yaqinlashingiz va sotib olishingiz mumkin!";
+"fill_profile" = "Ushbu funktsiyaga kirish uchun faqat profilingiz ma'lumotlarini to'ldirish kerak.";
+"birth_date" = "Tug'ilgan kun";
+"family_name" = "Otasining ismi";
+"name" = "Ismi";
+"surname" = "Familiyasi";
+"check_personality" = "Iltimos, shaxsiy ma'lumotlaringizni tekshirib ko'ring. Agar nima noto'g'ri bo'lsa, uni tuzating.";
+"passport_data" = "Pasport ma'lumotlari";
+"passport_required_info" = "Pasport ma'lumotlari sizning shaxsiylikni tasdiqlash va barcha xizmatlarga to'liq kirishni ochish uchun kerak.";
+"passport_number" = "Pasport seriya va raqami";
+"step1" = "Qadam 1 / 3:";
+"without_bank" = "Bank kartasi shart emas";
+"card_name" = "Karta nomi";
+"card_delete_fail" = "Kartani o'chirib bo'lmaydi";
+"card_delete_success" = "Karta o'chirildi";
+"sure_delete_card" = "Haqiqatan ham ushbu kartani o'chirishni istaysizmi?";
+"insert_address" = "Manzilni kiriting";
+"delivery" = "Yetkazib berish";
+"pickup_from_bank" = "Bankdan olib ketaman";
+"how_to_get_card" = "Kartani qanday olishni xohlaysiz?";
+"scan_card" = "Pasportni skan qiling";
+"scan_card_info" = "Kamerangizni pasportning asosiy sahifasiga qarab joylashtiring, qadrlangan ramka bilan mos kelishi kerak.";
+"passport_details" = "Pasport ma'lumotlari";
+"passport_details_info" = "Pasport ma'lumotlari sizning shaxsiylikni tasdiqlash va barcha xizmatlarga to'liq kirishni ochish uchun kerak.";
+"ready" = "Tayyor!";
+"ready_face_pay_info" = "Endi siz yuz bilan to'lashdan foydalanishingiz mumkin.";
+"balance" = "Balans";
+"verify" = "Tasdiqlash";
 
-"currency_rates" = "Valyuta narxlari";
-
-"total_amount" = "Umumiy balans";
+"scan" = "Skanerlash";

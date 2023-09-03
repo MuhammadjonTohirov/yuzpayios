@@ -189,7 +189,7 @@ struct SimpleOrderCardView: View {
 // MARK: - Order Virtual Card
 struct SimpleVirtualCardOrderView: View {
     @State fileprivate var button: RowButtonItem = .init(type: .card)
-    @State fileprivate var cardType: CreditCardType = .uzcard
+    @State fileprivate var cardType: CreditCardType = .humo
     @State private var showCards = false
     
     @State private var showToast: Bool = false

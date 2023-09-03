@@ -20,6 +20,9 @@ final class SelectLanguageViewModel: ObservableObject {
     }
     
     func onClickNext() {
+        if UserSettings.shared.language == nil {
+            UserSettings.shared.language = .russian
+        }
         mainRouter?.navigate(to: .auth)
     }
 }

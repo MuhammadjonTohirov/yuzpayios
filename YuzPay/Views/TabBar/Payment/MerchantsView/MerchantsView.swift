@@ -161,7 +161,7 @@ struct MerchantsView: View {
     @ViewBuilder
     private var navigationTitle: some View {
         if isSearching {
-            YTextField(text: $searchText.value, placeholder: "Search")
+            YTextField(text: $searchText.value, placeholder: "search".localize)
                 .set(font: .mont(.medium, size: 14))
                 .focused($focusedSearchField)
                 .padding(.horizontal, Padding.default)

@@ -36,7 +36,7 @@ struct AddNewCardView: View {
                 .padding(.bottom, 20.f.sh())
                 .padding(.top, 120)
             
-            YTextField(text: $viewModel.cardNumber, placeholder: "Номер карты", left: {
+            YTextField(text: $viewModel.cardNumber, placeholder: "card_number".localize, left: {
                 Group {
                     if let cardType = viewModel.currentCardType {
                         cardType
@@ -100,14 +100,14 @@ struct AddNewCardView: View {
                 self.viewModel.reloadView()
             }
             
-            YTextField(text: $viewModel.cardName, placeholder: "Название карты")
+            YTextField(text: $viewModel.cardName, placeholder: "card_name".localize)
                 .padding(.leading, Padding.medium)
                 .modifier(YTextFieldBackgroundGrayStyle())
                 .onChange(of: viewModel.cardName) { _ in
                     self.viewModel.reloadView()
                 }
             
-            HoverButton(title: "Save", backgroundColor: Color("accent"), titleColor: .white, isEnabled: viewModel.isActive) {
+            HoverButton(title: "save".localize, backgroundColor: Color("accent"), titleColor: .white, isEnabled: viewModel.isActive) {
                 viewModel.addNewCard()
             }
             .set(animated: viewModel.isLoading)

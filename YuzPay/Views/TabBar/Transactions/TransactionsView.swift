@@ -15,7 +15,7 @@ struct TransactionsView: View {
     var body: some View {
         VStack(spacing: 0) {
                 
-            ForEach(sections.filter("items.@count > %d", 0)) { section in
+            ForEach(sections.filter("items.@count > %d", 0).sorted(by: \.date, ascending: false)) { section in
                 sectionBar(section)
                     .padding(.top, Padding.small)
                     .background(RoundedRectangle(cornerRadius: 16).foregroundColor(Color.systemBackground))
@@ -92,7 +92,7 @@ struct TransactionsView: View {
     func rowItem(_ item: DTransactionItem) -> some View {
         HStack(spacing: 0) {
             Rectangle()
-                .width(35)
+                .width(45)
                 .height(20)
                 .foregroundColor(.clear)
                 .overlay {
