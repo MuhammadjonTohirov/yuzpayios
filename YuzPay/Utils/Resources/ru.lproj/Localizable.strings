@@ -370,3 +370,11 @@
 "verify" = "Проверить";
 
 "scan" = "Сканировать";
+
+"document_id" = "Номер документа";
+
+"documentType" = "Тип документа";
+//ID Card - translate to russian
+"ID Card" = "ID карта";
+"Passport" = "Паспорт";
+"Driver License" = "Водительское удостоверение";

@@ -13,7 +13,8 @@ struct TotalAmountView: View {
     var cards: Results<DCard>
     
     @State private var availableCurrencies: [CurrencyType] = []
-    @State private var isAmountVisible = true
+    @EnvironmentObject var homeModel: HomeViewModel
+    
     private var totalAmountString: String {
         "\(cards.filter({$0.currencyType == currentCurrencyType}).reduce(into: 0, {$0 += $1.moneyAmount}).asCurrency())"
     }
@@ -31,7 +32,7 @@ struct TotalAmountView: View {
                     .font(.mont(.medium, size: 16.f.sh()))
                 
                 HStack {
-                    Text(isAmountVisible ? totalAmountString : "••• •••")
+                    Text(homeModel.isBalanceVisible ? totalAmountString : "••• •••")
                         .font(.mont(.bold, size: 36.f.sh()))
                     Text(currentCurrencyType.text)
                         .font(.mont(.bold, size: 18.f.sh()))
@@ -52,16 +53,17 @@ struct TotalAmountView: View {
             }
 
             Button {
-                isAmountVisible.toggle()
+                homeModel.isBalanceVisible.toggle()
+                UserSettings.shared.isTotalBalanceVisible = homeModel.isBalanceVisible
             } label: {
-                Image(isAmountVisible ? "icon_open_eye" : "icon_close_eye")
+                Image(homeModel.isBalanceVisible ? "icon_open_eye" : "icon_close_eye")
                     .renderingMode(.template)
                     .foregroundColor(.label)
                     .padding(Padding.small)
             }
         }
         .onAppear {
-            isAmountVisible = UserSettings.shared.isTotalBalanceVisible ?? true
+//            isAmountVisible = UserSettings.shared.isTotalBalanceVisible ?? true
             reloadAvailableCurrencies()
         }
     }

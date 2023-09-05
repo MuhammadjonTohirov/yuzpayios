@@ -18,7 +18,8 @@ public final class DUserInfo: Object, Identifiable {
     @Persisted public var phoneNumber: String?
     @Persisted public var isVerified = false
     @Persisted public var address: String?
-    @Persisted public var passportNumber: String?
+    @Persisted public var documentNumber: String?
+    @Persisted public var documentType: String?
     @Persisted public var birthDate: Date?
     
     public var verificationStatus: String {
@@ -42,7 +43,8 @@ public final class DUserInfo: Object, Identifiable {
         self.isVerified = res.isVerified ?? false
         self.phoneNumber = res.phoneNumber
         self.address = res.address
-        self.passportNumber = res.passportNumber
+        self.documentNumber = res.documentNumber
+        self.documentType = res.documentType
         if let ds = res.dateOfBirth, let d = Date.from(string: ds, format: "YYYY-MM-dd'T'HH:mm:ss", timezone: .init(abbreviation: "GMT")) {
             self.birthDate = d
         }

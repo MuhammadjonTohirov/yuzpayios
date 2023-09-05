@@ -315,3 +315,11 @@
 "verify" = "Tasdiqlash";
 
 "scan" = "Skanerlash";
+
+"document_id" = "Dokument raqami";
+
+"documentType" = "Hujjat turi";
+
+"ID Card" = "ID karta";
+"Passport" = "Pasport";
+"Driver License" = "Haytovchilik guvohnomasi";

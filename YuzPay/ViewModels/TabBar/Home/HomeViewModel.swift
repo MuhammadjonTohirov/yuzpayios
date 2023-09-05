@@ -87,6 +87,7 @@ final class HomeViewModel: NSObject, ObservableObject, BaseViewModelProtocol, Ne
     @Published var router: HomeViewRoute?
     @Published var update: Date = Date()
     @Published var isLoading: Bool = false
+    @Published var isBalanceVisible: Bool = true
     
     private var invoiceNotificationToken: NotificationToken?
     

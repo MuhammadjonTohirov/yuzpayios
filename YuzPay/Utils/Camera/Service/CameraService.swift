@@ -792,7 +792,7 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
             PHPhotoLibrary.shared().performChanges({
                 PHAssetChangeRequest.creationRequestForAsset(from: image)
             }) { saved, error in
-                Logging.l(tag: "CameraService", "Saved image \(saved) \(error)")
+                Logging.l(tag: "CameraService", "Saved image \(saved) \(error?.localizedDescription ?? "")")
             }
             #endif
             let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -819,7 +819,7 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
             PHPhotoLibrary.shared().performChanges({
                 PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: videoUrl)
             }) { saved, error in
-                Logging.l(tag: "CameraService", "Saved \(saved) \(error)")
+                Logging.l(tag: "CameraService", "Saved \(saved) \(error?.localizedDescription ?? "")")
             }
             
             return nil

@@ -32,7 +32,8 @@ struct HomeView: View {
                     TotalAmountView(cards: cards)
                         .padding(.top, Padding.default.sh())
                         .padding(.horizontal, Padding.default)
-
+                        .environmentObject(homeViewModel)
+                    
                     HCardListView(viewModel: homeViewModel.cardListViewModel)
                         .environmentObject(homeViewModel)
                     

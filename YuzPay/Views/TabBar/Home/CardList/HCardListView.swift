@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import RealmSwift
+import YuzSDK
 
 struct HCardListView: View {
     @ObservedObject var viewModel: HCardListViewModel
@@ -38,7 +39,7 @@ struct HCardListView: View {
                     if let cards = viewModel.cards {
                         ForEach(cards.sorted(byKeyPath: "isMain", ascending: false)) { element in
                             if !element.isInvalidated {
-                                cardItem(name: "\(element.cardNumber.maskAsMiniCardNumber)", icon: element.cardType.localIcon, amount: element.moneyAmount.asCurrency(), isMain: element.isMain)
+                                cardItem(name: "\(element.cardNumber.maskAsMiniCardNumber)", icon: element.cardType.localIcon, amount: homeModel.isBalanceVisible ? element.moneyAmount.asCurrency() : "••• •••", isMain: element.isMain)
                                     .onTapGesture {
                                         self.homeModel.onClickCard(withId: element.id)
                                     }
@@ -54,6 +55,8 @@ struct HCardListView: View {
                 }
                 .padding(.horizontal, Padding.default)
             }
+        }.onAppear {
+            homeModel.isBalanceVisible = UserSettings.shared.isTotalBalanceVisible ?? false
         }
     }
     

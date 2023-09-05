@@ -78,8 +78,11 @@ struct UserProfileView: View {
                     title: "date_of_birth".localize + ":",
                     description: userInfo?.birthDate?.toExtendedString(format: "YYYY-MM-dd") ?? "-"
                 )
-                rowItem(title: "passport_id".localize + ":", description: userInfo?.passportNumber?.nilIfEmpty ?? "-")
-                rowItem(title: "is_user_verified".localize + ":", description: "\(userInfo?.verificationStatus ?? "-")")
+                
+                rowItem(title: "documentType".localize + ":", description: userInfo?.documentType?.nilIfEmpty?.localize ?? "-")
+
+                rowItem(title: "document_id".localize + ":", description: userInfo?.documentNumber?.nilIfEmpty ?? "-")
+                
             }
             .padding(.horizontal, Padding.default)
                 

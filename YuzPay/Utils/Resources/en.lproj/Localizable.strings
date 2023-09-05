@@ -316,3 +316,13 @@
 "verify" = "Verify";
 
 "scan" = "Scan";
+
+"document_id" = "Document id";
+
+"documentType" = "Document type";
+
+//ID Card / Passport / Driver License
+"ID Card" = "ID Card";
+"Passport" = "Passport";
+"Driver License" = "Driver License";
+

@@ -19,6 +19,8 @@ public struct NetResBodyUserInfo: NetResBody {
     public let districtName, address: String?
     public let organizationID: Int?
     public let organizationName, cashierDevice: String?
+    public let documentNumber: String?
+    public let documentType: String?
     
     enum CodingKeys: String, CodingKey {
         case userID = "userId"
@@ -29,5 +31,6 @@ public struct NetResBodyUserInfo: NetResBody {
         case districtName, address
         case organizationID = "organizationId"
         case organizationName, cashierDevice
+        case documentNumber, documentType
     }
 }
