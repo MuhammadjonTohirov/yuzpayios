@@ -15,8 +15,7 @@
 "authorization" = "Авторизация";
 "next" = "Далее";
 "to_select_photo" = "Сделать фото";
-//click to camera icon, and scan your face for 5 seconds \nNote: You should look at to the left to right and front
-//translate to russian language
+
 "capture_avatar_from_camera" = "Нажмите на значок камеры и сканируйте свое лицо в течение 5 секунд.\nПримечание: вам следует смотреть слева направо и вперед.";
 "save" = "Сохранить";
 "exit" = "Выход";
@@ -374,7 +373,7 @@
 "document_id" = "Номер документа";
 
 "documentType" = "Тип документа";
-//ID Card - translate to russian
+
 "ID Card" = "ID карта";
 "Passport" = "Паспорт";
 "Driver License" = "Водительское удостоверение";
