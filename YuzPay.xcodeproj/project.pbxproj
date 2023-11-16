@@ -3297,7 +3297,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;
@@ -3307,6 +3307,8 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = YuzPay;
 				INFOPLIST_KEY_NSCameraUsageDescription = "YuzApp wants to access camera to scan or take a pickture";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "This app needs to access documents folder";
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "This app needs to access downloads folder";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Login with FaceId";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "YuzApp wants to get current location for get nearby bank branches";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "YuzApp needs to access to Photos to save captured image";
@@ -3344,9 +3346,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = YuzPay/YuzPay.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_ASSET_PATHS = "\"YuzPay/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4YA7U8GSNU;
@@ -3356,6 +3358,8 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = YuzPay;
 				INFOPLIST_KEY_NSCameraUsageDescription = "YuzApp wants to access camera to scan or take a pickture";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "This app needs to access documents folder";
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "This app needs to access downloads folder";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Login with FaceId";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "YuzApp wants to get current location for get nearby bank branches";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "YuzApp needs to access to Photos to save captured image";
@@ -3375,7 +3379,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = uz.xcoder.YuzPay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = 100PayDistPP2;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = 100PayDev3108;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

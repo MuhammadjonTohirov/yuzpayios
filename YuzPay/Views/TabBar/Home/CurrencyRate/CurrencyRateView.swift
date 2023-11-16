@@ -36,6 +36,7 @@ struct CurrencyRateView: View {
             }
             .padding(.horizontal, Padding.default)
             .padding(.bottom, Padding.medium)
+            .opacity(rates.isEmpty ? 0 : 1)
             
             VStack(alignment: .center) {
                 ForEach(visibleRates) { rate in

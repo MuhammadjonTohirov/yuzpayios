@@ -69,7 +69,8 @@ struct HomeView: View {
                     CurrencyRateView(showMore: {
                         showAllRates = true
                     })
-                        .padding(.horizontal, Padding.default)
+                    .maxWidth(.infinity)
+                    .padding(.horizontal, Padding.default)
 
                     Rectangle()
                         .foregroundColor(.clear)

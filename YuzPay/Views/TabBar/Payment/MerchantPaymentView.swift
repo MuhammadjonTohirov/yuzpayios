@@ -100,7 +100,7 @@ struct MerchantPaymentView: View {
             {
                 viewModel.onClickNext(formModel: viewModel.formModel) { isSatisfy in
                     if !isSatisfy {
-                        alertModel.show(title: "warning".localize, message: "fill_all_fileds".localize)
+                        alertModel.show(title: "warning".localize, message: "fill_all_fields".localize)
                     }
                 }
             }

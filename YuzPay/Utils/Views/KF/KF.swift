@@ -18,7 +18,11 @@ struct KF: View {
     
     var body: some View {
         if let url = imageUrl {
-            KFImage(source: Source.network(ImageResource(downloadURL: url, cacheKey: cacheKey ?? "\(url.absoluteString)_\(UserSettings.shared.userPhone ?? "")")))
+            KFImage(
+                source: Source.network(
+                    Kingfisher.KF.ImageResource(downloadURL: url, cacheKey: cacheKey ?? "\(url.absoluteString)_\(UserSettings.shared.userPhone ?? "")")
+                )
+            )
                 .setHTTPHeader(name: "Authorization", value: "Bearer \(UserSettings.shared.accessToken ?? "")")
                 .resizable()
                 .placeholder({

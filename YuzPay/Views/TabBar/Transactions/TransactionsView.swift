@@ -12,9 +12,9 @@ import YuzSDK
 struct TransactionsView: View {
     @ObservedResults(DTransactionSection.self, configuration: Realm.config) var sections;
     @State private var didAppear = false
+    
     var body: some View {
         VStack(spacing: 0) {
-                
             ForEach(sections.filter("items.@count > %d", 0).sorted(by: \.date, ascending: false)) { section in
                 sectionBar(section)
                     .padding(.top, Padding.small)
@@ -28,10 +28,7 @@ struct TransactionsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("bills".localize)
         .onAppear {
-            if !didAppear {
-                didAppear = true
-                MainNetworkService.shared.syncTransactions()
-            }
+            MainNetworkService.shared.syncTransactions()
         }
     }
     

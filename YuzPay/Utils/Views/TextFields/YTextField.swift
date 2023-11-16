@@ -243,6 +243,7 @@ struct YTextField_Preview: PreviewProvider {
         @State var text: String = "1123"
         return VStack {
             YTextField(text: $text, placeholder: "placeholder", isSecure: false)
+                .modifier(YTextFieldBackgroundCleanStyle(padding: 4))
         }
     }
 }
