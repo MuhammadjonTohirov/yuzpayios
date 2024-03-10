@@ -34,8 +34,7 @@ struct CurrencyRateView: View {
                 Text("exchange_rates".localize)
                     .font(.mont(.semibold, size: 16))
             }
-            .padding(.horizontal, Padding.default)
-            .padding(.bottom, Padding.medium)
+            .padding(.bottom, 10)
             .opacity(rates.isEmpty ? 0 : 1)
             
             VStack(alignment: .center) {

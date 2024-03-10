@@ -47,8 +47,13 @@ enum AuthIntroRouter: Hashable, ScreenRoute {
 }
 
 final class AuthIntroViewModel: NSObject, ObservableObject {
-    @Published var route: AuthIntroRouter?
+    @Published var route: AuthIntroRouter? {
+        didSet {
+            shouldPresent = route != nil
+        }
+    }
     
+    @Published var shouldPresent: Bool = false
     init(route: AuthIntroRouter? = nil) {
         self.route = route
     }

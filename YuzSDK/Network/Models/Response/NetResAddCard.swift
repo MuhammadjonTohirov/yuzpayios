@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Deprecated
+/// - Note: Use `NetResAddCard` instead
 public struct NetResAddCard: NetResBody {
     public private(set) var token: String
     public private(set) var code: String

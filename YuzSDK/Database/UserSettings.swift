@@ -92,6 +92,9 @@ final public class UserSettings {
     @anyWrapper(key: "lastOTP", defaultValue: nil)
     public var lastOTP: String?
     
+    @codableWrapper(key: "p2pConfig")
+    public var p2pConfig: NetResConfigTransactionCommission?
+    
     public func clearUserDetails() {
         Realm.asyncNew { res in
             switch res {

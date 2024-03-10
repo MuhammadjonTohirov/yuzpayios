@@ -12,12 +12,8 @@ struct PhoneAuthView: View {
     @StateObject var viewModel = PhoneAuthViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
-                NavigationLink("", isActive: $viewModel.pushToPage) {
-                    viewModel.route?.screen
-                }
-                
                 innerBody
             }
             .onAppear {
@@ -26,6 +22,9 @@ struct PhoneAuthView: View {
             .fullScreenCover(item: $viewModel.routePopup, content: { dest in
                 dest.screen
             })
+            .navigationDestination(isPresented: $viewModel.pushToPage) {
+                viewModel.route?.screen
+            }
         }
         .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1)
     }

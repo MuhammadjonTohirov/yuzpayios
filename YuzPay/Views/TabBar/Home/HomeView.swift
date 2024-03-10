@@ -14,7 +14,10 @@ struct HomeView: View {
     @EnvironmentObject var homeViewModel: HomeViewModel
     @EnvironmentObject var viewModel: TabViewModel
     @State var isEditing: Bool = false
-    @ObservedResults(DCard.self, configuration: Realm.config) var cards;
+    
+    @ObservedResults(DCard.self, configuration: Realm.config)
+    var cards;
+    
     @State private var selectedMerchant: String?
     @State private var showIdentifier: Bool = false
     @State private var showAllRates: Bool = false
@@ -22,21 +25,21 @@ struct HomeView: View {
     
     var body: some View {
         ZStack {
-            VStack(spacing: 4) {
+            VStack(spacing: 0) {
                 VStack(alignment: .leading) {
                     navbar
                 }
                 .padding(.horizontal, Padding.default)
                 
-                VStack(spacing: Padding.large) {
+                VStack(spacing: Padding.medium) {
                     TotalAmountView(cards: cards)
-                        .padding(.top, Padding.default.sh())
+                        .padding(.top, Padding.default.sh() / 2)
                         .padding(.horizontal, Padding.default)
                         .environmentObject(homeViewModel)
                     
                     HCardListView(viewModel: homeViewModel.cardListViewModel)
                         .environmentObject(homeViewModel)
-                    
+                        
                     if homeViewModel.hasInvoices {
                         HomeInvoiceListView()
                             .padding(.horizontal, Padding.default)
@@ -112,9 +115,9 @@ struct HomeView: View {
             }
             .presentationDetents([.medium, .large])
         })
-        .navigationDestination(unwrapping: $homeViewModel.router) { route in
-            route.wrappedValue.screen
-        }
+        .navigation(item: $homeViewModel.router, destination: { route in
+            route.screen
+        })
     }
     
     var navbar: some View {

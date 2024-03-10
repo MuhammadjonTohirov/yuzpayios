@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import SwiftUINavigation
 
 struct AuthSignUp: View {
     @ObservedObject var viewModel = SignUpViewModel()
@@ -30,8 +29,8 @@ struct AuthSignUp: View {
                 .position(x: 40, y: 20)
 
                 innerBody
-                    .fullScreenCover(unwrapping: $viewModel.route) { ident in
-                        ident.wrappedValue.screen
+                    .fullScreenCover(item: $viewModel.route) { route in
+                        route.screen
                     }
             }
         }

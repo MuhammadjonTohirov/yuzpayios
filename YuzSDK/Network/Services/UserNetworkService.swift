@@ -22,6 +22,23 @@ public struct UserNetworkService: NetworkServiceProtocol {
         return otp == UserSettings.shared.lastOTP
     }
     
+    /// true if access token is valid or access token renewed
+    public func refreshTokenIfNeeded() async -> Bool {
+        // check that access token is about to be expired, 20 minutes before
+        guard let expireDate = UserSettings.shared.accessTokenExpireDate else {
+            return false
+        }
+        
+        if Date.now.timeIntervalSince1970 > expireDate - 20 * 60 {
+            return await refreshToken()
+        }
+        
+        
+        debugPrint("AccessToken: \(UserSettings.shared.accessToken ?? "")")
+        debugPrint("KEY: \(URL.keyHeader.value)")
+        return true
+    }
+    
     public func refreshToken() async -> Bool {
         guard let token = UserSettings.shared.refreshToken else {
             return false
@@ -50,6 +67,13 @@ public struct UserNetworkService: NetworkServiceProtocol {
             return
         }
         
+        Logging.l(tag: "Network", "Upload avatar with")
+        Logging.l(tag: "Network", phone)
+        Logging.l(tag: "Network", url)
+        Logging.l(tag: "Network", token)
+        Logging.l(tag: "Network", otp)
+        Logging.l(tag: "Network", "-- -- -- -- --")
+
         Network.upload(body: String.self, request: S.phoneRegister(phone: phone, photo: url, token: token, otp: otp)) { res in
             guard let isSuccess = res?.success else {
                 completion(false, res?.error ?? defaultError)
@@ -88,8 +112,8 @@ public struct UserNetworkService: NetworkServiceProtocol {
         
         UserSettings.shared.accessToken = data.accessToken
         UserSettings.shared.refreshToken = data.refreshToken
-        UserSettings.shared.accessTokenExpireDate = data.expiresIn
-        UserSettings.shared.refresTokenExpireDate = data.refreshExpiresIn
+        UserSettings.shared.accessTokenExpireDate = data.expiresIn + Date.now.timeIntervalSince1970
+        UserSettings.shared.refresTokenExpireDate = data.refreshExpiresIn + Date.now.timeIntervalSince1970
         
         return result.success
     }

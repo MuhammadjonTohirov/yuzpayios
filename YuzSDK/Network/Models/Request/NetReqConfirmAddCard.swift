@@ -13,18 +13,15 @@ import Foundation
 //}
 
 public struct NetReqConfirmAddCard: Codable {
-    public private(set) var token: String
     public private(set) var code: String
         
-    public init(token: String, code: String) {
-        self.token = token
+    public init(code: String) {
         self.code = code
     }
     
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.token = try container.decode(String.self, forKey: .token)
         self.code = try container.decode(String.self, forKey: .code)
     }
 }

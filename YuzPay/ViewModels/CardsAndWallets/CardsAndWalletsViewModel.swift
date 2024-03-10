@@ -67,12 +67,19 @@ enum CardsAndWalletsRoute: Hashable, ScreenRoute {
     }
 }
 
-final class CardsAndWalletsViewModel: ObservableObject {
+final class CardsAndWalletsViewModel: NSObject, ObservableObject, Alertable {
+    @Published var shouldShowAlert: Bool = false
+    
     @Published var cardItems: Results<DCard>
     @Published var selectedType: CreditCardType? = .uzcard
     
     @Published var cardTypesWithCounts: [CardTypeCounterItem] = []
     @Published var pushNavigation: Bool = false
+    var alert: AlertToast = .init(type: .regular) {
+        didSet {
+            shouldShowAlert = true
+        }
+    }
     
     var route: CardsAndWalletsRoute? {
         didSet {
@@ -82,7 +89,7 @@ final class CardsAndWalletsViewModel: ObservableObject {
     
     private var cardsToken: NotificationToken?
 
-    init() {
+    override init() {
         self.cardItems = CreditCardManager.shared.all!
         Logging.l("Init cards and wallets viewmodel")
     }

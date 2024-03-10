@@ -23,8 +23,14 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable, Ale
     @Published var isLoading: Bool = false
     @Published var dismiss: Bool = false
     var merchantId: String
-    @Published var route: MerchantPaymentRoute?
-
+    @Published var route: MerchantPaymentRoute? {
+        didSet {
+            showRoute = route != nil
+        }
+    }
+    
+    @Published var showRoute: Bool = false
+    
     @Published var showPaymentView = false
     @Published var selectedCard: DCard?
     @Published var formModel: FormModel?

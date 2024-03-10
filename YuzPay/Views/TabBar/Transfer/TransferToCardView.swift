@@ -42,7 +42,7 @@ struct TransferToCardView: View {
         return (CGFloat(viewModel.cards?.count ?? 1) * 50).limitTop(UIScreen.screen.height / 2).limitBottom(UIScreen.screen.height / 3)
     }
     private var title: String {
-        transferType.title
+        showStatusView ? "" : transferType.title
     }
     
     var body: some View {
@@ -59,77 +59,34 @@ struct TransferToCardView: View {
     
     var bodyWithNavigations: some View {
         ZStack {
-            NavigationLink("", isActive: $showStatusView) {
-                PaymentStatusView(image: {
-                    Image("image_success_2")
-                        .renderingMode(.template)
-                        .resizable(true)
-                        .frame(width: 100, height: 100)
-                })
-                .environmentObject(PaymentStatusViewModel(isSuccess: true, title: "", details: "", onClickFinish: {
-                    
-                }))
-            }
-            
-            NavigationLink("", isActive: $showSavedCards) {
-                SavedCardsListView()
-            }
-            
             innerBody
-            .sheet(isPresented: $cardSelectionView, content: {
-                SelectCardView(cards: viewModel.cards?.filter({ card in
-                    switch transferType {
-                    case .transferToOther, .transferToMe:
-                        return card.cardType == .uzcard || card.cardType == .humo
-                    case .exchange:
-                        if exchangeType == .sell {
+                .sheet(isPresented: $cardSelectionView, content: {
+                    SelectCardView(cards: viewModel.cards?.filter({ card in
+                        switch transferType {
+                        case .transferToOther, .transferToMe:
                             return card.cardType == .uzcard || card.cardType == .humo
-                        }
-                        
-                        return !(card.cardType == .uzcard || card.cardType == .humo)
-                    default:
-                        return true
-                    }
-                }) ?? [], selectedCardId: viewModel.fromCard?.id ?? "-1") { newSelectedCard in
-                    viewModel.fromCard = newSelectedCard.asModel
-                    cardSelectionView = false
-                }
-                .presentationDetents([.height(requiredHeightForCardsSelectionView), .medium, .large])
-            })
-            .sheet(isPresented: $viewModel.showPaymentView, content: {
-                NavigationView {
-                    ReceiptAndPayView(rows: $viewModel.receiptRows)
-                        .set(submitButtonTitle: "pay".localize)
-                        .set(showCards: true)
-                        .set(filter: { card in
-                            if card.id == viewModel.fromCard?.id {
-                                return false
+                        case .exchange:
+                            if exchangeType == .sell {
+                                return card.cardType == .uzcard || card.cardType == .humo
                             }
                             
-                            switch transferType {
-                            case .transferToOther, .transferToMe:
-                                return card.cardType == .uzcard || card.cardType == .humo
-                            case .exchange:
-                                if exchangeType == .buy {
-                                    return card.cardType == .uzcard || card.cardType == .humo
-                                }
-                                
-                                return card.cardType == .visa || card.cardType == .master
-                            case .transferInternational:
-                                return card.cardType == .visa || card.cardType == .master
-                            }
-                        })
-                        .set { cardId in
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                                self.viewModel.doTransfer(with: cardId) { isOK in
-                                    isOK ? self.dismiss() : ()
-                                }
-                            }
+                            return !(card.cardType == .uzcard || card.cardType == .humo)
+                        default:
+                            return true
                         }
-                        .navigationTitle(title)
-                }
-            })
-            .ignoresSafeArea(edges: .bottom)
+                    }) ?? [], selectedCardId: viewModel.cardInfo?.id ?? "-1") { newSelectedCard in
+                        viewModel.cardInfo = newSelectedCard.asModel
+                        cardSelectionView = false
+                    }
+                    .presentationDetents([.height(requiredHeightForCardsSelectionView), .medium, .large])
+                })
+                .sheet(isPresented: $viewModel.showPaymentView, content: {
+                    receiptSheet
+                })
+                .navigationDestination(isPresented: $showSavedCards, destination: {
+                    SavedCardsListView()
+                })
+                .ignoresSafeArea(edges: .bottom)
         }
         .fullScreenCover(isPresented: $showScanCard) {scanCardView}
         .onAppear {
@@ -137,6 +94,44 @@ struct TransferToCardView: View {
         }
         .onDisappear {
             print("On transfer page disappear")
+        }
+        .overlay {
+            paymentSuccessView
+                .opacity(showStatusView ? 1 : 0)
+        }
+    }
+    
+    private var receiptSheet: some View {
+        NavigationStack {
+            ReceiptAndPayView(rows: $viewModel.receiptRows)
+                .set(submitButtonTitle: "pay".localize)
+                .set(showCards: true)
+                .set(filter: { card in
+                    if card.id == viewModel.cardInfo?.id {
+                        return false
+                    }
+                    
+                    switch transferType {
+                    case .transferToOther, .transferToMe:
+                        return card.cardType == .uzcard || card.cardType == .humo
+                    case .exchange:
+                        if exchangeType == .buy {
+                            return card.cardType == .uzcard || card.cardType == .humo
+                        }
+                        
+                        return card.cardType == .visa || card.cardType == .master
+                    case .transferInternational:
+                        return card.cardType == .visa || card.cardType == .master
+                    }
+                })
+                .set { cardId in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                        self.viewModel.doTransfer(with: cardId) { transactionId in
+                            self.showStatusView = transactionId != nil
+                        }
+                    }
+                }
+                .navigationTitle(title)
         }
     }
     
@@ -147,7 +142,7 @@ struct TransferToCardView: View {
         }
     }
     
-    func geometryBody(_ size: CGRect) -> some View {
+    private func geometryBody(_ size: CGRect) -> some View {
         VStack(spacing: 0) {
             VStack {
                 Text("select_receiver_card".localize)
@@ -212,7 +207,7 @@ struct TransferToCardView: View {
     
     // MARK: - Note view
     @ViewBuilder
-    var noteView: some View {
+    private var noteView: some View {
         if transferType == TransferType.transferToOther {
             TextView(text: $viewModel.note, placeholder: "note".localize)
                 .multilineTextAlignment(.leading)
@@ -225,7 +220,7 @@ struct TransferToCardView: View {
     
     // MARK: - Currency rate view
     @ViewBuilder
-    var currencyRateView: some View {
+    private var currencyRateView: some View {
         if transferType == .transferInternational || transferType == .exchange {
             ForEach(exchangeRates.filter({$0.code == "USD"})) { rate in
                 ReceiptRowItem(name: rate.name, value: "\((self.exchangeType == .sell ? rate.buyingRate : rate.sellingRate).asCurrency()) uzs").row
@@ -234,17 +229,17 @@ struct TransferToCardView: View {
     }
     
     // MARK: - My cards view
-    var myCardsView: some View {
+    private var myCardsView: some View {
         Button {
             cardSelectionView = true
         } label: {
             HStack(spacing: Padding.small) {
-                BorderedCardIcon(name: viewModel.fromCard?.cardType.localIcon ?? "icon_card")
+                BorderedCardIcon(name: viewModel.cardInfo?.cardType.localIcon ?? "icon_card")
                 
                 VStack(alignment: .leading) {
-                    Text(viewModel.fromCard?.cardNumber.maskAsCardNumber ?? "select_card".localize)
+                    Text(viewModel.cardInfo?.cardNumber.maskAsCardNumber ?? "select_card".localize)
                         .mont(.medium, size: 12)
-                    Text(viewModel.fromCard == nil ? "no_card".localize : "\(viewModel.fromCard?.moneyAmount.asCurrency() ?? "0")")
+                    Text(viewModel.cardInfo == nil ? "no_card".localize : "\(viewModel.cardInfo?.moneyAmount.asCurrency() ?? "0")")
                         .mont(.semibold, size: 14)
                 }
                 Spacer()
@@ -255,15 +250,15 @@ struct TransferToCardView: View {
     }
     
     // MARK: - Receiver card view
-    var receiverCardView: some View {
+    private var receiverCardView: some View {
         HStack(spacing: Padding.small) {
-            BorderedCardIcon(name: viewModel.fromCard?.cardType.localIcon ?? "icon_card")
+            BorderedCardIcon(name: viewModel.cardInfo?.cardType.localIcon ?? "icon_card")
                 .overlay {
                     ProgressView()
                         .visible(viewModel.searchingCard)
                 }
             
-            if let c = viewModel.fromCard {
+            if let c = viewModel.cardInfo {
                 cardInfoField(title: c.holderName.nilIfEmpty ?? c.name.nilIfEmpty ?? c.bankName ?? "", detail: "XXXX XXXX XXXX XXXX")
                     .disabled(true)
                 
@@ -280,20 +275,6 @@ struct TransferToCardView: View {
             }
             else {
                 cardInfoField(title: "card_number".localize, detail: "XXXX XXXX XXXX XXXX")
-                
-                // saved cards button
-//                RoundedRectangle(cornerRadius: 8)
-//                    .frame(width: 40, height: 40)
-//                    .foregroundColor(.secondarySystemBackground)
-//                    .overlay {
-//                        Button {
-//                            showSavedCards = true
-//                        } label: {
-//                            Image("icon_card")
-//                                .renderingMode(.template)
-//                                .foregroundColor(Color(uiColor: .appDarkGray))
-//                        }
-//                    }
                 
                 RoundedRectangle(cornerRadius: 8)
                     .frame(width: 40, height: 40)
@@ -321,7 +302,7 @@ struct TransferToCardView: View {
     
     // MARK: - Receiver View
     @ViewBuilder
-    var receiverView: some View {
+    private var receiverView: some View {
         switch transferType {
         case .transferToOther, .transferInternational:
             receiverCardView
@@ -334,9 +315,9 @@ struct TransferToCardView: View {
                     .onChange(of: exchangeType) { newExType in
                         switch newExType {
                         case .buy:
-                            self.viewModel.fromCard = self.viewModel.cards?.firstInternationalCard?.asModel
+                            self.viewModel.cardInfo = self.viewModel.cards?.firstInternationalCard?.asModel
                         case .sell:
-                            self.viewModel.fromCard = self.viewModel.cards?.firstLocal?.asModel
+                            self.viewModel.cardInfo = self.viewModel.cards?.firstLocal?.asModel
                         }
                     }
                 
@@ -346,11 +327,16 @@ struct TransferToCardView: View {
     }
     
     // MARK: - Scan Card View
-    @ViewBuilder var scanCardView: some View {
+    @ViewBuilder
+    private var scanCardView: some View {
         CardReaderWrapper { cardNumber, expireDate in
             
         }
         .ignoresSafeArea(.all)
+    }
+    
+    private var paymentSuccessView: some View {
+        return P2PStatusView(amount: viewModel.price + " so'm", name: viewModel.cardInfo?.holderName ?? "", transferId: self.viewModel.transactionId)
     }
 }
 

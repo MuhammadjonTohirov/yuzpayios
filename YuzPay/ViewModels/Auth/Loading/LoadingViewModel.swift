@@ -17,7 +17,7 @@ protocol LoadingViewModelProtocol {
 final class LoadingViewModel: LoadingViewModelProtocol {
     func initialize() {
         Task(priority: .high) {
-            let isOK = await UserNetworkService.shared.refreshToken()
+            let isOK = await UserNetworkService.shared.refreshTokenIfNeeded()
             
             let hasPin = UserSettings.shared.appPin != nil
             let hasLanguage = UserSettings.shared.language != nil

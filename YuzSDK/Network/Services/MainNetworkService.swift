@@ -74,14 +74,14 @@ public struct MainNetworkService: NetworkServiceProtocol {
         }
     }
     
-    public func addCard(card: NetReqAddCard) async -> (success: NetResAddCard?, error: String?) {
-        let res: NetRes<NetResAddCard>? = await Network.send(request: S.addCard(card))
+    public func addCard(card: NetReqAddCard) async -> (success: Int?, error: String?) {
+        let res: NetRes<Int>? = await Network.send(request: S.addCard(card))
         return (res?.data, res?.error)
     }
     
-    public func confirmCard(cardId: Int, card: NetReqConfirmAddCard) async -> (result: NetResCardItem?, error: String?) {
-        let res: NetRes<NetResCardItem>? = await Network.send(request: S.confirmCard(cardId: cardId, card))
-        return (res?.data, res?.error)
+    public func confirmCard(cardId: Int, card: NetReqConfirmAddCard) async -> (result: Bool, error: String?) {
+        let res: NetRes<String>? = await Network.send(request: S.confirmCard(cardId: cardId, card))
+        return (res?.success ?? false, res?.error)
     }
     
     public func updateCard(cardId: Int, card: NetReqUpdateCard) async -> (success: Bool, error: String?) {
@@ -153,7 +153,7 @@ public struct MainNetworkService: NetworkServiceProtocol {
     }
     
     // MARK: - P2P
-    public func findCard(with cardNumber: String) async -> NetResCardItem? {
+    public func findCard(with cardNumber: String) async -> String? {
         return await Network.send(request: S.findCard(cardNumber: cardNumber))?.data
     }
     
@@ -163,21 +163,21 @@ public struct MainNetworkService: NetworkServiceProtocol {
     }
     
     /// p2p
-    public func p2pTransfer(cardId: String, req: NetReqP2P) async -> (Bool, String?) {
-        let result: NetRes<String>? = await Network.send(request: S.p2p(cardId: cardId, req: req))
+    public func p2pTransfer(cardId: String, req: NetReqP2P) async -> (Int?, String?) {
+        let result: NetRes<Int>? = await Network.send(request: S.p2p(cardId: cardId, req: req))
         if result?.success ?? false {
             syncCardList()
         }
-        return (result?.error == nil, result?.error)
+        return (result?.data, result?.error)
     }
     
     /// uzs to usd or vice versa
-    public func exchange(cardId: String, req: NetReqExchange) async -> (Bool, String?) {
-        let result: NetRes<String>? = await Network.send(request: S.echange(cardId: cardId, req: req))
+    public func exchange(cardId: String, req: NetReqExchange) async -> (Int?, String?) {
+        let result: NetRes<Int>? = await Network.send(request: S.echange(cardId: cardId, req: req))
         if result?.success ?? false {
             syncCardList()
         }
-        return (result?.error == nil, result?.error)
+        return (result?.data, result?.error)
     }
     
     public func syncSavedCards() {
@@ -187,6 +187,12 @@ public struct MainNetworkService: NetworkServiceProtocol {
                 CardModel.create(res:$0)
             }) ?? [])
         }
+    }
+    
+    public func syncTransactionCommissions() async {
+        let res: NetRes<NetResConfigTransactionCommission>? = await Network.send(request: S.transactionCommissions)
+        
+        UserSettings.shared.p2pConfig = res?.data
     }
 }
 

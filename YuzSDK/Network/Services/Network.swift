@@ -47,9 +47,8 @@ struct Network {
             }
             
             return res
-
         } catch let error {
-            Logging.l(error.localizedDescription)
+            Logging.l(error)
             return nil
         }
     }

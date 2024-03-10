@@ -23,7 +23,7 @@ struct CardLargeView: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 16)
             .foregroundColor(Color("accent"))
-            .frame(height: 240.f.sh(limit: 0.2))
+            .frame(height: 200.f.sh(limit: 0.2))
             .overlay {
                 VStack(alignment: .leading) {
                     HStack {
@@ -33,7 +33,7 @@ struct CardLargeView: View {
                             .textCase(.uppercase)
                             .font(.mont(.semibold, size: 16))
                             .foregroundColor(.white)
-                        
+                            
                         Spacer()
                         
                         if isMain {
@@ -45,7 +45,9 @@ struct CardLargeView: View {
                     }.frame(height: 32)
                     
                     Text(cardName)
-                        .font(.mont(.regular, size: 14))
+                        .font(.mont(.semibold, size: 14))
+                        .padding(.top, Padding.small)
+
                     HStack(alignment: .bottom) {
                         Text(deposit)
                             .font(.mont(.semibold, size: 24))

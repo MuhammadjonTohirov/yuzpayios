@@ -19,8 +19,9 @@ protocol Alertable: NSObject {
 extension Alertable {
     func showAlert(message: String) {
         DispatchQueue.main.async {
-            self.alert = .init(displayMode: .hud, type: .complete(.green), title: message)
+            self.alert = .init(displayMode: .alert, type: .regular, title: message)
             self.shouldShowAlert = true
+            SEffect.rigid()
         }
     }
     
@@ -28,6 +29,7 @@ extension Alertable {
         DispatchQueue.main.async {
             self.alert = .init(displayMode: .banner(.pop), type: .error(.systemRed), title: message)
             self.shouldShowAlert = true
+            SEffect.rigid()
         }
     }
     

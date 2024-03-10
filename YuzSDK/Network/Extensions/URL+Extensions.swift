@@ -11,11 +11,11 @@ import UniformTypeIdentifiers
 public extension URL {
     
     static var base: URL {
-        .init(string: "http://95.47.127.26:50000")!//http://95.47.127.26:50000/
+        .init(string: "https://api.yuzpay.uz")!//http://95.47.127.26:50000/
     }
     
     static var keyHeader: (key: String, value: String) {
-        ("X-APP-SERIAL", "d0673c9b400460f7a2950eb71bd3bab5b0729351d5e93a5aa2c4aa3f269f6ee0")
+        ("X-APP-SERIAL", "5f59878e2dfa0dee87a4217b48f137cb8d977b68ff95b4b7f5b3a7a6768db134")
     }
     
     static var langHeader: (key: String, value: String) {

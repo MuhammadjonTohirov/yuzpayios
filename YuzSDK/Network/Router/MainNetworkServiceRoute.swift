@@ -64,6 +64,8 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
             return URL.base.appendingPath("api", "Client", "ExchangeCard", cardId)
         case .savedCards:
             return URL.base.appendingPath("api", "Client", "RecentlyP2PCards")
+        case .transactionCommissions:
+            return URL.base.appendingPath("Config", "TransactionCommissions")
         }
     }
     
@@ -144,4 +146,6 @@ enum MainNetworkServiceRoute: URLRequestProtocol {
     case p2p(cardId: String, req: NetReqP2P)
     case echange(cardId: String, req: NetReqExchange)
     case savedCards
+    
+    case transactionCommissions
 }

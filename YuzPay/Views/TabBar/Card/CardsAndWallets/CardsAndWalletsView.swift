@@ -77,13 +77,15 @@ struct CardsAndWalletsView: View {
                     FlatButton(title: "order_card".localize, borderColor: .clear) {
                         self.cardTypesMenu = false
                         
-                        self.viewModel.route = .orderCard
+//                        self.viewModel.route = .orderCard
+                        viewModel.showAlert(message: "coming.soon".localize)
                     }
                     
                     FlatButton(title: "virtual_card".localize, borderColor: .clear) {
                         self.cardTypesMenu = false
                         
-                        self.viewModel.route = .orderVirtualCard
+//                        self.viewModel.route = .orderVirtualCard
+                        viewModel.showAlert(message: "coming.soon".localize)
                     }
                 }
                 .padding(.horizontal, Padding.large)
@@ -91,9 +93,13 @@ struct CardsAndWalletsView: View {
             }
             .ignoresSafeArea(edges: .bottom)
         }
-        .navigationDestination(unwrapping: $viewModel.route, destination: { route in
+        .navigationDestination(isPresented: $viewModel.pushNavigation, destination: {
             viewModel.route?.screen
         })
+        .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1.5)
+//        .navigationDestination(unwrapping: $viewModel.route, destination: { route in
+//            viewModel.route?.screen
+//        })
         .onDisappear {
             print("Disappear cards and wallets")
         }

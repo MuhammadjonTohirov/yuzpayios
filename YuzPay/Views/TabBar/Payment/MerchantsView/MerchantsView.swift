@@ -80,8 +80,8 @@ struct MerchantsView: View {
                     Spacer()
                 }
             }
-            .navigationDestination(unwrapping: $viewModel.route, destination: { _case in
-                if case .showAllMerchantsInCategory(let category) = _case.wrappedValue  {
+            .navigation(item: $viewModel.route, destination: { _case in
+                if case .showAllMerchantsInCategory(let category) = _case  {
                     AllMerchantsInCategoryView(category: (category.title, category.id), selectedMerchantId: $viewModel.selectedMerchant) { merchant in
                         viewModel.route = nil
                         viewModel.selectedMerchant = merchant.id

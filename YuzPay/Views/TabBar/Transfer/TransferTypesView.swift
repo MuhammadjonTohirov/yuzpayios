@@ -36,17 +36,20 @@ struct TransferTypesView: View {
                 }
                 
                 TransferType.exchange.rowButton {
-                    viewModel.route = .exchange
+//                    viewModel.route = .exchange
+                    viewModel.showAlert(message: "coming.soon".localize)
                 }
                 
                 TransferType.transferInternational.rowButton {
-                    viewModel.route = .transferInternational
+//                    viewModel.route = .transferInternational
+                    viewModel.showAlert(message: "coming.soon".localize)
                 }
                 
                 Spacer()
             }
             .padding(.horizontal, Padding.default)
         }
+        .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1.5)
         .navigationDestination(isPresented: $viewModel.showPage) {
             self.viewModel.route?.screen
                 .environmentObject(self.viewModel)

@@ -15,4 +15,9 @@ public struct SEffect {
         let generator = UIImpactFeedbackGenerator(style: .rigid)
         generator.impactOccurred()
     }
+    
+    public static func tingngng() {
+        // play sound system sms came
+        AudioServicesPlaySystemSound(1103)
+    }
 }

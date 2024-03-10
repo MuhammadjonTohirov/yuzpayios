@@ -9,13 +9,14 @@ import Foundation
 
 public struct NetReqP2P: Encodable {
     public let cardNumber: String?
-    public let cardId: Int?
+    /// Humo, uzcard, visa, master
+    public let type: Int? // uzcard = 0
     public let amount: Double
     public let note: String
     
-    public init(cardNumber: String?, cardId: Int?, amount: Double, note: String) {
+    public init(cardNumber: String?, type: Int = 0, amount: Double, note: String) {
         self.cardNumber = cardNumber
-        self.cardId = cardId
+        self.type = type
         self.amount = amount
         self.note = note
     }

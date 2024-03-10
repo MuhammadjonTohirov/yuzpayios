@@ -30,9 +30,8 @@ struct HCardListView: View {
                 Text("cards".localize.uppercased())
                     .font(.mont(.semibold, size: 16))
             }
-            .padding(.bottom, Padding.default)
+            .padding(.bottom, Padding.medium)
             .padding(.horizontal, Padding.default)
-            .padding(.leading, Padding.medium)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {

@@ -75,7 +75,7 @@ struct UploadAvatarView: View {
             .ignoresSafeArea()
         })
         .zIndex(2)
-        .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1)
+        .toast($viewModel.shouldShowAlert, viewModel.alert, duration: 1.5)
         .onAppear {
             self.cameraModel = .init()
             self.startCamera = true

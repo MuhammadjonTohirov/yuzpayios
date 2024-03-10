@@ -37,7 +37,7 @@ struct MerchantPaymentView: View {
                     }
             }
         }
-        .sheet(unwrapping: $viewModel.route, content: { _ in
+        .sheet(isPresented: $viewModel.showRoute, content: { 
             NavigationView(content: {
                 ReceiptAndPayView(rows: $viewModel.receiptItems)
                     .set(submitButtonTitle: "pay".localize)

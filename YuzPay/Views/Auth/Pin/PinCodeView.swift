@@ -57,8 +57,8 @@ struct PinCodeView: View {
             }
         }
         .multilineTextAlignment(.center)
-        .fullScreenCover(unwrapping: $viewModel.route) { dest in
-            dest.wrappedValue.screen
+        .fullScreenCover(item: $viewModel.route) { dest in
+            dest.screen
         }
         .onAppear {
             if viewModel.reason == .login {

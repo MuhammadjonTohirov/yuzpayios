@@ -40,7 +40,7 @@ final class PhoneAuthViewModel: NSObject, ObservableObject, Loadable, Alertable 
         guard formViewModel.isValidForm else {return}
         showLoader()
         
-        Task {
+        Task(priority: .utility) {
             defer {
                 hideLoader()
             }
@@ -54,7 +54,7 @@ final class PhoneAuthViewModel: NSObject, ObservableObject, Loadable, Alertable 
                 return
             }
             
-            await MainActor.run {
+            await MainActor.run() {
                 UserSettings.shared.userPhone = number
                 UserSettings.shared.checkPhoneToken = body.token
                 UserSettings.shared.lastOTP = body.code

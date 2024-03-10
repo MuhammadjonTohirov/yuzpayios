@@ -14,7 +14,7 @@ struct PaymentCategoriesView: View {
     @ObservedResults(DMerchantCategory.self, configuration: Realm.config) var categories;
     var onSelectCategory: ((DMerchantCategory) -> Void)
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading, spacing: Padding.medium) {
             HStack(spacing: 8) {
                 Image("icon_cart")
                     .resizable()
@@ -23,7 +23,6 @@ struct PaymentCategoriesView: View {
                 Text("payment".localize)
                     .font(.mont(.semibold, size: 16))
             }
-            .padding(.leading, Padding.medium)
             .padding(.horizontal, Padding.default)
 
             HStack(alignment: .center, spacing: 10) {

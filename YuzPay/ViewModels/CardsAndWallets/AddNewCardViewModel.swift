@@ -24,7 +24,7 @@ final class AddNewCardViewModel: NSObject, ObservableObject, Loadable, Alertable
     
     var currentCardType: CreditCardType?
     
-    private(set) var addCardResponse: NetResAddCard?
+    private(set) var addCardResponse: Int?
     
     @Published var confirmAddCard: Bool = false
     
@@ -70,8 +70,15 @@ final class AddNewCardViewModel: NSObject, ObservableObject, Loadable, Alertable
         self.showLoader()
         
         Task {
-            let result = await MainNetworkService.shared.addCard(card: .init(cardNumber: cardNumber, cardName: cardName, expirationDate: expireDate, type: cardType))
-                        
+            let result = await MainNetworkService.shared.addCard(
+                card: .init(
+                    cardNumber: cardNumber,
+                    cardName: cardName,
+                    expirationDate: expireDate,
+                    type: cardType
+                )
+            )
+                      
             await MainActor.run(body: {
                 self.hideLoader()
 
@@ -97,13 +104,16 @@ final class AddNewCardViewModel: NSObject, ObservableObject, Loadable, Alertable
                 return (false, nil)
             }
             
-            guard let res = self.addCardResponse else {
+            guard let cardId = self.addCardResponse else {
                 return (false, nil)
             }
             
-            let (card, error) = await MainNetworkService.shared.confirmCard(cardId: res.cardId, card: .init(token: res.token, code: otp))
+            let (isOK, error) = await MainNetworkService.shared.confirmCard(
+                cardId: cardId,
+                card: .init(code: otp)
+            )
             
-            if card != nil {
+            if isOK {
                 MainNetworkService.shared.syncCardList()
                 return (true, nil)
             }

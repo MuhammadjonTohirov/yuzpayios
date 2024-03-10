@@ -788,20 +788,20 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
     public func savePhotoToGallery(_ image: UIImage) -> URL? {
         
         autoreleasepool {
-            #if DEBUG
-            PHPhotoLibrary.shared().performChanges({
-                PHAssetChangeRequest.creationRequestForAsset(from: image)
-            }) { saved, error in
-                Logging.l(tag: "CameraService", "Saved image \(saved) \(error?.localizedDescription ?? "")")
-            }
-            #endif
+            
             let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             let fileName = "image_\(Int(Date().timeIntervalSince1970)).jpeg"
             let fileURL = documentsDirectory.appendingPathComponent(fileName)
             if let data = image.jpegData(compressionQuality: 1) {
                 do {
                     try data.write(to: fileURL)
-                    
+                    #if DEBUG
+                    PHPhotoLibrary.shared().performChanges({
+                        PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: fileURL)
+                    }) { saved, error in
+                        Logging.l(tag: "CameraService", "Saved image \(saved) \(error?.localizedDescription ?? "")")
+                    }
+                    #endif
                     return fileURL
                 } catch {
                     print("error saving file:", error)

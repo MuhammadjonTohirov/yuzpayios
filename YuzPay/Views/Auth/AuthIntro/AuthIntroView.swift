@@ -92,9 +92,9 @@ struct AuthIntroView: View {
                 .frame(maxWidth: .infinity)
 
             }
-            .fullScreenCover(unwrapping: $viewModel.route) { newValue in
-                newValue.wrappedValue.screen
-            }
+            .fullScreenCover(isPresented: $viewModel.shouldPresent, content: {
+                viewModel.route?.screen
+            })
         }
     }
 }
