@@ -41,17 +41,17 @@ struct PaymentCategoriesView: View {
     }
     
     func listItem(icon: String, title: String) -> some View {
-        VStack(alignment: .center) {
+        VStack(alignment: .center, spacing: 8) {
             Image(icon)
                 .renderingMode(.template)
                 .resizable(true)
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(.black.opacity(0.8))
-                .frame(.init(w: 32, h: 32))
-                .padding(.top, 16)
+                .frame(.init(w: 28, h: 28))
+                .padding(.top, 18)
             
             Text(title)
-                .font(.mont(.regular, size: 12))
+                .font(.mont(.medium, size: 12))
                 .padding(.horizontal, Padding.small)
             Spacer()
         }

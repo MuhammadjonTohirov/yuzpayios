@@ -10,7 +10,7 @@ import AVKit
 import Combine
 
 final class CameraModel: ObservableObject {
-    let service = CameraService()
+    private(set) var service: CameraService!
     
     @Published var photo: Photo?
     
@@ -34,7 +34,8 @@ final class CameraModel: ObservableObject {
     
     var onEndRecording: ((Video?) -> Void)?
     
-    init() {
+    init(_ cameraPosition: AVCaptureDevice.Position = .back) {
+        self.service = CameraService(preferredCameraPosition: cameraPosition)
         self.session = service.session
         
         service.$photo.sink { [weak self] (photo) in
@@ -67,11 +68,16 @@ final class CameraModel: ObservableObject {
             guard let self else {
                 return
             }
+            if isRecording && self.service.video == nil {
+                self.onStartRecording?()
+            }
             
-            isRecording ? self.onStartRecording?() : self.onEndRecording?(self.service.video)
+            if !isRecording, let url = self.service.video {
+                self.onEndRecording?(url)
+            }
             
             #if DEBUG
-            if let url = self.service.video {
+            if let url = self.service.video, !isRecording {
                 service.saveVideoToGallery(url.videoUrl)
             }
             #endif
@@ -95,6 +101,22 @@ final class CameraModel: ObservableObject {
     
     func stopRecording() {
         service.stopRecording()
+    }
+    
+    func startRunning() {
+        DispatchQueue.global(qos: .background).async {
+            if !self.session.isRunning {
+                self.session.startRunning()
+            }
+        }
+    }
+    
+    func stopRunning() {
+        DispatchQueue.global(qos: .background).async {
+            if self.session.isRunning {
+                self.session.stopRunning()
+            }
+        }
     }
     
     func flipCamera(_ position: AVCaptureDevice.Position? = nil) {

@@ -73,7 +73,9 @@ struct Network {
         Logging.l("--- --- REQUEST --- ---")
         Logging.l(request.url.absoluteString)
         
-        if let requestBody = request.request().httpBody, let json = try? JSONSerialization.jsonObject(with: requestBody, options: .fragmentsAllowed) as? [String: Any] {
+        if let requestBody = request.request().httpBody, 
+           let json = try? JSONSerialization.jsonObject(with: requestBody, options: .fragmentsAllowed) as? [String: Any]
+        {
             Logging.l(json)
         }
         

@@ -98,6 +98,7 @@ struct MerchantPaymentView: View {
                         titleColor: .white,
                         isEnabled: true)
             {
+                
                 viewModel.onClickNext(formModel: viewModel.formModel) { isSatisfy in
                     if !isSatisfy {
                         alertModel.show(title: "warning".localize, message: "fill_all_fields".localize)

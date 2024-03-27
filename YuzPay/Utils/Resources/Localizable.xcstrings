@@ -42,9 +42,6 @@
     "+998 %@" : {
 
     },
-    "05 / 25" : {
-
-    },
     "aboutUs" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -133,101 +130,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yangi karta qo'shishda xatolik yuz berdi"
-          }
-        }
-      }
-    },
-    
-    "please_wait" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please wait"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пожалуйста, подождите"
-          }
-        },
-        "uz-UZ" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Iltimos kuting"
-          }
-        }
-      }
-    },
-    
-    "transferred.n.to.u" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Transferred %@ %@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Переведено %@ %@"
-          }
-        },
-        "uz-UZ" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "O'tkazildi %@ %@"
-          }
-        }
-      }
-    },
-    
-    "check" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Check"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Чек"
-          }
-        },
-        "uz-UZ" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chek"
-          }
-        }
-      }
-    },
-    "close" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Close"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Закрыть"
-          }
-        },
-        "uz-UZ" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Yopish"
           }
         }
       }
@@ -678,19 +580,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Click to camera icon, and scan your face for 5 seconds\\nNote: You should look at to the left to right and front"
+            "value" : "Click to camera icon, and scan your face for 5 seconds Note: You should look at to the left to right and front"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нажмите на значок камеры и сканируйте свое лицо в течение 5 секунд.\\nПримечание: вам следует смотреть слева направо и вперед."
+            "value" : "Нажмите на значок камеры и сканируйте свое лицо в течение 5 секунд. Примечание: вам следует смотреть слева направо и вперед."
           }
         },
         "uz-UZ" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kamera belgisini bosing va yuzingizni 5 soniya davomida skanerlang \\nEslatma: chapdan o'ngga va oldga qarash kerak"
+            "value" : "Kamera belgisini bosing va yuzingizni 5 soniya davomida skanerlang Eslatma: chapdan o'ngga va oldga qarash kerak"
           }
         }
       }
@@ -994,6 +896,29 @@
         }
       }
     },
+    "check" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Чек"
+          }
+        },
+        "uz-UZ" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chek"
+          }
+        }
+      }
+    },
     "check_personality" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1019,6 +944,29 @@
     },
     "Click" : {
 
+    },
+    "close" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Закрыть"
+          }
+        },
+        "uz-UZ" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yopish"
+          }
+        }
+      }
     },
     "collapse" : {
       "extractionState" : "manual",
@@ -2505,6 +2453,9 @@
         }
       }
     },
+    "Loading PDF..." : {
+
+    },
     "login" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2791,6 +2742,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No card"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет карты"
+          }
+        },
+        "uz-UZ" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Karta yo'q"
+          }
+        }
+      }
+    },
+    "no_cards" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No cards"
           }
         },
         "ru" : {
@@ -3451,6 +3425,9 @@
         }
       }
     },
+    "PDF Viewer" : {
+
+    },
     "phone_number" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3516,6 +3493,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kartani tanlang"
+          }
+        }
+      }
+    },
+    "please_wait" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please wait"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пожалуйста, подождите"
+          }
+        },
+        "uz-UZ" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iltimos kuting"
           }
         }
       }
@@ -4891,6 +4891,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "O'zimga o'tkazma"
+          }
+        }
+      }
+    },
+    "transferred.n.to.u" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transferred %@ %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Переведено %@ %@"
+          }
+        },
+        "uz-UZ" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O'tkazildi %@ %@"
           }
         }
       }

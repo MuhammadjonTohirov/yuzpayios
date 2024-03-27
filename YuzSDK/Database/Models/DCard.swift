@@ -159,7 +159,7 @@ public class DCard: Object, ObjectKeyIdentifiable, DItemProtocol, CardProtocol {
 
 public extension CreditCardType {
     static func detectCardType(cardNumber: String) -> CreditCardType? {
-        if cardNumber.range(of: "^(8600|9874)[0-9]{0,11}$", options: .regularExpression) != nil {
+        if cardNumber.range(of: "^(8600|9874|5614)[0-9]{0,11}$", options: .regularExpression) != nil {
             return .uzcard
         } else if cardNumber.range(of: "^9860[0-9]{0,11}$", options: .regularExpression) != nil {
             return .humo

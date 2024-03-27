@@ -80,7 +80,9 @@ public struct UserNetworkService: NetworkServiceProtocol {
                 return
             }
             
-            isSuccess ? completion(true, nil) : completion(false, res?.error ?? defaultError)
+            DispatchQueue.main.async {
+                isSuccess ? completion(true, nil) : completion(false, res?.error ?? defaultError)
+            }
         }
     }
     

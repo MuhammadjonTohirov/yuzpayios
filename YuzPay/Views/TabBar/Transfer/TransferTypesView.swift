@@ -32,7 +32,8 @@ struct TransferTypesView: View {
                 }
                 
                 TransferType.transferToMe.rowButton {
-                    viewModel.route = .transferToMe
+//                    viewModel.route = .transferToMe
+                    viewModel.showAlert(message: "coming.soon".localize)
                 }
                 
                 TransferType.exchange.rowButton {

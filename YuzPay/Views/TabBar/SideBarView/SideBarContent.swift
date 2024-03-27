@@ -84,12 +84,16 @@ struct SideBarContent: View {
                 Button {
                     viewModel.onClickProfile()
                 } label: {
-                    KF(imageUrl: UserSettings.shared.userAvatarURL, cacheKey: (UserSettings.shared.loginDate ?? Date()).toExtendedString(), storageExpiration: .expired, memoryExpiration: .expired)
-                        .frame(width: 88.f.sw(), height: 88.f.sw())
-                        .background {
-                            Circle()
-                                .foregroundColor(.secondarySystemBackground)
-                        }
+                    KF(imageUrl: UserSettings.shared.userAvatarURL,
+                       cacheKey: (UserSettings.shared.loginDate ?? Date()).toExtendedString(),
+                       storageExpiration: .expired,
+                       memoryExpiration: .expired
+                    )
+                    .frame(width: 88.f.sw(), height: 88.f.sw())
+                    .background {
+                        Circle()
+                            .foregroundColor(.secondarySystemBackground)
+                    }
                 }
                 
                 VStack(alignment: .leading) {

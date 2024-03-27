@@ -14,10 +14,10 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
 
         switch self {
         case let .phoneRegister(_, photoUrl, _, otp):
-            request = URLRequest.fromDataRequest(url: url, boundary: "Boundary-\(otp)", withAuth: false)
+            request = URLRequest.fromDataRequest(url: url, boundary: "Boundary-\(otp)", interval: 60, withAuth: false)
             request?.addValue("\(photoUrl.fileSize)", forHTTPHeaderField: "Content-Length")
         case let .verifyProfile(photoURL):
-            request = URLRequest.fromDataRequest(url: url, boundary: "Boundary-123")
+            request = URLRequest.fromDataRequest(url: url, boundary: "Boundary-123", interval: 200)
             request?.addValue("\(photoURL.fileSize)", forHTTPHeaderField: "Content-Length")
 
         case .checkPhone:
@@ -82,7 +82,7 @@ enum UserNetworkServiceRoute: URLRequestProtocol {
                 let form = MultipartForm(
                     parts: [
                         .init(name: "Phone", value: phone),
-                        .init(name: "Photo", data: data, filename: photoUrl.lastPathComponent, contentType: photoUrl.mimeType),
+                        .init(name: "Video", data: data, filename: photoUrl.lastPathComponent, contentType: photoUrl.mimeType),
                         .init(name: "Confirm.Token", value: token),
                         .init(name: "Confirm.Code", value: otp)
                     ],

@@ -75,6 +75,7 @@ final class CardsAndWalletsViewModel: NSObject, ObservableObject, Alertable {
     
     @Published var cardTypesWithCounts: [CardTypeCounterItem] = []
     @Published var pushNavigation: Bool = false
+    
     var alert: AlertToast = .init(type: .regular) {
         didSet {
             shouldShowAlert = true

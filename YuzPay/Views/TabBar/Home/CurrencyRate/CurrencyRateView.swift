@@ -71,17 +71,20 @@ struct CurrencyRateView: View {
         HStack {
             VStack(alignment: .leading) {
                 Text(title)
-                    .mont(.regular, size: 14)
+                    .mont(.medium, size: 14)
                 
-                Text(date)
-                    .foregroundColor(.secondaryLabel)
-                    .mont(.regular, size: 12)
+                if !date.trimmingCharacters(in: .whitespaces).isEmpty {
+                    Text(date)
+                        .foregroundColor(.secondaryLabel)
+                        .mont(.regular, size: 12)
+                }
             }
             Spacer()
             Text(value)
-                .mont(.medium, size: 14)
+                .mont(.semibold, size: 14)
         }
         .padding(.horizontal, Padding.default)
+        .padding(.vertical, Padding.small / 2)
     }
 }
 

@@ -67,7 +67,6 @@ final class UploadAvatarViewModel: NSObject, ObservableObject, Alertable {
     private var didAppear = false
     
     func onAppear() {
-        
         if !didAppear {
             didAppear = true
         }

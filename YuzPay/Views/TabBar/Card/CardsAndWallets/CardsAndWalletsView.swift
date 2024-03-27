@@ -8,12 +8,14 @@
 import Foundation
 import SwiftUI
 import RealmSwift
+import YuzSDK
 
 struct CardsAndWalletsView: View {
     @State private var selectedId: String = "0"
     @StateObject var viewModel: CardsAndWalletsViewModel = CardsAndWalletsViewModel()
     @State var cardTypesMenu: Bool = false
     @EnvironmentObject var tabPath: TabViewModel
+    
     var body: some View {
         ZStack {
             VStack {
@@ -25,6 +27,7 @@ struct CardsAndWalletsView: View {
                 }
                 .padding(Padding.medium)
                 .scrollable(axis: .horizontal)
+                .opacity(viewModel.cardItems.isEmpty ? 0 : 1)
                 
                 VStack(spacing: Padding.medium) {
                     ForEach(viewModel.cardItems.filter({ card in
@@ -41,7 +44,10 @@ struct CardsAndWalletsView: View {
                                 bankName: card.holderName,
                                 cardName: card.name,
                                 cardNumber: card.cardNumber,
-                                amount: card.moneyAmount, isMain: card.isMain, iconName: card.cardType.localIcon
+                                expireDate: card.expirationDate.toExtendedString(format: "mm / YY"),
+                                amount: card.moneyAmount, 
+                                isMain: card.isMain,
+                                iconName: card.cardType.localIcon
                             )
                             .onTapGesture {
                                 viewModel.route = .cardDetails(id: card.id)
@@ -50,6 +56,7 @@ struct CardsAndWalletsView: View {
                     }
                 }
                 .scrollable(axis: .vertical)
+                .opacity(viewModel.cardItems.isEmpty ? 0 : 1)
                 
                 HoverButton(title: "add_new_card".localize,
                             leftIcon: Image(systemName: "plus.circle.fill"),
@@ -59,6 +66,12 @@ struct CardsAndWalletsView: View {
                 }
                 .padding(.horizontal, Padding.default)
                 
+            }
+            .overlay {
+                Text("no_cards".localize)
+                    .foregroundColor(.gray)
+                    .font(.system(size: 32.f.sw(), weight: .semibold))
+                    .opacity(viewModel.cardItems.isEmpty ? 1 : 0)
             }
             .onAppear {
                 viewModel.onAppear()
@@ -107,35 +120,38 @@ struct CardsAndWalletsView: View {
 }
 
 private extension CardsAndWalletsView {
-    func cardItem(bankName: String,
-                  cardName: String = "card_name".localize,
-                  cardNumber: String,
-                  amount: Float, isMain: Bool, iconName: String) -> some View {
+    func cardItem(
+        bankName: String,
+        cardName: String = "card_name".localize,
+        cardNumber: String,
+        expireDate: String,
+        amount: Float, isMain: Bool, iconName: String
+    ) -> some View {
         GeometryReader { proxy in
             ZStack {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(bankName.uppercased())
-                            .font(.mont(.semibold, size: 12))
+                            .font(.mont(.semibold, size: 14))
                         Spacer()
                         Text(cardName)
                             .font(.mont(.medium, size: 14))
                         Text("\(amount.asCurrency()) uzs")
-                            .font(.mont(.semibold, size: 20))
+                            .font(.mont(.semibold, size: 22))
                         
                         Spacer()
                         
                         HStack(spacing: Padding.default) {
-                            Text(cardNumber)
-                            Text("05 / 25")
+                            Text(cardNumber.maskAsCardNumber)
+                            Text(expireDate)
                         }
                         .foregroundColor(.white.opacity(0.7))
-                        .font(.mont(.medium, size: 13))
+                        .font(.mont(.semibold, size: 14))
                         
                     }
                     .foregroundColor(.white)
                     .padding(Padding.medium)
-
+                    
                     Spacer()
                 }
                 Spacer()
@@ -146,7 +162,7 @@ private extension CardsAndWalletsView {
                         .frame(width: 36, height: 36)
                         .position(x: proxy.frame(in: .local).width - 26, y: 26)
                 }
-                    
+                
                 Image(iconName)
                     .resizable()
                     .sizeToFit(height: 32)
@@ -180,11 +196,10 @@ private extension CardsAndWalletsView {
     }
 }
 
-struct CardsAndWalletsView_Preview: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            CardsAndWalletsView(viewModel: CardsAndWalletsViewModel())
-        }
+#Preview {
+    
+    return NavigationStack {
+        CardsAndWalletsView(viewModel: CardsAndWalletsViewModel())
     }
 }
 

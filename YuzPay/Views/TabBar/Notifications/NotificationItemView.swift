@@ -24,7 +24,7 @@ struct NotificationItemView: View {
                             .icon
                             .foregroundColor(.secondaryLabel)
                     }
-                    .padding(Padding.default)
+                    .padding(Padding.small )
                 VStack(alignment: .leading, spacing: 6) {
                     Text(title)
                         .mont(.semibold, size: 14)

@@ -83,7 +83,6 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
     
     @Published public var willCapturePhoto = false
     @Published public var isCameraButtonDisabled = false
-    @Published public var isCameraUnavailable = false
     @Published public var photo: Photo?
     @Published public var video: Video?
     
@@ -98,10 +97,11 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
     
     var isSessionRunning = false
     var isConfigured = false
+    var preferredCameraPosition: AVCaptureDevice.Position = .back
     var setupResult: SessionSetupResult = .success
     
     // Communicate with the session and other session objects on this queue.
-    let sessionQueue = DispatchQueue(label: "session queue")
+    let sessionQueue = DispatchQueue(label: "session queue", qos: .background, autoreleaseFrequency: .workItem)
     
     @objc dynamic var videoDeviceInput: AVCaptureDeviceInput!
     
@@ -126,10 +126,12 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
     override public init() {
         super.init()
         // Disable the UI. Enable the UI later, if and only if the session starts running.
-        DispatchQueue.main.async {
-            self.isCameraButtonDisabled = true
-            self.isCameraUnavailable = true
-        }
+        disableCameraButton()
+    }
+    
+    convenience init(preferredCameraPosition: AVCaptureDevice.Position) {
+        self.init()
+        self.preferredCameraPosition = preferredCameraPosition
     }
     
     public func configure() {
@@ -189,8 +191,7 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
                     
                 }, secondaryAction: nil)
                 self.shouldShowAlertView = true
-                self.isCameraUnavailable = true
-                self.isCameraButtonDisabled = true
+                self.disableCameraButton()
             }
         }
     }
@@ -214,10 +215,10 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
         
         // Add video input.
         do {
-            if let backCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
+            if let backCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back), preferredCameraPosition == .back {
                 // If a rear dual camera is not available, default to the rear wide angle camera.
                 defaultVideoDevice = backCameraDevice
-            } else if let frontCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) {
+            } else if let frontCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front), preferredCameraPosition == .front {
                 // If the rear wide angle camera isn't available, default to the front wide angle camera.
                 defaultVideoDevice = frontCameraDevice
             }
@@ -295,12 +296,10 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
                 DispatchQueue.main.async {
                     self.alertError = AlertError(title: "Camera Error", message: "Unable to resume camera", primaryButtonTitle: "Accept", secondaryButtonTitle: nil, primaryAction: nil, secondaryAction: nil)
                     self.shouldShowAlertView = true
-                    self.isCameraUnavailable = true
                     self.isCameraButtonDisabled = true
                 }
             } else {
                 DispatchQueue.main.async {
-                    self.isCameraUnavailable = false
                     self.isCameraButtonDisabled = false
                 }
             }
@@ -321,26 +320,13 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
         }
 
         sessionQueue.async {
-            let currentVideoDevice = self.videoDeviceInput.device            
+            let currentVideoDevice = self.videoDeviceInput.device
             let preferredPosition: AVCaptureDevice.Position
             let preferredDeviceType: AVCaptureDevice.DeviceType
             
             preferredPosition = position
             preferredDeviceType = .builtInWideAngleCamera
-//            switch currentPosition {
-//            case .unspecified, .front:
-//                preferredPosition = .back
-//                preferredDeviceType = .builtInWideAngleCamera
-//
-//            case .back:
-//                preferredPosition = .front
-//                preferredDeviceType = .builtInWideAngleCamera
-//
-//            @unknown default:
-//                print("Unknown capture position. Defaulting to back, dual-camera.")
-//                preferredPosition = .back
-//                preferredDeviceType = .builtInWideAngleCamera
-//            }
+
             let devices = self.videoDeviceDiscoverySession.devices
             var newVideoDevice: AVCaptureDevice? = nil
             
@@ -449,7 +435,6 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
                     if !self.session.isRunning {
                         DispatchQueue.main.async {
                             self.isCameraButtonDisabled = true
-                            self.isCameraUnavailable = true
                             completion?()
                         }
                     }
@@ -472,7 +457,6 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
                     if self.session.isRunning {
                         DispatchQueue.main.async {
                             self.isCameraButtonDisabled = false
-                            self.isCameraUnavailable = false
                         }
                     }
                     
@@ -480,7 +464,6 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
                     print("Application not authorized to use camera")
                     DispatchQueue.main.async {
                         self.isCameraButtonDisabled = true
-                        self.isCameraUnavailable = true
                     }
                     
                 case .configurationFailed:
@@ -488,7 +471,6 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
                         self.alertError = AlertError(title: "Camera Error", message: "Camera configuration failed. Either your device camera is not available or other application is using it", primaryButtonTitle: "Accept", secondaryButtonTitle: nil, primaryAction: nil, secondaryAction: nil)
                         self.shouldShowAlertView = true
                         self.isCameraButtonDisabled = true
-                        self.isCameraUnavailable = true
                     }
                 }
             }
@@ -593,14 +575,13 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
         if self.setupResult != .configurationFailed && videoDeviceInput != nil {
             sessionQueue.async {
                 if !self.isRecording {
-                    self.isRecording = true
-                    self.isCameraButtonDisabled = true
-                    self.isCameraUnavailable = true
+                    self.isRecording.toggle()
+                    self.video = nil
+                    self.photo = nil
+                    self.videoOutput.startRecording(to: CameraService.videOutputURL, recordingDelegate: self)
                     
-                    if #available(iOS 14.0, *) {
-                        self.videoOutput.startRecording(to: CameraService.videOutputURL, recordingDelegate: self)
-                    } else {
-                        self.videoOutput.startRecording(to: CameraService.videOutputURL, recordingDelegate: self)
+                    DispatchQueue.main.async {
+                        self.isCameraButtonDisabled = true
                     }
                 }
             }
@@ -610,16 +591,21 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
     public func stopRecording() {
         if self.setupResult != .configurationFailed && videoDeviceInput != nil {
             sessionQueue.async {
-                if self.isRecording {
-                    self.videoOutput.stopRecording()
+                self.videoOutput.stopRecording()
+                
+                DispatchQueue.main.async {
                     self.isCameraButtonDisabled = false
-                    self.isCameraUnavailable = false
+                    self.isRecording = false
                 }
             }
         }
     }
     
     public func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        guard error == nil else {
+            return
+        }
+        
         self.video = .init(videoUrl: outputFileURL)
         self.isRecording = false
     }
@@ -756,9 +742,6 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
          music playback in Control Center will not automatically resume the session.
          Also note that it's not always possible to resume, see `resumeInterruptedSession(_:)`.
          */
-        DispatchQueue.main.async {
-            self.isCameraUnavailable = true
-        }
         
         if let userInfoValue = notification.userInfo?[AVCaptureSessionInterruptionReasonKey] as AnyObject?,
             let reasonIntegerValue = userInfoValue.integerValue,
@@ -779,9 +762,6 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
     @objc
     private func sessionInterruptionEnded(notification: NSNotification) {
         print("Capture session interruption ended")
-        DispatchQueue.main.async {
-            self.isCameraUnavailable = false
-        }
     }
     
     @discardableResult
@@ -823,6 +803,18 @@ public class CameraService: NSObject, Identifiable, AVCaptureFileOutputRecording
             }
             
             return nil
+        }
+    }
+    
+    func enableCameraButton() {
+        DispatchQueue.main.async {
+            self.isCameraButtonDisabled = false
+        }
+    }
+    
+    func disableCameraButton() {
+        DispatchQueue.main.async {
+            self.isCameraButtonDisabled = true
         }
     }
 }

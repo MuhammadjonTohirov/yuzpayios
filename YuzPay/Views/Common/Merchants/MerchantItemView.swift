@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MerchantItemView: View {
     var icon: String
@@ -16,17 +17,28 @@ struct MerchantItemView: View {
     
     var body: some View {
         autoreleasepool {
-            VStack {
-                KF(imageUrl: URL(string: icon))
-                    .frame(width: 40.f.sw(), height: 40.f.sw())
-                    .background(Circle().foregroundColor(.systemBackground))
-                    .padding(.top, 4)
+            ZStack {
 
-                Text(title)
-                    .lineLimit(2)
-                    .padding(.horizontal, Padding.small)
-                    .padding(.bottom, Padding.medium)
-                    .font(.mont(.regular, size: 12))
+                VStack {
+                    KFImage(URL(string: icon))
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 40.f.sw(), height: 40.f.sw())
+                        .background(Circle().foregroundColor(.systemBackground))
+                    Spacer()
+                }
+                .padding(.top, 14)
+
+                VStack {
+                    Text(title)
+                        .lineLimit(2)
+                        .font(.mont(.medium, size: 12))
+                    
+                    Spacer()
+
+                }
+                .padding(.horizontal, Padding.small)
+                .padding(.top, 40.f.sw() + 18)
             }
             .frame(width: width, height: height)
             .background(Color.secondarySystemBackground.opacity(0.3))

@@ -35,7 +35,7 @@ struct OTPView: View {
                 }
                 .font(.mont(.regular, size: 14))
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, Padding.default)
+                .padding(.horizontal, Padding.medium)
                 
                 YTextField(text: $viewModel.otp, placeholder: "Код подтверждения", contentType: .oneTimeCode, right: {
                     HStack {
@@ -54,16 +54,21 @@ struct OTPView: View {
                 })
                 .modifier(YTextFieldBackgroundCleanStyle(padding: Padding.default))
                 .modifier(YTextFieldBottomInfo(text: viewModel.otpErrorMessage, color: Color.red))
-                .padding(Padding.default)
+                .padding(Padding.default.sw())
             }
             
             Spacer()
             
-            HoverButton(title: "confirm".localize, backgroundColor: Color("accent_light_2"), titleColor: .white, isEnabled: viewModel.isValidForm) {
+            HoverButton(
+                title: "confirm".localize,
+                backgroundColor: Color("accent_light_2"),
+                titleColor: .white, 
+                isEnabled: viewModel.isValidForm
+            ) {
                 viewModel.onClickConfirm()
             }
             .set(animated: viewModel.loading)
-            .padding(.horizontal, Padding.default)
+            .padding(.horizontal, Padding.default.sw())
             .padding(.bottom, 8)
             
             Button {
@@ -80,7 +85,8 @@ struct OTPView: View {
             .init(
                 displayMode: .banner(.pop),
                 type: .error(.systemRed),
-                title: viewModel.otpErrorMessage),
+                title: viewModel.otpErrorMessage
+            ),
             duration: 1
         )
         .onAppear {

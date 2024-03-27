@@ -218,8 +218,10 @@ struct CardDetailsView: View {
                 cardName: cardName,
                 deposit: _card.moneyAmount.asCurrency(), currency: "sum", cardType: _card.cardType,
                 ownerName: _card.holderName,
-                cardNumber: _card.cardNumber, expireDate: _card.expirationDate.toExtendedString(format: "MM/YY"),
-                isMain: isMain)
+                cardNumber: _card.cardNumber.maskAsCardNumber,
+                expireDate: _card.expirationDate.toExtendedString(format: "MM/YY"),
+                isMain: isMain
+            )
             .padding(Padding.default)
         } else {
             EmptyView()

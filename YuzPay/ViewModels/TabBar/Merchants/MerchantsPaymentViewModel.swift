@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 import YuzSDK
-
+import UIKit
 enum MerchantPaymentRoute: String, Hashable {
     case payment
     
@@ -101,6 +101,7 @@ final class MerchantsPaymentViewModel: NSObject, ObservableObject, Loadable, Ale
     }
     
     func onClickNext(formModel: FormModel?, completion: @escaping (Bool) -> Void) {
+        UIApplication.shared.firstKeyWindow?.endEditing(true)
         let fields = formModel?.fields?.filter({$0.field.fieldRequired ?? false}) ?? []
         
         guard fields.allSatisfy( { field in

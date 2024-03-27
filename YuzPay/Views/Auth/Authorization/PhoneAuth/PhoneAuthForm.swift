@@ -12,7 +12,7 @@ struct PhoneAuthForm: View {
     @ObservedObject var viewModel: PhoneAuthFormViewModel = PhoneAuthFormViewModel()
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             YPhoneField(text: $viewModel.phoneNumber, placeholder: "99 123 34 45", left: {
                 HStack {
                     Text("+998")
@@ -29,7 +29,6 @@ struct PhoneAuthForm: View {
                 self.viewModel.validateForm()
             })
             .modifier(YTextFieldBackgroundCleanStyle())
-            .padding(.bottom, 24)
             
             HStack(spacing: 16) {
                 Image(viewModel.offerIconName)
@@ -51,7 +50,8 @@ struct PhoneAuthForm: View {
                 )
                 .font(.mont(.regular, size: 16))
             }
-            .padding(.top, Padding.default)
+            .padding(.leading, Padding.small)
+            .padding(.top, Padding.medium)
         }
     }
 }

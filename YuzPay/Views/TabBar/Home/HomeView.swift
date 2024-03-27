@@ -33,7 +33,7 @@ struct HomeView: View {
                 
                 VStack(spacing: Padding.medium) {
                     TotalAmountView(cards: cards)
-                        .padding(.top, Padding.default.sh() / 2)
+                        .padding(.vertical, Padding.default.sh() / 2)
                         .padding(.horizontal, Padding.default)
                         .environmentObject(homeViewModel)
                     

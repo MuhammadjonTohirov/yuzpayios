@@ -106,7 +106,7 @@ public extension String {
             return ""
         }
 
-        let replace = "••••••••"
+        let replace = "********"
         let range: Range<Index> = self.index(self.startIndex, offsetBy: 4)..<self.index(self.startIndex, offsetBy: 4 + replace.count)
 
         text = text.replacingCharacters(in: range, with: replace)
@@ -120,7 +120,7 @@ public extension String {
             return ""
         }
         text.removeFirst(text.count - 8)
-        let replace = "••••"
+        let replace = "****"
         let range: Range<Index> = self.index(self.startIndex, offsetBy: 0)..<self.index(self.startIndex, offsetBy: replace.count)
 
         text = text.replacingCharacters(in: range, with: replace)

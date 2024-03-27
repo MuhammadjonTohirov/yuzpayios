@@ -71,13 +71,14 @@ enum SideBarMenuItem: Identifiable {
     
     func view(_ onClick: @escaping () -> Void) -> some View {
         Button(action: onClick) {
-            HStack(spacing: Padding.default) {
+            HStack(spacing: Padding.medium) {
                 Image(self.iconName)
                     .renderingMode(.template)
                     .resizable()
-                    .frame(width: 20, height: 20)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 22, height: 22)
                 Text(text)
-                    .font(.mont(.regular, size: 14))
+                    .font(.mont(.medium, size: 14))
                 Spacer()
                 RightChevron()
             }
