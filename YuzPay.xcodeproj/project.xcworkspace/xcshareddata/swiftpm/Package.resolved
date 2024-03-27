@@ -1,0 +1,96 @@
+{
+  "originHash" : "cdfa4b56c0e1b5c70836b84f7833f9f7fff95c0392cbe7cdd8203fa732d1acfb",
+  "pins" : [
+    {
+      "identity" : "fancyscrollview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nerdsupremacist/FancyScrollView.git",
+      "state" : {
+        "revision" : "7f8194b23dc209cdb5b0ebc9799a8de487166fdf",
+        "version" : "0.1.4"
+      }
+    },
+    {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
+      "state" : {
+        "revision" : "277f1ab2c6664b19b4a412e32b094b201e2d5757",
+        "version" : "7.10.0"
+      }
+    },
+    {
+      "identity" : "pageview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/fredyshox/PageView.git",
+      "state" : {
+        "revision" : "b70afdef6379006bc91444f144d83ffe4e48f949",
+        "version" : "1.5.1"
+      }
+    },
+    {
+      "identity" : "realm-core",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/realm/realm-core.git",
+      "state" : {
+        "revision" : "a5e87a39cffdcc591f3203c11cfca68100d0b9a6",
+        "version" : "13.26.0"
+      }
+    },
+    {
+      "identity" : "realm-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/realm/realm-swift.git",
+      "state" : {
+        "revision" : "7a2f7d41ffa409978a6b5e475c2ee57f08222705",
+        "version" : "10.48.0"
+      }
+    },
+    {
+      "identity" : "sdwebimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImage.git",
+      "state" : {
+        "revision" : "7f9fb5d43ecd4aa714c00746f54873f354403438",
+        "version" : "5.15.8"
+      }
+    },
+    {
+      "identity" : "sdwebimageswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
+      "state" : {
+        "revision" : "e837c37d45449fbd3b4745c10c5b5274e73edead",
+        "version" : "2.2.3"
+      }
+    },
+    {
+      "identity" : "signalr-client-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/moozzyk/SignalR-Client-Swift",
+      "state" : {
+        "revision" : "08131e5a66b22ea78cc4459f16ff7191f48ba1c7",
+        "version" : "0.9.1"
+      }
+    },
+    {
+      "identity" : "swiftkeychainwrapper",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jrendel/SwiftKeychainWrapper.git",
+      "state" : {
+        "revision" : "185a3165346a03767101c4f62e9a545a0fe0530f",
+        "version" : "4.0.1"
+      }
+    },
+    {
+      "identity" : "swiftui-introspect",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/siteline/SwiftUI-Introspect.git",
+      "state" : {
+        "revision" : "0ee6d36368422aa2fef62fc41a86a179abe46ef1",
+        "version" : "0.2.2"
+      }
+    }
+  ],
+  "version" : 3
+}
